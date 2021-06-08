@@ -25,6 +25,7 @@ extension GeneralCoordinator {
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
         mainCoordinator
+        //historyCoordinator
     }
 
 }

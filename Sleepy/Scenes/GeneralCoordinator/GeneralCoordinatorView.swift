@@ -15,7 +15,10 @@ struct GeneralCoordinatorView: View {
             MainListCoordinatorView(coordinator: coordinator.mainCoordinator)
             .tabItem { Label("main", systemImage: "hare.fill") }
             .tag(HomeTab.main)
-            
+
+            //HistoryCoordinatorView(coordinator: coordinator.historyCoordinator)
+//                .tabItem { Label("main", systemImage: "hare.fill") }
+//                .tag(HomeTab.history)
         }
     }
 

@@ -8,6 +8,7 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
     @Published var tab = HomeTab.main
 
     @Published private(set) var mainCoordinator: MainListCoordinator!
+    //@Published private(set) var historyCoordinator: HistoryCoordinator!
 
     @Published var openedURL: URL?
 
@@ -26,6 +27,8 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
             parent: self,
             filter: { !$0.title.isEmpty }
         )
+
+        // self.historyCoordinatator = DefaultHistoryCoordinator(...
     }
 
     // MARK: Methods
@@ -61,6 +64,11 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
             }
             self.openCard(for: recipe)
         }
+    }
+
+
+    private func openCalendar() {
+        // logic
     }
 
 }
