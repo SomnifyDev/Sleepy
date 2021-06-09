@@ -8,11 +8,11 @@
 import UIKit
 
 public final class ColorSchemeProvider {
-    
-    let sleepyColorScheme: SleepyColorScheme
-    
+
+    public let sleepyColorScheme: SleepyColorScheme
+
     public init() {
         self.sleepyColorScheme = SleepyColorScheme()
     }
-    
+
 }

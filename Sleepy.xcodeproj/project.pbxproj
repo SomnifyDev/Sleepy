@@ -30,9 +30,6 @@
 		D9441A25266CD4C70019902F /* Sleepy_WatchOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A24266CD4C70019902F /* Sleepy_WatchOSTests.swift */; };
 		D9441A30266CD4C70019902F /* Sleepy_WatchOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */; };
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D9AEAD752670F5DF007E6774 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AEAD742670F5DF007E6774 /* ColorSchemeProvider.swift */; };
-		D9AEAD782670F5FD007E6774 /* SleepyColorsScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AEAD772670F5FD007E6774 /* SleepyColorsScheme.swift */; };
-		D9F276EB266E33BD00058CC8 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F276EA266E33BD00058CC8 /* ColorManager.swift */; };
 		E52F35914630DFDE987DB5B0 /* Pods_SleepyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61210E5275BC7FC2886643CA /* Pods_SleepyTests.framework */; };
 		E5EFF19FF15FD03F8428C707 /* Pods_Sleepy_WatchOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */; };
 		F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */; };
@@ -172,9 +169,6 @@
 		D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sleepy_WatchOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
 		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9AEAD742670F5DF007E6774 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
-		D9AEAD772670F5FD007E6774 /* SleepyColorsScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyColorsScheme.swift; sourceTree = "<group>"; };
-		D9F276EA266E33BD00058CC8 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		E10D41B95868DE65092B6B39 /* Pods-SleepyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SleepyTests.release.xcconfig"; path = "Target Support Files/Pods-SleepyTests/Pods-SleepyTests.release.xcconfig"; sourceTree = "<group>"; };
 		E190B908F0E65C713AC18A2A /* Pods-Sleepy_WatchOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy_WatchOSTests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy_WatchOSTests/Pods-Sleepy_WatchOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -307,7 +301,6 @@
 				D94419D4266CD3C50019902F /* Assets.xcassets */,
 				D94419D9266CD3C50019902F /* Info.plist */,
 				D94419D6266CD3C50019902F /* Preview Content */,
-				D9F276ED266E33C000058CC8 /* ColorManager */,
 			);
 			path = Sleepy;
 			sourceTree = "<group>";
@@ -387,16 +380,6 @@
 				D9441A31266CD4C70019902F /* Info.plist */,
 			);
 			path = Sleepy_WatchOSUITests;
-			sourceTree = "<group>";
-		};
-		D9F276ED266E33C000058CC8 /* ColorManager */ = {
-			isa = PBXGroup;
-			children = (
-				D9F276EA266E33BD00058CC8 /* ColorManager.swift */,
-				D9AEAD742670F5DF007E6774 /* ColorSchemeProvider.swift */,
-				D9AEAD772670F5FD007E6774 /* SleepyColorsScheme.swift */,
-			);
-			path = ColorManager;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -822,10 +805,7 @@
 			files = (
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				D94419D3266CD3C40019902F /* ContentView.swift in Sources */,
-				D9AEAD782670F5FD007E6774 /* SleepyColorsScheme.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
-				D9F276EB266E33BD00058CC8 /* ColorManager.swift in Sources */,
-				D9AEAD752670F5DF007E6774 /* ColorSchemeProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

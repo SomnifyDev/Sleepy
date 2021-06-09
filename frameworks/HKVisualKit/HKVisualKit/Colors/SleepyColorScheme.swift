@@ -1,74 +1,53 @@
 //
-//  ColorManager.swift
+//  SleepyColorsScheme.swift
 //  Sleepy
 //
-//  Created by Анас Бен Мустафа on 6/7/21.
+//  Created by Анас Бен Мустафа on 6/9/21.
 //
 
-import UIKit
+import Foundation
 import SwiftUI
 
-final class SleepyColorScheme: HKApllicationColorScheme {
+// MARK: - Protocol
+
+public protocol HKApplicationColorScheme {
+
+    func getColor(of type: ColorType) -> Color
+
+}
+
+// MARK: - Implementation
+
+public final class SleepyColorScheme: HKApplicationColorScheme {
+
+    // general
+    private var appBackgroundColor: Color
+    private var mainSleepyColor: Color
+    private var healthColor: Color
+
+    // cards
+    private var cardBackgroundColor: Color
+
+    // calendar
+    private var emptyDayColor: Color
+    private var negativeDayColor: Color
+    private var neutralDayColor: Color
+    private var positiveDayColor: Color
+
+    // phases
+    private var wakeUpColor: Color
+    private var lightSleepColor: Color
+    private var deepSleepColor: Color
+
+    // heart
+    private var heartColor: Color
+
+    // genInfoCard
+    private var awakeColor: Color
+    private var moonColor: Color
+
+    // MARK: init
     
-    // MARK: General
-    var appBackgroundColor: Color
-    var mainSleepyColor: Color
-    var healthColor: Color
-    
-    enum GeneralColors {
-        case appBackgroundColor
-        case mainSleepyColor
-        case healthColor
-    }
-    
-    // MARK: Cards
-    var cardBackgroundColor: Color
-    
-    enum CardColors {
-        case cardBackgroundColor
-    }
-    
-    // MARK: Calendar
-    var emptyDayColor: Color
-    var negativeDayColor: Color
-    var neutralDayColor: Color
-    var positiveDayColor: Color
-    
-    enum CalendarColors {
-        case emptyDayColor
-        case negativeDayColor
-        case neutralDayColor
-        case positiveDayColor
-    }
-    
-    // MARK: Phases
-    var wakeUpColor: Color
-    var lightSleepColor: Color
-    var deepSleepColor: Color
-    
-    enum PhasesColors {
-        case wakeUpColor
-        case lightSleepColor
-        case deepSleepColor
-    }
-    
-    // MARK: Heart
-    var heartColor: Color
-    
-    enum HeartColors {
-        case heartColor
-    }
-    
-    // MARK: GenInfoCard
-    var awakeColor: Color
-    var moonColor: Color
-    
-    enum GenInfoCardColors {
-        case awakeColor
-        case moonColor
-    }
-    
-    // MARK: init - getting colors from assets
     init() {
         appBackgroundColor = Color("backgroundColor")
         mainSleepyColor = Color("mainColor")
@@ -85,17 +64,10 @@ final class SleepyColorScheme: HKApllicationColorScheme {
         awakeColor = Color("awakeColor")
         moonColor = Color("moonColor")
     }
-    
-    enum colorType {
-        case general(GeneralColors)
-        case card(CardColors)
-        case phases(PhasesColors)
-        case heart(HeartColors)
-        case calendar(CalendarColors)
-        case genInfoCardColors(GenInfoCardColors)
-    }
-    
-    func getColor(of type: colorType) -> Color {
+
+    // MARK: Public methods
+
+    public func getColor(of type: ColorType) -> Color {
         switch type {
         // general
         case .general(.appBackgroundColor):
@@ -104,11 +76,11 @@ final class SleepyColorScheme: HKApllicationColorScheme {
             return healthColor
         case .general(.mainSleepyColor):
             return mainSleepyColor
-            
+
         // card
         case .card(.cardBackgroundColor):
             return cardBackgroundColor
-            
+
         // phases
         case .phases(.deepSleepColor):
             return deepSleepColor
@@ -116,11 +88,11 @@ final class SleepyColorScheme: HKApllicationColorScheme {
             return lightSleepColor
         case .phases(.wakeUpColor):
             return wakeUpColor
-            
+
         // heart
         case .heart(.heartColor):
             return heartColor
-            
+
         // calendar
         case .calendar(.emptyDayColor):
             return emptyDayColor
@@ -130,7 +102,7 @@ final class SleepyColorScheme: HKApllicationColorScheme {
             return emptyDayColor
         case .calendar(.positiveDayColor):
             return emptyDayColor
-            
+
         // general info card
         case .genInfoCardColors(.awakeColor):
             return awakeColor
@@ -138,5 +110,5 @@ final class SleepyColorScheme: HKApllicationColorScheme {
             return moonColor
         }
     }
-    
+
 }
