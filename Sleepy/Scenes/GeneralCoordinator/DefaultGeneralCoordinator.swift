@@ -7,7 +7,7 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
 
     @Published var tab = HomeTab.main
 
-    @Published private(set) var mainCoordinator: MainListCoordinator!
+    @Published private(set) var mainCoordinator: FeedNavigationCoordinator!
     //@Published private(set) var historyCoordinator: HistoryCoordinator!
 
     @Published var openedURL: URL?
@@ -21,7 +21,7 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
         self.hkStoreService = hkStoreService
         self.cardService = cardService
         
-        self.mainCoordinator = DefaultMainListCoordinator(
+        self.mainCoordinator = FeedNavigationCoordinatorImpl(
             title: "main list",
             cardService: cardService,
             parent: self,
@@ -53,7 +53,7 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
     // MARK: Helpers
 
     private func openCard(for card: Card) {
-        let mainListCoordinator = firstReceiver(as: MainListCoordinator.self, where: { $0.filter(card) })
+        let mainListCoordinator = firstReceiver(as: FeedNavigationCoordinator.self, where: { $0.filter(card) })
         mainListCoordinator!.open(card)
     }
 

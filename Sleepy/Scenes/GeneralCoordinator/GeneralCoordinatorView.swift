@@ -12,7 +12,7 @@ struct GeneralCoordinatorView: View {
     var body: some View {
         TabView(selection: $coordinator.tab) {
 
-            MainListCoordinatorView(coordinator: coordinator.mainCoordinator)
+            FeedNavigationCoordinatorView(coordinator: coordinator.mainCoordinator)
             .tabItem { Label("main", systemImage: "hare.fill") }
             .tag(HomeTab.main)
 

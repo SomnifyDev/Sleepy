@@ -6,11 +6,11 @@ class DefaultCardViewModel: CardViewModel, ObservableObject, Identifiable {
 
     @Published private(set) var card: Card
 
-    private unowned let coordinator: MainListCoordinator
+    private unowned let coordinator: FeedNavigationCoordinator
 
     // MARK: Initialization
 
-    init(card: Card, coordinator: MainListCoordinator) {
+    init(card: Card, coordinator: FeedNavigationCoordinator) {
         self.coordinator = coordinator
         self.card = card
     }

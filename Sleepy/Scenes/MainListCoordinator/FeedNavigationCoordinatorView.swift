@@ -1,11 +1,11 @@
 import SwiftUI
 import XUI
 
-struct MainListCoordinatorView: View {
+struct FeedNavigationCoordinatorView: View {
 
     // MARK: Stored Properties
 
-    @Store var coordinator: MainListCoordinator
+    @Store var coordinator: FeedNavigationCoordinator
 
     // MARK: Views
 
@@ -13,7 +13,7 @@ struct MainListCoordinatorView: View {
         NavigationView {
             MainCardsListView(viewModel: coordinator.viewModel)
                 .navigation(model: $coordinator.detailViewModel) { viewModel in
-                    CardView(viewModel: viewModel)
+                    CardDetailView(viewModel: viewModel)
                 }
         }
     }

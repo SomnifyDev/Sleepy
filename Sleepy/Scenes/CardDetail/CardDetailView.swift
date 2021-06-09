@@ -1,14 +1,7 @@
-//
-//  RecipeView.swift
-//  Recipes
-//
-//  Created by Paul Kraft on 11.12.20.
-//
-
 import SwiftUI
 import XUI
 
-struct CardView: View {
+struct CardDetailView: View {
 
     // MARK: Stored Properties
 

@@ -3,13 +3,13 @@ import SwiftUI
 
 class CardService {
 
-    // MARK: Stored Properties - Recipes
+    // MARK: Stored Properties - Cards
 
-    private let mainCard = Card(title: "gen card")
+    private let mainCard = Card(type: .general, title: "General card")
 
-    private let phasesCard = Card(title: "phases card")
+    private let phasesCard = Card(type: .phases, title: "Phases card")
 
-    private let heartCard = Card(title: "heart card")
+    private let heartCard = Card(type: .heart, title: "Heart card")
 
     func fetchCard(id: String, _ completion: @escaping (Card?) -> Void) {
         fetchCards { recipes in

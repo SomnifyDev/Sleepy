@@ -12,7 +12,7 @@ enum HomeTab {
 protocol GeneralCoordinator: ViewModel {
     var tab: HomeTab { get set }
 
-    var mainCoordinator: MainListCoordinator! { get }
+    var mainCoordinator: FeedNavigationCoordinator! { get }
 
     var openedURL: URL? { get set }
 

@@ -1,11 +1,36 @@
 import Foundation
 import XUI
 
-class DefaultMainListCoordinator: ObservableObject, MainListCoordinator, Identifiable {
+// MARK: - Protocol
+
+protocol FeedNavigationCoordinator: ViewModel {
+
+    var viewModel: FeedListCoordinator! { get }
+    var detailViewModel: CardViewModel? { get set }
+
+    func filter(_ card: Card) -> Bool
+
+    func open(_ card: Card)
+    func open(_ url: URL)
+}
+
+extension FeedNavigationCoordinator {
+
+    @DeepLinkableBuilder
+    var children: [DeepLinkable] {
+        viewModel
+        detailViewModel
+    }
+
+}
+
+// MARK: - Implementation
+
+class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator, Identifiable {
 
     // MARK: Stored Properties
 
-    @Published private(set) var viewModel: MainCardsListViewModel!
+    @Published private(set) var viewModel: FeedListCoordinator!
     @Published var detailViewModel: CardViewModel?
 
     private let _filter: (Card) -> Bool
@@ -23,7 +48,7 @@ class DefaultMainListCoordinator: ObservableObject, MainListCoordinator, Identif
         self.cardService = cardService
         self._filter = filter
 
-        self.viewModel = DefaultMainCardsListViewModel(
+        self.viewModel = FeedListCoordinatorImpl(
             title: title,
             cardService: cardService,
             coordinator: self,
