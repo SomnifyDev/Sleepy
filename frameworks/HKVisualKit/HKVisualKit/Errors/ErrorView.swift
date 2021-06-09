@@ -19,15 +19,21 @@ public struct ErrorView: View {
         }
         
     }
+
+    // MARK: Private properties
     
-    public var errorType: ErrorType
+    public let errorType: ErrorType
+    public let colorScheme: SleepyColorScheme
     
-    var iconName: String = ""
-    var titleText: String = ""
-    var dataText: String = ""
-    
-    public init(errorType: ErrorType) {
+    private var iconName: String = ""
+    private var titleText: String = ""
+    private var dataText: String = ""
+
+    // MARK: Init
+
+    public init(errorType: ErrorType, colorScheme: SleepyColorScheme) {
         self.errorType = errorType
+        self.colorScheme = colorScheme
         
         titleText = getTitleText()
         dataText = getDataText()
@@ -41,10 +47,10 @@ public struct ErrorView: View {
                 // TODO: make images and text vary base on errorType
                 HStack {
                     Image(systemName: getIconName())
-                        .foregroundColor(.blue)
+                        .foregroundColor(colorScheme.getColor(of: .heart(.heartColor)))
                     Text("titleText")
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .foregroundColor(colorScheme.getColor(of: .heart(.heartColor)))
                     Spacer()
                 }
                 .padding(.top, 4)
@@ -63,7 +69,7 @@ public struct ErrorView: View {
                 
             }
             .frame(width: geometry.size.width)
-            .background(Color.yellow)
+            .foregroundColor(colorScheme.getColor(of: .heart(.heartColor)))
         }
     }
     
@@ -96,6 +102,7 @@ public struct ErrorView: View {
 
 public struct ErrorView_Previews: PreviewProvider {
     public static var previews: some View {
-        ErrorView(errorType: .brokenData(type: .heart))
+        ErrorView(errorType: .brokenData(type: .heart),
+                  colorScheme: SleepyColorScheme())
     }
 }
