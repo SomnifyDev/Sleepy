@@ -8,15 +8,14 @@
 import UIKit
 import SwiftUI
 
-// exmaple of color manager
-class colorManager {
+final class colorManager: HKApllicationColorScheme {
     
     // MARK: General
     var appBackgroundColor: Color
     var mainSleepyColor: Color
     var healthColor: Color
     
-    enum generalColors {
+    enum GeneralColors {
         case appBackgroundColor
         case mainSleepyColor
         case healthColor
@@ -25,7 +24,7 @@ class colorManager {
     // MARK: Cards
     var cardBackgroundColor: Color
     
-    enum cardColors {
+    enum CardColors {
         case cardBackgroundColor
     }
     
@@ -35,7 +34,7 @@ class colorManager {
     var neutralDayColor: Color
     var positiveDayColor: Color
     
-    enum calendarColors {
+    enum CalendarColors {
         case emptyDayColor
         case negativeDayColor
         case neutralDayColor
@@ -47,7 +46,7 @@ class colorManager {
     var lightSleepColor: Color
     var deepSleepColor: Color
     
-    enum phasesColors {
+    enum PhasesColors {
         case wakeUpColor
         case lightSleepColor
         case deepSleepColor
@@ -56,7 +55,7 @@ class colorManager {
     // MARK: Heart
     var heartColor: Color
     
-    enum heartColors {
+    enum HeartColors {
         case heartColor
     }
     
@@ -64,7 +63,7 @@ class colorManager {
     var awakeColor: Color
     var moonColor: Color
     
-    enum genInfoCardColors {
+    enum GenInfoCardColors {
         case awakeColor
         case moonColor
     }
@@ -88,12 +87,12 @@ class colorManager {
     }
     
     enum colorType {
-        case general(generalColors)
-        case card(cardColors)
-        case phases(phasesColors)
-        case heart(heartColors)
-        case calendar(calendarColors)
-        case genInfoCardColors(genInfoCardColors)
+        case general(GeneralColors)
+        case card(CardColors)
+        case phases(PhasesColors)
+        case heart(HeartColors)
+        case calendar(CalendarColors)
+        case genInfoCardColors(GenInfoCardColors)
     }
     
     func getColor(of type: colorType) -> Color {
@@ -139,4 +138,5 @@ class colorManager {
             return moonColor
         }
     }
+    
 }
