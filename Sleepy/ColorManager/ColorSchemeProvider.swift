@@ -7,12 +7,12 @@
 
 import UIKit
 
-public final class ColorSchemeProvider: ObservableObject {
+public final class ColorSchemeProvider {
     
-    let sleepyColorScheme: colorManager
+    let sleepyColorScheme: SleepyColorScheme
     
     public init() {
-        self.sleepyColorScheme = colorManager()
+        self.sleepyColorScheme = SleepyColorScheme()
     }
     
 }

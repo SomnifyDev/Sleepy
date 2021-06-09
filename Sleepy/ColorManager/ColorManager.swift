@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-final class colorManager: HKApllicationColorScheme {
+final class SleepyColorScheme: HKApllicationColorScheme {
     
     // MARK: General
     var appBackgroundColor: Color
