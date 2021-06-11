@@ -11,7 +11,7 @@ struct FeedNavigationCoordinatorView: View {
 
     var body: some View {
         NavigationView {
-            MainCardsListView(viewModel: coordinator.viewModel)
+            FeedListView(viewModel: coordinator.viewModel)
                 .navigation(model: $coordinator.detailViewModel) { viewModel in
                     CardDetailView(viewModel: viewModel)
                 }

@@ -7,9 +7,9 @@ import HKVisualKit
 protocol FeedListCoordinator: ViewModel {
 
     var title: String { get }
-    var cards: [Card] { get }
+    var cards: [CardType]? { get }
 
-    func open(_ card: Card)
+    func open(_ card: CardType)
 
 }
 
@@ -20,7 +20,7 @@ class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
     // MARK: Stored Properties
 
     @Published private(set) var title: String
-    @Published private(set) var cards = [Card(type: .general, title: "gen card"), Card(type: .phases, title: "phases card"), Card(type: .heart, title: "heart card")]
+    @Published private(set) var cards: [CardType]?
 
     private let cardService: CardService
     private unowned let coordinator: FeedNavigationCoordinator
@@ -30,7 +30,7 @@ class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
     init(title: String,
          cardService: CardService,
          coordinator: FeedNavigationCoordinator,
-         filter: @escaping (Card) -> Bool) {
+         filter: @escaping (CardType) -> Bool) {
 
         self.title = title
         self.coordinator = coordinator
@@ -44,7 +44,7 @@ class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
 
     // MARK: Methods
 
-    func open(_ card: Card) {
+    func open(_ card: CardType) {
         coordinator.open(card)
     }
 

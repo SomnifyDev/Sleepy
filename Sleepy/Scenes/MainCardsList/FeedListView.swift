@@ -1,7 +1,7 @@
 import SwiftUI
 import XUI
 
-struct MainCardsListView: View {
+struct FeedListView: View {
 
     // MARK: Stored Properties
 
@@ -10,7 +10,7 @@ struct MainCardsListView: View {
     // MARK: Views
 
     var body: some View {
-        List(viewModel.cards) { card in
+        List(viewModel.cards ?? []) { card in
             HStack {
                 containedView(card: card)
             }
@@ -21,8 +21,8 @@ struct MainCardsListView: View {
         .navigationTitle(viewModel.title)
     }
 
-    func containedView(card: Card) -> AnyView {
-        switch card.type {
+    func containedView(card: CardType) -> AnyView {
+        switch card {
         case .heart:
             return AnyView(HeartCardView().frame(height: 250))
         case .general:

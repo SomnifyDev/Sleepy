@@ -17,17 +17,14 @@
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
 		80780F32266D3B94000D0DD9 /* XUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80780F31266D3B94000D0DD9 /* XUI */; };
 		80780F41266D4316000D0DD9 /* HKStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F40266D4316000D0DD9 /* HKStoreService.swift */; };
-		80780F43266D4377000D0DD9 /* DefaultGeneralCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F42266D4377000D0DD9 /* DefaultGeneralCoordinator.swift */; };
-		80780F45266D439F000D0DD9 /* GeneralCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F44266D439F000D0DD9 /* GeneralCoordinatorView.swift */; };
-		80780F47266D43C2000D0DD9 /* GeneralCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F46266D43C2000D0DD9 /* GeneralCoordinator.swift */; };
+		80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F42266D4377000D0DD9 /* RootCoordinator.swift */; };
+		80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */; };
 		80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */; };
 		80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */; };
 		80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */; };
-		80780F56266D4BA4000D0DD9 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F55266D4BA4000D0DD9 /* Card.swift */; };
 		80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F57266D4C2E000D0DD9 /* CardService.swift */; };
-		80780F5B266D4E58000D0DD9 /* MainCardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* MainCardsListView.swift */; };
-		80780F5D266D4F27000D0DD9 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5C266D4F27000D0DD9 /* CardViewModel.swift */; };
-		80780F5F266D4F42000D0DD9 /* DefaultCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* DefaultCardViewModel.swift */; };
+		80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* FeedListView.swift */; };
+		80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */; };
 		80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */; };
 		C5562385977B9BE864A30123 /* Pods_Sleepy_SleepyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
@@ -157,17 +154,14 @@
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F40266D4316000D0DD9 /* HKStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKStoreService.swift; sourceTree = "<group>"; };
-		80780F42266D4377000D0DD9 /* DefaultGeneralCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGeneralCoordinator.swift; sourceTree = "<group>"; };
-		80780F44266D439F000D0DD9 /* GeneralCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCoordinatorView.swift; sourceTree = "<group>"; };
-		80780F46266D43C2000D0DD9 /* GeneralCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCoordinator.swift; sourceTree = "<group>"; };
+		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
+		80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorView.swift; sourceTree = "<group>"; };
 		80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationCoordinator.swift; sourceTree = "<group>"; };
 		80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationCoordinatorView.swift; sourceTree = "<group>"; };
 		80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCoordinator.swift; sourceTree = "<group>"; };
-		80780F55266D4BA4000D0DD9 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		80780F57266D4C2E000D0DD9 /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
-		80780F5A266D4E58000D0DD9 /* MainCardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardsListView.swift; sourceTree = "<group>"; };
-		80780F5C266D4F27000D0DD9 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
-		80780F5E266D4F42000D0DD9 /* DefaultCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardViewModel.swift; sourceTree = "<group>"; };
+		80780F5A266D4E58000D0DD9 /* FeedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListView.swift; sourceTree = "<group>"; };
+		80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCoordinator.swift; sourceTree = "<group>"; };
 		80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Identifiable.swift"; sourceTree = "<group>"; };
 		8867A2F399E527D317B7896E /* Pods-Sleepy-SleepyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-SleepyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy_WatchOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,14 +261,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		801505AC267140E6007574B9 /* cards */ = {
+		801505AC267140E6007574B9 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
 				801505A826714067007574B9 /* GeneralCardView.swift */,
 				801505AA26714097007574B9 /* PhasesCardView.swift */,
 				801505A626713DBF007574B9 /* HeartCardView.swift */,
 			);
-			path = cards;
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		80780F04266CE356000D0DD9 /* HK */ = {
@@ -296,21 +290,21 @@
 		80780F34266D3CFD000D0DD9 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				80780F48266D451B000D0DD9 /* GeneralCoordinator */,
-				80780F35266D3D03000D0DD9 /* MainListCoordinator */,
+				80780F48266D451B000D0DD9 /* MainTabCoordinator */,
+				80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */,
 				80780F4F266D4997000D0DD9 /* MainCardsList */,
-				80780F59266D4D92000D0DD9 /* CardDetail */,
+				80780F59266D4D92000D0DD9 /* CardsDetail */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		80780F35266D3D03000D0DD9 /* MainListCoordinator */ = {
+		80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */ = {
 			isa = PBXGroup;
 			children = (
 				80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */,
 				80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */,
 			);
-			path = MainListCoordinator;
+			path = FeedNavigationCoordinator;
 			sourceTree = "<group>";
 		};
 		80780F3E266D42D4000D0DD9 /* Services */ = {
@@ -330,40 +324,38 @@
 			path = HealthStoreService;
 			sourceTree = "<group>";
 		};
-		80780F48266D451B000D0DD9 /* GeneralCoordinator */ = {
+		80780F48266D451B000D0DD9 /* MainTabCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				80780F44266D439F000D0DD9 /* GeneralCoordinatorView.swift */,
-				80780F46266D43C2000D0DD9 /* GeneralCoordinator.swift */,
-				80780F42266D4377000D0DD9 /* DefaultGeneralCoordinator.swift */,
+				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
+				80780F42266D4377000D0DD9 /* RootCoordinator.swift */,
 			);
-			path = GeneralCoordinator;
+			path = MainTabCoordinator;
 			sourceTree = "<group>";
 		};
 		80780F4F266D4997000D0DD9 /* MainCardsList */ = {
 			isa = PBXGroup;
 			children = (
-				801505AC267140E6007574B9 /* cards */,
 				80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */,
-				80780F5A266D4E58000D0DD9 /* MainCardsListView.swift */,
+				80780F5A266D4E58000D0DD9 /* FeedListView.swift */,
+				801505AC267140E6007574B9 /* Cards */,
 			);
 			path = MainCardsList;
 			sourceTree = "<group>";
 		};
-		80780F59266D4D92000D0DD9 /* CardDetail */ = {
+		80780F59266D4D92000D0DD9 /* CardsDetail */ = {
 			isa = PBXGroup;
 			children = (
-				80780F62266D5171000D0DD9 /* Model */,
+				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailView.swift */,
+				80780F62266D5171000D0DD9 /* Model */,
 			);
-			path = CardDetail;
+			path = CardsDetail;
 			sourceTree = "<group>";
 		};
 		80780F62266D5171000D0DD9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				80780F5C266D4F27000D0DD9 /* CardViewModel.swift */,
-				80780F5E266D4F42000D0DD9 /* DefaultCardViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -380,7 +372,6 @@
 			isa = PBXGroup;
 			children = (
 				80780F57266D4C2E000D0DD9 /* CardService.swift */,
-				80780F55266D4BA4000D0DD9 /* Card.swift */,
 			);
 			path = CardService;
 			sourceTree = "<group>";
@@ -948,24 +939,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
-				80780F5F266D4F42000D0DD9 /* DefaultCardViewModel.swift in Sources */,
+				80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
-				80780F5B266D4E58000D0DD9 /* MainCardsListView.swift in Sources */,
+				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
 				80780F41266D4316000D0DD9 /* HKStoreService.swift in Sources */,
 				80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */,
 				801505AB26714097007574B9 /* PhasesCardView.swift in Sources */,
-				80780F47266D43C2000D0DD9 /* GeneralCoordinator.swift in Sources */,
 				80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */,
-				80780F56266D4BA4000D0DD9 /* Card.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
-				80780F45266D439F000D0DD9 /* GeneralCoordinatorView.swift in Sources */,
+				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
-				80780F43266D4377000D0DD9 /* DefaultGeneralCoordinator.swift in Sources */,
+				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				801505A726713DBF007574B9 /* HeartCardView.swift in Sources */,
-				80780F5D266D4F27000D0DD9 /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
