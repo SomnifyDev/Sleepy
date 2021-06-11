@@ -48,12 +48,11 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
         self.cardService = cardService
         self._filter = filter
 
-        self.viewModel = FeedListCoordinatorImpl(
-            title: title,
-            cardService: cardService,
-            coordinator: self,
-            filter: filter
-        )
+        self.viewModel =
+        FeedListCoordinatorImpl(title: title,
+                                cardService: cardService,
+                                coordinator: self,
+                                filter: filter)
     }
 
     // MARK: Methods

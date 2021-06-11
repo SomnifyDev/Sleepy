@@ -10,6 +10,7 @@ enum HomeTab {
 }
 
 protocol GeneralCoordinator: ViewModel {
+
     var tab: HomeTab { get set }
 
     var mainCoordinator: FeedNavigationCoordinator! { get }
@@ -17,7 +18,9 @@ protocol GeneralCoordinator: ViewModel {
     var openedURL: URL? { get set }
 
     func startDeepLink(from url: URL)
+
     func open(_ url: URL)
+
 }
 
 extension GeneralCoordinator {

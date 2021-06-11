@@ -38,12 +38,12 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
         guard url.scheme == "cards",
               url.host == "card",
               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let recipeID = components.queryItems?.first(where: { $0.name == "cardID" })?.value else {
-            assertionFailure("Trying to open app with illegal url \(url).")
-            return
-        }
+              let cardID = components.queryItems?.first(where: { $0.name == "cardID" })?.value else {
+                  assertionFailure("Trying to open app with illegal url \(url).")
+                  return
+              }
 
-        openCardForRecipe(id: recipeID)
+        openCardInside(id: cardID)
     }
 
     func open(_ url: URL) {
@@ -57,15 +57,14 @@ class DefaultGeneralCoordinator: ObservableObject, GeneralCoordinator {
         mainListCoordinator!.open(card)
     }
 
-    private func openCardForRecipe(id: String) {
-        cardService.fetchCard(id: id) { [weak self] recipe in
-            guard let recipe = recipe, let self = self else {
+    private func openCardInside(id: String) {
+        cardService.fetchCard(id: id) { [weak self] cardID in
+            guard let cardID = cardID, let self = self else {
                 return
             }
-            self.openCard(for: recipe)
+            self.openCard(for: cardID)
         }
     }
-
 
     private func openCalendar() {
         // logic

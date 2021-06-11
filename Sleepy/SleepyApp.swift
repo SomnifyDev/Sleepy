@@ -31,7 +31,7 @@ struct SleepyApp: App {
         }
     }
 
-    // MARK: Helpers
+    // MARK: Private functions
 
     private func simulateURLOpening() {
 #if DEBUG

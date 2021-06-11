@@ -11,6 +11,8 @@ class CardService {
 
     private let heartCard = Card(type: .heart, title: "Heart card")
 
+    // MARK: Iternal functions
+
     func fetchCard(id: String, _ completion: @escaping (Card?) -> Void) {
         fetchCards { recipes in
             completion(recipes.first { $0.id.uuidString == id })

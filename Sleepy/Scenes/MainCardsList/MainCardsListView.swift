@@ -12,10 +12,11 @@ struct MainCardsListView: View {
     var body: some View {
         List(viewModel.cards) { card in
             HStack {
-
                 containedView(card: card)
             }
-            .onNavigation { viewModel.open(card) }
+            .onNavigation {
+                viewModel.open(card)
+            }
         }
         .navigationTitle(viewModel.title)
     }
