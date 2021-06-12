@@ -8,7 +8,6 @@ struct PhasesCardView: View {
             Image(systemName: "rectangle")
             Text("Thats a phases card")
         }.background(Color.orange)
-
     }
 }
 

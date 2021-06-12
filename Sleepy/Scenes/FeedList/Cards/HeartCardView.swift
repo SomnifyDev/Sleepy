@@ -8,7 +8,6 @@ struct HeartCardView: View {
             Image(systemName: "person")
             Text("Thats a heart card")
         }.background(Color.pink)
-
     }
 }
 

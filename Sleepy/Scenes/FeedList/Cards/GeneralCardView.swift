@@ -8,7 +8,6 @@ struct GeneralCardView: View {
             Image(systemName: "swift")
             Text("Thats a general card")
         }.background(Color.blue)
-
     }
 }
 
