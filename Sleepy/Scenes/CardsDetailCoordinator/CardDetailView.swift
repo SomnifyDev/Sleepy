@@ -11,11 +11,11 @@ struct CardDetailView: View {
 
     var body: some View {
         HStack {
-            if (viewModel.card == .heart) {
+            if viewModel.card == .heart {
                 Text("heart detail view")
-            } else if (viewModel.card == .general) {
+            } else if viewModel.card == .general {
                 Text("general detail view")
-            } else if (viewModel.card == .phases) {
+            } else if viewModel.card == .phases {
                 Text("phases details view")
             }
         }

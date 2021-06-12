@@ -1,13 +1,15 @@
 import ClockKit
 
-
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Complication Configuration
 
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         let descriptors = [
-            CLKComplicationDescriptor(identifier: "complication", displayName: "Sleepy", supportedFamilies: CLKComplicationFamily.allCases)
+            CLKComplicationDescriptor(identifier: "complication",
+                                      displayName: "Sleepy",
+                                      supportedFamilies: CLKComplicationFamily.allCases)
+            
             // Multiple complication support can be added here with more descriptors
         ]
         

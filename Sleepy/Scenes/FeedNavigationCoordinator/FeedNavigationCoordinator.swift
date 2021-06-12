@@ -46,6 +46,7 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
          cardService: CardService,
          parent: RootCoordinator,
          filter: @escaping (CardType) -> Bool) {
+
         self.parent = parent
         // координатор экрана получил сервисы которые мб понадобятся ему или дочерним роутерам
         // обрати внимание на View данного координатора
@@ -60,12 +61,17 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
                                 cardService: cardService,
                                 coordinator: self,
                                 filter: filter)
+        
     }
 
-    // MARK: Methods
+    // MARK: Internal Methods
 
     func filter(_ card: CardType) -> Bool {
         _filter(card)
+    }
+
+    func open(_ url: URL) {
+        parent.open(url)
     }
 
     func open(_ card: CardType) {
@@ -73,10 +79,6 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
         // а переменная-то @Published - поэтому она затриггерит к срабатыванию
         // модификатор .navigation(model: у своего view
         detailViewModel = CardDetailViewCoordinatorImpl(card: card, coordinator: self)
-    }
-
-    func open(_ url: URL) {
-        parent.open(url)
     }
 
 }

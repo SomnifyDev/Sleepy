@@ -292,8 +292,8 @@
 			children = (
 				80780F48266D451B000D0DD9 /* MainTabCoordinator */,
 				80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */,
-				80780F4F266D4997000D0DD9 /* MainCardsList */,
-				80780F59266D4D92000D0DD9 /* CardsDetail */,
+				80780F4F266D4997000D0DD9 /* FeedList */,
+				80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -310,47 +310,39 @@
 		80780F3E266D42D4000D0DD9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				80780F67266D6534000D0DD9 /* CardService */,
-				80780F3F266D42DE000D0DD9 /* HealthStoreService */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		80780F3F266D42DE000D0DD9 /* HealthStoreService */ = {
-			isa = PBXGroup;
-			children = (
+				80780F57266D4C2E000D0DD9 /* CardService.swift */,
 				80780F40266D4316000D0DD9 /* HKStoreService.swift */,
 			);
-			path = HealthStoreService;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		80780F48266D451B000D0DD9 /* MainTabCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
 				80780F42266D4377000D0DD9 /* RootCoordinator.swift */,
+				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
 			);
 			path = MainTabCoordinator;
 			sourceTree = "<group>";
 		};
-		80780F4F266D4997000D0DD9 /* MainCardsList */ = {
+		80780F4F266D4997000D0DD9 /* FeedList */ = {
 			isa = PBXGroup;
 			children = (
 				80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* FeedListView.swift */,
 				801505AC267140E6007574B9 /* Cards */,
 			);
-			path = MainCardsList;
+			path = FeedList;
 			sourceTree = "<group>";
 		};
-		80780F59266D4D92000D0DD9 /* CardsDetail */ = {
+		80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */ = {
 			isa = PBXGroup;
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailView.swift */,
 				80780F62266D5171000D0DD9 /* Model */,
 			);
-			path = CardsDetail;
+			path = CardsDetailCoordinator;
 			sourceTree = "<group>";
 		};
 		80780F62266D5171000D0DD9 /* Model */ = {
@@ -366,14 +358,6 @@
 				80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		80780F67266D6534000D0DD9 /* CardService */ = {
-			isa = PBXGroup;
-			children = (
-				80780F57266D4C2E000D0DD9 /* CardService.swift */,
-			);
-			path = CardService;
 			sourceTree = "<group>";
 		};
 		882574914EFE6785A847CA1B /* Frameworks */ = {
@@ -423,10 +407,10 @@
 			isa = PBXGroup;
 			children = (
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
+				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
 				80780F34266D3CFD000D0DD9 /* Scenes */,
 				80780F3E266D42D4000D0DD9 /* Services */,
 				80780F63266D5BC8000D0DD9 /* Extensions */,
-				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
 				D94419D4266CD3C50019902F /* Assets.xcassets */,
 				D94419D9266CD3C50019902F /* Info.plist */,
 				D94419D6266CD3C50019902F /* Preview Content */,

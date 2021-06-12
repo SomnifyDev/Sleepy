@@ -9,7 +9,6 @@ protocol CardDetailViewRouter: ViewModel {
 
 }
 
-
 class CardDetailViewCoordinatorImpl: CardDetailViewRouter, ObservableObject, Identifiable {
 
     // MARK: Stored Properties

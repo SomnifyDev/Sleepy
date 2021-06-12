@@ -21,6 +21,8 @@ struct FeedListView: View {
         .navigationTitle(viewModel.title)
     }
 
+    // MARK: Internal methods
+
     func containedView(card: CardType) -> AnyView {
         switch card {
         case .heart:

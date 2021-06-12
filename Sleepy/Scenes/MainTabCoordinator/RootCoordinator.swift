@@ -43,11 +43,10 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     // MARK: Stored Properties
 
     @Published var tab = TabBarTab.feed
+    @Published var openedURL: URL?
 
     @Published private(set) var feedCoordinator: FeedNavigationCoordinator!
     //@Published private(set) var historyCoordinator: HistoryCoordinator!
-
-    @Published var openedURL: URL?
 
     private let hkStoreService: HKStoreService
     private let cardService: CardService
@@ -72,7 +71,11 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         // self.historyCoordinatator = DefaultHistoryCoordinator(...
     }
 
-    // MARK: Methods
+    // MARK: Internal Methods
+
+    func open(_ url: URL) {
+        self.openedURL = url
+    }
 
     func startDeepLink(from url: URL) {
         // по сути тут надо анализировать пришедшую url
@@ -102,6 +105,8 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         openCard(for: cardType)
     }
 
+    // MARK: Private Methods
+
     private func openCard(for cardType: CardType) {
         // этот момент (строчку 111) я пока детально не зашарил, но давай просто осознаем общую логику:
         // тут мы делегируем открытие карточки дальше по цепочке
@@ -116,7 +121,4 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         // logic
     }
 
-    func open(_ url: URL) {
-        self.openedURL = url
-    }
 }

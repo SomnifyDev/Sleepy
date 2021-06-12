@@ -11,7 +11,6 @@ struct RootCoordinatorView: View {
 
     var body: some View {
         TabView(selection: $coordinator.tab) {
-
             FeedNavigationCoordinatorView(coordinator: coordinator.feedCoordinator)
                 .tabItem { Label("main", systemImage: "hare.fill") }
                 .tag(TabBarTab.feed)
