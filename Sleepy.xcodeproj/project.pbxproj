@@ -3,17 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4C845AFBD9129D07199D3362 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B18099E1729DF44447B75B1 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework */; };
+		801505A726713DBF007574B9 /* HeartCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A626713DBF007574B9 /* HeartCardView.swift */; };
+		801505A926714067007574B9 /* GeneralCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A826714067007574B9 /* GeneralCardView.swift */; };
+		801505AB26714097007574B9 /* PhasesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AA26714097007574B9 /* PhasesCardView.swift */; };
+		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
 		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
+		80780F32266D3B94000D0DD9 /* XUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80780F31266D3B94000D0DD9 /* XUI */; };
+		80780F41266D4316000D0DD9 /* HKStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F40266D4316000D0DD9 /* HKStoreService.swift */; };
+		80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F42266D4377000D0DD9 /* RootCoordinator.swift */; };
+		80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */; };
+		80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */; };
+		80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */; };
+		80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */; };
+		80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F57266D4C2E000D0DD9 /* CardService.swift */; };
+		80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* FeedListView.swift */; };
+		80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */; };
+		80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */; };
 		C5562385977B9BE864A30123 /* Pods_Sleepy_SleepyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
-		D94419D3266CD3C40019902F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D2266CD3C40019902F /* ContentView.swift */; };
 		D94419D5266CD3C50019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D4266CD3C50019902F /* Assets.xcassets */; };
 		D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D7266CD3C50019902F /* Preview Assets.xcassets */; };
 		D94419E3266CD3C50019902F /* SleepyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419E2266CD3C50019902F /* SleepyTests.swift */; };
@@ -133,14 +147,27 @@
 		6E8E54E67A3140C18D05934A /* Pods-Sleepy-SleepyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-SleepyUITests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy_SleepyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		801505A626713DBF007574B9 /* HeartCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardView.swift; sourceTree = "<group>"; };
+		801505A826714067007574B9 /* GeneralCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardView.swift; sourceTree = "<group>"; };
+		801505AA26714097007574B9 /* PhasesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardView.swift; sourceTree = "<group>"; };
+		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		80780F40266D4316000D0DD9 /* HKStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKStoreService.swift; sourceTree = "<group>"; };
+		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
+		80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorView.swift; sourceTree = "<group>"; };
+		80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationCoordinator.swift; sourceTree = "<group>"; };
+		80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationCoordinatorView.swift; sourceTree = "<group>"; };
+		80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCoordinator.swift; sourceTree = "<group>"; };
+		80780F57266D4C2E000D0DD9 /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
+		80780F5A266D4E58000D0DD9 /* FeedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListView.swift; sourceTree = "<group>"; };
+		80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCoordinator.swift; sourceTree = "<group>"; };
+		80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Identifiable.swift"; sourceTree = "<group>"; };
 		8867A2F399E527D317B7896E /* Pods-Sleepy-SleepyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-SleepyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy_WatchOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF632548D612EE7E7D4A8586 /* Pods-Sleepy_WatchOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy_WatchOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy_WatchOSTests/Pods-Sleepy_WatchOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D94419CD266CD3C40019902F /* Sleepy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94419D0266CD3C40019902F /* SleepyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyApp.swift; sourceTree = "<group>"; };
-		D94419D2266CD3C40019902F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D94419D4266CD3C50019902F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D94419D7266CD3C50019902F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D94419D9266CD3C50019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -179,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80780F32266D3B94000D0DD9 /* XUI in Frameworks */,
 				80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */,
 				F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */,
 			);
@@ -233,6 +261,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		801505AC267140E6007574B9 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				801505A826714067007574B9 /* GeneralCardView.swift */,
+				801505AA26714097007574B9 /* PhasesCardView.swift */,
+				801505A626713DBF007574B9 /* HeartCardView.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +285,79 @@
 				80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		80780F34266D3CFD000D0DD9 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				80780F48266D451B000D0DD9 /* MainTabCoordinator */,
+				80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */,
+				80780F4F266D4997000D0DD9 /* FeedList */,
+				80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */,
+				80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */,
+			);
+			path = FeedNavigationCoordinator;
+			sourceTree = "<group>";
+		};
+		80780F3E266D42D4000D0DD9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				80780F57266D4C2E000D0DD9 /* CardService.swift */,
+				80780F40266D4316000D0DD9 /* HKStoreService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		80780F48266D451B000D0DD9 /* MainTabCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				80780F42266D4377000D0DD9 /* RootCoordinator.swift */,
+				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
+			);
+			path = MainTabCoordinator;
+			sourceTree = "<group>";
+		};
+		80780F4F266D4997000D0DD9 /* FeedList */ = {
+			isa = PBXGroup;
+			children = (
+				80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */,
+				80780F5A266D4E58000D0DD9 /* FeedListView.swift */,
+				801505AC267140E6007574B9 /* Cards */,
+			);
+			path = FeedList;
+			sourceTree = "<group>";
+		};
+		80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
+				801505AD267140F5007574B9 /* CardDetailView.swift */,
+				80780F62266D5171000D0DD9 /* Model */,
+			);
+			path = CardsDetailCoordinator;
+			sourceTree = "<group>";
+		};
+		80780F62266D5171000D0DD9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		80780F63266D5BC8000D0DD9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		882574914EFE6785A847CA1B /* Frameworks */ = {
@@ -296,8 +407,10 @@
 			isa = PBXGroup;
 			children = (
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
-				D94419D2266CD3C40019902F /* ContentView.swift */,
 				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
+				80780F34266D3CFD000D0DD9 /* Scenes */,
+				80780F3E266D42D4000D0DD9 /* Services */,
+				80780F63266D5BC8000D0DD9 /* Extensions */,
 				D94419D4266CD3C50019902F /* Assets.xcassets */,
 				D94419D9266CD3C50019902F /* Info.plist */,
 				D94419D6266CD3C50019902F /* Preview Content */,
@@ -420,6 +533,9 @@
 				D9441A33266CD4C70019902F /* PBXTargetDependency */,
 			);
 			name = Sleepy;
+			packageProductDependencies = (
+				80780F31266D3B94000D0DD9 /* XUI */,
+			);
 			productName = Sleepy;
 			productReference = D94419CD266CD3C40019902F /* Sleepy.app */;
 			productType = "com.apple.product-type.application";
@@ -580,6 +696,9 @@
 				Base,
 			);
 			mainGroup = D94419C4266CD3C40019902F;
+			packageReferences = (
+				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */,
+			);
 			productRefGroup = D94419CE266CD3C40019902F /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -803,9 +922,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
+				80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */,
+				80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
-				D94419D3266CD3C40019902F /* ContentView.swift in Sources */,
+				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
+				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
+				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
+				80780F41266D4316000D0DD9 /* HKStoreService.swift in Sources */,
+				80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */,
+				801505AB26714097007574B9 /* PhasesCardView.swift in Sources */,
+				80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
+				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
+				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
+				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
+				801505A726713DBF007574B9 /* HeartCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,6 +1527,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quickbirdstudios/XUI.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		80780F31266D3B94000D0DD9 /* XUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */;
+			productName = XUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D94419C5266CD3C40019902F /* Project object */;
 }
