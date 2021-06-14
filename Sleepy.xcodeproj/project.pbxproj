@@ -355,16 +355,8 @@
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailView.swift */,
-				80780F62266D5171000D0DD9 /* Model */,
 			);
 			path = CardsDetailCoordinator;
-			sourceTree = "<group>";
-		};
-		80780F62266D5171000D0DD9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		80780F63266D5BC8000D0DD9 /* Extensions */ = {
