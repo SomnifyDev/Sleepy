@@ -4,7 +4,7 @@ import XUI
 
 // all types of main tab bar windows
 enum TabBarTab: String {
-    case feed
+    case summary
     case history
     case alarm
     case settings
@@ -17,6 +17,9 @@ protocol RootCoordinator: ViewModel {
     var tab: TabBarTab { get set }
 
     var feedCoordinator: FeedNavigationCoordinator! { get }
+    var historyCoordinator: HistoryCoordinator! { get }
+    var alarmCoordinator: AlarmCoordinator! { get }
+    var settingsCoordinator: SettingsCoordinator! { get }
 
     var openedURL: URL? { get set }
 
@@ -31,7 +34,9 @@ extension RootCoordinator {
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
         feedCoordinator
-        //historyCoordinator
+        historyCoordinator
+        alarmCoordinator
+        settingsCoordinator
     }
 
 }
@@ -42,11 +47,13 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
 
     // MARK: Stored Properties
 
-    @Published var tab = TabBarTab.feed
+    @Published var tab = TabBarTab.summary
     @Published var openedURL: URL?
 
     @Published private(set) var feedCoordinator: FeedNavigationCoordinator!
-    //@Published private(set) var historyCoordinator: HistoryCoordinator!
+    @Published private(set) var historyCoordinator: HistoryCoordinator!
+    @Published private(set) var alarmCoordinator: AlarmCoordinator!
+    @Published private(set) var settingsCoordinator: SettingsCoordinator!
 
     private let hkStoreService: HKStoreService
     private let cardService: CardService
@@ -67,8 +74,18 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
             parent: self,
             filter: { _ in true }
         )
-
-        // self.historyCoordinatator = DefaultHistoryCoordinator(...
+        
+        self.historyCoordinator = HistoryCoordinatorImpl(
+            title: "history",
+            parent: self)
+        
+        self.alarmCoordinator = AlarmCoordinatorImpl(
+            title: "alarm",
+            parent: self)
+        
+        self.settingsCoordinator = SettingsCoordinatorImpl(
+            title: "settings",
+            parent: self)
     }
 
     // MARK: Internal Methods
@@ -103,6 +120,8 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
 
         // поручаем открытие карточки
         openCard(for: cardType)
+        
+        // ЗДЕСЬ ТИПА ТОЖЕ ЛОГИКА ОБРАБОТКИ ДИПЛИНКА ИЗ ЭКРАНА ИСТОРИИ/НАСТРОЕК/БУДИЛЬНИКА
     }
 
     // MARK: Private Methods
@@ -117,8 +136,17 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         feedListCoordinator!.open(cardType)
     }
 
-    private func openCalendar() {
-        // logic
+    private func openTabView(of type: TabBarTab) {
+        switch type {
+        case .history:
+            tab = .history
+        case .alarm:
+            tab = .alarm
+        case .settings:
+            tab = .settings
+        case .summary:
+            break
+        }
     }
 
 }
