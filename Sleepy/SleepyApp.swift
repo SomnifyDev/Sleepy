@@ -67,15 +67,15 @@ struct SleepyApp: App {
             // Хоть тут мы формируем ее константно, но по сути она может быть любой
             //
             // пример:
-            // feed:// - открывает экран карточек
-            // feed://card?type=heart - открывает детальную карточку сердца
-            // feed://card?type=phases - открывает детальную карточку фаз
+            // summary:// - открывает экран карточек
+            // summary://card?type=heart - открывает детальную карточку сердца
+            // summary://card?type=phases - открывает детальную карточку фаз
             // calendar:// - открывает календарь
             // alarm:// - открывает будильник
             // alarm://creation
             guard let cardType = cards.randomElement(),
                   // [tab name]://[element inside name]?[parameter]=value
-                  let url = URL(string: "feed://card?type=" + cardType.rawValue) else {
+                  let url = URL(string: "summary://card?type=" + cardType.rawValue) else {
                       assertionFailure("Could not find card or illegal url format.")
                       return
                   }

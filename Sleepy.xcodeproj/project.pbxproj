@@ -44,6 +44,12 @@
 		D9441A25266CD4C70019902F /* Sleepy_WatchOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A24266CD4C70019902F /* Sleepy_WatchOSTests.swift */; };
 		D9441A30266CD4C70019902F /* Sleepy_WatchOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */; };
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509EF26777D4200694208 /* HistoryCoordinator.swift */; };
+		D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F026777D4200694208 /* HistoryCoordinatorView.swift */; };
+		D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F9267780C400694208 /* AlarmCoordinator.swift */; };
+		D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FB267780D700694208 /* AlarmCoordinatorView.swift */; };
+		D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FD267780DE00694208 /* SettingsCoordinator.swift */; };
+		D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FF267780F300694208 /* SettingsCoordinatorView.swift */; };
 		E52F35914630DFDE987DB5B0 /* Pods_SleepyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61210E5275BC7FC2886643CA /* Pods_SleepyTests.framework */; };
 		E5EFF19FF15FD03F8428C707 /* Pods_Sleepy_WatchOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */; };
 		F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */; };
@@ -196,6 +202,12 @@
 		D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sleepy_WatchOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
 		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D99509EF26777D4200694208 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
+		D99509F026777D4200694208 /* HistoryCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinatorView.swift; sourceTree = "<group>"; };
+		D99509F9267780C400694208 /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
+		D99509FB267780D700694208 /* AlarmCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinatorView.swift; sourceTree = "<group>"; };
+		D99509FD267780DE00694208 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		D99509FF267780F300694208 /* SettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		E10D41B95868DE65092B6B39 /* Pods-SleepyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SleepyTests.release.xcconfig"; path = "Target Support Files/Pods-SleepyTests/Pods-SleepyTests.release.xcconfig"; sourceTree = "<group>"; };
 		E190B908F0E65C713AC18A2A /* Pods-Sleepy_WatchOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy_WatchOSTests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy_WatchOSTests/Pods-Sleepy_WatchOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -291,9 +303,6 @@
 			isa = PBXGroup;
 			children = (
 				80780F48266D451B000D0DD9 /* MainTabCoordinator */,
-				80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */,
-				80780F4F266D4997000D0DD9 /* FeedList */,
-				80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -303,6 +312,8 @@
 			children = (
 				80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */,
 				80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */,
+				80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */,
+				80780F4F266D4997000D0DD9 /* FeedList */,
 			);
 			path = FeedNavigationCoordinator;
 			sourceTree = "<group>";
@@ -321,6 +332,10 @@
 			children = (
 				80780F42266D4377000D0DD9 /* RootCoordinator.swift */,
 				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
+				80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */,
+				D99509F426777D5800694208 /* HistoryCoordinator */,
+				D99509F326777D4D00694208 /* AlarmCoordinator */,
+				D99509F8267780AD00694208 /* SettingsCoordinator */,
 			);
 			path = MainTabCoordinator;
 			sourceTree = "<group>";
@@ -340,16 +355,8 @@
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailView.swift */,
-				80780F62266D5171000D0DD9 /* Model */,
 			);
 			path = CardsDetailCoordinator;
-			sourceTree = "<group>";
-		};
-		80780F62266D5171000D0DD9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		80780F63266D5BC8000D0DD9 /* Extensions */ = {
@@ -493,6 +500,33 @@
 				D9441A31266CD4C70019902F /* Info.plist */,
 			);
 			path = Sleepy_WatchOSUITests;
+			sourceTree = "<group>";
+		};
+		D99509F326777D4D00694208 /* AlarmCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D99509F9267780C400694208 /* AlarmCoordinator.swift */,
+				D99509FB267780D700694208 /* AlarmCoordinatorView.swift */,
+			);
+			path = AlarmCoordinator;
+			sourceTree = "<group>";
+		};
+		D99509F426777D5800694208 /* HistoryCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
+				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
+			);
+			path = HistoryCoordinator;
+			sourceTree = "<group>";
+		};
+		D99509F8267780AD00694208 /* SettingsCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D99509FD267780DE00694208 /* SettingsCoordinator.swift */,
+				D99509FF267780F300694208 /* SettingsCoordinatorView.swift */,
+			);
+			path = SettingsCoordinator;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -928,15 +962,21 @@
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
+				D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */,
+				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
 				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
+				D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */,
+				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,
 				80780F41266D4316000D0DD9 /* HKStoreService.swift in Sources */,
 				80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */,
 				801505AB26714097007574B9 /* PhasesCardView.swift in Sources */,
 				80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
+				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
+				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
 				801505A726713DBF007574B9 /* HeartCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
