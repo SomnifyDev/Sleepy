@@ -24,6 +24,11 @@ public class HKService {
 
     enum PermissionType { case read, write }
 
+    // MARK: Init
+
+    public init() {
+    }
+
     // MARK: Private properties
 
     private let healthStore = HKHealthStore()
