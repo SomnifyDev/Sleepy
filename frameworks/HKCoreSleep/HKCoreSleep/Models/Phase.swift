@@ -6,11 +6,11 @@ public class Phase {
 
     let interval: DateInterval
     let phaseType: PhaseType
-    let probabillity: Double
+    let coefficient: Double
 
     init(interval: DateInterval, phaseType: PhaseType, probabillity: Double) {
         self.interval = interval
         self.phaseType = phaseType
-        self.probabillity = probabillity
+        self.coefficient = probabillity
     }
 }

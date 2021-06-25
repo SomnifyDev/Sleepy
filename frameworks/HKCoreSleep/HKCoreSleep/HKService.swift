@@ -22,8 +22,6 @@ public class HKService {
         }
     }
 
-    enum PermissionType { case read, write }
-
     // MARK: Init
 
     public init() {
