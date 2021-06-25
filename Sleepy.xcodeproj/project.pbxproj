@@ -105,6 +105,20 @@
 			remoteGlobalIDString = D94419FC266CD4C50019902F;
 			remoteInfo = Sleepy_WatchOS;
 		};
+		D95F653D2686698F00DB4073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D95F65382686698E00DB4073 /* HKStatistics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D95F65202686698E00DB4073;
+			remoteInfo = HKStatistics;
+		};
+		D95F653F2686698F00DB4073 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D95F65382686698E00DB4073 /* HKStatistics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D95F65282686698E00DB4073;
+			remoteInfo = HKStatisticsTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -202,6 +216,7 @@
 		D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sleepy_WatchOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
 		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D95F65382686698E00DB4073 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
 		D99509EF26777D4200694208 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		D99509F026777D4200694208 /* HistoryCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinatorView.swift; sourceTree = "<group>"; };
 		D99509F9267780C400694208 /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
@@ -286,6 +301,7 @@
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
+				D95F65382686698E00DB4073 /* HKStatistics.xcodeproj */,
 				80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */,
 			);
 			name = HK;
@@ -500,6 +516,15 @@
 				D9441A31266CD4C70019902F /* Info.plist */,
 			);
 			path = Sleepy_WatchOSUITests;
+			sourceTree = "<group>";
+		};
+		D95F65392686698E00DB4073 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D95F653E2686698F00DB4073 /* HKStatistics.framework */,
+				D95F65402686698F00DB4073 /* HKStatisticsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D99509F326777D4D00694208 /* AlarmCoordinator */ = {
@@ -737,6 +762,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D95F65392686698E00DB4073 /* Products */;
+					ProjectRef = D95F65382686698E00DB4073 /* HKStatistics.xcodeproj */;
+				},
+				{
 					ProductGroup = 80780F1B266CE39F000D0DD9 /* Products */;
 					ProjectRef = 80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */;
 				},
@@ -760,6 +789,20 @@
 			fileType = wrapper.framework;
 			path = HKVisualKit.framework;
 			remoteRef = 80780F1E266CE3A0000D0DD9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D95F653E2686698F00DB4073 /* HKStatistics.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HKStatistics.framework;
+			remoteRef = D95F653D2686698F00DB4073 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D95F65402686698F00DB4073 /* HKStatisticsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = HKStatisticsTests.xctest;
+			remoteRef = D95F653F2686698F00DB4073 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
