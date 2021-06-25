@@ -53,6 +53,7 @@ public class HKService {
 
         case .sharingDenied:
             healthStore.requestAuthorization(toShare: writeDataTypes, read: readDataTypes, completion: completionHandler)
+
         default:
             print("not determined")
             healthStore.requestAuthorization(toShare: writeDataTypes, read: readDataTypes, completion: completionHandler)
@@ -79,7 +80,6 @@ public class HKService {
         })
 
         self.healthStore.execute(heartRateQuery)
-
     }
 
     // MARK: Public methods
