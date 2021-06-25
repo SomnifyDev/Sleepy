@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 import XUI
-
+import HKCoreSleep
 // all types of main tab bar windows
 enum TabBarTab: String {
     case summary
@@ -55,12 +55,12 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     @Published private(set) var alarmCoordinator: AlarmCoordinator!
     @Published private(set) var settingsCoordinator: SettingsCoordinator!
     
-    private let hkStoreService: HKStoreService
+    private let hkStoreService: HKService
     private let cardService: CardService
     
     // MARK: Initialization
     
-    init(hkStoreService: HKStoreService, cardService: CardService) {
+    init(hkStoreService: HKService, cardService: CardService) {
         // наш главный координатор таббара получил сервисы
         self.hkStoreService = hkStoreService
         self.cardService = cardService
