@@ -2,6 +2,7 @@ import Foundation
 import HealthKit
 
 public class Sleep {
+    
     public let sleepInterval: DateInterval
     public let inBedInterval: DateInterval
 
@@ -28,4 +29,5 @@ public class Sleep {
         self.energySamples = energySamples
         self.phases = phases
     }
+    
 }

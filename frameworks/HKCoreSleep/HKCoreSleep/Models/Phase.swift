@@ -1,16 +1,16 @@
 import Foundation
 
-public class Phase {
+public enum Conditions { case light, medium, deep }
 
-    enum PhaseType { case light, medium, deep }
+public struct Phase {
 
-    let interval: DateInterval
-    let phaseType: PhaseType
-    let coefficient: Double
+    public let interval: DateInterval
+    public let condition: Conditions
+    public let verdictCoefficient: Double
 
-    init(interval: DateInterval, phaseType: PhaseType, probabillity: Double) {
+    public init(interval: DateInterval, condition: Conditions, verdictCoefficient: Double) {
         self.interval = interval
-        self.phaseType = phaseType
-        self.coefficient = probabillity
+        self.condition = condition
+        self.verdictCoefficient = verdictCoefficient
     }
 }

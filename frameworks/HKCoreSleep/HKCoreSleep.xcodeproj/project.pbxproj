@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		808FDF292685E48A00B38B78 /* HKCoreSleep.docc in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF282685E48A00B38B78 /* HKCoreSleep.docc */; };
 		808FDF382685E59C00B38B78 /* HKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF372685E59C00B38B78 /* HKService.swift */; };
 		808FDF412685FD4C00B38B78 /* HKSleepAppleDetectionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF402685FD4C00B38B78 /* HKSleepAppleDetectionProvider.swift */; };
 		808FDF432685FE8200B38B78 /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF422685FE8200B38B78 /* Sleep.swift */; };
@@ -17,7 +16,6 @@
 
 /* Begin PBXFileReference section */
 		808FDF242685E48A00B38B78 /* HKCoreSleep.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HKCoreSleep.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		808FDF282685E48A00B38B78 /* HKCoreSleep.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = HKCoreSleep.docc; sourceTree = "<group>"; };
 		808FDF372685E59C00B38B78 /* HKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKService.swift; sourceTree = "<group>"; };
 		808FDF3A2685EB6300B38B78 /* HKVisualKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HKVisualKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		808FDF402685FD4C00B38B78 /* HKSleepAppleDetectionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKSleepAppleDetectionProvider.swift; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 				808FDF372685E59C00B38B78 /* HKService.swift */,
 				808FDF472686149E00B38B78 /* Date+minutes.swift */,
 				808FDF462685FF3000B38B78 /* Models */,
-				808FDF282685E48A00B38B78 /* HKCoreSleep.docc */,
 			);
 			path = HKCoreSleep;
 			sourceTree = "<group>";
@@ -163,7 +160,6 @@
 			files = (
 				808FDF382685E59C00B38B78 /* HKService.swift in Sources */,
 				808FDF482686149E00B38B78 /* Date+minutes.swift in Sources */,
-				808FDF292685E48A00B38B78 /* HKCoreSleep.docc in Sources */,
 				808FDF452685FEB000B38B78 /* Phase.swift in Sources */,
 				808FDF412685FD4C00B38B78 /* HKSleepAppleDetectionProvider.swift in Sources */,
 				808FDF432685FE8200B38B78 /* Sleep.swift in Sources */,
@@ -298,10 +294,11 @@
 		808FDF2E2685E48A00B38B78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -315,7 +312,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.HKCoreSleep;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.HKCoreSleep;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -327,10 +324,11 @@
 		808FDF2F2685E48A00B38B78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -344,7 +342,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.HKCoreSleep;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.HKCoreSleep;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
