@@ -58,11 +58,58 @@ final class HKStatisticsProvider: HKStatistics {
         }
     }
     
-    func getDataByIntervalNumeric(dataType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, completion: (Double) -> ()) {
-        completion(0.0)
+    func getDataByIntervalWithIndicator(dataType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, completion: @escaping (Double) -> ()) {
+        healthService.readData(type: dataType, interval: timeInterval, ascending: true) { _, sleepData, error in
+            switch dataType {
+            case .energy:
+                completion(self.handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit.kilocalorie()))
+                
+            case .heart:
+                completion(self.handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit(from: "count/min")))
+                
+            case .asleep, .inbed:
+                completion(self.handleForCategorySample(for: indicatorType, arr: sleepData))
+            }
+        }
     }
     
-    func getDataByIntervalNumeric(dataType: HKService.HealthType, for timeInterval: DateInterval, completion: (Double) -> ()) {
-        completion(0.0)
+    func getDataByInterval(dataType: HKService.HealthType, for timeInterval: DateInterval, completion: @escaping ([Double]) -> ()) {
+        
+    }
+    
+    private func handleForCategorySample(for indicator: IndicatorType, arr: [HKSample]?) -> Double {
+        if let categData = arr as? [HKCategorySample] {
+            
+            let data = categData.map { $0.endDate.minutes(from: $0.startDate) }
+            
+            switch indicator {
+            case .min:
+                return Double(data.min()!) // форс - плохо
+            case .max:
+                return Double(data.max()!) // форс - плохо
+            case .mean:
+                return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
+            }
+        } else {
+            return -1.0
+        }
+    }
+    
+    private func handleForQuantitySample(for indicator: IndicatorType, arr: [HKSample]?, for unit: HKUnit) -> Double {
+        if let quantityData = arr as? [HKQuantitySample] {
+            
+            let data = quantityData.map { $0.quantity.doubleValue(for: unit) }
+            
+            switch indicator {
+            case .min:
+                return data.min()! // форс - плохо
+            case .max:
+                return data.max()! // форс - плохо
+            case .mean:
+                return (data.reduce(0.0) { $0 + $1 }) / Double(data.count)
+            }
+        } else {
+            return -1.0
+        }
     }
 }

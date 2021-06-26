@@ -17,6 +17,7 @@
 		D96DBC552687302D00A0E018 /* HKCoreSleep.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC532687302D00A0E018 /* HKCoreSleep.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D96DBC582687303E00A0E018 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC572687303E00A0E018 /* HKVisualKit.framework */; };
 		D96DBC592687303E00A0E018 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC572687303E00A0E018 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D96DBC612687BF4D00A0E018 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DBC602687BF4D00A0E018 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		D96DBC4B2687127D00A0E018 /* SubProviders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubProviders.swift; sourceTree = "<group>"; };
 		D96DBC532687302D00A0E018 /* HKCoreSleep.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HKCoreSleep.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96DBC572687303E00A0E018 /* HKVisualKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HKVisualKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D96DBC602687BF4D00A0E018 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */,
 				D96DBC4B2687127D00A0E018 /* SubProviders.swift */,
 				D96DBC482687127D00A0E018 /* Enums.swift */,
+				D96DBC602687BF4D00A0E018 /* Extensions.swift */,
 			);
 			path = HKStatistics;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96DBC612687BF4D00A0E018 /* Extensions.swift in Sources */,
 				D96DBC4C2687127D00A0E018 /* Enums.swift in Sources */,
 				D96DBC4F2687127D00A0E018 /* SubProviders.swift in Sources */,
 				D96DBC4D2687127D00A0E018 /* Protocols.swift in Sources */,

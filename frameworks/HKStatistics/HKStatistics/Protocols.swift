@@ -10,10 +10,19 @@ import HKCoreSleep
 
 protocol HKStatistics {
     
+    // Функции работают с данными в рамках последнего сна
     func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double
     func getData(dataType: SleepDataType, for phasesStatType: PhasesStatisticsType) -> Double
-    func getDataByIntervalNumeric(dataType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, completion: (Double) -> ())
-    func getDataByIntervalNumeric(dataType: HKService.HealthType, for timeInterval: DateInterval, completion: (Double) -> ())
+    
+    // Функции предоставляют данные на заданном интервале времени
+    func getDataByIntervalWithIndicator(dataType: HKService.HealthType,
+                                        indicatorType: IndicatorType,
+                                        for timeInterval: DateInterval,
+                                        completion: @escaping (Double) -> ())
+    
+    func getDataByInterval(dataType: HKService.HealthType,
+                           for timeInterval: DateInterval,
+                           completion: @escaping ([Double]) -> ())
     
 }
 
