@@ -1,6 +1,5 @@
 import Foundation
 import XUI
-import HKCoreSleep
 
 // MARK: - Protocol
 
@@ -36,14 +35,14 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
 
     private let _filter: (CardType) -> Bool
 
-    private let hkStoreService: HKService
+    private let hkStoreService: HKStoreService
     private let cardService: CardService
     private unowned let parent: RootCoordinator
 
     // MARK: Initialization
 
     init(title: String,
-         hkStoreService: HKService,
+         hkStoreService: HKStoreService,
          cardService: CardService,
          parent: RootCoordinator,
          filter: @escaping (CardType) -> Bool) {
