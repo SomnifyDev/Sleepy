@@ -26,60 +26,52 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         let interval = DateInterval(start: startDate, end: endDate)
 
-        // TODO: это все исполняется в бекграунд потоках, нам нужно в главном + параллельно.
-        // TODO: Переделать этот момент, ибо heart, energy исполняются относительно долго
-        hkService?.readData(type: .asleep, interval: interval, completionHandler: { query1, asleepRaw, error1 in
-            self.hkService?.readData(type: .heart, interval: interval, completionHandler: { query2, heartRaw, error2 in
-                self.hkService?.readData(type: .energy, interval: interval, completionHandler: { query3, energyRaw, error3 in
-                    self.hkService?.readData(type: .inbed, interval: interval, completionHandler: { query4, inBedRaw, error4 in
-                        if error1 != nil || error2 != nil || error3 != nil || error4 != nil {
-                            completionHandler(nil)
-                            return
-                        }
+        getRawData(interval: interval) { _, asleepRaw, error1, _, heartRaw, error2, _, energyRaw, error3, _, inBedRaw, error4 in
+            if error1 != nil || error2 != nil || error3 != nil || error4 != nil {
+                completionHandler(nil)
+                return
+            }
 
-                        // иногда inbed или asleep может не быть - пытаемся обыграть эти кейсы
-                        if (inBedRaw ?? []).isEmpty && (asleepRaw ?? []).isEmpty {
-                            completionHandler(nil)
-                            return
-                        }
+            // иногда inbed или asleep может не быть - пытаемся обыграть эти кейсы
+            if (inBedRaw ?? []).isEmpty && (asleepRaw ?? []).isEmpty {
+                completionHandler(nil)
+                return
+            }
 
-                        let sleepData = self.detectSleep(inbedSamplesRaw: ((inBedRaw ?? []).isEmpty && !(asleepRaw ?? []).isEmpty) ? asleepRaw : inBedRaw,
-                                                         asleepSamplesRaw: ((asleepRaw ?? []).isEmpty && !(inBedRaw ?? []).isEmpty) ? inBedRaw : asleepRaw,
-                                                         heartSamplesRaw: heartRaw,
-                                                         energySamplesRaw: energyRaw)
+            let sleepData = self.detectSleep(inbedSamplesRaw: ((inBedRaw ?? []).isEmpty && !(asleepRaw ?? []).isEmpty) ? asleepRaw : inBedRaw,
+                                             asleepSamplesRaw: ((asleepRaw ?? []).isEmpty && !(inBedRaw ?? []).isEmpty) ? inBedRaw : asleepRaw,
+                                             heartSamplesRaw: heartRaw,
+                                             energySamplesRaw: energyRaw)
 
-                        if sleepData.error {
-                            completionHandler(nil)
-                            return
-                        }
+            if sleepData.error {
+                completionHandler(nil)
+                return
+            }
 
-                        guard let asleepInterval = sleepData.asleepInterval else {
-                            completionHandler(nil)
-                            return
-                        }
+            guard let asleepInterval = sleepData.asleepInterval else {
+                completionHandler(nil)
+                return
+            }
 
-                        guard let inbedInterval = sleepData.inbedInterval else {
-                            completionHandler(nil)
-                            return
-                        }
+            guard let inbedInterval = sleepData.inbedInterval else {
+                completionHandler(nil)
+                return
+            }
 
-                        let sleep =  Sleep(sleepInterval: asleepInterval,
-                                           inBedInterval: inbedInterval,
-                                           inBedSamples: sleepData.inBedSamples,
-                                           asleepSamples: sleepData.asleepSamples,
-                                           heartSamples: sleepData.heartSamples,
-                                           energySamples: sleepData.energySamples,
-                                           phases: nil)
+            let sleep =  Sleep(sleepInterval: asleepInterval,
+                               inBedInterval: inbedInterval,
+                               inBedSamples: sleepData.inBedSamples,
+                               asleepSamples: sleepData.asleepSamples,
+                               heartSamples: sleepData.heartSamples,
+                               energySamples: sleepData.energySamples,
+                               phases: nil)
 
-                        let phases = self.detectPhases(sleep: sleep)
+            let phases = self.detectPhases(sleep: sleep)
 
-                        sleep.phases = phases
+            sleep.phases = phases
 
-                        completionHandler(sleep)
-                    })
-                })
-            })
-        })
+            completionHandler(sleep)
+        }
     }
 
     // MARK: - Private methods
@@ -110,41 +102,37 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             return (nil, nil, nil, nil, nil, nil, true)
         }
 
-        let startDateBeforeAsleep: Date = firstAsleep.startDate
+        var startDateBeforeAsleep: Date = firstAsleep.startDate
 
         guard let firstInbed = inbedSamplesRaw.first as? HKCategorySample else {
             return (nil, nil, nil, nil, nil, nil, true)
         }
 
-        let startDateBeforeInbed: Date = firstInbed.startDate
+        var startDateBeforeInbed: Date = firstInbed.startDate
 
         // идем от самого нового сэмпла к старым (двигаемся в прошлое)
         for item in asleepSamplesRaw {
             if let sample = item as? HKCategorySample {
-                if sample.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
-                    if item == firstAsleep {
+                if sample == firstAsleep {
+                    asleepSamples.append(sample)
+                } else {
+                    if sample.endDate.minutes(from: startDateBeforeAsleep) <= 25 {
                         asleepSamples.append(sample)
-                    } else {
-                        if asleepSamples.last?.endDate.minutes(from: startDateBeforeAsleep) ?? Int.max <= 25 {
-                            // все еще наш сон, пополняем массив новым сэмплом
-                            asleepSamples.append(sample)
-                        } else { break }
-                    }
+                        startDateBeforeAsleep = sample.startDate
+                    } else { break }
                 }
             }
         }
 
         for item in inbedSamplesRaw {
             if let sample = item as? HKCategorySample {
-                if sample.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
-                    if item == firstInbed {
+                if sample == firstInbed {
+                    inBedSamples.append(sample)
+                } else {
+                    if sample.endDate.minutes(from: startDateBeforeInbed) <= 25 {
                         inBedSamples.append(sample)
-                    } else {
-                        if inBedSamples.last?.endDate.minutes(from: startDateBeforeInbed) ?? Int.max <= 25 {
-                            // все еще наш сон, пополняем массив новым сэмплом
-                            inBedSamples.append(sample)
-                        } else { break }
-                    }
+                        startDateBeforeInbed = sample.startDate
+                    } else { break }
                 }
             }
         }
@@ -152,7 +140,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         if inBedSamples.isEmpty || asleepSamples.isEmpty {
             return (nil, nil, nil, nil, nil, nil, true)
         }
-
+        
         assert(!inBedSamples.isEmpty, "InBed Samples should not be empty")
         assert(!asleepSamples.isEmpty, "Asleep Samples should not be empty")
 
@@ -177,6 +165,86 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
     private func detectPhases(sleep: Sleep) -> [Phase]? {
         // TODO: - Implement detect phases algo
         return []
+    }
+
+    /// Func that gets all raw data samples for provider to star analysis
+    /// - Parameters:
+    ///   - interval: date interval for samples to extract from
+    ///   - completion: result with samples and errors if so occured
+    func getRawData(interval: DateInterval, completion: @escaping((HKSampleQuery?, [HKSample]?, Error?, // asleep
+                                                                HKSampleQuery?, [HKSample]?, Error?, // heart
+                                                                HKSampleQuery?, [HKSample]?, Error?, // energy
+                                                                HKSampleQuery?, [HKSample]?, Error?) // inbed
+                                                               -> Void)) {
+        var query1: HKSampleQuery?
+        var samples1: [HKSample]?
+        var error1: Error?
+
+        var query2: HKSampleQuery?
+        var samples2: [HKSample]?
+        var error2: Error?
+
+        var query3: HKSampleQuery?
+        var samples3: [HKSample]?
+        var error3: Error?
+
+        var query4: HKSampleQuery?
+        var samples4: [HKSample]?
+        var error4: Error?
+
+        let group = DispatchGroup()
+
+        group.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.hkService?.readData(type: .asleep, interval: interval, bundlePrefix: "com.apple", completionHandler: { query, samplesRaw, error in
+                query1 = query
+                samples1 = samplesRaw
+                error1 = error
+
+                group.leave()
+            })
+        }
+
+        group.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.hkService?.readData(type: .heart, interval: interval, completionHandler: { query, samplesRaw, error in
+                query2 = query
+                samples2 = samplesRaw
+                error2 = error
+
+                group.leave()
+            })
+        }
+
+        group.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.hkService?.readData(type: .energy, interval: interval, completionHandler: { query, samplesRaw, error in
+                query3 = query
+                samples3 = samplesRaw
+                error3 = error
+
+                group.leave()
+            })
+        }
+
+        group.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.hkService?.readData(type: .inbed, interval: interval, bundlePrefix: "com.apple", completionHandler: { query, samplesRaw, error in
+                query4 = query
+                samples4 = samplesRaw
+                error4 = error
+
+                group.leave()
+            })
+        }
+
+        group.notify(queue: .global(qos: .default)) {
+            completion(query1, samples1, error1,
+                       query2, samples2, error2,
+                       query3, samples3, error3,
+                       query4, samples4, error4)
+        }
+
     }
 
 }
