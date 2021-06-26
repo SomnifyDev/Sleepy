@@ -172,10 +172,10 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
     ///   - interval: date interval for samples to extract from
     ///   - completion: result with samples and errors if so occured
     func getRawData(interval: DateInterval, completion: @escaping((HKSampleQuery?, [HKSample]?, Error?, // asleep
-                                                                HKSampleQuery?, [HKSample]?, Error?, // heart
-                                                                HKSampleQuery?, [HKSample]?, Error?, // energy
-                                                                HKSampleQuery?, [HKSample]?, Error?) // inbed
-                                                               -> Void)) {
+                                                                   HKSampleQuery?, [HKSample]?, Error?, // heart
+                                                                   HKSampleQuery?, [HKSample]?, Error?, // energy
+                                                                   HKSampleQuery?, [HKSample]?, Error?) // inbed
+                                                                  -> Void)) {
         var query1: HKSampleQuery?
         var samples1: [HKSample]?
         var error1: Error?
