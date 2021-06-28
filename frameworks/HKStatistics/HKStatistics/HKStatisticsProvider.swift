@@ -9,6 +9,23 @@ import Foundation
 import HKCoreSleep
 import HealthKit
 
+protocol HKStatistics {
+
+    func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double
+    func getData(for phasesStatType: PhasesStatisticsType) -> Int
+    func getData(for sleepStatType: SleepStatType) -> Int
+
+    func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
+                                        indicatorType: IndicatorType,
+                                        for timeInterval: DateInterval,
+                                        completion: @escaping (Double) -> ())
+
+    func getDataByInterval(healthType: HKService.HealthType,
+                           for timeInterval: DateInterval,
+                           completion: @escaping ([Double]) -> ())
+
+}
+
 final class HKStatisticsProvider: HKStatistics {
     
     // MARK: Properties
