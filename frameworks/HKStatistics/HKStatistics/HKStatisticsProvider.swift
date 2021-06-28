@@ -9,7 +9,7 @@ import Foundation
 import HKCoreSleep
 import HealthKit
 
-protocol HKStatistics {
+public protocol HKStatistics {
 
     func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double
     func getData(for phasesStatType: PhasesStatisticsType) -> Int
@@ -26,7 +26,7 @@ protocol HKStatistics {
 
 }
 
-final class HKStatisticsProvider: HKStatistics {
+public final class HKStatisticsProvider: HKStatistics {
     
     // MARK: Properties
     
@@ -42,7 +42,7 @@ final class HKStatisticsProvider: HKStatistics {
     
     // MARK: Initialization
     
-    init(sleep: Sleep, healthService: HKService) {
+    public init(sleep: Sleep, healthService: HKService) {
         self.sleep = sleep
         self.healthService = healthService
     }
@@ -50,29 +50,29 @@ final class HKStatisticsProvider: HKStatistics {
     // MARK: Functions
 
     /// Возвращает данные по сегодняшнему сну: сердцебиение, энергия с переданным индиктором
-    func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double {
+    public func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double {
         return numericTypesStatisticsProvider.handlingStatistic(for: dataType, of: indicatorType, sleep: sleep)
     }
 
     /// Возвращает данные по фазам по сегодняшнему сну, параметр типа статистики
-    func getData(for phasesStatType: PhasesStatisticsType) -> Int {
+    public func getData(for phasesStatType: PhasesStatisticsType) -> Int {
         return phasesStatisticsProvider.handlingStatistic(of: phasesStatType, for: sleep.phases)
     }
 
     /// Возвращает длительность сна за сегодня
-    func getData(for sleepStatType: SleepStatType) -> Int {
+    public func getData(for sleepStatType: SleepStatType) -> Int {
         return sleepStatisticsProvider.handlingStatistics(for: sleepStatType, sleep: sleep)
     }
 
     /// Возвращает значение по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
-    func getDataByIntervalWithIndicator(healthType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, completion: @escaping (Double) -> ()) {
+    public func getDataByIntervalWithIndicator(healthType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, completion: @escaping (Double) -> ()) {
         healthService.readData(type: healthType, interval: timeInterval, ascending: true) { _, sleepData, error in
             completion(self.generalStatisticsProvider.getDataByIntervalWithIndicator(for: healthType, for: indicatorType, sleepData: sleepData))
         }
     }
 
     /// Возвращает значение по любому типу здоровья в нужном интервале времени (без индикатора)
-    func getDataByInterval(healthType: HKService.HealthType, for timeInterval: DateInterval, completion: @escaping ([Double]) -> ()) {
+    public func getDataByInterval(healthType: HKService.HealthType, for timeInterval: DateInterval, completion: @escaping ([Double]) -> ()) {
         healthService.readData(type: healthType, interval: timeInterval, ascending: true) { _, sleepData, error in
             completion(self.generalStatisticsProvider.getDataByInterval(for: healthType, sleepData: sleepData))
         }

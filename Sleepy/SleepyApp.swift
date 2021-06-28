@@ -7,7 +7,6 @@ struct SleepyApp: App {
 
     // MARK: Stored Properties
 
-    let hkstatistics: HKStatistics
     let hkService: HKService
     let cardService: CardService
     let sleepDetectionProvider: HKSleepAppleDetectionProvider
@@ -21,7 +20,7 @@ struct SleepyApp: App {
 
         // инициализация сервисов, которые будут необходимы экранам и подэкранам
         hkService = HKService()
-        hkstatistics = HKStatistics()
+
         sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
 
         cardService = CardService()

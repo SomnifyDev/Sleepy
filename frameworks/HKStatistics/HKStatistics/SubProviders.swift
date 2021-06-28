@@ -14,14 +14,14 @@ final class HKGenrealStatisticsProvider {
     func getDataByInterval(for healthType: HKService.HealthType, sleepData: [HKSample]?) -> [Double] {
         switch healthType {
         case .energy:
-            if let en_data = sleepData as? [HKQuantitySample] {
-                let data = en_data.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
+            if let energyData = sleepData as? [HKQuantitySample] {
+                let data = energyData.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
                 return data
             }
 
         case .heart:
-            if let heart_data = sleepData as? [HKQuantitySample] {
-                let data = heart_data.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
+            if let heartData = sleepData as? [HKQuantitySample] {
+                let data = heartData.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
                 return data
             }
 
