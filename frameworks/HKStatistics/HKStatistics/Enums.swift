@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum IndicatorType {
+public enum IndicatorType {
     
     case min
     case max
@@ -15,21 +15,21 @@ enum IndicatorType {
     
 }
 
-enum NumericDataType {
+public enum NumericDataType {
     
     case heart
     case energy
     
 }
 
-enum SleepStatType {
+public enum SleepStatType {
     
     case asleep
     case inBed
     
 }
 
-enum PhasesStatisticsType {
+public enum PhasesStatisticsType {
     
     case deepPhaseTime
     case lightPhaseTime
@@ -38,7 +38,7 @@ enum PhasesStatisticsType {
     
 }
 
-enum PhaseCondition {
+public enum PhaseCondition {
     
     case deepPhase
     case lightPhase

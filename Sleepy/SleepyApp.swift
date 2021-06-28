@@ -1,5 +1,6 @@
 import SwiftUI
 import HKCoreSleep
+import HKStatistics
 
 @main
 struct SleepyApp: App {
@@ -19,6 +20,7 @@ struct SleepyApp: App {
 
         // инициализация сервисов, которые будут необходимы экранам и подэкранам
         hkService = HKService()
+
         sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
 
         cardService = CardService()
