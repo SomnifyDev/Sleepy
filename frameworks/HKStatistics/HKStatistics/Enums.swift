@@ -22,10 +22,10 @@ enum NumericDataType {
     
 }
 
-enum SleepDataType {
+enum SleepStatType {
     
-    case sleep
-    case phases
+    case asleep
+    case inBed
     
 }
 
