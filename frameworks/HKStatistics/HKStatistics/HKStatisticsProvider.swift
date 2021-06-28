@@ -74,8 +74,29 @@ final class HKStatisticsProvider: HKStatistics {
     }
     
     func getDataByInterval(dataType: HKService.HealthType, for timeInterval: DateInterval, completion: @escaping ([Double]) -> ()) {
-        
+        healthService.readData(type: dataType, interval: timeInterval, ascending: true) { _, sleepData, error in
+            switch dataType {
+            case .energy:
+                if let en_data = sleepData as? [HKQuantitySample] {
+                    let data = en_data.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
+                    completion(data)
+                }
+
+            case .heart:
+                if let heart_data = sleepData as? [HKQuantitySample] {
+                    let data = heart_data.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
+                    completion(data)
+                }
+
+            case .asleep, .inbed:
+                if let categData = sleepData as? [HKCategorySample] {
+                    let data = categData.map { Double($0.endDate.minutes(from: $0.startDate)) }
+                    completion(data)
+                }
+            }
+        }
     }
+
     
     private func handleForCategorySample(for indicator: IndicatorType, arr: [HKSample]?) -> Double {
         if let categData = arr as? [HKCategorySample] {
