@@ -66,7 +66,7 @@ struct StandardChartView: View {
     }
 
     private func getPhaseColor(for value: Double) -> Color {
-        return value < 0.55 ? colorProvider.sleepyColorScheme.deepSleepColor : value > 1 ? colorProvider.sleepyColorScheme.awakeColor : colorProvider.sleepyColorScheme.lightSleepColor
+        return value < 0.55 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)) : value > 1 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.wakeUpColor)) : colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))
     }
 
     private func getDrugGesture() -> some Gesture {

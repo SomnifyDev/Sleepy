@@ -21,30 +21,30 @@ public protocol HKApplicationColorScheme {
 public final class SleepyColorScheme: HKApplicationColorScheme {
 
     // general
-    var appBackgroundColor: Color
-    var mainSleepyColor: Color
-    var healthColor: Color
+    private var appBackgroundColor: Color
+    private var mainSleepyColor: Color
+    private var healthColor: Color
 
     // cards
-    var cardBackgroundColor: Color
+    private var cardBackgroundColor: Color
 
     // calendar
-    var emptyDayColor: Color
-    var negativeDayColor: Color
-    var neutralDayColor: Color
-    var positiveDayColor: Color
+    private var emptyDayColor: Color
+    private var negativeDayColor: Color
+    private var neutralDayColor: Color
+    private var positiveDayColor: Color
 
     // phases
-    var wakeUpColor: Color
-    var lightSleepColor: Color
-    var deepSleepColor: Color
+    private var wakeUpColor: Color
+    private var lightSleepColor: Color
+    private var deepSleepColor: Color
 
     // heart
-    var heartColor: Color
+    private var heartColor: Color
 
     // genInfoCard
-    var awakeColor: Color
-    var moonColor: Color
+    private var awakeColor: Color
+    private var moonColor: Color
 
     // MARK: init
     
