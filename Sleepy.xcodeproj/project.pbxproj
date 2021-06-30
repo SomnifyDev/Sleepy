@@ -31,7 +31,7 @@
 		80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B7268C71EE0055ECEE /* CalendarView.swift */; };
 		80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B9268C75D80055ECEE /* Date+Components.swift */; };
 		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
-		80D7F0BE268CF7A30055ECEE /* TagCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* TagCloudView.swift */; };
+		80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */; };
 		80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */; };
 		C5562385977B9BE864A30123 /* Pods_Sleepy_SleepyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
@@ -206,7 +206,7 @@
 		80D7F0B7268C71EE0055ECEE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		80D7F0B9268C75D80055ECEE /* Date+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
 		80D7F0BB268C77050055ECEE /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
-		80D7F0BD268CF7A30055ECEE /* TagCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCloudView.swift; sourceTree = "<group>"; };
+		80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTypeSwitchView.swift; sourceTree = "<group>"; };
 		80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		8867A2F399E527D317B7896E /* Pods-Sleepy-SleepyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-SleepyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy_WatchOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -426,7 +426,7 @@
 			children = (
 				80D7F0B7268C71EE0055ECEE /* CalendarView.swift */,
 				80D7F0BB268C77050055ECEE /* CalendarDayView.swift */,
-				80D7F0BD268CF7A30055ECEE /* TagCloudView.swift */,
+				80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1085,7 +1085,7 @@
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
-				80D7F0BE268CF7A30055ECEE /* TagCloudView.swift in Sources */,
+				80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */,
 				801505A726713DBF007574B9 /* HeartCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

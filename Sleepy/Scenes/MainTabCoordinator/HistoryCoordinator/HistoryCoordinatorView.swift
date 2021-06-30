@@ -20,8 +20,8 @@ struct HistoryCoordinatorView: View {
     // MARK: Views
     
     var body: some View {
-        CalendarView(colorSchemeProvider: coordinator.colorSchemeProvider,
-                     statsProvider: coordinator.statisticsProvider, calendarType: $calendarType)
+        CalendarView(calendarType: $calendarType, colorSchemeProvider: coordinator.colorSchemeProvider,
+                     statsProvider: coordinator.statisticsProvider)
     }
     
 }

@@ -1,13 +1,12 @@
 import SwiftUI
 import HKVisualKit
 
-struct TagCloudView: View {
+struct HealthTypeSwitchView: View {
 
     @Binding var selectedType: HealthData
 
     var colorScheme: SleepyColorScheme
-    @State private var totalHeight
-    = CGFloat.zero       // << variant for ScrollView/List
+    @State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
     //    = CGFloat.infinity   // << variant for VStack
 
     var body: some View {
@@ -35,7 +34,7 @@ struct TagCloudView: View {
                         }
 
                         let result = width
-                        
+
                         if tag == HealthData.allCases.last! {
                             width = 0 //last item
                         } else {
@@ -60,14 +59,25 @@ struct TagCloudView: View {
             .font(.body)
             .foregroundColor(type == selectedType  ? .white : .black)
             .background(type == selectedType
-                        ? ( type == .sleep
-                            ? colorScheme.getColor(of: .general(.mainSleepyColor))
-                            : colorScheme.getColor(of: .heart(.heartColor)))
+                        ? getSelectedItemColor(for: type)
                         : colorScheme.getColor(of: .calendar(.emptyDayColor)))
             .cornerRadius(12)
             .onTapGesture {
                 selectedType = type
             }
+    }
+
+    private func getSelectedItemColor(for type: HealthData) -> Color {
+        switch type {
+        case .heart:
+            return colorScheme.getColor(of: .heart(.heartColor))
+        case .energy:
+            return colorScheme.getColor(of: .energy(.energyColor))
+        case .sleep:
+            return colorScheme.getColor(of: .general(.mainSleepyColor))
+        case .inbed:
+            return colorScheme.getColor(of: .general(.mainSleepyColor))
+        }
     }
 
     private func getItemDescription(for type: HealthData) -> String {

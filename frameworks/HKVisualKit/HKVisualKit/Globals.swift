@@ -17,6 +17,7 @@ public enum ColorType {
     case card(CardColors)
     case phases(PhasesColors)
     case heart(HeartColors)
+    case energy(EnergyColors)
     case calendar(CalendarColors)
     case genInfoCardColors(GenInfoCardColors)
 
@@ -45,6 +46,10 @@ public enum ColorType {
 
     public enum HeartColors {
         case heartColor
+    }
+
+    public enum EnergyColors {
+        case energyColor
     }
 
     public enum GenInfoCardColors {
