@@ -12,7 +12,7 @@ import SwiftUI
 ///     - width: ширина элемента
 ///     - height: высота элементе
 ///     - color: цвет отображения
-struct StandartChartElementView: View {
+struct StandardChartElementView: View {
 
     private let cornerRadius: Double = 50
 
@@ -28,8 +28,8 @@ struct StandartChartElementView: View {
     }
 }
 
-struct StandartChartElementView_Previews: PreviewProvider {
+struct StandardChartElementView_Previews: PreviewProvider {
     static var previews: some View {
-        StandartChartElementView(width: 15, height: 30, color: .green)
+        StandardChartElementView(width: 15, height: 30, color: .green)
     }
 }

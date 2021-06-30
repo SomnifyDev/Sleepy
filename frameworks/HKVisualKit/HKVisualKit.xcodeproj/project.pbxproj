@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F24266CE484000D0DD9 /* ErrorView.swift */; };
-		80780F2B266CF125000D0DD9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F2A266CF125000D0DD9 /* Globals.swift */; };
+		80780F2B266CF125000D0DD9 /* ColorsGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F2A266CF125000D0DD9 /* ColorsGlobals.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
 		80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */; };
-		D987897D268B64F800598C4A /* StandartChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987897C268B64F800598C4A /* StandartChartElementView.swift */; };
+		D96FFDF4268D0CD400B757CD /* ChartsGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96FFDF3268D0CD400B757CD /* ChartsGlobals.swift */; };
+		D987897D268B64F800598C4A /* StandardChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987897C268B64F800598C4A /* StandardChartElementView.swift */; };
 		D987897F268B652500598C4A /* SleepBankElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987897E268B652500598C4A /* SleepBankElementView.swift */; };
 		D9878981268B654100598C4A /* CircleChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878980268B654100598C4A /* CircleChartElementView.swift */; };
-		D9878984268B731900598C4A /* StandartChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878983268B731900598C4A /* StandartChartView.swift */; };
+		D9878984268B731900598C4A /* StandardChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878983268B731900598C4A /* StandardChartView.swift */; };
 		D9878987268BA34A00598C4A /* CirclesHeartChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */; };
-		D9878989268BA37B00598C4A /* ChartsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878988268BA37B00598C4A /* ChartsProvider.swift */; };
 		D987898B268BA6D600598C4A /* SleepBankChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987898A268BA6D600598C4A /* SleepBankChartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,15 +24,15 @@
 		80780F0F266CE39F000D0DD9 /* HKVisualKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HKVisualKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80780F13266CE39F000D0DD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80780F24266CE484000D0DD9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		80780F2A266CF125000D0DD9 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		80780F2A266CF125000D0DD9 /* ColorsGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsGlobals.swift; sourceTree = "<group>"; };
 		80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
 		80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyColorScheme.swift; sourceTree = "<group>"; };
-		D987897C268B64F800598C4A /* StandartChartElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandartChartElementView.swift; sourceTree = "<group>"; };
+		D96FFDF3268D0CD400B757CD /* ChartsGlobals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsGlobals.swift; sourceTree = "<group>"; };
+		D987897C268B64F800598C4A /* StandardChartElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardChartElementView.swift; sourceTree = "<group>"; };
 		D987897E268B652500598C4A /* SleepBankElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepBankElementView.swift; sourceTree = "<group>"; };
 		D9878980268B654100598C4A /* CircleChartElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChartElementView.swift; sourceTree = "<group>"; };
-		D9878983268B731900598C4A /* StandartChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandartChartView.swift; sourceTree = "<group>"; };
+		D9878983268B731900598C4A /* StandardChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardChartView.swift; sourceTree = "<group>"; };
 		D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesHeartChartView.swift; sourceTree = "<group>"; };
-		D9878988268BA37B00598C4A /* ChartsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsProvider.swift; sourceTree = "<group>"; };
 		D987898A268BA6D600598C4A /* SleepBankChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepBankChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,7 +66,7 @@
 		80780F11266CE39F000D0DD9 /* HKVisualKit */ = {
 			isa = PBXGroup;
 			children = (
-				D987897B268B64C500598C4A /* ChartsProvider */,
+				D987897B268B64C500598C4A /* Charts */,
 				80C0266B2670FACA00FAA125 /* Colors */,
 				80780F23266CE442000D0DD9 /* Errors */,
 				80780F13266CE39F000D0DD9 /* Info.plist */,
@@ -85,41 +85,33 @@
 		80C0266B2670FACA00FAA125 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				80780F2A266CF125000D0DD9 /* Globals.swift */,
+				80780F2A266CF125000D0DD9 /* ColorsGlobals.swift */,
 				80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */,
 				80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
 		};
-		D987897B268B64C500598C4A /* ChartsProvider */ = {
+		D987897B268B64C500598C4A /* Charts */ = {
 			isa = PBXGroup;
 			children = (
-				D9878988268BA37B00598C4A /* ChartsProvider.swift */,
-				D9878985268B738B00598C4A /* Charts */,
+				D9878983268B731900598C4A /* StandardChartView.swift */,
+				D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */,
+				D987898A268BA6D600598C4A /* SleepBankChartView.swift */,
 				D9878982268B657200598C4A /* ChartsElements */,
+				D96FFDF3268D0CD400B757CD /* ChartsGlobals.swift */,
 			);
-			path = ChartsProvider;
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		D9878982268B657200598C4A /* ChartsElements */ = {
 			isa = PBXGroup;
 			children = (
-				D987897C268B64F800598C4A /* StandartChartElementView.swift */,
+				D987897C268B64F800598C4A /* StandardChartElementView.swift */,
 				D9878980268B654100598C4A /* CircleChartElementView.swift */,
 				D987897E268B652500598C4A /* SleepBankElementView.swift */,
 			);
 			path = ChartsElements;
-			sourceTree = "<group>";
-		};
-		D9878985268B738B00598C4A /* Charts */ = {
-			isa = PBXGroup;
-			children = (
-				D9878983268B731900598C4A /* StandartChartView.swift */,
-				D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */,
-				D987898A268BA6D600598C4A /* SleepBankChartView.swift */,
-			);
-			path = Charts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,16 +192,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9878984268B731900598C4A /* StandartChartView.swift in Sources */,
+				D9878984268B731900598C4A /* StandardChartView.swift in Sources */,
 				80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */,
 				D9878981268B654100598C4A /* CircleChartElementView.swift in Sources */,
 				D9878987268BA34A00598C4A /* CirclesHeartChartView.swift in Sources */,
-				80780F2B266CF125000D0DD9 /* Globals.swift in Sources */,
-				D9878989268BA37B00598C4A /* ChartsProvider.swift in Sources */,
+				80780F2B266CF125000D0DD9 /* ColorsGlobals.swift in Sources */,
 				D987897F268B652500598C4A /* SleepBankElementView.swift in Sources */,
-				D987897D268B64F800598C4A /* StandartChartElementView.swift in Sources */,
+				D987897D268B64F800598C4A /* StandardChartElementView.swift in Sources */,
 				D987898B268BA6D600598C4A /* SleepBankChartView.swift in Sources */,
 				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
+				D96FFDF4268D0CD400B757CD /* ChartsGlobals.swift in Sources */,
 				80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

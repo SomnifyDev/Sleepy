@@ -29,8 +29,7 @@ struct CircleChartElementView: View {
         if current > mean {
             topSpacerHeight = 0
             bottomSpacerHeight = 85 * (current - mean)/(max - mean)
-        }
-        else if current < mean {
+        } else if current < mean {
             topSpacerHeight = 85 * abs(current - mean)/(max - mean)
             bottomSpacerHeight = 0
         }
