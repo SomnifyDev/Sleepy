@@ -1,10 +1,3 @@
-//
-//  CirclesHeartChartView.swift
-//  HKVisualKit
-//
-//  Created by Анас Бен Мустафа on 6/29/21.
-//
-
 import SwiftUI
 
 /// График с кружочками (для сердца)

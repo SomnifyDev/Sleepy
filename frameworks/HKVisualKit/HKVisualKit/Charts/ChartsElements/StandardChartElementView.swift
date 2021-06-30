@@ -1,10 +1,3 @@
-//
-//  StandartChartElement.swift
-//  HKVisualKit
-//
-//  Created by Анас Бен Мустафа on 6/29/21.
-//
-
 import SwiftUI
 
 /// Стандартный элемент графика (фазы, сердце)
