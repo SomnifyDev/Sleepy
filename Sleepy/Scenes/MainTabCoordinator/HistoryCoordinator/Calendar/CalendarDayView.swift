@@ -7,18 +7,10 @@ struct CalendarDayView: View {
 
     @State private var description = ""
 
-    private let colorScheme: SleepyColorScheme
-    private let type: HealthData
-    private let statsProvider: HKStatisticsProvider
-    private let date: Date
-
-    init(colorScheme: SleepyColorScheme, type: HealthData, date: Date,
-         statsProvider: HKStatisticsProvider) {
-        self.colorScheme = colorScheme
-        self.type = type
-        self.date = date
-        self.statsProvider = statsProvider
-    }
+    let colorScheme: SleepyColorScheme
+    @Binding var type: HealthData
+    let statsProvider: HKStatisticsProvider
+    let date: Date
 
     var body: some View {
         GeometryReader { geometry in
@@ -29,7 +21,11 @@ struct CalendarDayView: View {
                     .font(.system(size: geometry.size.height > geometry.size.width
                                   ? geometry.size.width * 0.4
                                   : geometry.size.height * 0.4))
+                    .lineLimit(1)
                     .onAppear(perform: getDescription)
+                    .onChange(of: type) { _ in
+                        getDescription()
+                    }
             }
         }
     }
@@ -46,17 +42,20 @@ struct CalendarDayView: View {
         case .inbed:
             return colorScheme.getColor(of: .calendar(.neutralDayColor))
 
-        case .energy, .some:
-            return Color(UIColor())
+        case .energy:
+            return colorScheme.getColor(of: .calendar(.emptyDayColor))
 
         }
     }
 
     private func getDescription() {
+        description = ""
         switch type {
         case .heart:
             statsProvider.getDataByIntervalWithIndicator(healthType: .heart, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { value in
-                description = String(value)
+                if !value.isNaN {
+                    description = String(Int(value))
+                }
             }
 
         case .energy:
@@ -64,16 +63,17 @@ struct CalendarDayView: View {
 
         case .sleep:
             statsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { value in
-                description = String(value)
+                if !value.isNaN {
+                    description = Date.minutesToDateDescription(minutes: Int(value))
+                }
             }
 
         case .inbed:
             statsProvider.getDataByIntervalWithIndicator(healthType: .inbed, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { value in
-                description = String(value)
+                if !value.isNaN {
+                    description = Date.minutesToDateDescription(minutes: Int(value))
+                }
             }
-
-        case .some:
-            assertionFailure("not made yet for calendar")
 
         }
     }

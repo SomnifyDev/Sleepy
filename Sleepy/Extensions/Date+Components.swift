@@ -159,4 +159,12 @@ extension Date {
         return Int(df.string(from: self))!
     }
 
+    static func minutesToDateDescription(minutes: Int) -> String {
+        let hours = minutes / 60
+        let minutes = minutes % 60
+        let minutesStr = minutes > 9 ? String(minutes) : "0" + String(minutes)
+
+        return "\(hours):\(minutesStr)"
+    }
+
 }

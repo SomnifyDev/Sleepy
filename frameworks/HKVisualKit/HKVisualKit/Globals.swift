@@ -2,12 +2,11 @@ import Foundation
 
 // MARK: Health
 
-public enum HealthData {
+public enum HealthData: CaseIterable {
     case heart
     case energy
     case sleep
     case inbed
-    case some
 }
 
 // MARK: Colors
