@@ -3,8 +3,6 @@ import HealthKit
 
 public class HKService {
 
-    // TODO: вынести равные enum'ы которые используются в разных фреймворках в общее место
-
     public enum HealthType {
         case energy, heart, asleep, inbed
 
