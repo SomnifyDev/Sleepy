@@ -2,6 +2,8 @@ import Foundation
 import SwiftUI
 import XUI
 import HKCoreSleep
+import HKStatistics
+import HKVisualKit
 // all types of main tab bar windows
 enum TabBarTab: String {
     case summary
@@ -15,12 +17,17 @@ enum TabBarTab: String {
 protocol RootCoordinator: ViewModel {
     
     var tab: TabBarTab { get set }
-    
+
     var feedCoordinator: FeedNavigationCoordinator! { get }
     var historyCoordinator: HistoryCoordinator! { get }
     var alarmCoordinator: AlarmCoordinator! { get }
     var settingsCoordinator: SettingsCoordinator! { get }
-    
+
+    var colorSchemeProvider: ColorSchemeProvider { get }
+    var statisticsProvider: HKStatisticsProvider { get }
+    var hkStoreService: HKService { get }
+    var cardService: CardService { get }
+
     var openedURL: URL? { get set }
     
     func startDeepLink(from url: URL)
@@ -54,16 +61,20 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     @Published private(set) var historyCoordinator: HistoryCoordinator!
     @Published private(set) var alarmCoordinator: AlarmCoordinator!
     @Published private(set) var settingsCoordinator: SettingsCoordinator!
-    
-    private let hkStoreService: HKService
-    private let cardService: CardService
+
+    var colorSchemeProvider: ColorSchemeProvider
+    var statisticsProvider: HKStatisticsProvider
+    var hkStoreService: HKService
+    var cardService: CardService
     
     // MARK: Initialization
     
-    init(hkStoreService: HKService, cardService: CardService) {
+    init(colorSchemeProvider: ColorSchemeProvider, statisticsProvider: HKStatisticsProvider, hkStoreService: HKService, cardService: CardService) {
         // наш главный координатор таббара получил сервисы
-        self.hkStoreService = hkStoreService
+        self.colorSchemeProvider = colorSchemeProvider
+        self.statisticsProvider = statisticsProvider
         self.cardService = cardService
+        self.hkStoreService = hkStoreService
         
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
@@ -77,6 +88,8 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         
         self.historyCoordinator = HistoryCoordinatorImpl(
             title: "history",
+            colorSchemeProvider: colorSchemeProvider,
+            statisticsProvider: statisticsProvider,
             parent: self)
         
         self.alarmCoordinator = AlarmCoordinatorImpl(
@@ -97,6 +110,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     func startDeepLink(from url: URL) {
         if let scheme = url.scheme {
             switch scheme {
+                
             case "summary":
                 guard url.host == "card",
                       let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -106,16 +120,22 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
                       }
                 let cardType: CardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
                 openCard(for: cardType)
+
             case "history":
                 openTabView(of: .history)
+
             case "alarm":
                 openTabView(of: .alarm)
+
             case "settings":
                 openTabView(of: .settings)
+
             default:
                 assertionFailure("Trying to open app with illegal url \(url).")
-            }
-        } else { assertionFailure("Trying to open app with illegal url \(url).") }
+
+        } else {
+            assertionFailure("Trying to open app with illegal url \(url).")
+        }
     }
     
     // MARK: Private Methods

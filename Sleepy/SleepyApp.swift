@@ -1,6 +1,7 @@
 import SwiftUI
 import HKCoreSleep
 import HKStatistics
+import HKVisualKit
 
 @main
 struct SleepyApp: App {
@@ -9,10 +10,14 @@ struct SleepyApp: App {
 
     let hkService: HKService
     let cardService: CardService
+    let colorSchemeProvider: ColorSchemeProvider
     let sleepDetectionProvider: HKSleepAppleDetectionProvider
 
-    @StateObject var coordinator: RootCoordinatorImpl
+    @State var statisticsProvider: HKStatisticsProvider?
+    @State var coordinator: RootCoordinatorImpl?
+
     @State var hasOpenedURL = false
+    @State var canShowApp: Bool = false
 
     // MARK: Initialization
 
@@ -20,46 +25,48 @@ struct SleepyApp: App {
 
         // инициализация сервисов, которые будут необходимы экранам и подэкранам
         hkService = HKService()
-
+        colorSchemeProvider = ColorSchemeProvider()
         sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
-
         cardService = CardService()
-
-        // инициализация root-ового (главного координатора)
-        let coordinator = RootCoordinatorImpl(hkStoreService: hkService, cardService: cardService)
-        _coordinator = .init(wrappedValue: coordinator)
     }
 
     // MARK: Scenes
 
     var body: some Scene {
         WindowGroup {
-            // вью главного координатора (по сути это таб бар)
-            RootCoordinatorView(coordinator: coordinator)
-            // Handling deeplinks in iOS 14 with onOpenURL
-            // https://www.donnywals.com/handling-deeplinks-in-ios-14-with-onopenurl/
-            // TODO: make unique urls for Sleepy https://typesafely.substack.com/p/use-link-and-the-onopenurl-modifier
-                .onOpenURL { coordinator.startDeepLink(from: $0) }
-            // модификатор для дебага. При старте прилы симулируем deepLink
-                .onAppear {
-                    simulateURLOpening()
-
-                    sleepDetectionProvider.retrieveData { sleep in
-                        print("sleep")
-                        if let sleep = sleep {
-                            print(UTCToLocal(currentDate: sleep.sleepInterval.start))
-                            print(UTCToLocal(currentDate: sleep.sleepInterval.end))
-
-                            print("inbed")
-                            print(UTCToLocal(currentDate: sleep.inBedInterval.start))
-                            print(UTCToLocal(currentDate: sleep.inBedInterval.end))
-                        } else {
-                            print("sleep is nil")
-                        }
-
+            if (canShowApp){
+                // вью главного координатора (по сути это таб бар)
+                RootCoordinatorView(coordinator: coordinator!)
+                // Handling deeplinks in iOS 14 with onOpenURL
+                // https://www.donnywals.com/handling-deeplinks-in-ios-14-with-onopenurl/
+                // TODO: make unique urls for Sleepy https://typesafely.substack.com/p/use-link-and-the-onopenurl-modifier
+                    .onOpenURL { coordinator!.startDeepLink(from: $0) }
+                // модификатор для дебага. При старте прилы симулируем deepLink
+                    .onAppear {
+                        simulateURLOpening()
                     }
+            } else {
+                Text("Loading")
+                    .onAppear {
+                        sleepDetectionProvider.retrieveData { sleep in
+                            print("sleep")
+                            if let sleep = sleep {
+                                showDebugSleepDuration(sleep)
 
-                }
+                                statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService)
+
+                                // инициализация root-ового (главного координатора)
+                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService, cardService: cardService)
+
+                                // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
+                                canShowApp = true
+                            } else {
+                                print("sleep is nil")
+                            }
+
+                        }
+                    }
+            }
         }
     }
 
@@ -105,7 +112,7 @@ struct SleepyApp: App {
                   }
 
             // делегируем координатору открытие диплинка
-            coordinator.startDeepLink(from: url)
+            coordinator!.startDeepLink(from: url)
         }
 #endif
     }
@@ -120,6 +127,16 @@ struct SleepyApp: App {
         dateformat.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
 
         return dateformat.string(from: date)
+    }
+    
+
+    fileprivate func showDebugSleepDuration(_ sleep: Sleep) {
+        print(UTCToLocal(currentDate: sleep.sleepInterval.start))
+        print(UTCToLocal(currentDate: sleep.sleepInterval.end))
+
+        print("inbed")
+        print(UTCToLocal(currentDate: sleep.inBedInterval.start))
+        print(UTCToLocal(currentDate: sleep.inBedInterval.end))
     }
 
     private func UTCToLocal(currentDate: Date, format: String = "dd.MM.yyyy HH:mm") -> String {

@@ -28,6 +28,9 @@
 		808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; };
 		808FDF3F2685EB8000B38B78 /* HKCoreSleep.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF4A26861EFD00B38B78 /* HealthKit.framework */; };
+		80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B7268C71EE0055ECEE /* CalendarView.swift */; };
+		80D7F0BA268C75D80055ECEE /* Date+calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B9268C75D80055ECEE /* Date+calendar.swift */; };
+		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
 		C5562385977B9BE864A30123 /* Pods_Sleepy_SleepyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
 		D94419D5266CD3C50019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D4266CD3C50019902F /* Assets.xcassets */; };
@@ -198,6 +201,9 @@
 		808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKCoreSleep.xcodeproj; path = frameworks/HKCoreSleep/HKCoreSleep.xcodeproj; sourceTree = "<group>"; };
 		808FDF4926861EFD00B38B78 /* Sleepy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sleepy.entitlements; sourceTree = "<group>"; };
 		808FDF4A26861EFD00B38B78 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		80D7F0B7268C71EE0055ECEE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		80D7F0B9268C75D80055ECEE /* Date+calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+calendar.swift"; sourceTree = "<group>"; };
+		80D7F0BB268C77050055ECEE /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		8867A2F399E527D317B7896E /* Pods-Sleepy-SleepyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-SleepyUITests.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy_WatchOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF632548D612EE7E7D4A8586 /* Pods-Sleepy_WatchOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy_WatchOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy_WatchOSTests/Pods-Sleepy_WatchOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -397,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */,
+				80D7F0B9268C75D80055ECEE /* Date+calendar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -407,6 +414,15 @@
 				808FDF352685E48B00B38B78 /* HKCoreSleep.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		80D7F0B2268C71DA0055ECEE /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				80D7F0B7268C71EE0055ECEE /* CalendarView.swift */,
+				80D7F0BB268C77050055ECEE /* CalendarDayView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		882574914EFE6785A847CA1B /* Frameworks */ = {
@@ -567,6 +583,7 @@
 		D99509F426777D5800694208 /* HistoryCoordinator */ = {
 			isa = PBXGroup;
 			children = (
+				80D7F0B2268C71DA0055ECEE /* Calendar */,
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
 			);
@@ -1041,9 +1058,11 @@
 				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
 				80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */,
+				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
+				80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */,
 				D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */,
 				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
 				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
@@ -1056,6 +1075,7 @@
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
+				80D7F0BA268C75D80055ECEE /* Date+calendar.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
 				801505A726713DBF007574B9 /* HeartCardView.swift in Sources */,

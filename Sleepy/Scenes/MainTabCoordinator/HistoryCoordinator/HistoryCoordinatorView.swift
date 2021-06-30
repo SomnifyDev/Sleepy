@@ -18,7 +18,8 @@ struct HistoryCoordinatorView: View {
     // MARK: Views
     
     var body: some View {
-        Text("This is history view")
+        CalendarView(colorSchemeProvider: coordinator.colorSchemeProvider,
+                     statsProvider: coordinator.statisticsProvider)
     }
     
 }
