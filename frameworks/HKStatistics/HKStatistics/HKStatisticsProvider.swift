@@ -11,17 +11,19 @@ import HealthKit
 
 public protocol HKStatistics {
 
-    func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double
-    func getData(for phasesStatType: PhasesStatisticsType) -> Int
+    func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double?
+    func getData(for phasesStatType: PhasesStatisticsType) -> Int?
     func getData(for sleepStatType: SleepStatType) -> Int
 
     func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                         indicatorType: IndicatorType,
                                         for timeInterval: DateInterval,
-                                        completion: @escaping (Double) -> ())
+                                        bundlePrefix: String,
+                                        completion: @escaping (Double?) -> ())
 
     func getDataByInterval(healthType: HKService.HealthType,
                            for timeInterval: DateInterval,
+                           bundlePrefix: String,
                            completion: @escaping ([Double]) -> ())
 
 }
@@ -50,30 +52,30 @@ public final class HKStatisticsProvider: HKStatistics {
     // MARK: Functions
 
     /// Возвращает данные по сегодняшнему сну: сердцебиение, энергия с переданным индиктором
-    public func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double {
-        return numericTypesStatisticsProvider.handleStatistic(for: dataType, of: indicatorType, sleep: sleep)
+    public func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double? {
+        return numericTypesStatisticsProvider.handleNumericStatistic(for: dataType, of: indicatorType, sleep: sleep)
     }
 
     /// Возвращает данные по фазам по сегодняшнему сну, параметр типа статистики
-    public func getData(for phasesStatType: PhasesStatisticsType) -> Int {
-        return phasesStatisticsProvider.handleStatistic(of: phasesStatType, for: sleep.phases)
+    public func getData(for phasesStatType: PhasesStatisticsType) -> Int? {
+        return phasesStatisticsProvider.handlePhasesStatistic(of: phasesStatType, for: sleep.phases)
     }
 
     /// Возвращает длительность сна за сегодня
     public func getData(for sleepStatType: SleepStatType) -> Int {
-        return sleepStatisticsProvider.handleStatistics(for: sleepStatType, sleep: sleep)
+        return sleepStatisticsProvider.handleSleepStatistics(for: sleepStatType, sleep: sleep)
     }
 
     /// Возвращает значение по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
-    public func getDataByIntervalWithIndicator(healthType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, completion: @escaping (Double) -> Void) {
-        healthService.readData(type: healthType, interval: timeInterval, ascending: true) { _, sleepData, error in
+    public func getDataByIntervalWithIndicator(healthType: HKService.HealthType, indicatorType: IndicatorType, for timeInterval: DateInterval, bundlePrefix: String = "", completion: @escaping (Double?) -> Void) {
+        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefix: bundlePrefix) { _, sleepData, error in
             completion(self.generalStatisticsProvider.getDataByIntervalWithIndicator(for: healthType, for: indicatorType, sleepData: sleepData))
         }
     }
 
     /// Возвращает значение по любому типу здоровья в нужном интервале времени (без индикатора)
-    public func getDataByInterval(healthType: HKService.HealthType, for timeInterval: DateInterval, completion: @escaping ([Double]) -> Void) {
-        healthService.readData(type: healthType, interval: timeInterval, ascending: true) { _, sleepData, error in
+    public func getDataByInterval(healthType: HKService.HealthType, for timeInterval: DateInterval, bundlePrefix: String = "", completion: @escaping ([Double]) -> Void) {
+        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefix: bundlePrefix) { _, sleepData, error in
             completion(self.generalStatisticsProvider.getDataByInterval(for: healthType, sleepData: sleepData))
         }
     }
