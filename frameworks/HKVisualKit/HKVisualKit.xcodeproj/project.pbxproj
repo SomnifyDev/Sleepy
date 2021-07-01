@@ -11,6 +11,7 @@
 		80780F2B266CF125000D0DD9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F2A266CF125000D0DD9 /* Globals.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
 		80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */; };
+		80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		80780F2A266CF125000D0DD9 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
 		80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyColorScheme.swift; sourceTree = "<group>"; };
+		80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewModifiers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		80780F11266CE39F000D0DD9 /* HKVisualKit */ = {
 			isa = PBXGroup;
 			children = (
+				80D7F0C1268DC2440055ECEE /* New Group */,
 				80780F2A266CF125000D0DD9 /* Globals.swift */,
 				80C0266B2670FACA00FAA125 /* Colors */,
 				80780F23266CE442000D0DD9 /* Errors */,
@@ -75,6 +78,14 @@
 				80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		80D7F0C1268DC2440055ECEE /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +168,7 @@
 			files = (
 				80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */,
 				80780F2B266CF125000D0DD9 /* Globals.swift in Sources */,
+				80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */,
 				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
 				80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */,
 			);

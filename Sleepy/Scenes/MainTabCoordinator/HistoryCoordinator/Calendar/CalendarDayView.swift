@@ -6,24 +6,31 @@ import HKStatistics
 struct CalendarDayView: View {
 
     @Binding var type: HealthData
-    @Binding var currentDate: Date
+    @Binding var monthDate: Date
+    
     @State private var description = ""
     @State private var value: Double = 0
     @State private var circleColor: Color?
 
     let colorScheme: SleepyColorScheme
     let statsProvider: HKStatisticsProvider
+    let currentDate: Date
     let dateIndex: Int
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 Circle()
-                    //.strokeBorder(currentDate == date ? .yellow : .clear ,lineWidth: 2)
                     .foregroundColor(circleColor ?? colorScheme.getColor(of: .calendar(.emptyDayColor)))
 
+                if currentDate.getMonthInt() == monthDate.getMonthInt() &&
+                    currentDate.getDayInt() == dateIndex {
+                    Circle()
+                        .strokeBorder(colorScheme.getColor(of: .calendar(.calendarCurrentDateColor)), lineWidth: 3)
+                }
+
                 Text(description)
-                    .colorInvert()
+                    .foregroundColor(.white)
                     .font(.system(size: geometry.size.height > geometry.size.width
                                   ? geometry.size.width * 0.3
                                   : geometry.size.height * 0.3))
@@ -32,7 +39,7 @@ struct CalendarDayView: View {
                     .onChange(of: type) { _ in
                         getData()
                     }
-                    .onChange(of: currentDate) { _ in
+                    .onChange(of: monthDate) { _ in
                         getData()
                     }
             }
@@ -51,6 +58,7 @@ struct CalendarDayView: View {
             circleColor = colorScheme.getColor(of: .heart(.heartColor))
 
         case .sleep, .inbed:
+            // TODO: remove constants and use users desired sleep duration value instead
             circleColor = value > 480
             ? colorScheme.getColor(of: .calendar(.positiveDayColor))
             : (value > 360
@@ -64,8 +72,7 @@ struct CalendarDayView: View {
     }
 
     private func getData() {
-        let date = Calendar.current.date(byAdding: .day, value: dateIndex - currentDate.getDayInt(), to: currentDate) ?? Date()
-        print("GETTING DATA FOR \(date.getMonthString())")
+        let date = Calendar.current.date(byAdding: .day, value: dateIndex - monthDate.getDayInt(), to: monthDate) ?? Date()
 
         description = ""
         switch type {

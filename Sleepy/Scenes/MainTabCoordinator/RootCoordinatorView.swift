@@ -6,7 +6,7 @@ struct RootCoordinatorView: View {
     // MARK: Stored Properties
     
     @Store var coordinator: RootCoordinator
-    
+
     // MARK: Views
     
     var body: some View {
@@ -26,7 +26,7 @@ struct RootCoordinatorView: View {
             SettingsCoordinatorView(coordinator: coordinator.settingsCoordinator)
                 .tabItem { Label("settings", systemImage: "hare.fill") }
                 .tag(TabBarTab.settings)
-        }
+        }.foregroundColor(.white)
     }
     
 }

@@ -34,6 +34,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     private var negativeDayColor: Color
     private var neutralDayColor: Color
     private var positiveDayColor: Color
+    private var calendarCurrentDateColor: Color
 
     // phases
     private var wakeUpColor: Color
@@ -61,6 +62,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         negativeDayColor = Color("calendarNegativityColor")
         neutralDayColor = Color("calendarNeutralColor")
         positiveDayColor = Color("calendarPositivityColor")
+        calendarCurrentDateColor = Color("calendarCurrentDateColor")
         wakeUpColor = Color("wakingColor")
         lightSleepColor = Color("lightSleepColor")
         deepSleepColor = Color("deepSleepColor")
@@ -111,6 +113,8 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
             return neutralDayColor
         case .calendar(.positiveDayColor):
             return positiveDayColor
+        case .calendar(.calendarCurrentDateColor):
+            return calendarCurrentDateColor
 
             // general info card
         case .genInfoCardColors(.awakeColor):

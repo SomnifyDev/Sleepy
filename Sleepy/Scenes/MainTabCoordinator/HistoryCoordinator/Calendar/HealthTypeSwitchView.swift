@@ -36,7 +36,7 @@ struct HealthTypeSwitchView: View {
                         let result = width
 
                         if tag == HealthData.allCases.last! {
-                            width = 0 //last item
+                            width = 0
                         } else {
                             width -= d.width
                         }
@@ -45,7 +45,7 @@ struct HealthTypeSwitchView: View {
                     .alignmentGuide(.top, computeValue: {d in
                         let result = height
                         if tag == HealthData.allCases.last! {
-                            height = 0 // last item
+                            height = 0
                         }
                         return result
                     })
@@ -55,8 +55,10 @@ struct HealthTypeSwitchView: View {
 
     private func item(for type: HealthData) -> some View {
         Text(getItemDescription(for: type))
-            .padding(.all, 6)
-            .font(.body)
+            .padding([.top, .bottom], 6)
+            .padding([.leading, .trailing], 10)
+            .font(.system(size: 14).weight(.semibold))
+            .opacity(type == selectedType  ? 1 : 0.3)
             .foregroundColor(type == selectedType  ? .white : .black)
             .background(type == selectedType
                         ? getSelectedItemColor(for: type)
@@ -83,13 +85,13 @@ struct HealthTypeSwitchView: View {
     private func getItemDescription(for type: HealthData) -> String {
         switch type {
         case .heart:
-            return "heart rate"
+            return "Heart rate"
         case .energy:
-            return "energy wasted"
+            return "Energy waste"
         case .sleep:
-            return "sleep duration"
+            return "Sleep duration"
         case .inbed:
-            return "inbed duration"
+            return "Inbed duration"
         }
     }
 

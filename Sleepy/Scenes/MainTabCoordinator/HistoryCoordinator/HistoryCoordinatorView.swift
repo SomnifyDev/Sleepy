@@ -20,8 +20,17 @@ struct HistoryCoordinatorView: View {
     // MARK: Views
     
     var body: some View {
-        CalendarView(calendarType: $calendarType, colorSchemeProvider: coordinator.colorSchemeProvider,
-                     statsProvider: coordinator.statisticsProvider)
+        ScrollView(.vertical, showsIndicators: false) {
+            GeometryReader { geometry in
+                VStack(alignment: .center) {
+                    CalendarView(calendarType: $calendarType,
+                                 colorSchemeProvider: coordinator.colorSchemeProvider,
+                                 statsProvider: coordinator.statisticsProvider)
+                        .roundedCardBackground(color: coordinator.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                }
+            }
+        }.background(coordinator.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor)).edgesIgnoringSafeArea(.all))
+
     }
     
 }

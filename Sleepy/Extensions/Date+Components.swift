@@ -141,6 +141,11 @@ extension Date {
         return df.string(from: self)
     }
 
+    func getMonthInt() -> Int {
+        let index = Calendar.current.component(.month, from: self)
+        return index
+    }
+
     func getDayInt() -> Int {
         let df = DateFormatter()
         df.setLocalizedDateFormatFromTemplate("dd")

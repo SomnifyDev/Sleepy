@@ -36,6 +36,7 @@ public enum ColorType {
         case negativeDayColor
         case neutralDayColor
         case positiveDayColor
+        case calendarCurrentDateColor
     }
 
     public enum PhasesColors {
