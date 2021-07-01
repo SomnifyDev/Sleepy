@@ -26,7 +26,7 @@ struct RootCoordinatorView: View {
             SettingsCoordinatorView(coordinator: coordinator.settingsCoordinator)
                 .tabItem { Label("settings", systemImage: "hare.fill") }
                 .tag(TabBarTab.settings)
-        }.foregroundColor(.white)
+        }
     }
     
 }
