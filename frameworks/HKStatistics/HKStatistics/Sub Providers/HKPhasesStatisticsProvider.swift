@@ -4,11 +4,11 @@ import HealthKit
 
 final class HKPhasesStatisticsProvider {
 
-    func handleStatistic(of type: PhasesStatisticsType, for data: [Phase]?) -> Int {
+    func handlePhasesStatistic(of type: PhasesStatisticsType, for data: [Phase]?) -> Int? {
         guard let phasesData = data
         else {
-            assertionFailure("Phases array is probably nil")
-            return -1
+            print("Phases array is probably nil")
+            return nil
         }
 
         switch type {
@@ -21,10 +21,11 @@ final class HKPhasesStatisticsProvider {
                 partialResult + phase.interval.end.minutes(from: phase.interval.start)
             }
         case .mostIntervalInDeepPhase:
-            // TODO: @Anas remove force unwrapping
-            return phasesData.filter { $0.condition == .deep }.map { $0.interval.end.minutes(from: $0.interval.start) }.max()!
+            guard let max = phasesData.filter({ $0.condition == .deep }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max() else { return nil }
+            return max
         case .mostIntervalInLightPhase:
-            return phasesData.filter { $0.condition == .light }.map { $0.interval.end.minutes(from: $0.interval.start) }.max()!
+            guard let max = phasesData.filter({ $0.condition == .light }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max() else { return nil }
+            return max
         }
     }
 
