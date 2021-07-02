@@ -25,12 +25,16 @@ struct FeedListView: View {
 
     func containedView(card: CardType) -> AnyView {
         switch card {
+
         case .heart:
             return AnyView(HeartCardView().frame(height: 250))
+
         case .general:
             return AnyView(GeneralCardView().frame(height: 50))
+
         case .phases:
             return AnyView(PhasesCardView().frame(height: 150))
+
         }
     }
 

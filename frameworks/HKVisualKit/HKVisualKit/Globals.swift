@@ -2,12 +2,11 @@ import Foundation
 
 // MARK: Health
 
-public enum HealthData {
+public enum HealthData: CaseIterable {
     case heart
     case energy
     case sleep
     case inbed
-    case some
 }
 
 // MARK: Colors
@@ -18,6 +17,7 @@ public enum ColorType {
     case card(CardColors)
     case phases(PhasesColors)
     case heart(HeartColors)
+    case energy(EnergyColors)
     case calendar(CalendarColors)
     case genInfoCardColors(GenInfoCardColors)
 
@@ -36,6 +36,7 @@ public enum ColorType {
         case negativeDayColor
         case neutralDayColor
         case positiveDayColor
+        case calendarCurrentDateColor
     }
 
     public enum PhasesColors {
@@ -46,6 +47,10 @@ public enum ColorType {
 
     public enum HeartColors {
         case heartColor
+    }
+
+    public enum EnergyColors {
+        case energyColor
     }
 
     public enum GenInfoCardColors {

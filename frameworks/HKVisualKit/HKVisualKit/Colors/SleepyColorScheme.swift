@@ -4,6 +4,7 @@
 //
 //  Created by Анас Бен Мустафа on 6/9/21.
 //
+// TODO: - перенести asset'ы цветов из главной прилы внутрь фреймворма
 
 import Foundation
 import SwiftUI
@@ -33,6 +34,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     private var negativeDayColor: Color
     private var neutralDayColor: Color
     private var positiveDayColor: Color
+    private var calendarCurrentDateColor: Color
 
     // phases
     private var wakeUpColor: Color
@@ -41,6 +43,9 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
 
     // heart
     private var heartColor: Color
+
+    // energy
+    private var energyColor: Color
 
     // genInfoCard
     private var awakeColor: Color
@@ -57,19 +62,21 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         negativeDayColor = Color("calendarNegativityColor")
         neutralDayColor = Color("calendarNeutralColor")
         positiveDayColor = Color("calendarPositivityColor")
+        calendarCurrentDateColor = Color("calendarCurrentDateColor")
         wakeUpColor = Color("wakingColor")
         lightSleepColor = Color("lightSleepColor")
         deepSleepColor = Color("deepSleepColor")
         heartColor = Color("heartColor")
         awakeColor = Color("awakeColor")
         moonColor = Color("moonColor")
+        energyColor = Color("energyColor")
     }
 
     // MARK: Public methods
 
     public func getColor(of type: ColorType) -> Color {
         switch type {
-        // general
+            // general
         case .general(.appBackgroundColor):
             return appBackgroundColor
         case .general(.healthColor):
@@ -77,11 +84,11 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         case .general(.mainSleepyColor):
             return mainSleepyColor
 
-        // card
+            // card
         case .card(.cardBackgroundColor):
             return cardBackgroundColor
 
-        // phases
+            // phases
         case .phases(.deepSleepColor):
             return deepSleepColor
         case .phases(.lightSleepColor):
@@ -89,21 +96,27 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         case .phases(.wakeUpColor):
             return wakeUpColor
 
-        // heart
+            // heart
         case .heart(.heartColor):
             return heartColor
 
-        // calendar
+            // energy
+        case .energy(.energyColor):
+            return energyColor
+
+            // calendar
         case .calendar(.emptyDayColor):
             return emptyDayColor
         case .calendar(.negativeDayColor):
-            return emptyDayColor
+            return negativeDayColor
         case .calendar(.neutralDayColor):
-            return emptyDayColor
+            return neutralDayColor
         case .calendar(.positiveDayColor):
-            return emptyDayColor
+            return positiveDayColor
+        case .calendar(.calendarCurrentDateColor):
+            return calendarCurrentDateColor
 
-        // general info card
+            // general info card
         case .genInfoCardColors(.awakeColor):
             return awakeColor
         case .genInfoCardColors(.moonColor):

@@ -77,7 +77,8 @@ public class HKService {
                                            sortDescriptors: nil,
                                            resultsHandler: { query, samples, error in
             if error != nil || (samples ?? []).isEmpty {
-                completionHandler(false, error)
+                self.healthStore.requestAuthorization(toShare: self.writeDataTypes, read: self.readDataTypes, completion: completionHandler)
+                self.checkReadPermissions(type: type, completionHandler: completionHandler)
             } else {
                 completionHandler(true, error)
             }
