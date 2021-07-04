@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		805D750726921EA400C19034 /* CardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D750626921EA400C19034 /* CardTitleView.swift */; };
+		805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D750B2692216500C19034 /* CardBottomSimpleDescriptionView.swift */; };
+		805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D750E2692229700C19034 /* HorizontalStatisticCellView.swift */; };
+		805D751126922E9400C19034 /* ProgressChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751026922E9400C19034 /* ProgressChartView.swift */; };
 		80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F24266CE484000D0DD9 /* ErrorView.swift */; };
 		80780F2B266CF125000D0DD9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F2A266CF125000D0DD9 /* Globals.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		805D750626921EA400C19034 /* CardTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTitleView.swift; sourceTree = "<group>"; };
+		805D750B2692216500C19034 /* CardBottomSimpleDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBottomSimpleDescriptionView.swift; sourceTree = "<group>"; };
+		805D750E2692229700C19034 /* HorizontalStatisticCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStatisticCellView.swift; sourceTree = "<group>"; };
+		805D751026922E9400C19034 /* ProgressChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressChartView.swift; sourceTree = "<group>"; };
 		80780F0F266CE39F000D0DD9 /* HKVisualKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HKVisualKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80780F13266CE39F000D0DD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80780F24266CE484000D0DD9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -35,6 +43,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		805D750526921E9000C19034 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				805D750626921EA400C19034 /* CardTitleView.swift */,
+				805D750B2692216500C19034 /* CardBottomSimpleDescriptionView.swift */,
+				805D751026922E9400C19034 /* ProgressChartView.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		805D750D2692224400C19034 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				805D750E2692229700C19034 /* HorizontalStatisticCellView.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		80780F05266CE39F000D0DD9 = {
 			isa = PBXGroup;
 			children = (
@@ -54,7 +80,9 @@
 		80780F11266CE39F000D0DD9 /* HKVisualKit */ = {
 			isa = PBXGroup;
 			children = (
-				80D7F0C1268DC2440055ECEE /* New Group */,
+				805D750D2692224400C19034 /* Cells */,
+				805D750526921E9000C19034 /* Cards */,
+				80D7F0C1268DC2440055ECEE /* Modifiers */,
 				80780F2A266CF125000D0DD9 /* Globals.swift */,
 				80C0266B2670FACA00FAA125 /* Colors */,
 				80780F23266CE442000D0DD9 /* Errors */,
@@ -80,12 +108,12 @@
 			path = Colors;
 			sourceTree = "<group>";
 		};
-		80D7F0C1268DC2440055ECEE /* New Group */ = {
+		80D7F0C1268DC2440055ECEE /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
 				80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */,
 			);
-			path = "New Group";
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +195,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */,
+				805D750726921EA400C19034 /* CardTitleView.swift in Sources */,
+				805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */,
+				805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */,
+				805D751126922E9400C19034 /* ProgressChartView.swift in Sources */,
 				80780F2B266CF125000D0DD9 /* Globals.swift in Sources */,
 				80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */,
 				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
