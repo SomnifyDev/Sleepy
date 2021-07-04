@@ -55,7 +55,7 @@ final class HKGeneralStatisticsProvider {
                 guard let max = data.max() else { return nil }
                 return Double(max)
             case .mean:
-                guard data.count > 0 else { return nil }
+                if data.isEmpty { return nil }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
             }
         } else {
@@ -76,7 +76,7 @@ final class HKGeneralStatisticsProvider {
                 guard let max = data.max() else { return nil }
                 return Double(max)
             case .mean:
-                guard data.count > 0 else { return nil }
+                if data.isEmpty { return nil }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
             }
         } else {

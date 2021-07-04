@@ -26,7 +26,7 @@ final class HKNumericTypesStatisticsProvider {
                 guard let max = data.max() else { print("Couldn't get max from data in HKNumericTypesStatisticsProvider"); return nil }
                 return max
             case .mean:
-                guard data.count > 0 else { print("Data is nil in HKNumericTypesStatisticsProvider"); return nil }
+                if data.isEmpty { print("Data is nil in HKNumericTypesStatisticsProvider"); return nil }
                 return data.reduce(0.0) { $0 + $1 } / Double(data.count)
             }
         } else {
