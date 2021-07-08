@@ -6,13 +6,11 @@ import SwiftUI
 ///     - color: цвет отображения
 struct CirclesChartView: View {
 
-    private let colorProvider: ColorSchemeProvider
     private let dragGestureData: [String]?
     private let points: [Double]
     private let chartColor: Color
 
-    init(colorProvider: ColorSchemeProvider, points: [Double], dragGestureData: [String]?, chartColor: Color) {
-        self.colorProvider = colorProvider
+    init(points: [Double], dragGestureData: [String]?, chartColor: Color) {
         self.points = points
         self.dragGestureData = dragGestureData
         self.chartColor = chartColor
@@ -25,9 +23,15 @@ struct CirclesChartView: View {
                 let max = points.max()!
                 let mean = (max + min) / 2.0
                 ForEach(0 ..< points.count, id: \.self) { index in
-                    CircleChartElementView(max: max, min: min, mean: mean, current: points[index], circleColor: chartColor)
+                    CircleChartElementView(maximal: max, minimal: min, mean: mean, current: points[index], circleColor: chartColor, height: geometry.size.height, width: abs((geometry.size.width - 3 * CGFloat(points.count - 1))) / CGFloat(points.count))
                 }
             }
         }
+    }
+}
+
+struct CirclesChartView_Previews: PreviewProvider {
+    static var previews: some View {
+        CirclesChartView(points: [56, 32, 32, 23, 65, 65, 12, 12], dragGestureData: nil, chartColor: .red)
     }
 }

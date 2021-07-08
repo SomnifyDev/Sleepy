@@ -14,7 +14,6 @@ struct StandardChartView: View {
     private let needOXLine: Bool
     private let chartType: StandardChartType
     private let needDragGesture: Bool
-    private let maxHeightOfElement: CGFloat = 100
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
 
@@ -41,7 +40,7 @@ struct StandardChartView: View {
             VStack(alignment: .center) {
                 HStack(alignment: .bottom, spacing: chartSpacing) {
                     ForEach(0 ..< points.count, id: \.self) { index in
-                        let height = maxHeightOfElement * (points[index] / points.max()!)
+                        let height = geometry.size.height * (points[index] / points.max()!)
                         VStack {
                             getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
                             if needOXLine {
