@@ -73,7 +73,7 @@ struct StandardChartView: View {
         return DragGesture(minimumDistance: 3, coordinateSpace: .local)
             .onChanged { gesture in
                 if needDragGesture {
-                    // TODO: drag gesture
+                    // TODO drag gesture. Пока убил кучу времени - не знаю, как его сделать правильно
                 }
             }
     }

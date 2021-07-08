@@ -3,7 +3,7 @@ import SwiftUI
 /// Элемент для графика банка сна
 /// Параметры:
 ///     - sleepPercentage: процент сна за конкретный день, для которого нужно построить элемент
-struct SleepBankElementView: View {
+struct VerticalProgressElementView: View {
 
     private let standartHeight: Double = 100
     private let cornerRadius: Double = 50
@@ -31,8 +31,8 @@ struct SleepBankElementView: View {
     }
 }
 
-struct SleepBankElementView_Previews: PreviewProvider {
+struct VerticalProgressElementView_Previews: PreviewProvider {
     static var previews: some View {
-        SleepBankElementView(sleepPercentage: 70, color: .green)
+        VerticalProgressElementView(sleepPercentage: 70, color: .green)
     }
 }
