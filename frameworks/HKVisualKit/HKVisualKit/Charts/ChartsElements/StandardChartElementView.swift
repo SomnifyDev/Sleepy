@@ -25,9 +25,3 @@ struct StandardChartElementView: View {
             .cornerRadius(cornerRadius)
     }
 }
-
-struct StandardChartElementView_Previews: PreviewProvider {
-    static var previews: some View {
-        StandardChartElementView(width: 15, height: 30, color: .green)
-    }
-}

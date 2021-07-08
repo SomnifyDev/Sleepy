@@ -8,11 +8,11 @@ struct VerticalProgressElementView: View {
     private let standartHeight: Double = 100
     private let cornerRadius: Double = 50
     private let opacity: Double = 0.1
-    private let sleepPercentage: Double
+    private let percentage: Double
     private let color: Color
 
-    init(sleepPercentage: Double, color: Color) {
-        self.sleepPercentage = sleepPercentage
+    init(percentage: Double, color: Color) {
+        self.percentage = percentage
         self.color = color
     }
 
@@ -25,14 +25,8 @@ struct VerticalProgressElementView: View {
 
             Rectangle()
                 .fill(color)
-                .frame(height: min(sleepPercentage, standartHeight))
+                .frame(height: min(percentage, standartHeight))
                 .cornerRadius(cornerRadius)
         }
-    }
-}
-
-struct VerticalProgressElementView_Previews: PreviewProvider {
-    static var previews: some View {
-        VerticalProgressElementView(sleepPercentage: 70, color: .green)
     }
 }

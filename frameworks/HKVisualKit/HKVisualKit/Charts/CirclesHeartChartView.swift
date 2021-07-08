@@ -7,37 +7,27 @@ import SwiftUI
 struct CirclesChartView: View {
 
     private let colorProvider: ColorSchemeProvider
-    private let data: [String: Double]
+    private let dragGestureData: [String]?
     private let points: [Double]
-    private let color: Color
+    private let chartColor: Color
 
-    init(colorProvider: ColorSchemeProvider, data: [String: Double], color: Color) {
+    init(colorProvider: ColorSchemeProvider, points: [Double], dragGestureData: [String]?, chartColor: Color) {
         self.colorProvider = colorProvider
-        self.data = data
-        self.color = color
-        self.points = data.map({$0.value})
+        self.points = points
+        self.dragGestureData = dragGestureData
+        self.chartColor = chartColor
     }
 
     var body: some View {
         GeometryReader { geometry in
-            let circleWidth: CGFloat = 15
-            let spacing = (geometry.size.width - circleWidth * CGFloat(points.count)) / CGFloat(points.count - 1)
-
-            HStack (spacing: spacing) {
+            HStack (spacing: 3) {
                 let min = points.min()!
                 let max = points.max()!
                 let mean = (max + min) / 2.0
-                
                 ForEach(0 ..< points.count, id: \.self) { index in
-                    CircleChartElementView(max: max, min: min, mean: mean, current: points[index], circleColor: .red)
+                    CircleChartElementView(max: max, min: min, mean: mean, current: points[index], circleColor: chartColor)
                 }
             }
         }
-    }
-}
-
-struct CirclesChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        CirclesChartView(colorProvider: ColorSchemeProvider(), data: [:], color: .red)
     }
 }

@@ -34,12 +34,6 @@ struct CircleChartElementView: View {
                 .foregroundColor(circleColor)
             Spacer(minLength: bottomSpacerHeight)
         }
-        .frame(width: 15, height: 100)
-    }
-}
-
-struct CircleChartElementView_Previews: PreviewProvider {
-    static var previews: some View {
-        CircleChartElementView(max: 75, min: 45, mean: 60, current: 60, circleColor: .red)
+        .frame(height: 100)
     }
 }

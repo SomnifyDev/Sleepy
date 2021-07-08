@@ -8,26 +8,31 @@ struct StandardChartView: View {
 
     @State private var elemWidth: CGFloat
     private let colorProvider: ColorSchemeProvider
-    private let data: [String: Double]
+    private let dragGestureData: [String]?
     private let points: [Double]
     private let chartColor: Color
     private let needOXLine: Bool
     private let chartType: StandardChartType
     private let needDragGesture: Bool
-    private let maxHeightOfElement: CGFloat = 80
+    private let maxHeightOfElement: CGFloat = 100
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
-    private let chartWidth: CGFloat
 
-    init(colorProvider: ColorSchemeProvider, data: [String: Double], chartColor: Color, needOXLine: Bool, chartType: StandardChartType, needDragGesture: Bool) {
+    init(colorProvider: ColorSchemeProvider,
+         points: [Double],
+         dragGestureData: [String]? = nil,
+         chartColor: Color,
+         needOXLine: Bool,
+         chartType: StandardChartType,
+         needDragGesture: Bool)
+    {
         self.colorProvider = colorProvider
-        self.data = data
-        self.points = data.map({$0.value})
+        self.points = points
+        self.dragGestureData = dragGestureData
         self.chartColor = chartColor
         self.needOXLine = needOXLine
         self.chartType = chartType
         self.needDragGesture = needDragGesture
-        self.chartWidth = CGFloat(points.count) * standardWidth + chartSpacing * CGFloat(points.count - 1)
         self.elemWidth = standardWidth
     }
 
@@ -49,6 +54,7 @@ struct StandardChartView: View {
             }
             .frame(width: geometry.size.width)
             .onAppear {
+                let chartWidth = CGFloat(points.count) * standardWidth + chartSpacing * CGFloat(points.count - 1)
                 if chartWidth > geometry.size.width {
                     self.elemWidth = abs((geometry.size.width - chartSpacing * CGFloat(points.count - 1))) / CGFloat(points.count)
                 }
@@ -73,7 +79,7 @@ struct StandardChartView: View {
         return DragGesture(minimumDistance: 3, coordinateSpace: .local)
             .onChanged { gesture in
                 if needDragGesture {
-                    // TODO drag gesture. Пока убил кучу времени - не знаю, как его сделать правильно
+                    // TODO: drag gesture.
                 }
             }
     }
@@ -88,11 +94,5 @@ struct StandardChartView: View {
             .frame(width: width, height: height, alignment: .center)
             .opacity(opacity)
             .padding(.top, topPadding)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        StandardChartView(colorProvider: ColorSchemeProvider(), data: [:], chartColor: .green, needOXLine: true, chartType: .defaultChart, needDragGesture: true)
     }
 }
