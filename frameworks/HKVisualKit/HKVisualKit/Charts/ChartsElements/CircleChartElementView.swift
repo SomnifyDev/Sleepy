@@ -11,9 +11,8 @@ struct CircleChartElementView: View {
 
     private var topSpacerHeight: Double = 0
     private var bottomSpacerHeight: Double = 0
-
-    let circleColor: Color
-    let mean: Double
+    private let circleColor: Color
+    private let mean: Double
 
     init(max: Double, min: Double, mean: Double, current: Double, circleColor: Color) {
         self.mean = mean

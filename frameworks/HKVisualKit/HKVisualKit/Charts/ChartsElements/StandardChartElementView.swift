@@ -8,10 +8,15 @@ import SwiftUI
 struct StandardChartElementView: View {
 
     private let cornerRadius: Double = 50
+    private let width: CGFloat
+    private let height: CGFloat
+    private let color: Color
 
-    let width: CGFloat
-    let height: CGFloat
-    let color: Color
+    init(width: CGFloat, height: CGFloat, color: Color) {
+        self.width = width
+        self.height = height
+        self.color = color
+    }
 
     var body: some View {
         Rectangle()

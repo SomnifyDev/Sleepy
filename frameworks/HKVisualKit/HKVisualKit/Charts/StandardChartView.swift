@@ -6,23 +6,23 @@ import SwiftUI
 ///     - color: цвет отображения
 struct StandardChartView: View {
 
-    @State var elemWidth: CGFloat
-
+    @State private var elemWidth: CGFloat
     private let colorProvider: ColorSchemeProvider
+    private let data: [String: Double]
     private let points: [Double]
     private let chartColor: Color
     private let needOXLine: Bool
     private let chartType: StandardChartType
     private let needDragGesture: Bool
-
     private let maxHeightOfElement: CGFloat = 80
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
     private let chartWidth: CGFloat
 
-    init(colorProvider: ColorSchemeProvider, points: [Double], chartColor: Color, needOXLine: Bool, chartType: StandardChartType, needDragGesture: Bool) {
+    init(colorProvider: ColorSchemeProvider, data: [String: Double], chartColor: Color, needOXLine: Bool, chartType: StandardChartType, needDragGesture: Bool) {
         self.colorProvider = colorProvider
-        self.points = points
+        self.data = data
+        self.points = data.map({$0.value})
         self.chartColor = chartColor
         self.needOXLine = needOXLine
         self.chartType = chartType
@@ -73,7 +73,7 @@ struct StandardChartView: View {
         return DragGesture(minimumDistance: 3, coordinateSpace: .local)
             .onChanged { gesture in
                 if needDragGesture {
-                    // TODO drag gesture. Пока убил кучу времени - не знаю, как его сделать правильно
+                    // TODO: drag gesture
                 }
             }
     }
@@ -93,6 +93,6 @@ struct StandardChartView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        StandardChartView(colorProvider: ColorSchemeProvider(), points: [12, 32, 23, 21, 54, 32, 33], chartColor: .green, needOXLine: true, chartType: .defaultChart, needDragGesture: true)
+        StandardChartView(colorProvider: ColorSchemeProvider(), data: [:], chartColor: .green, needOXLine: true, chartType: .defaultChart, needDragGesture: true)
     }
 }
