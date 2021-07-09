@@ -3,6 +3,7 @@ import SwiftUI
 // MARK: Structs
 
 public enum SleepyFontsSizes {
+    static var cardNameFontSize: CGFloat { return 22 }
     static var cardDescriptionFontSize: CGFloat { return 16 }
     static var generalCardElementDescriptionFontSize: CGFloat { return 14 }
 }
@@ -10,6 +11,13 @@ public enum SleepyFontsSizes {
 extension Text {
 
     // MARK: Cards abstract
+
+    func cardNameText(with color: Color) -> some View {
+        self
+            .bold()
+            .font(.system(size: SleepyFontsSizes.cardNameFontSize))
+            .foregroundColor(color)
+    }
 
     func cardTitleText(with color: Color) -> some View {
         self
@@ -41,9 +49,9 @@ extension Text {
         self
             .bold()
             .font(.system(size: SleepyFontsSizes.generalCardElementDescriptionFontSize))
+            .foregroundColor(color)
     }
 
-    
 
 
 
