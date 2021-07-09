@@ -4,7 +4,7 @@ import HealthKit
 
 final class HKSleepStatisticsProvider {
 
-    func handleStatistics(for sleepStatType: SleepStatType, sleep: Sleep) -> Int {
+    func handleSleepStatistics(for sleepStatType: SleepStatType, sleep: Sleep) -> Int {
         switch sleepStatType {
         case .asleep:
             return sleep.sleepInterval.end.minutes(from: sleep.sleepInterval.start)

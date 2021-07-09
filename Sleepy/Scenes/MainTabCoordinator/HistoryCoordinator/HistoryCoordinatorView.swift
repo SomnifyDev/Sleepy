@@ -8,17 +8,29 @@
 import Foundation
 import SwiftUI
 import XUI
+import HKVisualKit
 
 struct HistoryCoordinatorView: View {
     
     // MARK: Stored Properties
     
     @Store var coordinator: HistoryCoordinator
+    @State var calendarType: HealthData = .sleep
     
     // MARK: Views
     
     var body: some View {
-        Text("This is history view")
+        ScrollView(.vertical, showsIndicators: false) {
+            GeometryReader { geometry in
+                VStack(alignment: .center) {
+                    CalendarView(calendarType: $calendarType,
+                                 colorSchemeProvider: coordinator.colorSchemeProvider,
+                                 statsProvider: coordinator.statisticsProvider)
+                        .roundedCardBackground(color: coordinator.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                }
+            }
+        }.background(coordinator.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor)).edgesIgnoringSafeArea(.all))
+
     }
     
 }

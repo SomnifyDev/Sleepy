@@ -25,11 +25,11 @@ final class HKGeneralStatisticsProvider {
             }
         }
 
-        assertionFailure("sleepData is probably nil")
+        print("sleepData is probably nil")
         return []
     }
 
-    func getDataByIntervalWithIndicator(for healthType: HKService.HealthType, for indicatorType: IndicatorType, sleepData: [HKSample]?) -> Double {
+    func getDataByIntervalWithIndicator(for healthType: HKService.HealthType, for indicatorType: IndicatorType, sleepData: [HKSample]?) -> Double? {
         switch healthType {
         case .energy:
             return self.handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit.kilocalorie())
@@ -42,41 +42,45 @@ final class HKGeneralStatisticsProvider {
         }
     }
 
-    func handleForCategorySample(for indicator: IndicatorType, arr: [HKSample]?) -> Double {
+    func handleForCategorySample(for indicator: IndicatorType, arr: [HKSample]?) -> Double? {
         if let categData = arr as? [HKCategorySample] {
 
             let data = categData.map { $0.endDate.minutes(from: $0.startDate) }
 
             switch indicator {
             case .min:
-                // TODO: @Anas remove force unwrapping
-                return Double(data.min()!)
+                guard let min = data.min() else { return nil }
+                return Double(min)
             case .max:
-                return Double(data.max()!)
+                guard let max = data.max() else { return nil }
+                return Double(max)
             case .mean:
+                if data.isEmpty { return nil }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
             }
         } else {
-            return -1.0
+            return nil
         }
     }
 
-    func handleForQuantitySample(for indicator: IndicatorType, arr: [HKSample]?, for unit: HKUnit) -> Double {
+    func handleForQuantitySample(for indicator: IndicatorType, arr: [HKSample]?, for unit: HKUnit) -> Double? {
         if let quantityData = arr as? [HKQuantitySample] {
 
             let data = quantityData.map { $0.quantity.doubleValue(for: unit) }
 
             switch indicator {
             case .min:
-                // TODO: @Anas remove force unwrapping
-                return data.min()!
+                guard let min = data.min() else { return nil }
+                return Double(min)
             case .max:
-                return data.max()!
+                guard let max = data.max() else { return nil }
+                return Double(max)
             case .mean:
-                return (data.reduce(0.0) { $0 + $1 }) / Double(data.count)
+                if data.isEmpty { return nil }
+                return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
             }
         } else {
-            return -1.0
+            return nil
         }
     }
 

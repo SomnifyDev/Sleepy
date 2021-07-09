@@ -6,7 +6,7 @@ struct RootCoordinatorView: View {
     // MARK: Stored Properties
     
     @Store var coordinator: RootCoordinator
-    
+
     // MARK: Views
     
     var body: some View {

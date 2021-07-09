@@ -76,21 +76,11 @@ public struct ErrorView: View {
     // MARK: Private Methods
     
     private func getTitleText() -> String {
-        if errorType == .brokenData(type: .some) {
-            // TODO: add switch for different data broken states
-            return "data broken"
-        } else {
-            return "data empty"
-        }
+         return "data empty"
     }
     
     private func getDataText() -> String {
-        if errorType == .brokenData(type: .some) {
-            // TODO: add switch for different data broken states
-            return "data broken"
-        } else {
-            return "data empty"
-        }
+        return "data empty"
     }
     
     private func getIconName() -> String {
