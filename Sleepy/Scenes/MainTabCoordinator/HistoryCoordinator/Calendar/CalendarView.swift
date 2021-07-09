@@ -21,7 +21,7 @@ struct CalendarView: View {
                 let calendarElementSize = geometry.size.width / 8
 
                 VStack {
-                    TitleView(calendarType: $calendarType,
+                    CalendarTitleView(calendarType: $calendarType,
                               monthDate: $monthDate,
                               colorSchemeProvider: colorSchemeProvider)
 
@@ -87,7 +87,7 @@ struct CalendarView: View {
     }
 }
 
-private struct TitleView: View {
+private struct CalendarTitleView: View {
 
     @Binding var calendarType: HealthData
     @Binding var monthDate: Date

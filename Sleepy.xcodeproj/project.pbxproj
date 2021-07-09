@@ -12,6 +12,7 @@
 		801505A926714067007574B9 /* GeneralCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A826714067007574B9 /* GeneralCardView.swift */; };
 		801505AB26714097007574B9 /* PhasesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AA26714097007574B9 /* PhasesCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
+		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
 		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
@@ -189,6 +190,7 @@
 		801505A826714067007574B9 /* GeneralCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardView.swift; sourceTree = "<group>"; };
 		801505AA26714097007574B9 /* PhasesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -324,6 +326,14 @@
 				801505A626713DBF007574B9 /* HeartCardView.swift */,
 			);
 			path = Cards;
+			sourceTree = "<group>";
+		};
+		805D75152692456000C19034 /* Sleep Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				805D751A2692458500C19034 /* SleepHistoryStatsView.swift */,
+			);
+			path = "Sleep Statistics";
 			sourceTree = "<group>";
 		};
 		80780F04266CE356000D0DD9 /* HK */ = {
@@ -589,6 +599,7 @@
 		D99509F426777D5800694208 /* HistoryCoordinator */ = {
 			isa = PBXGroup;
 			children = (
+				805D75152692456000C19034 /* Sleep Statistics */,
 				80D7F0B2268C71DA0055ECEE /* Calendar */,
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
@@ -1074,6 +1085,7 @@
 				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
 				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
 				D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */,
+				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
 				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,
 				80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */,
 				801505AB26714097007574B9 /* PhasesCardView.swift in Sources */,
