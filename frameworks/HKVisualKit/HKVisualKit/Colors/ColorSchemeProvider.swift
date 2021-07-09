@@ -5,7 +5,7 @@
 //  Created by Анас Бен Мустафа on 6/9/21.
 //
 
-import UIKit
+import Foundation
 
 public final class ColorSchemeProvider {
 

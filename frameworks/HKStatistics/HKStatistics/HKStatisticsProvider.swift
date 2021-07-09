@@ -18,11 +18,11 @@ public protocol HKStatistics {
     func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                         indicatorType: IndicatorType,
                                         for timeInterval: DateInterval,
-                                        completion: @escaping (Double) -> ())
+                                        completion: @escaping (Double) -> Void)
 
     func getDataByInterval(healthType: HKService.HealthType,
                            for timeInterval: DateInterval,
-                           completion: @escaping ([Double]) -> ())
+                           completion: @escaping ([Double]) -> Void)
 
 }
 
