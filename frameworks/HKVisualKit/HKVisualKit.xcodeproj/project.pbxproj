@@ -16,7 +16,7 @@
 		D987897F268B652500598C4A /* VerticalProgressElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987897E268B652500598C4A /* VerticalProgressElementView.swift */; };
 		D9878981268B654100598C4A /* CircleChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878980268B654100598C4A /* CircleChartElementView.swift */; };
 		D9878984268B731900598C4A /* StandardChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878983268B731900598C4A /* StandardChartView.swift */; };
-		D9878987268BA34A00598C4A /* CirclesHeartChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */; };
+		D9878987268BA34A00598C4A /* CirclesChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9878986268BA34A00598C4A /* CirclesChartView.swift */; };
 		D987898B268BA6D600598C4A /* VerticalProgressChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D987898A268BA6D600598C4A /* VerticalProgressChartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +32,7 @@
 		D987897E268B652500598C4A /* VerticalProgressElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalProgressElementView.swift; sourceTree = "<group>"; };
 		D9878980268B654100598C4A /* CircleChartElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChartElementView.swift; sourceTree = "<group>"; };
 		D9878983268B731900598C4A /* StandardChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardChartView.swift; sourceTree = "<group>"; };
-		D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesHeartChartView.swift; sourceTree = "<group>"; };
+		D9878986268BA34A00598C4A /* CirclesChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesChartView.swift; sourceTree = "<group>"; };
 		D987898A268BA6D600598C4A /* VerticalProgressChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalProgressChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				D9878983268B731900598C4A /* StandardChartView.swift */,
-				D9878986268BA34A00598C4A /* CirclesHeartChartView.swift */,
+				D9878986268BA34A00598C4A /* CirclesChartView.swift */,
 				D987898A268BA6D600598C4A /* VerticalProgressChartView.swift */,
 				D9878982268B657200598C4A /* ChartsElements */,
 				D96FFDF3268D0CD400B757CD /* ChartsGlobals.swift */,
@@ -195,7 +195,7 @@
 				D9878984268B731900598C4A /* StandardChartView.swift in Sources */,
 				80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */,
 				D9878981268B654100598C4A /* CircleChartElementView.swift in Sources */,
-				D9878987268BA34A00598C4A /* CirclesHeartChartView.swift in Sources */,
+				D9878987268BA34A00598C4A /* CirclesChartView.swift in Sources */,
 				80780F2B266CF125000D0DD9 /* ColorsGlobals.swift in Sources */,
 				D987897F268B652500598C4A /* VerticalProgressElementView.swift in Sources */,
 				D987897D268B64F800598C4A /* StandardChartElementView.swift in Sources */,

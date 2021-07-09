@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// Стандартный элемент графика (фазы, сердце)
-/// Параметры:
-///     - width: ширина элемента
-///     - height: высота элементе
-///     - color: цвет отображения
+/// Элемент стандартного графика
+/// - Parameters:
+///  - width: ширина элемента
+///  - height: высота элементе
+///  - color: цвет отображения
 struct StandardChartElementView: View {
 
     private let cornerRadius: Double = 50
@@ -24,4 +24,5 @@ struct StandardChartElementView: View {
             .frame(width: width, height: height)
             .cornerRadius(cornerRadius)
     }
+    
 }

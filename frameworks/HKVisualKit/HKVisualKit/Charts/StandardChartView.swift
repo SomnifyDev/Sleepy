@@ -1,30 +1,33 @@
 import SwiftUI
 
 /// Стандартный график (для фаз, сердца)
-/// Параметры:
-///     - points: значения для элементов графика
-///     - color: цвет отображения
+/// - Parameters:
+///  - colorProvider: ColorProvider
+///  - points: значения для элементов графика
+///  - chartColor: цвет отображения
+///  - needOXLine: true, если снизу графика нужна линия OX
+///  - chartType: тип графика
+///  - needDragGesture: true, если нужен dragGesture
 struct StandardChartView: View {
 
     @State private var elemWidth: CGFloat
     private let colorProvider: ColorSchemeProvider
-    private let dragGestureData: [String]?
+    private let chartType: StandardChartType
+    private let dragGestureData: String?
     private let points: [Double]
     private let chartColor: Color
     private let needOXLine: Bool
-    private let chartType: StandardChartType
     private let needDragGesture: Bool
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
 
     init(colorProvider: ColorSchemeProvider,
+         chartType: StandardChartType,
          points: [Double],
-         dragGestureData: [String]? = nil,
+         dragGestureData: String? = nil,
          chartColor: Color,
          needOXLine: Bool,
-         chartType: StandardChartType,
-         needDragGesture: Bool)
-    {
+         needDragGesture: Bool) {
         self.colorProvider = colorProvider
         self.points = points
         self.dragGestureData = dragGestureData

@@ -1,16 +1,19 @@
 import SwiftUI
 
 /// График вертикального прогресса
-/// Параметры:
-///     - points: значения в процентах по выполнению какой-либо цели
+/// - Parameters:
+///  - chartColor: цвет графика
+///  - points: значения в процентах по выполнению какой-либо цели
+///  - dragGestureData: строковые элементы для отображения при dragGesture
+///  - needDragGesture: true, если нужен dragGesture  
 struct VerticalProgressChartView: View {
 
     private let chartColor: Color
-    private let dragGestureData: [String]?
+    private let dragGestureData: String?
     private let points: [Double]
     private let needDragGesture: Bool
 
-    init(chartColor: Color, points: [Double], dragGestureData: [String]? = nil, needDragGesture: Bool) {
+    init(chartColor: Color, points: [Double], dragGestureData: String? = nil, needDragGesture: Bool) {
         self.chartColor = chartColor
         self.dragGestureData = dragGestureData
         self.points = points

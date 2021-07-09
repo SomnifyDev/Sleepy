@@ -1,16 +1,17 @@
 import SwiftUI
 
-/// График с кружочками (для сердца)
-/// /// Параметры:
-///     - points: значения для элементов графика
-///     - color: цвет отображения
+/// График с кружочками, двигающимися по высоте графика
+/// - Parameters:
+///  - points: значения для элементов графика
+///  - dragGestureData: строковые элементы для отображения при dragGesture
+///  - chartColor: цвет отображения
 struct CirclesChartView: View {
 
-    private let dragGestureData: [String]?
+    private let dragGestureData: String?
     private let points: [Double]
     private let chartColor: Color
 
-    init(points: [Double], dragGestureData: [String]?, chartColor: Color) {
+    init(points: [Double], dragGestureData: String?, chartColor: Color) {
         self.points = points
         self.dragGestureData = dragGestureData
         self.chartColor = chartColor
@@ -27,11 +28,5 @@ struct CirclesChartView: View {
                 }
             }
         }
-    }
-}
-
-struct CirclesChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        CirclesChartView(points: [56, 32, 32, 23, 65, 65, 12, 12], dragGestureData: nil, chartColor: .red)
     }
 }

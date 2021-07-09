@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// Элемент для графика банка сна
-/// Параметры:
-///     - sleepPercentage: процент сна за конкретный день, для которого нужно построить элемент
+/// Элемент для вертикального графика прогресса
+/// - Parameters:
+///  - percentage: процент сна за конкретный день, для которого нужно построить элемент
+///  - color: цвет отображения
 struct VerticalProgressElementView: View {
 
     private let cornerRadius: Double = 50
