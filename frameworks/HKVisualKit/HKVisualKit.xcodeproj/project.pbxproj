@@ -13,6 +13,13 @@
 		805D751126922E9400C19034 /* ProgressChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751026922E9400C19034 /* ProgressChartView.swift */; };
 		80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F24266CE484000D0DD9 /* ErrorView.swift */; };
 		80780F2B266CF125000D0DD9 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F2A266CF125000D0DD9 /* Globals.swift */; };
+		8096A4AA2698CA4800288D1A /* StandardChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A22698CA4800288D1A /* StandardChartView.swift */; };
+		8096A4AB2698CA4800288D1A /* CirclesChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A32698CA4800288D1A /* CirclesChartView.swift */; };
+		8096A4AC2698CA4800288D1A /* ChartsGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A42698CA4800288D1A /* ChartsGlobals.swift */; };
+		8096A4AD2698CA4800288D1A /* VerticalProgressChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A52698CA4800288D1A /* VerticalProgressChartView.swift */; };
+		8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A72698CA4800288D1A /* CircleChartElementView.swift */; };
+		8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */; };
+		8096A4B02698CA4800288D1A /* StandardChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A92698CA4800288D1A /* StandardChartElementView.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
 		80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */; };
 		80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */; };
@@ -27,6 +34,13 @@
 		80780F13266CE39F000D0DD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80780F24266CE484000D0DD9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		80780F2A266CF125000D0DD9 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		8096A4A22698CA4800288D1A /* StandardChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardChartView.swift; sourceTree = "<group>"; };
+		8096A4A32698CA4800288D1A /* CirclesChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirclesChartView.swift; sourceTree = "<group>"; };
+		8096A4A42698CA4800288D1A /* ChartsGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsGlobals.swift; sourceTree = "<group>"; };
+		8096A4A52698CA4800288D1A /* VerticalProgressChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressChartView.swift; sourceTree = "<group>"; };
+		8096A4A72698CA4800288D1A /* CircleChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleChartElementView.swift; sourceTree = "<group>"; };
+		8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressElementView.swift; sourceTree = "<group>"; };
+		8096A4A92698CA4800288D1A /* StandardChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardChartElementView.swift; sourceTree = "<group>"; };
 		80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
 		80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyColorScheme.swift; sourceTree = "<group>"; };
 		80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewModifiers.swift"; sourceTree = "<group>"; };
@@ -80,6 +94,7 @@
 		80780F11266CE39F000D0DD9 /* HKVisualKit */ = {
 			isa = PBXGroup;
 			children = (
+				8096A4A12698CA4800288D1A /* Charts */,
 				805D750D2692224400C19034 /* Cells */,
 				805D750526921E9000C19034 /* Cards */,
 				80D7F0C1268DC2440055ECEE /* Modifiers */,
@@ -97,6 +112,28 @@
 				80780F24266CE484000D0DD9 /* ErrorView.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		8096A4A12698CA4800288D1A /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				8096A4A22698CA4800288D1A /* StandardChartView.swift */,
+				8096A4A32698CA4800288D1A /* CirclesChartView.swift */,
+				8096A4A42698CA4800288D1A /* ChartsGlobals.swift */,
+				8096A4A52698CA4800288D1A /* VerticalProgressChartView.swift */,
+				8096A4A62698CA4800288D1A /* ChartsElements */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		8096A4A62698CA4800288D1A /* ChartsElements */ = {
+			isa = PBXGroup;
+			children = (
+				8096A4A72698CA4800288D1A /* CircleChartElementView.swift */,
+				8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */,
+				8096A4A92698CA4800288D1A /* StandardChartElementView.swift */,
+			);
+			path = ChartsElements;
 			sourceTree = "<group>";
 		};
 		80C0266B2670FACA00FAA125 /* Colors */ = {
@@ -194,12 +231,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8096A4AB2698CA4800288D1A /* CirclesChartView.swift in Sources */,
+				8096A4B02698CA4800288D1A /* StandardChartElementView.swift in Sources */,
 				80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */,
 				805D750726921EA400C19034 /* CardTitleView.swift in Sources */,
+				8096A4AC2698CA4800288D1A /* ChartsGlobals.swift in Sources */,
+				8096A4AA2698CA4800288D1A /* StandardChartView.swift in Sources */,
+				8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */,
+				8096A4AD2698CA4800288D1A /* VerticalProgressChartView.swift in Sources */,
 				805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */,
 				805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */,
 				805D751126922E9400C19034 /* ProgressChartView.swift in Sources */,
 				80780F2B266CF125000D0DD9 /* Globals.swift in Sources */,
+				8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */,
 				80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */,
 				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
 				80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */,
