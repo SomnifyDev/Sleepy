@@ -9,8 +9,8 @@ import SwiftUI
 
 public struct CardBottomSimpleDescriptionView: View {
 
-    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
-    // = CGFloat.infinity - variant for VStack
+    let colorProvider: ColorSchemeProvider
+    @State private var totalHeight = CGFloat.zero
     
     var descriptionText: String
 
@@ -22,7 +22,8 @@ public struct CardBottomSimpleDescriptionView: View {
                         .padding(.top, 4)
 
                     Text(descriptionText)
-                        .fixedSize(horizontal: false, vertical: true)
+                        .cardBottomText(with: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight)
@@ -41,6 +42,6 @@ public struct CardBottomSimpleDescriptionView: View {
 
 struct CardBottomSimpleDescriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        CardBottomSimpleDescriptionView(descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ")
+        CardBottomSimpleDescriptionView(colorProvider: ColorSchemeProvider(), descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ")
     }
 }

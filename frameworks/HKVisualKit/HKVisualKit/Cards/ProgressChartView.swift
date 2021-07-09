@@ -2,13 +2,14 @@ import SwiftUI
 
 public struct ProgressChartView: View {
 
-    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
-    // = CGFloat.infinity - variant for VStack
+    @State private var totalHeight = CGFloat.zero
 
+    let colorProvider: ColorSchemeProvider
     var currentWeeksProgress: ProgressItem
     var beforeWeeksProgress: ProgressItem
 
-    public init(currentWeeksProgress: ProgressItem, beforeWeeksProgress: ProgressItem) {
+    public init(colorProvider: ColorSchemeProvider, currentWeeksProgress: ProgressItem, beforeWeeksProgress: ProgressItem) {
+        self.colorProvider = colorProvider
         self.currentWeeksProgress = currentWeeksProgress
         self.beforeWeeksProgress = beforeWeeksProgress
     }
@@ -18,7 +19,7 @@ public struct ProgressChartView: View {
             GeometryReader { geometry in
 
                 VStack(alignment: .leading) {
-                    CardTitleView(systemImageName: "person",
+                    CardTitleView(colorProvider: colorProvider, systemImageName: "person",
                                   titleText: "Title",
                                   mainText: "Thats some progress you've made in several weeks in sleep duration",
                                   titleColor: .blue)
@@ -33,7 +34,7 @@ public struct ProgressChartView: View {
                         .padding(.trailing, currentWeeksProgress.value >  beforeWeeksProgress.value ? 64 : 0)
                         .foregroundColor(Color.gray.opacity(0.5))
 
-                    CardBottomSimpleDescriptionView(descriptionText: "Compared to 2 weeks before, you slept \( currentWeeksProgress.value >  beforeWeeksProgress.value ?  "more": "less") by \(abs(currentWeeksProgress.value - beforeWeeksProgress.value)) minutes")
+                    CardBottomSimpleDescriptionView(colorProvider: colorProvider, descriptionText: "Compared to 2 weeks before, you slept \( currentWeeksProgress.value >  beforeWeeksProgress.value ?  "more": "less") by \(abs(currentWeeksProgress.value - beforeWeeksProgress.value)) minutes")
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
@@ -91,7 +92,7 @@ public struct ProgressItemView: View {
 
 struct ProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressChartView(currentWeeksProgress: ProgressItem(title: "title", text: "text", value: 320),
+        ProgressChartView(colorProvider: ColorSchemeProvider(), currentWeeksProgress: ProgressItem(title: "title", text: "text", value: 320),
                           beforeWeeksProgress: ProgressItem(title: "title", text: "text", value: 360))
     }
 }

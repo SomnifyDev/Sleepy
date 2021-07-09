@@ -51,6 +51,9 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     private var awakeColor: Color
     private var moonColor: Color
 
+    // texts
+    private let standartText: Color
+
     // MARK: init
     
     init() {
@@ -70,6 +73,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         awakeColor = Color("awakeColor")
         moonColor = Color("moonColor")
         energyColor = Color("energyColor")
+        standartText = Color("SleepyStandartTexts")
     }
 
     // MARK: Public methods
@@ -121,6 +125,10 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
             return awakeColor
         case .genInfoCardColors(.moonColor):
             return moonColor
+
+            // texts
+        case .textsColors(.standartText):
+            return standartText
         }
     }
 
