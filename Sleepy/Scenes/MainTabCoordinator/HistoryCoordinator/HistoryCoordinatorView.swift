@@ -37,7 +37,7 @@ struct HistoryCoordinatorView: View {
                     if shouldShowSleepStatistics {
                         if let sleepHistoryStatsViewModel = sleepHistoryStatsViewModel {
                             SleepHistoryStatsView(model: sleepHistoryStatsViewModel,
-                                                  colorScheme: coordinator.colorSchemeProvider.sleepyColorScheme)
+                                                  colorProvider: coordinator.colorSchemeProvider)
                         }
                     }
 

@@ -30,11 +30,7 @@ struct CalendarDayView: View {
                 }
 
                 Text(description)
-                    .foregroundColor(.white)
-                    .font(.system(size: geometry.size.height > geometry.size.width
-                                  ? geometry.size.width * 0.3
-                                  : geometry.size.height * 0.3))
-                    .lineLimit(1)
+                    .dayCircleInfoTextModifier(geometry: geometry)
                     .onAppear(perform: getData)
                     .onChange(of: type) { _ in
                         getData()

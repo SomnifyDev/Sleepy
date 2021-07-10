@@ -2,13 +2,13 @@ import SwiftUI
 
 public struct CardTitleView: View {
 
-    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
-    // = CGFloat.infinity - variant for VStack
+    @State private var totalHeight = CGFloat.zero
 
-    var systemImageName: String
-    var titleText: String
-    var mainText: String?
-    var titleColor: Color
+    let colorProvider: ColorSchemeProvider
+    let systemImageName: String
+    let titleText: String
+    let mainText: String?
+    let titleColor: Color
     var showChevron: Bool = false
 
     public var body: some View {
@@ -21,8 +21,7 @@ public struct CardTitleView: View {
                             .foregroundColor(titleColor)
 
                         Text(titleText)
-                            .fontWeight(.bold)
-                            .foregroundColor(titleColor)
+                            .cardTitleTextModifier(color: titleColor)
 
                         Spacer()
 
@@ -34,7 +33,7 @@ public struct CardTitleView: View {
 
                     if let mainText = mainText {
                         Text(mainText)
-                            .fixedSize(horizontal: false, vertical: true)
+                            .cardDescriptionTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                     }
 
                     Divider()
@@ -57,6 +56,6 @@ public struct CardTitleView: View {
 
 struct CardTitleView_Previews: PreviewProvider {
     static var previews: some View {
-        CardTitleView(systemImageName: "zzz", titleText: "Title", mainText: "Вот основнvые данные о вашем !!!!!!!!!", titleColor: .blue, showChevron: true)
+        CardTitleView(colorProvider: ColorSchemeProvider(), systemImageName: "zzz", titleText: "Title", mainText: "Вот основнvые данные о вашем !!!!!!!!!", titleColor: .blue, showChevron: true)
     }
 }
