@@ -28,20 +28,16 @@ struct CalendarView: View {
                     HealthTypeSwitchView(selectedType: $calendarType,
                                          colorScheme: colorSchemeProvider.sleepyColorScheme)
 
-
                     LazyVGrid(columns: calendarGridLayout, spacing: 4) {
                         ForEach(1...monthDate.getDaysInMonth(), id: \.self) { index in
                             VStack(spacing: 2) {
-                                if (index >= 1 && index <= 7) {
+                                if index >= 1 && index <= 7 {
                                     let tmpWeekDay = Calendar.current.date(byAdding: .day,
                                                                            value: index - 1,
                                                                            to: monthDate.startOfMonth)!
 
                                     Text(tmpWeekDay.weekday() ?? "")
-                                        .font(.system(size: 8))
-                                        .fontWeight(.semibold)
-                                        .opacity(0.3)
-                                        .frame(width: calendarElementSize)
+                                        .weekDayText(width: calendarElementSize)
                                 }
 
                                 CalendarDayView(type: $calendarType,
@@ -53,9 +49,7 @@ struct CalendarView: View {
                                     .frame(height: calendarElementSize)
 
                                 Text(String(index))
-                                    .font(.system(size: 8))
-                                    .fontWeight(.semibold)
-                                    .opacity(0.3)
+                                    .dayNumberText()
                             }
                         }
                     }
@@ -96,14 +90,11 @@ private struct CalendarTitleView: View {
 
     var body: some View {
         HStack {
-            Image(systemName: "calendar")
-                .font(.system(size: 24))
-                .foregroundColor(getSelectedCalendarColor(for: calendarType))
+            Text(Image(systemName: "calendar"))
+                .systemText(color: getSelectedCalendarColor(for: calendarType), size: 24)
 
             Text("\(monthDate.getMonthString()) \(monthDate.getYearString())")
-                .foregroundColor(getSelectedCalendarColor(for: calendarType))
-                .font(.system(size: 24))
-                .fontWeight(.bold)
+                .calendarMonthTitle(color: getSelectedCalendarColor(for: calendarType))
 
             Spacer()
 
@@ -113,8 +104,7 @@ private struct CalendarTitleView: View {
                                                   to: monthDate)!
             }) {
                 Text(Image(systemName: "chevron.left"))
-                    .foregroundColor(getSelectedCalendarColor(for: calendarType))
-                    .fontWeight(.bold)
+                    .boldText(color: getSelectedCalendarColor(for: calendarType))
             }
             .padding(.trailing, 8)
 
@@ -124,8 +114,7 @@ private struct CalendarTitleView: View {
                                                   to: monthDate)!
             }) {
                 Text(Image(systemName: "chevron.right"))
-                    .foregroundColor(getSelectedCalendarColor(for: calendarType))
-                    .fontWeight(.bold)
+                    .boldText(color: getSelectedCalendarColor(for: calendarType))
             }
 
         }.frame(height: 30, alignment: .top)

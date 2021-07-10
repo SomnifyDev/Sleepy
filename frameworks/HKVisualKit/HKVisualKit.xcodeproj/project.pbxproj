@@ -140,8 +140,8 @@
 		80C0266B2670FACA00FAA125 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
-				D93BF29F2698DE5C00C0C33D /* ColorsGlobals.swift */,
 				80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */,
+				D93BF29F2698DE5C00C0C33D /* ColorsGlobals.swift */,
 				80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */,
 			);
 			path = Colors;

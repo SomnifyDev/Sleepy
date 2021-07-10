@@ -28,7 +28,7 @@ struct HealthTypeSwitchView: View {
                 self.item(for: tag)
                     .padding([.horizontal, .vertical], 4)
                     .alignmentGuide(.leading, computeValue: { d in
-                        if (abs(width - d.width) > g.size.width) {
+                        if abs(width - d.width) > g.size.width {
                             width = 0
                             height -= d.height
                         }
@@ -55,15 +55,10 @@ struct HealthTypeSwitchView: View {
 
     private func item(for type: HealthData) -> some View {
         Text(getItemDescription(for: type))
-            .padding([.top, .bottom], 6)
-            .padding([.leading, .trailing], 10)
-            .font(.system(size: 14).weight(.semibold))
-            .opacity(type == selectedType  ? 1 : 0.3)
-            .foregroundColor(type == selectedType  ? .white : .black)
+            .healthTypeSwitchText(isSelectedType: selectedType == type)
             .background(type == selectedType
                         ? getSelectedItemColor(for: type)
                         : colorScheme.getColor(of: .calendar(.emptyDayColor)))
-            .cornerRadius(12)
             .onTapGesture {
                 selectedType = type
             }
