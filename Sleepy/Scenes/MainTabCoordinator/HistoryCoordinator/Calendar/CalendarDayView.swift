@@ -30,7 +30,7 @@ struct CalendarDayView: View {
                 }
 
                 Text(description)
-                    .dayCircleInfoText(geometry: geometry)
+                    .dayCircleInfoTextModifier(geometry: geometry)
                     .onAppear(perform: getData)
                     .onChange(of: type) { _ in
                         getData()

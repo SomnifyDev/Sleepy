@@ -55,10 +55,11 @@ struct HealthTypeSwitchView: View {
 
     private func item(for type: HealthData) -> some View {
         Text(getItemDescription(for: type))
-            .healthTypeSwitchText(isSelectedType: selectedType == type)
+            .healthTypeSwitchTextModifier(isSelectedType: selectedType == type)
             .background(type == selectedType
                         ? getSelectedItemColor(for: type)
                         : colorScheme.getColor(of: .calendar(.emptyDayColor)))
+            .cornerRadius(12)
             .onTapGesture {
                 selectedType = type
             }

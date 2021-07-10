@@ -22,7 +22,7 @@ public struct CardBottomSimpleDescriptionView: View {
                         .padding(.top, 4)
 
                     Text(descriptionText)
-                        .cardBottomText(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                        .cardBottomTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                 }.background(viewHeightReader($totalHeight))
             }

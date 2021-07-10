@@ -21,7 +21,7 @@ public struct CardTitleView: View {
                             .foregroundColor(titleColor)
 
                         Text(titleText)
-                            .cardTitleText(color: titleColor)
+                            .cardTitleTextModifier(color: titleColor)
 
                         Spacer()
 
@@ -33,7 +33,7 @@ public struct CardTitleView: View {
 
                     if let mainText = mainText {
                         Text(mainText)
-                            .cardDescriptionText(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                            .cardDescriptionTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                     }
 
                     Divider()

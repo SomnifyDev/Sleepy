@@ -37,7 +37,7 @@ struct CalendarView: View {
                                                                            to: monthDate.startOfMonth)!
 
                                     Text(tmpWeekDay.weekday() ?? "")
-                                        .weekDayText(width: calendarElementSize)
+                                        .weekDayTextModifier(width: calendarElementSize)
                                 }
 
                                 CalendarDayView(type: $calendarType,
@@ -49,7 +49,7 @@ struct CalendarView: View {
                                     .frame(height: calendarElementSize)
 
                                 Text(String(index))
-                                    .dayNumberText()
+                                    .dayNumberTextModifier()
                             }
                         }
                     }
@@ -91,10 +91,10 @@ private struct CalendarTitleView: View {
     var body: some View {
         HStack {
             Text(Image(systemName: "calendar"))
-                .systemText(color: getSelectedCalendarColor(for: calendarType), size: 24)
+                .systemTextModifier(color: getSelectedCalendarColor(for: calendarType), size: 24)
 
             Text("\(monthDate.getMonthString()) \(monthDate.getYearString())")
-                .calendarMonthTitle(color: getSelectedCalendarColor(for: calendarType))
+                .calendarMonthTitleModifier(color: getSelectedCalendarColor(for: calendarType))
 
             Spacer()
 
@@ -104,7 +104,7 @@ private struct CalendarTitleView: View {
                                                   to: monthDate)!
             }) {
                 Text(Image(systemName: "chevron.left"))
-                    .boldText(color: getSelectedCalendarColor(for: calendarType))
+                    .boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
             }
             .padding(.trailing, 8)
 
@@ -114,7 +114,7 @@ private struct CalendarTitleView: View {
                                                   to: monthDate)!
             }) {
                 Text(Image(systemName: "chevron.right"))
-                    .boldText(color: getSelectedCalendarColor(for: calendarType))
+                    .boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
             }
 
         }.frame(height: 30, alignment: .top)
