@@ -2,7 +2,8 @@ import SwiftUI
 
 public struct CardTitleView: View {
 
-    @State private var totalHeight = CGFloat.zero
+    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
+    // = CGFloat.infinity - variant for VStack
 
     let colorProvider: ColorSchemeProvider
     let systemImageName: String
@@ -40,7 +41,8 @@ public struct CardTitleView: View {
                         .padding(.top, 4)
                 }.background(viewHeightReader($totalHeight))
             }
-        }.frame(height: totalHeight)
+        }.frame(height: totalHeight) // - variant for ScrollView/List
+        //.frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {

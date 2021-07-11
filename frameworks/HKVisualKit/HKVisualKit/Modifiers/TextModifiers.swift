@@ -44,6 +44,7 @@ extension Text {
     public func cardDescriptionTextModifier(color: Color) -> some View {
         self
             .font(.system(size: SleepyFontsSizes.cardDescriptionFontSize, weight: .semibold, design: .default))
+            .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(color)
     }
 

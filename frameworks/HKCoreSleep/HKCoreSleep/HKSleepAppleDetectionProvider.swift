@@ -70,6 +70,11 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
             sleep.phases = phases
 
+            self.saveSleep(sleep: sleep, completionHandler: { result, error in
+                print("new sleep saved")
+                // TODO: handle error if so
+            })
+
             completionHandler(sleep)
         }
     }
@@ -196,7 +201,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .asleep, interval: interval, bundlePrefix: "com.apple", completionHandler: { query, samplesRaw, error in
+            self.hkService?.readData(type: .asleep, interval: interval, bundlePrefixes: ["com.apple"], completionHandler: { query, samplesRaw, error in
                 query1 = query
                 samples1 = samplesRaw
                 error1 = error
@@ -229,7 +234,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .inbed, interval: interval, bundlePrefix: "com.apple", completionHandler: { query, samplesRaw, error in
+            self.hkService?.readData(type: .inbed, interval: interval, bundlePrefixes: ["com.apple"], completionHandler: { query, samplesRaw, error in
                 query4 = query
                 samples4 = samplesRaw
                 error4 = error
@@ -245,6 +250,33 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                        query4, samples4, error4)
         }
 
+    }
+
+    /// Saves sleep analysis as inBed & Asleep samples in HealthStore
+    /// - Parameters:
+    ///   - sleep: sleep object to be saved
+    ///   - completionHandler: completion with success or failure of this operation
+    func saveSleep(sleep: Sleep, completionHandler: @escaping (Bool, Error?) -> Void) {
+        // checking sleep analysis existence
+        self.hkService?.readData(type: .asleep, interval: sleep.sleepInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
+            guard let samples = samples, samples.isEmpty else {
+                return
+            }
+            
+            if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
+                let asleepSample = HKCategorySample(type: sleepType,
+                                                    value: HKCategoryValueSleepAnalysis.asleep.rawValue,
+                                                    start: sleep.sleepInterval.start,
+                                                    end: sleep.sleepInterval.end)
+
+                let inBedSample = HKCategorySample(type: sleepType,
+                                                   value: HKCategoryValueSleepAnalysis.inBed.rawValue,
+                                                   start: sleep.inBedInterval.start,
+                                                   end: sleep.inBedInterval.end)
+
+                self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
+            }
+        })
     }
 
 }
