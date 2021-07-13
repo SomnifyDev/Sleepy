@@ -10,7 +10,8 @@ import SwiftUI
 public struct CardBottomSimpleDescriptionView: View {
 
     let colorProvider: ColorSchemeProvider
-    @State private var totalHeight = CGFloat.zero
+    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
+    // = CGFloat.infinity - variant for VStack
     
     var descriptionText: String
 
@@ -26,7 +27,8 @@ public struct CardBottomSimpleDescriptionView: View {
 
                 }.background(viewHeightReader($totalHeight))
             }
-        }.frame(height: totalHeight)
+        }.frame(height: totalHeight) // - variant for ScrollView/List
+        //.frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {

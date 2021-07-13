@@ -96,7 +96,7 @@ public class HKService {
     ///   - ascending: boolean value indicating your need in ascending order sorting
     ///   - bundlePrefix: bundle prefix of application that created samples you want to read. Do not pass anything if you want every application samples
     ///   - completionHandler: completion with success or failure of this operation and data
-    public func readData(type: HealthType, interval: DateInterval, ascending: Bool = false, bundlePrefix: String = "", completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void) {
+    public func readData(type: HealthType, interval: DateInterval, ascending: Bool = false, bundlePrefixes: [String] = [], completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void) {
         checkReadPermissions(type: type) { result, error in
             if error == nil {
 
@@ -118,9 +118,12 @@ public class HKService {
                                               sortDescriptors: sortDescriptors,
                                               resultsHandler: { sampleQuery, samples, error in
 
-                        let samplesFiltered = samples?.filter {
-                            (bundlePrefix != "" ? $0.sourceRevision.source.bundleIdentifier.hasPrefix(bundlePrefix) : true) &&
-                            ($0 as? HKCategorySample)?.value == ((type == .asleep)
+                        // trying to fiter samples by bundle we need and type if inbed/asleep requested
+                        let samplesFiltered = samples?.filter { sample in
+                            (!bundlePrefixes.isEmpty
+                             ? bundlePrefixes.contains(where: { sample.sourceRevision.source.bundleIdentifier.hasPrefix($0) })
+                             : true) &&
+                            (sample as? HKCategorySample)?.value == ((type == .asleep)
                                                                  ? HKCategoryValueSleepAnalysis.asleep.rawValue
                                                                  : HKCategoryValueSleepAnalysis.inBed.rawValue)
                         }

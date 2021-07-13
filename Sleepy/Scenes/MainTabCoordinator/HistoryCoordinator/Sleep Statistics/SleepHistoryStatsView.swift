@@ -14,12 +14,16 @@ struct SleepHistoryStatsView: View {
     let colorProvider: ColorSchemeProvider
 
     var body: some View {
-        ProgressChartView(colorProvider: colorProvider, currentWeeksProgress: ProgressItem(title: "Ср время сна: \(model.currentWeeksProgress.value) м ",
-                                                             text: "08.07 - 14.07",
-                                                             value: model.currentWeeksProgress.value),
-                          beforeWeeksProgress: ProgressItem(title: "Ср время сна: \(model.beforeWeeksProgress.value)",
-                                                            text: "01.07 - 07.07",
-                                                            value: model.beforeWeeksProgress.value))
+        ProgressChartView(colorProvider: colorProvider,
+                          currentWeeksProgress:
+                            ProgressItem(title: model.currentWeeksProgress.title,
+                                         text: model.currentWeeksProgress.text,
+                                         value: model.currentWeeksProgress.value),
+                          beforeWeeksProgress:
+                            ProgressItem(title: model.beforeWeeksProgress.title,
+                                         text: model.beforeWeeksProgress.text,
+                                         value: model.beforeWeeksProgress.value),
+                          analysisString: model.analysisString)
             .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
     }
 }
@@ -27,4 +31,5 @@ struct SleepHistoryStatsView: View {
 struct SleepHistoryStatsViewModel {
     let currentWeeksProgress: ProgressItem
     let beforeWeeksProgress: ProgressItem
+    let analysisString: String
 }

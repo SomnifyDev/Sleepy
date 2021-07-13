@@ -83,6 +83,7 @@ struct HistoryCoordinatorView: View {
 
         let group = DispatchGroup()
 
+        // TODO: change bundle prefix to ours when there will be enough data
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
             coordinator.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: current2weeks, bundlePrefix: "com.apple") { result in
@@ -102,17 +103,18 @@ struct HistoryCoordinatorView: View {
         group.notify(queue: .global(qos: .default)) {
 
             if let mean1 = mean1, let mean2 = mean2 {
-
                 sleepHistoryStatsViewModel = SleepHistoryStatsViewModel(
-                    currentWeeksProgress: ProgressItem(title: "Mean sleep duration ...",
-                                                       text: "\(Date.minutesToDateDescription(minutes: Int(mean1)))",
+                    currentWeeksProgress: ProgressItem(title: "Mean sleep duration: \(Date.minutesToDateDescription(minutes: Int(mean1)))",
+                                                       text: current2weeks.stringFromDateInterval(),
                                                        value: Int(mean1))
-                    , beforeWeeksProgress: ProgressItem(title: "Mean sleep duration ...",
-                                                        text: "\(Date.minutesToDateDescription(minutes: Int(mean2)))",
-                                                        value: Int(mean2)))
+                    , beforeWeeksProgress: ProgressItem(title: "Mean sleep duration: \(Date.minutesToDateDescription(minutes: Int(mean2)))",
+                                                        text: last2weeks.stringFromDateInterval(),
+                                                        value: Int(mean2)),
+                    analysisString: mean1 == mean2
+                    ? "Your sleep time is equal compared to 2 weeks before"
+                    : "Compared to 2 weeks before, you slept \(mean1 > mean2 ? "more" : "less") by \(Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))) in time")
 
                 shouldShowSleepStatistics = true
-
             }
         }
     }

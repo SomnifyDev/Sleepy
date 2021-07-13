@@ -52,7 +52,6 @@ extension Date {
         )!
     }
 
-
     func getFormattedDate(format: String) -> String {
         let dateformat = DateFormatter()
         dateformat.dateFormat = format
