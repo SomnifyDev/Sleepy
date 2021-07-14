@@ -21,10 +21,11 @@ extension Text {
             .font(.system(size: size))
     }
 
-    public func systemTextModifier(color: Color, size: CGFloat = 16) -> some View {
+    public func systemTextModifier(color: Color, size: CGFloat = 16, opacity: CGFloat = 1) -> some View {
         self
             .foregroundColor(color)
             .font(.system(size: size))
+            .opacity(opacity)
     }
 
     public func cardNameTextModifier(color: Color) -> some View {

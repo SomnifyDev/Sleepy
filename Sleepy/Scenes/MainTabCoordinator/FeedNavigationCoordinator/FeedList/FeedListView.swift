@@ -18,7 +18,7 @@ struct FeedListView: View {
                 viewModel.open(card)
             }
         }
-        .navigationTitle(viewModel.title)
+        .navigationTitle("Summary, \(Date().getFormattedDate(format: "MMM d"))")
     }
 
     // MARK: Internal methods

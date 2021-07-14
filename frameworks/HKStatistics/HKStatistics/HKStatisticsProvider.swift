@@ -18,12 +18,12 @@ public protocol HKStatistics {
     func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                         indicatorType: IndicatorType,
                                         for timeInterval: DateInterval,
-                                        bundlePrefix: String,
+                                        bundlePrefixes: [String],
                                         completion: @escaping (Double?) -> Void)
 
     func getDataByInterval(healthType: HKService.HealthType,
                            for timeInterval: DateInterval,
-                           bundlePrefix: String,
+                           bundlePrefixes: [String],
                            completion: @escaping ([Double]) -> Void)
 
 }
@@ -70,9 +70,9 @@ public final class HKStatisticsProvider: HKStatistics {
     public func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                                indicatorType: IndicatorType,
                                                for timeInterval: DateInterval,
-                                               bundlePrefix: String = "com.apple",
+                                               bundlePrefixes: [String] = ["com.apple"],
                                                completion: @escaping (Double?) -> Void) {
-        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: [bundlePrefix]) { [weak self] _, sleepData, error in
+        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, error in
             completion(self?.generalStatisticsProvider.getDataByIntervalWithIndicator(for: healthType, for: indicatorType, sleepData: sleepData))
         }
     }
@@ -80,9 +80,9 @@ public final class HKStatisticsProvider: HKStatistics {
     /// Возвращает значение по любому типу здоровья в нужном интервале времени (без индикатора)
     public func getDataByInterval(healthType: HKService.HealthType,
                                   for timeInterval: DateInterval,
-                                  bundlePrefix: String = "com.apple",
+                                  bundlePrefixes: [String] = ["com.apple"],
                                   completion: @escaping ([Double]) -> Void) {
-        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: [bundlePrefix]) { [weak self] _, sleepData, error in
+        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, error in
             completion(self?.generalStatisticsProvider.getDataByInterval(for: healthType, sleepData: sleepData) ?? [])
         }
     }

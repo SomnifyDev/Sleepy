@@ -22,34 +22,36 @@ public protocol HKApplicationColorScheme {
 public final class SleepyColorScheme: HKApplicationColorScheme {
 
     // general
-    private var appBackgroundColor: Color
-    private var mainSleepyColor: Color
-    private var healthColor: Color
+    private let appBackgroundColor: Color
+    private let mainSleepyColor: Color
+    private let healthColor: Color
 
     // cards
-    private var cardBackgroundColor: Color
+    private let cardBackgroundColor: Color
 
     // calendar
-    private var emptyDayColor: Color
-    private var negativeDayColor: Color
-    private var neutralDayColor: Color
-    private var positiveDayColor: Color
-    private var calendarCurrentDateColor: Color
+    private let emptyDayColor: Color
+    private let negativeDayColor: Color
+    private let neutralDayColor: Color
+    private let positiveDayColor: Color
+    private let calendarCurrentDateColor: Color
 
     // phases
-    private var wakeUpColor: Color
-    private var lightSleepColor: Color
-    private var deepSleepColor: Color
+    private let wakeUpColor: Color
+    private let lightSleepColor: Color
+    private let deepSleepColor: Color
 
     // heart
-    private var heartColor: Color
+    private let heartColor: Color
 
     // energy
-    private var energyColor: Color
+    private let energyColor: Color
 
     // genInfoCard
-    private var awakeColor: Color
-    private var moonColor: Color
+    private let awakeColor: Color
+    private let moonColor: Color
+    private let sleepDurationColor: Color
+    private let fallAsleepDurationColor: Color
 
     // texts
     private let standartText: Color
@@ -74,6 +76,8 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         moonColor = Color("moonColor")
         energyColor = Color("energyColor")
         standartText = Color("SleepyStandartTexts")
+        sleepDurationColor = Color("sleepDurationColor")
+        fallAsleepDurationColor = Color("fallAsleepDurationColor")
     }
 
     // MARK: Public methods
@@ -121,10 +125,14 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
             return calendarCurrentDateColor
 
             // general info card
-        case .genInfoCardColors(.awakeColor):
+        case .summaryCardColors(.awakeColor):
             return awakeColor
-        case .genInfoCardColors(.moonColor):
+        case .summaryCardColors(.moonColor):
             return moonColor
+        case .summaryCardColors(.sleepDurationColor):
+            return sleepDurationColor
+        case .summaryCardColors(.fallAsleepDurationColor):
+            return fallAsleepDurationColor
 
             // texts
         case .textsColors(.standartText):

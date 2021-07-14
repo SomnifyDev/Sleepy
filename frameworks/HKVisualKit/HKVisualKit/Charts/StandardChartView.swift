@@ -18,6 +18,9 @@ struct StandardChartView: View {
     private let chartColor: Color
     private let needOXLine: Bool
     private let needDragGesture: Bool
+    private let needTimeLine: Bool
+    private let startTime: String?
+    private let endTime: String?
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
 
@@ -27,6 +30,9 @@ struct StandardChartView: View {
          dragGestureData: String? = nil,
          chartColor: Color,
          needOXLine: Bool,
+         needTimeLine: Bool,
+         startTime: String? = nil,
+         endTime: String? = nil,
          needDragGesture: Bool) {
         self.colorProvider = colorProvider
         self.points = points
@@ -36,6 +42,9 @@ struct StandardChartView: View {
         self.chartType = chartType
         self.needDragGesture = needDragGesture
         self.elemWidth = standardWidth
+        self.needTimeLine = needTimeLine
+        self.startTime = startTime
+        self.endTime = endTime
     }
 
     var body: some View {
@@ -48,6 +57,11 @@ struct StandardChartView: View {
                             getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
                             if needOXLine {
                                 getOXLineElement()
+                            }
+                            if needTimeLine,
+                                let startTime = startTime,
+                                let endTime = endTime {
+                                TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
                             }
                         }
                     }
