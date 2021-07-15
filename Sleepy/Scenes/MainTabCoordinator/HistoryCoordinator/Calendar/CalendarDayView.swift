@@ -96,7 +96,7 @@ struct CalendarDayView: View {
             }
 
         case .sleep:
-            statsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefix: "com.sinapsis") { val in
+            statsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
                 getCircleColor()
 
@@ -108,7 +108,7 @@ struct CalendarDayView: View {
             }
             
         case .inbed:
-            statsProvider.getDataByIntervalWithIndicator(healthType: .inbed, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefix: "com.sinapsis") { val in
+            statsProvider.getDataByIntervalWithIndicator(healthType: .inbed, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
                 getCircleColor()
 

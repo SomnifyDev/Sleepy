@@ -21,10 +21,11 @@ extension Text {
             .font(.system(size: size))
     }
 
-    public func systemTextModifier(color: Color, size: CGFloat = 16) -> some View {
+    public func systemTextModifier(color: Color, size: CGFloat = 16, opacity: CGFloat = 1) -> some View {
         self
             .foregroundColor(color)
             .font(.system(size: size))
+            .opacity(opacity)
     }
 
     public func cardNameTextModifier(color: Color) -> some View {
@@ -46,12 +47,16 @@ extension Text {
             .font(.system(size: SleepyFontsSizes.cardDescriptionFontSize, weight: .semibold, design: .default))
             .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(color)
+            .padding(.top, 8)
     }
 
     public func cardBottomTextModifier(color: Color) -> some View {
         self
+            .fontWeight(.semibold)
+            .font(.system(size: 14))
             .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(color)
+            .padding(.top, 4)
     }
 
     // MARK: General card elements
@@ -111,4 +116,24 @@ extension Text {
             .foregroundColor(isSelectedType ? .white : .black)
     }
 
+}
+
+public struct CardNameTextView: View {
+
+    private let color: Color
+    private let text: String
+
+    public init(text: String, color: Color) {
+        self.text = text
+        self.color = color
+    }
+
+    public var body: some View {
+        HStack {
+            Text(text)
+                .cardNameTextModifier(color: color)
+            Spacer()
+        }
+        .padding(.leading)
+    }
 }

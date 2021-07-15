@@ -79,6 +79,8 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
         self.feedCoordinator = FeedNavigationCoordinatorImpl(
+            colorProvider: colorSchemeProvider,
+            statisticsProvider: statisticsProvider,
             title: "main list",
             hkStoreService: hkStoreService,
             cardService: cardService,

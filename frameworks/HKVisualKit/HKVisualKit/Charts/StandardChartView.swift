@@ -8,51 +8,70 @@ import SwiftUI
 ///  - needOXLine: true, если снизу графика нужна линия OX
 ///  - chartType: тип графика
 ///  - needDragGesture: true, если нужен dragGesture
-struct StandardChartView: View {
+public struct StandardChartView: View {
 
     @State private var elemWidth: CGFloat
+    private let chartHeight: CGFloat
     private let colorProvider: ColorSchemeProvider
     private let chartType: StandardChartType
     private let dragGestureData: String?
     private let points: [Double]
-    private let chartColor: Color
+    private let chartColor: Color?
     private let needOXLine: Bool
     private let needDragGesture: Bool
+    private let needTimeLine: Bool
+    private let startTime: String?
+    private let endTime: String?
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
 
-    init(colorProvider: ColorSchemeProvider,
-         chartType: StandardChartType,
-         points: [Double],
-         dragGestureData: String? = nil,
-         chartColor: Color,
-         needOXLine: Bool,
-         needDragGesture: Bool) {
+    public init(colorProvider: ColorSchemeProvider,
+                chartType: StandardChartType,
+                chartHeight: CGFloat,
+                points: [Double],
+                dragGestureData: String? = nil,
+                chartColor: Color?,
+                needOXLine: Bool,
+                needTimeLine: Bool,
+                startTime: String? = nil,
+                endTime: String? = nil,
+                needDragGesture: Bool) {
         self.colorProvider = colorProvider
         self.points = points
+        self.chartHeight = chartHeight
         self.dragGestureData = dragGestureData
         self.chartColor = chartColor
         self.needOXLine = needOXLine
         self.chartType = chartType
         self.needDragGesture = needDragGesture
         self.elemWidth = standardWidth
+        self.needTimeLine = needTimeLine
+        self.startTime = startTime
+        self.endTime = endTime
     }
 
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
                 HStack(alignment: .bottom, spacing: chartSpacing) {
                     ForEach(0 ..< points.count, id: \.self) { index in
-                        let height = geometry.size.height * (points[index] / points.max()!)
-                        VStack {
-                            getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
-                            if needOXLine {
-                                getOXLineElement()
+                        if let max = points.max() {
+                            let height = chartHeight * (points[index] / max)
+                            VStack {
+                                getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
+                                if needOXLine {
+                                    getOXLineElement()
+                                }
                             }
                         }
                     }
                 }
                 .gesture(getDrugGesture())
+                if needTimeLine,
+                   let startTime = startTime,
+                   let endTime = endTime {
+                    TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
+                }
             }
             .frame(width: geometry.size.width)
             .onAppear {
@@ -62,6 +81,7 @@ struct StandardChartView: View {
                 }
             }
         }
+        .frame(height: chartHeight + (needOXLine ? 15 : 0) + (needTimeLine ? 15 : 0))
     }
 
     private func getChartElement(for chartType: StandardChartType, width: CGFloat, height: CGFloat, value: Double) -> some View {
@@ -69,12 +89,12 @@ struct StandardChartView: View {
         case .phasesChart:
             return StandardChartElementView(width: elemWidth, height: height, color: getPhaseColor(for: value))
         case .defaultChart:
-            return StandardChartElementView(width: elemWidth, height: height, color: chartColor)
+            return StandardChartElementView(width: elemWidth, height: height, color: chartColor ?? .clear)
         }
     }
 
     private func getPhaseColor(for value: Double) -> Color {
-        return value < 0.55 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)) : value > 1 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.wakeUpColor)) : colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))
+        return value < 0.55 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)) : value >= 1 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.wakeUpColor)) : colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))
     }
 
     private func getDrugGesture() -> some Gesture {

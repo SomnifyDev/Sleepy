@@ -7,4 +7,5 @@ extension Date {
     func minutes(from date: Date) -> Int {
         return abs(Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0)
     }
+    
 }

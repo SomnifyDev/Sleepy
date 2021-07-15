@@ -1,6 +1,6 @@
 import Foundation
 
-enum StandardChartType {
+public enum StandardChartType {
 
     case phasesChart
     case defaultChart
