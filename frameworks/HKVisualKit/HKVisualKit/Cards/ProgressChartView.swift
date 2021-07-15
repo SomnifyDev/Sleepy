@@ -38,7 +38,7 @@ public struct ProgressChartView: View {
                         .foregroundColor(Color.gray.opacity(0.5))
 
                     CardBottomSimpleDescriptionView(colorProvider: colorProvider,
-                                                    descriptionText: analysisString)
+                                                    descriptionText: Text(analysisString))
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List

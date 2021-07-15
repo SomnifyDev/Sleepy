@@ -26,7 +26,7 @@
 		D90BB4C6269E0603002E9E5A /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */; };
 		D90BB4C8269E0B6A002E9E5A /* ImageModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BB4C7269E0B6A002E9E5A /* ImageModifiers.swift */; };
 		D9276A1C269ED27A004490FF /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9276A1B269ED27A004490FF /* TimeLineView.swift */; };
-		D93BF2992698DC3500C0C33D /* TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BF2982698DC3500C0C33D /* TextModifiers.swift */; };
+		D93BF2992698DC3500C0C33D /* View+TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */; };
 		D93BF2A02698DE5C00C0C33D /* ColorsGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BF29F2698DE5C00C0C33D /* ColorsGlobals.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,7 @@
 		D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		D90BB4C7269E0B6A002E9E5A /* ImageModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModifiers.swift; sourceTree = "<group>"; };
 		D9276A1B269ED27A004490FF /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
-		D93BF2982698DC3500C0C33D /* TextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifiers.swift; sourceTree = "<group>"; };
+		D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+TextModifiers.swift"; sourceTree = "<group>"; };
 		D93BF29F2698DE5C00C0C33D /* ColorsGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsGlobals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */,
-				D93BF2982698DC3500C0C33D /* TextModifiers.swift */,
+				D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */,
 				D90BB4C7269E0B6A002E9E5A /* ImageModifiers.swift */,
 			);
 			path = Modifiers;
@@ -261,7 +261,7 @@
 				D90BB4C8269E0B6A002E9E5A /* ImageModifiers.swift in Sources */,
 				D93BF2A02698DE5C00C0C33D /* ColorsGlobals.swift in Sources */,
 				8096A4AC2698CA4800288D1A /* ChartsGlobals.swift in Sources */,
-				D93BF2992698DC3500C0C33D /* TextModifiers.swift in Sources */,
+				D93BF2992698DC3500C0C33D /* View+TextModifiers.swift in Sources */,
 				8096A4AA2698CA4800288D1A /* StandardChartView.swift in Sources */,
 				8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */,
 				D90BB4C4269DF8E0002E9E5A /* CardWithChartView.swift in Sources */,

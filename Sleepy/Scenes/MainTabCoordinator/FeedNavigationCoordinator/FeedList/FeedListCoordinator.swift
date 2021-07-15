@@ -1,10 +1,14 @@
 import SwiftUI
 import XUI
 import HKVisualKit
+import HKStatistics
 
 // MARK: - Protocol
 
 protocol FeedListCoordinator: ViewModel {
+
+    var colorProvider: ColorSchemeProvider { get }
+    var statisticsProvider: HKStatisticsProvider { get }
 
     var title: String { get }
     var cards: [CardType]? { get }
@@ -24,14 +28,20 @@ class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
 
     private let cardService: CardService
     private unowned let coordinator: FeedNavigationCoordinator
+    let colorProvider: ColorSchemeProvider
+    let statisticsProvider: HKStatisticsProvider
 
     // MARK: Initialization
 
-    init(title: String,
+    init(colorProvider: ColorSchemeProvider,
+         statisticsProvider: HKStatisticsProvider,
+         title: String,
          cardService: CardService,
          coordinator: FeedNavigationCoordinator,
          filter: @escaping (CardType) -> Bool) {
 
+        self.colorProvider = colorProvider
+        self.statisticsProvider = statisticsProvider
         self.title = title
         self.coordinator = coordinator
         self.cardService = cardService
