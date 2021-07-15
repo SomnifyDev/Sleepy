@@ -138,7 +138,7 @@ struct FeedListView: View {
         }
 
         if !heartRateData.isEmpty {
-            showHeartCard.toggle()
+            showHeartCard = true
         }
     }
 
@@ -146,7 +146,7 @@ struct FeedListView: View {
         let provider = viewModel.statisticsProvider
         // TODO: Phases logic
         if !phasesData.isEmpty {
-            showPhasesCard.toggle()
+            showPhasesCard = true
         }
     }
 
