@@ -16,12 +16,10 @@ struct HistoryCoordinatorView: View {
     
     @Store var coordinator: HistoryCoordinator
 
-    @State var calendarType: HealthData = .sleep
+    @State private var calendarType: HealthData = .sleep
+    @State private var shouldShowSleepStatistics = false
+    @State private var sleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
 
-    @State var shouldShowSleepStatistics = false
-
-    @State var sleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
-    
     // MARK: Views
     
     var body: some View {

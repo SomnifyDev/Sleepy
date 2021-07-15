@@ -3,11 +3,16 @@ import HKVisualKit
 
 struct HealthTypeSwitchView: View {
 
-    @Binding var selectedType: HealthData
-
-    var colorScheme: SleepyColorScheme
     @State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
     //    = CGFloat.infinity   // << variant for VStack
+    @Binding var selectedType: HealthData
+
+    private var colorScheme: SleepyColorScheme
+
+    init(selectedType: Binding<HealthData>, colorScheme: SleepyColorScheme) {
+        self._selectedType = selectedType
+        self.colorScheme = colorScheme
+    }
 
     var body: some View {
         VStack {

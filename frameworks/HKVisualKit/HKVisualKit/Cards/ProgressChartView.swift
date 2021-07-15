@@ -37,8 +37,7 @@ public struct ProgressChartView: View {
                         .padding(.trailing, beforeWeeksProgress.value >  currentWeeksProgress.value ? 0 : 64)
                         .foregroundColor(Color.gray.opacity(0.5))
 
-                    CardBottomSimpleDescriptionView(colorProvider: colorProvider,
-                                                    descriptionText: analysisString)
+                    CardBottomSimpleDescriptionView(descriptionText: analysisString, colorProvider: colorProvider)
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List

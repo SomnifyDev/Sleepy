@@ -9,11 +9,16 @@ import SwiftUI
 
 public struct CardBottomSimpleDescriptionView: View {
 
-    let colorProvider: ColorSchemeProvider
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
     
-    var descriptionText: String
+    private let descriptionText: String
+    private let colorProvider: ColorSchemeProvider
+
+    init(descriptionText: String, colorProvider: ColorSchemeProvider) {
+        self.descriptionText = descriptionText
+        self.colorProvider = colorProvider
+    }
 
     public var body: some View {
         VStack {
@@ -44,6 +49,6 @@ public struct CardBottomSimpleDescriptionView: View {
 
 struct CardBottomSimpleDescriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        CardBottomSimpleDescriptionView(colorProvider: ColorSchemeProvider(), descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ")
+        CardBottomSimpleDescriptionView(descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ", colorProvider: ColorSchemeProvider())
     }
 }
