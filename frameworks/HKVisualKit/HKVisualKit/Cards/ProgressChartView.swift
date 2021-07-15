@@ -25,19 +25,20 @@ public struct ProgressChartView: View {
                     CardTitleView(colorProvider: colorProvider, systemImageName: "person",
                                   titleText: "Title",
                                   mainText: "Thats some progress you've made in several weeks in sleep duration",
-                                  titleColor: .blue)
+                                  titleColor: .black)
 
                     ProgressItemView(progressItem: currentWeeksProgress)
                         .padding(.top, 8)
-                        .padding(.trailing, currentWeeksProgress.value >  beforeWeeksProgress.value ? 0 : 64)
+                        .padding(.trailing, currentWeeksProgress.value > beforeWeeksProgress.value ? 0 : 64)
                         .foregroundColor(.blue)
 
                     ProgressItemView(progressItem: beforeWeeksProgress)
                         .padding(.top, 8)
-                        .padding(.trailing, beforeWeeksProgress.value >  currentWeeksProgress.value ? 0 : 64)
+                        .padding(.trailing, beforeWeeksProgress.value > currentWeeksProgress.value ? 0 : 64)
                         .foregroundColor(Color.gray.opacity(0.5))
 
-                    CardBottomSimpleDescriptionView(descriptionText: analysisString, colorProvider: colorProvider)
+                    CardBottomSimpleDescriptionView(colorProvider: colorProvider,
+                                                    descriptionText: Text(analysisString))
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List

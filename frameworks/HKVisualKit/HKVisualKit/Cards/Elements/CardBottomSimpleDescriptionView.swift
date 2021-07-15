@@ -23,16 +23,14 @@ public struct CardBottomSimpleDescriptionView: View {
     public var body: some View {
         VStack {
             GeometryReader { geometry in
-                VStack(alignment: .leading,spacing: 4) {
-                    Divider()
-                        .padding(.top, 4)
-
-                    Text(descriptionText)
+                VStack(alignment: .leading) {
+                    descriptionText
                         .cardBottomTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
-
+                        .padding(.top, 4)
                 }.background(viewHeightReader($totalHeight))
             }
-        }.frame(height: totalHeight) // - variant for ScrollView/List
+        }
+        .frame(height: totalHeight) // - variant for ScrollView/List
         //.frame(maxHeight: totalHeight) - variant for VStack
     }
 
@@ -47,8 +45,8 @@ public struct CardBottomSimpleDescriptionView: View {
     }
 }
 
-struct CardBottomSimpleDescriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardBottomSimpleDescriptionView(descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ", colorProvider: ColorSchemeProvider())
-    }
-}
+//struct CardBottomSimpleDescriptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CardBottomSimpleDescriptionView(colorProvider: ColorSchemeProvider(), descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ")
+//    }
+//}

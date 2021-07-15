@@ -84,7 +84,7 @@ struct HistoryCoordinatorView: View {
         // TODO: change bundle prefix to ours when there will be enough data
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            coordinator.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: current2weeks, bundlePrefix: "com.apple") { result in
+            coordinator.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: current2weeks, bundlePrefixes: ["com.apple"]) { result in
                 mean1 = result
                 group.leave()
             }
@@ -92,8 +92,7 @@ struct HistoryCoordinatorView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-
-            coordinator.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: last2weeks, bundlePrefix: "com.apple") { result in
+            coordinator.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: last2weeks, bundlePrefixes: ["com.apple"]) { result in
                 mean2 = result
                 group.leave()
             }

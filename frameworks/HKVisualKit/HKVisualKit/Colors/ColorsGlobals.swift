@@ -20,7 +20,7 @@ public enum ColorType {
     case heart(HeartColors)
     case energy(EnergyColors)
     case calendar(CalendarColors)
-    case genInfoCardColors(GenInfoCardColors)
+    case summaryCardColors(SummaryCardColors)
     case textsColors(TextsColors)
 
     public enum GeneralColors {
@@ -55,9 +55,11 @@ public enum ColorType {
         case energyColor
     }
 
-    public enum GenInfoCardColors {
+    public enum SummaryCardColors {
         case awakeColor
         case moonColor
+        case sleepDurationColor
+        case fallAsleepDurationColor
     }
 
     public enum TextsColors {

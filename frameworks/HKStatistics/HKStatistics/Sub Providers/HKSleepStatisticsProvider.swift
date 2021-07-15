@@ -13,4 +13,25 @@ final class HKSleepStatisticsProvider {
         }
     }
 
+    func getSleepIntervalBoundary(boundary: SleepBoundaryType, sleep: Sleep) -> String {
+        switch boundary {
+        case .start:
+            return sleep.sleepInterval.start.getFormattedDate(format: "HH:mm")
+        case .end:
+            return sleep.sleepInterval.end.getFormattedDate(format: "HH:mm")
+        }
+    }
+
+    func getFallingAsleepDuration(sleep: Sleep) -> String {
+        let mins = sleep.sleepInterval.start.minutes(from: sleep.inBedInterval.start)
+        return mins < 0 ? "0m" : "\(mins)m"
+    }
+
+    func getSleepDuration(sleep: Sleep) -> String {
+        let totalMins = sleep.sleepInterval.end.minutes(from: sleep.sleepInterval.start)
+        let hours = totalMins / 60
+        let minutes = totalMins - hours * 60
+        return "\(hours)h \(minutes)m"
+    }
+
 }

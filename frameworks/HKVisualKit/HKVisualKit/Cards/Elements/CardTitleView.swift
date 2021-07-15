@@ -21,8 +21,16 @@ public struct CardTitleView: View {
         self.showChevron = showChevron
     }
 
-    public var body: some View {
+    public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showChevron: Bool = false) {
+        self.colorProvider = colorProvider
+        self.systemImageName = systemImageName
+        self.titleText = titleText
+        self.mainText = mainText
+        self.titleColor = titleColor
+        self.showChevron = showChevron
+    }
 
+    public var body: some View {
         VStack {
             GeometryReader { geometry in
                 VStack(alignment: .leading,spacing: 4) {

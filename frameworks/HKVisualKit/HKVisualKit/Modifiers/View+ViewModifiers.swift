@@ -8,7 +8,7 @@ struct CardBackground: ViewModifier {
             .padding([.leading, .trailing, .top, .bottom])
             .background(color)
             .cornerRadius(12)
-            .padding([.leading, .trailing, .top, .bottom])
+            .padding([.leading, .trailing, .bottom])
     }
 }
 

@@ -1,6 +1,8 @@
 import Foundation
 import XUI
 import HKCoreSleep
+import HKVisualKit
+import HKStatistics
 
 // MARK: - Protocol
 
@@ -8,6 +10,9 @@ protocol FeedNavigationCoordinator: ViewModel {
 
     var viewModel: FeedListCoordinator! { get }
     var detailViewModel: CardDetailViewRouter? { get set }
+
+    var colorProvider: ColorSchemeProvider { get }
+    var statisticsProvider: HKStatisticsProvider { get }
 
     func filter(_ card: CardType) -> Bool
 
@@ -39,15 +44,21 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
     private let hkStoreService: HKService
     private let cardService: CardService
     private unowned let parent: RootCoordinator
+    let colorProvider: ColorSchemeProvider
+    let statisticsProvider: HKStatisticsProvider
 
     // MARK: Initialization
 
-    init(title: String,
+    init(colorProvider: ColorSchemeProvider,
+         statisticsProvider: HKStatisticsProvider,
+         title: String,
          hkStoreService: HKService,
          cardService: CardService,
          parent: RootCoordinator,
          filter: @escaping (CardType) -> Bool) {
 
+        self.colorProvider = colorProvider
+        self.statisticsProvider = statisticsProvider
         self.parent = parent
         // координатор экрана получил сервисы которые мб понадобятся ему или дочерним роутерам
         // обрати внимание на View данного координатора
@@ -58,7 +69,9 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
 
         // создаем дочерний координатор списка карточек
         self.viewModel =
-        FeedListCoordinatorImpl(title: title,
+        FeedListCoordinatorImpl(colorProvider: colorProvider,
+                                statisticsProvider: statisticsProvider,
+                                title: title,
                                 cardService: cardService,
                                 coordinator: self,
                                 filter: filter)
