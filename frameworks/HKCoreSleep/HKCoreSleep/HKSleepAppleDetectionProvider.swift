@@ -9,7 +9,7 @@ public protocol HKDetectionProvider {
 
 public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
-    let hkService: HKService?
+    private let hkService: HKService?
 
     // MARK: - Init
 

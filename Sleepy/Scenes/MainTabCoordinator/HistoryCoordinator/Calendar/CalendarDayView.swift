@@ -12,10 +12,24 @@ struct CalendarDayView: View {
     @State private var value: Double?
     @State private var circleColor: Color?
 
-    let colorScheme: SleepyColorScheme
-    let statsProvider: HKStatisticsProvider
-    let currentDate: Date
-    let dateIndex: Int
+    private let colorScheme: SleepyColorScheme
+    private let statsProvider: HKStatisticsProvider
+    private let currentDate: Date
+    private let dateIndex: Int
+
+    init(type: Binding<HealthData>,
+         monthDate: Binding<Date>,
+         colorScheme: SleepyColorScheme,
+         statsProvider: HKStatisticsProvider,
+         currentDate: Date,
+         dateIndex: Int) {
+        self._type = type
+        self._monthDate = monthDate
+        self.colorScheme = colorScheme
+        self.statsProvider = statsProvider
+        self.currentDate = currentDate
+        self.dateIndex = dateIndex
+    }
 
     var body: some View {
         GeometryReader { geometry in

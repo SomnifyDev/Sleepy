@@ -16,9 +16,7 @@ class CardService {
     // MARK: Stored Properties - Cards
 
     private let mainCard: CardType = .general
-
     private let phasesCard: CardType = .phases
-
     private let heartCard: CardType = .heart
 
     // MARK: Iternal functions

@@ -9,8 +9,13 @@ import SwiftUI
 
 struct HorizontalStatisticCellView: View {
 
-    @State var data: [StatisticsCell]
-    var backgroundColor: Color
+    private var data: [StatisticsCell]
+    private var backgroundColor: Color
+
+    init(data: [StatisticsCell], backgroundColor: Color) {
+        self.data = data
+        self.backgroundColor = backgroundColor
+    }
 
     var body: some View {
         VStack(spacing: 16) {

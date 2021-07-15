@@ -6,14 +6,19 @@ struct CalendarView: View {
 
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
-    
-    @State var monthDate = Date()
+
+    @State private var monthDate = Date()
     @Binding var calendarType: HealthData
 
-    let colorSchemeProvider: ColorSchemeProvider
-    let statsProvider: HKStatisticsProvider
-
     private let calendarGridLayout = Array(repeating: GridItem(.flexible()), count: 7)
+    private let colorSchemeProvider: ColorSchemeProvider
+    private let statsProvider: HKStatisticsProvider
+
+    init(calendarType: Binding<HealthData>, colorSchemeProvider: ColorSchemeProvider, statsProvider: HKStatisticsProvider) {
+        self._calendarType = calendarType
+        self.colorSchemeProvider = colorSchemeProvider
+        self.statsProvider = statsProvider
+    }
 
     var body: some View {
         VStack {
@@ -22,8 +27,8 @@ struct CalendarView: View {
 
                 VStack {
                     CalendarTitleView(calendarType: $calendarType,
-                              monthDate: $monthDate,
-                              colorSchemeProvider: colorSchemeProvider)
+                                      monthDate: $monthDate,
+                                      colorSchemeProvider: colorSchemeProvider)
 
                     HealthTypeSwitchView(selectedType: $calendarType,
                                          colorScheme: colorSchemeProvider.sleepyColorScheme)
@@ -132,4 +137,5 @@ private struct CalendarTitleView: View {
             return colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
         }
     }
+    
 }

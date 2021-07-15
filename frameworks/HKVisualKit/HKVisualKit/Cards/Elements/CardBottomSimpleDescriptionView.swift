@@ -1,15 +1,23 @@
+//
+//  CardBottomDescriptionView.swift
+//  HKVisualKit
+//
+//  Created by Никита Казанцев on 04.07.2021.
+//
+
 import SwiftUI
 
 public struct CardBottomSimpleDescriptionView: View {
 
-    private let colorProvider: ColorSchemeProvider
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
-    private let descriptionText: Text
+    
+    private let descriptionText: String
+    private let colorProvider: ColorSchemeProvider
 
-    public init(colorProvider: ColorSchemeProvider, descriptionText: Text) {
-        self.colorProvider = colorProvider
+    init(descriptionText: String, colorProvider: ColorSchemeProvider) {
         self.descriptionText = descriptionText
+        self.colorProvider = colorProvider
     }
 
     public var body: some View {

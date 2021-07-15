@@ -12,6 +12,15 @@ public struct CardTitleView: View {
     private let titleColor: Color
     private let showChevron: Bool
 
+    init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showChevron: Bool = false) {
+        self.colorProvider = colorProvider
+        self.systemImageName = systemImageName
+        self.titleText = titleText
+        self.mainText = mainText
+        self.titleColor = titleColor
+        self.showChevron = showChevron
+    }
+
     public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showChevron: Bool = false) {
         self.colorProvider = colorProvider
         self.systemImageName = systemImageName
