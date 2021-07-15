@@ -1,10 +1,3 @@
-//
-//  CardBottomDescriptionView.swift
-//  HKVisualKit
-//
-//  Created by Никита Казанцев on 04.07.2021.
-//
-
 import SwiftUI
 
 public struct CardBottomSimpleDescriptionView: View {
@@ -22,13 +15,10 @@ public struct CardBottomSimpleDescriptionView: View {
     public var body: some View {
         VStack {
             GeometryReader { geometry in
-                VStack(alignment: .leading, spacing: 4) {
-                    Divider()
-                        .padding(.top, 4)
-
+                VStack(alignment: .leading) {
                     descriptionText
                         .cardBottomTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
-
+                        .padding(.top, 4)
                 }.background(viewHeightReader($totalHeight))
             }
         }

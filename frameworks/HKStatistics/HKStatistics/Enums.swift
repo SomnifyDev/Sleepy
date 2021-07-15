@@ -44,3 +44,10 @@ public enum PhaseCondition {
     case lightPhase
     
 }
+
+public enum SleepBoundaryType {
+
+    case start
+    case end
+
+}

@@ -66,6 +66,34 @@ public final class HKStatisticsProvider: HKStatistics {
         return sleepStatisticsProvider.handleSleepStatistics(for: sleepStatType, sleep: sleep)
     }
 
+    /// Возвращает массивы с обработанными данными за последний сон, записанный в Sleep
+    public func getTodayData(of healthtype: HKService.HealthType) -> [Double] {
+        switch healthtype {
+        case .energy:
+            return generalStatisticsProvider.getData(for: .energy, sleepData: sleep.energySamples)
+        case .heart:
+            return generalStatisticsProvider.getData(for: .heart, sleepData: sleep.heartSamples)
+        case .asleep:
+            return generalStatisticsProvider.getData(for: .asleep, sleepData: sleep.asleepSamples)
+        case .inbed:
+            return generalStatisticsProvider.getData(for: .inbed, sleepData: sleep.inBedSamples)
+        }
+    }
+
+    /// Возвращает границы сна (начало, конец)
+    public func getTodaySleepIntervalBoundary(boundary: SleepBoundaryType) -> String {
+        return sleepStatisticsProvider.getSleepIntervalBoundary(boundary: boundary, sleep: sleep)
+    }
+
+    /// Возвращает время засыпания в минутах
+    public func getTodayFallingAsleepDuration() -> String {
+        return sleepStatisticsProvider.getFallingAsleepDuration(sleep: sleep)
+    }
+
+    public func getTodaySleepDuration() -> String {
+        return sleepStatisticsProvider.getSleepDuration(sleep: sleep)
+    }
+
     /// Возвращает значение по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
     public func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                                indicatorType: IndicatorType,
@@ -73,7 +101,7 @@ public final class HKStatisticsProvider: HKStatistics {
                                                bundlePrefixes: [String] = ["com.apple"],
                                                completion: @escaping (Double?) -> Void) {
         healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, error in
-            completion(self?.generalStatisticsProvider.getDataByIntervalWithIndicator(for: healthType, for: indicatorType, sleepData: sleepData))
+            completion(self?.generalStatisticsProvider.getDataWithIndicator(for: healthType, for: indicatorType, sleepData: sleepData))
         }
     }
 
@@ -83,7 +111,7 @@ public final class HKStatisticsProvider: HKStatistics {
                                   bundlePrefixes: [String] = ["com.apple"],
                                   completion: @escaping ([Double]) -> Void) {
         healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, error in
-            completion(self?.generalStatisticsProvider.getDataByInterval(for: healthType, sleepData: sleepData) ?? [])
+            completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: sleepData) ?? [])
         }
     }
     

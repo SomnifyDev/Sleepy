@@ -52,7 +52,8 @@ extension Text {
 
     public func cardBottomTextModifier(color: Color) -> some View {
         self
-            .bold()
+            .fontWeight(.semibold)
+            .font(.system(size: 14))
             .fixedSize(horizontal: false, vertical: true)
             .foregroundColor(color)
             .padding(.top, 4)

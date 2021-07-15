@@ -4,7 +4,7 @@ import HealthKit
 
 final class HKGeneralStatisticsProvider {
 
-    func getDataByInterval(for healthType: HKService.HealthType, sleepData: [HKSample]?) -> [Double] {
+    func getData(for healthType: HKService.HealthType, sleepData: [HKSample]?) -> [Double] {
         switch healthType {
         case .energy:
             if let energyData = sleepData as? [HKQuantitySample] {
@@ -29,7 +29,7 @@ final class HKGeneralStatisticsProvider {
         return []
     }
 
-    func getDataByIntervalWithIndicator(for healthType: HKService.HealthType, for indicatorType: IndicatorType, sleepData: [HKSample]?) -> Double? {
+    func getDataWithIndicator(for healthType: HKService.HealthType, for indicatorType: IndicatorType, sleepData: [HKSample]?) -> Double? {
         switch healthType {
         case .energy:
             return self.handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit.kilocalorie())
@@ -42,11 +42,9 @@ final class HKGeneralStatisticsProvider {
         }
     }
 
-    func handleForCategorySample(for indicator: IndicatorType, arr: [HKSample]?) -> Double? {
+    private func handleForCategorySample(for indicator: IndicatorType, arr: [HKSample]?) -> Double? {
         if let categData = arr as? [HKCategorySample] {
-
             let data = categData.map { $0.endDate.minutes(from: $0.startDate) }
-
             switch indicator {
             case .min:
                 guard let min = data.min() else { return nil }
@@ -63,11 +61,9 @@ final class HKGeneralStatisticsProvider {
         }
     }
 
-    func handleForQuantitySample(for indicator: IndicatorType, arr: [HKSample]?, for unit: HKUnit) -> Double? {
+    private func handleForQuantitySample(for indicator: IndicatorType, arr: [HKSample]?, for unit: HKUnit) -> Double? {
         if let quantityData = arr as? [HKQuantitySample] {
-
             let data = quantityData.map { $0.quantity.doubleValue(for: unit) }
-
             switch indicator {
             case .min:
                 guard let min = data.min() else { return nil }

@@ -8,6 +8,17 @@ struct FeedListView: View {
 
     @Store var viewModel: FeedListCoordinator
 
+    // MARK: State Properties
+
+    @State private var sleepStart: String = ""
+    @State private var sleepEnd: String = ""
+    @State private var sleepDuration: String = ""
+    @State private var fallAsleepDuration: String = ""
+
+    @State private var heartRateData: [Double] = []
+    @State private var maxHeartRate: String = ""
+    @State private var minHeartRate: String = ""
+
     // MARK: Views
 
     var body: some View {
@@ -22,11 +33,15 @@ struct FeedListView: View {
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                             .padding(.top)
 
-                        SummaryInfoCardView(colorProvider: viewModel.colorProvider, sleepStartTime: "23:00", sleepDuration: "7h 54m", awakeTime: "6:54", fallingAsleepDuration: "10m")
+                        SummaryInfoCardView(colorProvider: viewModel.colorProvider,
+                                            sleepStartTime: sleepStart,
+                                            sleepDuration: sleepDuration,
+                                            awakeTime: sleepEnd,
+                                            fallingAsleepDuration: fallAsleepDuration)
                             .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                         CardNameTextView(text: "Sleep session",
-                                             color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         CardWithChartView(colorProvider: viewModel.colorProvider,
                                           systemImageName: "sleep",
@@ -35,10 +50,10 @@ struct FeedListView: View {
                                           titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                           chartView: StandardChartView(colorProvider: viewModel.colorProvider,
                                                                        chartType: .phasesChart,
-                                                                       chartHeight: 100,
+                                                                       chartHeight: 75,
                                                                        points: [0.75, 1, 0.3, 0.45, 0.2, 0.35, 0.45, 0.25, 0.65, 0.8, 0.85, 0.9, 0.45, 0.1, 0.65, 0.45, 0.2, 0.35, 0.5, 0.2, 0.6, 0.8, 1],
                                                                        dragGestureData: "",
-                                                                       chartColor: .blue,
+                                                                       chartColor: nil,
                                                                        needOXLine: true,
                                                                        needTimeLine: true,
                                                                        startTime: "23:00",
@@ -54,7 +69,7 @@ struct FeedListView: View {
                             .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                         CardNameTextView(text: "Heart rate",
-                                             color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         CardWithChartView(colorProvider: viewModel.colorProvider,
                                           systemImageName: "suit.heart.fill",
@@ -63,21 +78,21 @@ struct FeedListView: View {
                                           titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                           chartView: StandardChartView(colorProvider: viewModel.colorProvider,
                                                                        chartType: .defaultChart,
-                                                                       chartHeight: 100,
-                                                                       points: [67, 44, 55, 42, 71, 61, 47, 51, 65, 68, 43 ,50 ,53 ,57 ,45 ,56, 70 ,60 ,66 ,49],
+                                                                       chartHeight: 75,
+                                                                       points: heartRateData,
                                                                        dragGestureData: "",
                                                                        chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                                                        needOXLine: true,
                                                                        needTimeLine: true,
-                                                                       startTime: "23:00",
-                                                                       endTime: "6:54",
+                                                                       startTime: sleepStart,
+                                                                       endTime: sleepEnd,
                                                                        needDragGesture: false),
                                           bottomView: CardBottomSimpleDescriptionView(colorProvider: viewModel.colorProvider,
                                                                                       descriptionText:
                                                                                         Text("The maximal heartbeat was ")
-                                                                                      + Text("71 bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
+                                                                                      + Text("\(maxHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
                                                                                       + Text(", while the minimal was ")
-                                                                                      + Text("42 bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
+                                                                                      + Text("\(minHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
                                                                                       + Text(".")))
                             .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }
@@ -85,14 +100,64 @@ struct FeedListView: View {
             }
         }
         .navigationTitle("Summary, \(Date().getFormattedDate(format: "MMM d"))")
-//        List(viewModel.cards ?? []) { card in
-//            HStack {
-//                containedView(card: card)
-//            }
-//            .onNavigation {
-//                viewModel.open(card)
-//            }
-//        }
+        .onAppear {
+            let provider = viewModel.statisticsProvider
+
+            sleepStart = provider.getTodaySleepIntervalBoundary(boundary: .start)
+            sleepEnd = provider.getTodaySleepIntervalBoundary(boundary: .end)
+            sleepDuration = provider.getTodaySleepDuration()
+            fallAsleepDuration = provider.getTodayFallingAsleepDuration()
+            heartRateData = getShortHeartRateData(heartRateData: provider.getTodayData(of: .heart))
+
+            if let maxHR = provider.getData(dataType: .heart, indicatorType: .max),
+               let minHR = provider.getData(dataType: .heart, indicatorType: .min) {
+                maxHeartRate = Int(maxHR).description
+                minHeartRate = Int(minHR).description
+            } else {
+                maxHeartRate = "-"
+                minHeartRate = "-"
+            }
+        }
+        //        List(viewModel.cards ?? []) { card in
+        //            HStack {
+        //                containedView(card: card)
+        //            }
+        //            .onNavigation {
+        //                viewModel.open(card)
+        //            }
+        //        }
+    }
+
+    private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
+        guard
+            heartRateData.count > 22,
+            let max = heartRateData.max(),
+            let min = heartRateData.min()
+        else {
+            return heartRateData
+        }
+
+        let stackCapacity = heartRateData.count / 22
+        var shortData: [Double] = []
+
+        for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
+            let shortDataSize = shortData.count
+            for stackIndex in index..<index+stackCapacity {
+                if stackIndex < heartRateData.count {
+                    if heartRateData[stackIndex] == max || heartRateData[stackIndex] == min {
+                        shortData.append(heartRateData[stackIndex])
+                        break
+                    }
+                } else {
+                    return shortData
+                }
+            }
+            if shortData.count == shortDataSize {
+                shortData.append(heartRateData[index])
+            }
+        }
+
+        return shortData
     }
 
     // MARK: Internal methods

@@ -99,6 +99,7 @@ public struct SummaryInfoCardView: View {
                             }
                         }
                     }
+                    .padding(.top, 8)
                 }
                 .background(viewHeightReader($totalHeight))
             }

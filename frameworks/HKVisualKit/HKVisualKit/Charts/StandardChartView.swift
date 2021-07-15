@@ -16,7 +16,7 @@ public struct StandardChartView: View {
     private let chartType: StandardChartType
     private let dragGestureData: String?
     private let points: [Double]
-    private let chartColor: Color
+    private let chartColor: Color?
     private let needOXLine: Bool
     private let needDragGesture: Bool
     private let needTimeLine: Bool
@@ -30,7 +30,7 @@ public struct StandardChartView: View {
                 chartHeight: CGFloat,
                 points: [Double],
                 dragGestureData: String? = nil,
-                chartColor: Color,
+                chartColor: Color?,
                 needOXLine: Bool,
                 needTimeLine: Bool,
                 startTime: String? = nil,
@@ -89,7 +89,7 @@ public struct StandardChartView: View {
         case .phasesChart:
             return StandardChartElementView(width: elemWidth, height: height, color: getPhaseColor(for: value))
         case .defaultChart:
-            return StandardChartElementView(width: elemWidth, height: height, color: chartColor)
+            return StandardChartElementView(width: elemWidth, height: height, color: chartColor ?? .clear)
         }
     }
 
