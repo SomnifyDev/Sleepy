@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4C845AFBD9129D07199D3362 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B18099E1729DF44447B75B1 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework */; };
+		8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A526A1FA3600A7192A /* HistoryListView.swift */; };
+		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
+		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
 		801505A726713DBF007574B9 /* HeartCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A626713DBF007574B9 /* HeartCardView.swift */; };
 		801505A926714067007574B9 /* GeneralCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A826714067007574B9 /* GeneralCardView.swift */; };
 		801505AB26714097007574B9 /* PhasesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AA26714097007574B9 /* PhasesCardView.swift */; };
@@ -187,6 +190,9 @@
 		6E8E54E67A3140C18D05934A /* Pods-Sleepy-SleepyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-SleepyUITests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy_SleepyUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
+		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
+		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
 		801505A626713DBF007574B9 /* HeartCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardView.swift; sourceTree = "<group>"; };
 		801505A826714067007574B9 /* GeneralCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardView.swift; sourceTree = "<group>"; };
 		801505AA26714097007574B9 /* PhasesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardView.swift; sourceTree = "<group>"; };
@@ -330,12 +336,14 @@
 			path = Cards;
 			sourceTree = "<group>";
 		};
-		805D75152692456000C19034 /* Sleep Statistics */ = {
+		805D75152692456000C19034 /* Embed Statistics */ = {
 			isa = PBXGroup;
 			children = (
 				805D751A2692458500C19034 /* SleepHistoryStatsView.swift */,
+				8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */,
+				8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */,
 			);
-			path = "Sleep Statistics";
+			path = "Embed Statistics";
 			sourceTree = "<group>";
 		};
 		80780F04266CE356000D0DD9 /* HK */ = {
@@ -593,8 +601,8 @@
 		D99509F326777D4D00694208 /* AlarmCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				D99509F9267780C400694208 /* AlarmCoordinator.swift */,
 				D99509FB267780D700694208 /* AlarmCoordinatorView.swift */,
+				D99509F9267780C400694208 /* AlarmCoordinator.swift */,
 			);
 			path = AlarmCoordinator;
 			sourceTree = "<group>";
@@ -602,10 +610,11 @@
 		D99509F426777D5800694208 /* HistoryCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				805D75152692456000C19034 /* Sleep Statistics */,
-				80D7F0B2268C71DA0055ECEE /* Calendar */,
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
+				8002F3A526A1FA3600A7192A /* HistoryListView.swift */,
+				805D75152692456000C19034 /* Embed Statistics */,
+				80D7F0B2268C71DA0055ECEE /* Calendar */,
 			);
 			path = HistoryCoordinator;
 			sourceTree = "<group>";
@@ -1084,7 +1093,10 @@
 				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
 				80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */,
+				8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */,
 				D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */,
+				8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */,
+				8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */,
 				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
 				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
 				D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */,
@@ -1311,7 +1323,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1319,7 +1331,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1335,7 +1347,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1343,7 +1355,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1402,7 +1414,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = SleepyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1423,7 +1435,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = SleepyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1444,7 +1456,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1452,7 +1464,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1468,7 +1480,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1476,7 +1488,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1493,10 +1505,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1513,10 +1525,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1533,7 +1545,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1557,7 +1569,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1579,7 +1591,7 @@
 			baseConfigurationReference = 3DDF5078896DFF8709277BAC /* Pods-Sleepy-Sleepy_WatchOSUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1601,7 +1613,7 @@
 			baseConfigurationReference = E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

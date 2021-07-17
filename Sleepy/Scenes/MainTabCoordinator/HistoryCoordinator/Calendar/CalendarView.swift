@@ -96,7 +96,7 @@ private struct CalendarTitleView: View {
     var body: some View {
         HStack {
             Text(Image(systemName: "calendar"))
-                .systemTextModifier(color: getSelectedCalendarColor(for: calendarType), size: 24)
+                .regularTextModifier(color: getSelectedCalendarColor(for: calendarType), size: 24)
 
             Text("\(monthDate.getMonthString()) \(monthDate.getYearString())")
                 .calendarMonthTitleModifier(color: getSelectedCalendarColor(for: calendarType))

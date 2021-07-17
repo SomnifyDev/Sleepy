@@ -5,16 +5,31 @@ public struct ProgressChartView: View {
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
+    private let titleText: String
+    private let mainText: String
+    private let systemImage: String
     private let colorProvider: ColorSchemeProvider
     private var currentWeeksProgress: ProgressItem
     private var beforeWeeksProgress: ProgressItem
     private var analysisString: String
+    private let mainColor: Color
 
-    public init(colorProvider: ColorSchemeProvider, currentWeeksProgress: ProgressItem, beforeWeeksProgress: ProgressItem, analysisString: String) {
+    public init(titleText: String,
+                mainText: String,
+                systemImage: String,
+                colorProvider: ColorSchemeProvider,
+                currentWeeksProgress: ProgressItem,
+                beforeWeeksProgress: ProgressItem,
+                analysisString: String,
+                mainColor: Color) {
+        self.titleText = titleText
+        self.mainText = mainText
+        self.systemImage = systemImage
         self.colorProvider = colorProvider
         self.currentWeeksProgress = currentWeeksProgress
         self.beforeWeeksProgress = beforeWeeksProgress
         self.analysisString = analysisString
+        self.mainColor = mainColor
     }
 
     public var body: some View {
@@ -22,23 +37,22 @@ public struct ProgressChartView: View {
             GeometryReader { geometry in
 
                 VStack(alignment: .leading) {
-                    CardTitleView(colorProvider: colorProvider, systemImageName: "person",
-                                  titleText: "Title",
-                                  mainText: "Thats some progress you've made in several weeks in sleep duration",
-                                  titleColor: .black)
+                    CardTitleView(colorProvider: colorProvider, systemImageName: systemImage,
+                                  titleText: titleText,
+                                  mainText: mainText,
+                                  titleColor: mainColor)
 
                     ProgressItemView(progressItem: currentWeeksProgress)
                         .padding(.top, 8)
                         .padding(.trailing, currentWeeksProgress.value > beforeWeeksProgress.value ? 0 : 64)
-                        .foregroundColor(.blue)
+                        .foregroundColor(mainColor)
 
                     ProgressItemView(progressItem: beforeWeeksProgress)
                         .padding(.top, 8)
                         .padding(.trailing, beforeWeeksProgress.value > currentWeeksProgress.value ? 0 : 64)
-                        .foregroundColor(Color.gray.opacity(0.5))
+                        .foregroundColor(mainColor.opacity(0.5))
 
-                    CardBottomSimpleDescriptionView(colorProvider: colorProvider,
-                                                    descriptionText: Text(analysisString))
+                    CardBottomSimpleDescriptionView(descriptionText: Text(analysisString), colorProvider: colorProvider)
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
@@ -94,9 +108,11 @@ public struct ProgressItemView: View {
     }
 }
 
-struct ProgressView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProgressChartView(colorProvider: ColorSchemeProvider(), currentWeeksProgress: ProgressItem(title: "title", text: "text", value: 320),
-                          beforeWeeksProgress: ProgressItem(title: "title", text: "text", value: 360), analysisString: "sleep analysis here")
-    }
-}
+//struct ProgressView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProgressChartView(colorProvider: ColorSchemeProvider(), currentWeeksProgress: ProgressItem(title: "title", text: "text", value: 320),
+//                          beforeWeeksProgress: ProgressItem(title: "title", text: "text", value: 360),
+//                          analysisString: "sleep analysis here",
+//                          mainColor: Color(UIColor.yellow))
+//    }
+//}
