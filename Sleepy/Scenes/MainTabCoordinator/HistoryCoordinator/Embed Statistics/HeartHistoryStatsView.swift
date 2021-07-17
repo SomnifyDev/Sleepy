@@ -10,10 +10,10 @@ import HKVisualKit
 
 struct HeartHistoryStatsView: View {
 
-    private let viewModel: SleepHistoryStatsViewModel
+    private let viewModel: HeartHistoryStatsViewModel
     private let colorProvider: ColorSchemeProvider
 
-    init(viewModel: SleepHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
+    init(viewModel: HeartHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
         self.viewModel = viewModel
         self.colorProvider = colorProvider
     }

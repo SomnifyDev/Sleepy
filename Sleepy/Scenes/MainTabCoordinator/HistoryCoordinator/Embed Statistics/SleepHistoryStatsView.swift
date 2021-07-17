@@ -38,12 +38,7 @@ struct SleepHistoryStatsView: View {
                                                                startTime: "23:00",
                                                                endTime: "6:54",
                                                                needDragGesture: false),
-                                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
-                                                                                Text("The duration of light phase was ")
-                                                                              + Text("3h 45min").foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))).bold()
-                                                                              + Text(", while the duration of deep phase was ")
-                                                                              + Text("2h 12min").foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor))).bold()
-                                                                              + Text("."), colorProvider: colorProvider))
+                                  bottomView: EmptyView())
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
             }
 
