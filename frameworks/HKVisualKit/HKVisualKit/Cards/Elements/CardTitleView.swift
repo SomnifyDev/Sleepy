@@ -11,23 +11,16 @@ public struct CardTitleView: View {
     private let mainText: String?
     private let titleColor: Color
     private let showChevron: Bool
+    private let showSeparator: Bool
 
-    init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showChevron: Bool = false) {
+    init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showSeparator: Bool = true, showChevron: Bool = false) {
         self.colorProvider = colorProvider
         self.systemImageName = systemImageName
         self.titleText = titleText
         self.mainText = mainText
         self.titleColor = titleColor
         self.showChevron = showChevron
-    }
-
-    public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showChevron: Bool = false) {
-        self.colorProvider = colorProvider
-        self.systemImageName = systemImageName
-        self.titleText = titleText
-        self.mainText = mainText
-        self.titleColor = titleColor
-        self.showChevron = showChevron
+        self.showSeparator = showSeparator
     }
 
     public var body: some View {
@@ -54,8 +47,10 @@ public struct CardTitleView: View {
                             .cardDescriptionTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                     }
 
-                    Divider()
-                        .padding(.top, 4)
+                    if showSeparator {
+                        Divider()
+                            .padding(.top, 4)
+                    }
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List

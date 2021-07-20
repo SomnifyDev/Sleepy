@@ -12,10 +12,10 @@ public struct CardBottomSimpleDescriptionView: View {
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
     
-    private let descriptionText: String
+    private let descriptionText: Text
     private let colorProvider: ColorSchemeProvider
 
-    init(descriptionText: String, colorProvider: ColorSchemeProvider) {
+    public init(descriptionText: Text, colorProvider: ColorSchemeProvider) {
         self.descriptionText = descriptionText
         self.colorProvider = colorProvider
     }

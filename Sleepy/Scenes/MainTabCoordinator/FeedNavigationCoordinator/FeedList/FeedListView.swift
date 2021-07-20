@@ -65,20 +65,19 @@ struct FeedListView: View {
                                                                            startTime: "23:00",
                                                                            endTime: "6:54",
                                                                            needDragGesture: false),
-                                              bottomView: CardBottomSimpleDescriptionView(colorProvider: viewModel.colorProvider,
-                                                                                          descriptionText:
+                                              bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The duration of light phase was ")
                                                                                           + Text("3h 45min").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))).bold()
                                                                                           + Text(", while the duration of deep phase was ")
                                                                                           + Text("2h 12min").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor))).bold()
-                                                                                          + Text(".")))
+                                                                                          + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
                         if showHeartCard {
                             CardNameTextView(text: "Heart rate",
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
-
+                            
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "suit.heart.fill",
                                               titleText: "Sleep: heart rate",
@@ -95,13 +94,12 @@ struct FeedListView: View {
                                                                            startTime: sleepStart,
                                                                            endTime: sleepEnd,
                                                                            needDragGesture: false),
-                                              bottomView: CardBottomSimpleDescriptionView(colorProvider: viewModel.colorProvider,
-                                                                                          descriptionText:
+                                              bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The maximal heartbeat was ")
                                                                                           + Text("\(maxHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
                                                                                           + Text(", while the minimal was ")
                                                                                           + Text("\(minHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
-                                                                                          + Text(".")))
+                                                                                          + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
                     }

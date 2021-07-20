@@ -14,14 +14,21 @@ extension Text {
 
     // MARK: Cards abstract
 
-    public func boldTextModifier(color: Color, size: CGFloat = 16) -> some View {
+    public func boldTextModifier(color: Color, size: CGFloat = 16, opacity: CGFloat = 1) -> some View {
         self
             .bold()
             .foregroundColor(color)
             .font(.system(size: size))
     }
 
-    public func systemTextModifier(color: Color, size: CGFloat = 16, opacity: CGFloat = 1) -> some View {
+    public func semiboldTextModifier(color: Color, size: CGFloat = 16, opacity: CGFloat = 1) -> some View {
+        self
+            .fontWeight(.semibold)
+            .foregroundColor(color)
+            .font(.system(size: size))
+    }
+
+    public func regularTextModifier(color: Color, size: CGFloat = 16, opacity: CGFloat = 1) -> some View {
         self
             .foregroundColor(color)
             .font(.system(size: size))
@@ -114,6 +121,15 @@ extension Text {
             .font(.system(size: 14).weight(.semibold))
             .opacity(isSelectedType ? 1 : 0.3)
             .foregroundColor(isSelectedType ? .white : .black)
+    }
+
+    public func linkTextModifier() -> some View {
+        self
+            .font(.system(size: SleepyFontsSizes.generalCardElementDescriptionFontSize))
+            .fontWeight(.semibold)
+            .underline()
+            .lineLimit(1)
+            .opacity(0.3)
     }
 
 }

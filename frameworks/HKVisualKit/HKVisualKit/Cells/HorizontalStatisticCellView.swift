@@ -7,41 +7,41 @@
 
 import SwiftUI
 
-struct HorizontalStatisticCellView: View {
+public struct HorizontalStatisticCellView: View {
 
-    private var data: [StatisticsCell]
-    private var backgroundColor: Color
+    private var data: [StatisticsCellData]
+    private var colorScheme: SleepyColorScheme
 
-    init(data: [StatisticsCell], backgroundColor: Color) {
+    public init(data: [StatisticsCellData], colorScheme: SleepyColorScheme) {
         self.data = data
-        self.backgroundColor = backgroundColor
+        self.colorScheme = colorScheme
     }
 
-    var body: some View {
-        VStack(spacing: 16) {
+    public var body: some View {
+        VStack(spacing: -4) {
             ForEach(data, id: \.self) { cellInfo in
                 HStack {
                     Text(cellInfo.title)
-                        .padding(.leading, 16)
+                        .regularTextModifier(color: colorScheme.getColor(of: .textsColors(.standartText)))
 
                     Spacer()
 
                     Text(cellInfo.value)
+                        .semiboldTextModifier(color: colorScheme.getColor(of: .textsColors(.standartText)))
                 }
             }
+            .roundedCardBackground(color: colorScheme.getColor(of: .card(.cardBackgroundColor)))
         }
-        .roundedCardBackground(color: backgroundColor)
     }
     
 }
 
-struct StatisticsCell: Hashable {
-    let title: String
-    let value: String
-}
+public struct StatisticsCellData: Hashable {
+    public let title: String
+    public let value: String
 
-struct HorizontalStatisticCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        HorizontalStatisticCellView(data: [StatisticsCell(title: "title", value: "value"),StatisticsCell(title: "title", value: "value")], backgroundColor: .gray)
+    public init(title: String, value: String) {
+        self.title = title
+        self.value = value
     }
 }
