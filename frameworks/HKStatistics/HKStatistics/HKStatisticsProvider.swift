@@ -12,7 +12,7 @@ import HealthKit
 public protocol HKStatistics {
 
     func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double?
-    func getData(for phasesStatType: PhasesStatisticsType) -> Int?
+    func getData(for phasesStatType: PhasesStatisticsType) -> Any?
     func getData(for sleepStatType: SleepStatType) -> Int
 
     func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
@@ -57,7 +57,7 @@ public final class HKStatisticsProvider: HKStatistics {
     }
 
     /// Возвращает данные по фазам по сегодняшнему сну, параметр типа статистики
-    public func getData(for phasesStatType: PhasesStatisticsType) -> Int? {
+    public func getData(for phasesStatType: PhasesStatisticsType) -> Any? {
         return phasesStatisticsProvider.handlePhasesStatistic(of: phasesStatType, for: sleep.phases)
     }
 

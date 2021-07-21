@@ -58,7 +58,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 return
             }
 
-            let sleep =  Sleep(sleepInterval: asleepInterval,
+            let sleep = Sleep(sleepInterval: asleepInterval,
                                inBedInterval: inbedInterval,
                                inBedSamples: sleepData.inBedSamples,
                                asleepSamples: sleepData.asleepSamples,
@@ -66,9 +66,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                                energySamples: sleepData.energySamples,
                                phases: nil)
 
-            let phases = self.detectPhases(sleep: sleep)
-
-            sleep.phases = phases
+            let phasesService = PhasesComputationService(sleep: sleep)
+            sleep.phases = phasesService.phasesData
 
             self.saveSleep(sleep: sleep, completionHandler: { result, error in
                 print("new sleep saved")
@@ -165,11 +164,6 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         let energySamples = energySamplesRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
         
         return (asleepInterval, inbedInterval, inBedSamples, asleepSamples, heartSamples, energySamples, false)
-    }
-
-    private func detectPhases(sleep: Sleep) -> [Phase]? {
-        // TODO: - Implement detect phases algo
-        return []
     }
 
     /// Func that gets all raw data samples for provider to star analysis

@@ -4,7 +4,7 @@ import HealthKit
 
 final class HKPhasesStatisticsProvider {
 
-    func handlePhasesStatistic(of type: PhasesStatisticsType, for data: [Phase]?) -> Int? {
+    func handlePhasesStatistic(of type: PhasesStatisticsType, for data: [Phase]?) -> Any? {
         guard let phasesData = data
         else {
             print("Phases array is probably nil")
@@ -26,7 +26,11 @@ final class HKPhasesStatisticsProvider {
         case .mostIntervalInLightPhase:
             guard let max = phasesData.filter({ $0.condition == .light }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max() else { return nil }
             return max
+        case .phasesData:
+            return phasesData.map({$0.chartPoint})
         }
     }
+
+    
 
 }
