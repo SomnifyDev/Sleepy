@@ -19,7 +19,7 @@ struct FeedListView: View {
     @State private var maxHeartRate: String = ""
     @State private var minHeartRate: String = ""
 
-    @State private var phasesData: [Double] = [] // Чтобы массив не был пустым и пока отображалась карточка захардкоженная
+    @State private var phasesData: [Double] = []
     @State private var timeInLightPhase: String = ""
     @State private var timeInDeepPhase: String = ""
 
@@ -69,9 +69,13 @@ struct FeedListView: View {
                                                                            needDragGesture: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The duration of light phase was ")
-                                                                                          + Text(timeInLightPhase).foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))).bold()
+                                                                                          + Text(timeInLightPhase)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor)))
+                                                                                            .bold()
                                                                                           + Text(", while the duration of deep phase was ")
-                                                                                          + Text(timeInDeepPhase).foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor))).bold()
+                                                                                          + Text(timeInDeepPhase)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)))
+                                                                                            .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -98,9 +102,13 @@ struct FeedListView: View {
                                                                            needDragGesture: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The maximal heartbeat was ")
-                                                                                          + Text("\(maxHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
+                                                                                          + Text(maxHeartRate)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
+                                                                                            .bold()
                                                                                           + Text(", while the minimal was ")
-                                                                                          + Text("\(minHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
+                                                                                          + Text(minHeartRate)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
+                                                                                            .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -130,8 +138,8 @@ struct FeedListView: View {
 
         if let maxHR = provider.getData(dataType: .heart, indicatorType: .max),
            let minHR = provider.getData(dataType: .heart, indicatorType: .min) {
-            maxHeartRate = Int(maxHR).description
-            minHeartRate = Int(minHR).description
+            maxHeartRate = "\(Int(maxHR)) bpm"
+            minHeartRate = "\(Int(minHR)) bpm"
         } else {
             maxHeartRate = "-"
             minHeartRate = "-"
