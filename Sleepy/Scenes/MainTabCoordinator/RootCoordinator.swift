@@ -18,7 +18,7 @@ protocol RootCoordinator: ViewModel {
     
     var tab: TabBarTab { get set }
 
-    var feedCoordinator: FeedNavigationCoordinator! { get }
+    var feedCoordinator: SummaryNavigationCoordinator! { get }
     var historyCoordinator: HistoryCoordinator! { get }
     var alarmCoordinator: AlarmCoordinator! { get }
     var settingsCoordinator: SettingsCoordinator! { get }
@@ -57,7 +57,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     @Published var tab = TabBarTab.summary
     @Published var openedURL: URL?
     
-    @Published private(set) var feedCoordinator: FeedNavigationCoordinator!
+    @Published private(set) var feedCoordinator: SummaryNavigationCoordinator!
     @Published private(set) var historyCoordinator: HistoryCoordinator!
     @Published private(set) var alarmCoordinator: AlarmCoordinator!
     @Published private(set) var settingsCoordinator: SettingsCoordinator!
@@ -78,7 +78,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
-        self.feedCoordinator = FeedNavigationCoordinatorImpl(
+        self.feedCoordinator = SummaryNavigationCoordinatorImpl(
             colorProvider: colorSchemeProvider,
             statisticsProvider: statisticsProvider,
             title: "main list",
@@ -148,7 +148,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         // тут мы делегируем открытие карточки дальше по цепочке
         // теперь это задача для роутера экрана со списком карточек
         
-        let feedListCoordinator = firstReceiver(as: FeedNavigationCoordinator.self,
+        let feedListCoordinator = firstReceiver(as: SummaryNavigationCoordinator.self,
                                                 where: { $0.filter(cardType) })
         feedListCoordinator!.open(cardType)
     }

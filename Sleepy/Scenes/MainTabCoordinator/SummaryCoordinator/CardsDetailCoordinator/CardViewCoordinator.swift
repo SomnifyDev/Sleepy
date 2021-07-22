@@ -15,11 +15,11 @@ class CardDetailViewCoordinatorImpl: CardDetailViewRouter, ObservableObject, Ide
 
     @Published private(set) var card: CardType
 
-    private unowned let coordinator: FeedNavigationCoordinator
+    private unowned let coordinator: SummaryNavigationCoordinator
 
     // MARK: Initialization
 
-    init(card: CardType, coordinator: FeedNavigationCoordinator) {
+    init(card: CardType, coordinator: SummaryNavigationCoordinator) {
         self.coordinator = coordinator
         self.card = card
     }

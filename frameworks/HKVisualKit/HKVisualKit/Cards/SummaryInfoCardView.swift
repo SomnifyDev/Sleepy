@@ -23,12 +23,12 @@ public struct SummaryInfoCardView: View {
         VStack {
             GeometryReader { geometry in
                 VStack {
-
                     CardTitleView(colorProvider: colorProvider,
                                   systemImageName: "zzz",
                                   titleText: "Sleep: general",
                                   mainText: "Here is the info about your last sleep.",
-                                  titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                                  titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                                  showChevron: true)
 
                     HStack {
                         VStack(alignment: .leading, spacing: 22) {

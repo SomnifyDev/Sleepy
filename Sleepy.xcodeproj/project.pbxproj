@@ -22,11 +22,11 @@
 		80780F32266D3B94000D0DD9 /* XUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80780F31266D3B94000D0DD9 /* XUI */; };
 		80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F42266D4377000D0DD9 /* RootCoordinator.swift */; };
 		80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */; };
-		80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */; };
-		80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */; };
-		80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */; };
+		80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */; };
+		80780F4E266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */; };
+		80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */; };
 		80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F57266D4C2E000D0DD9 /* CardService.swift */; };
-		80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* FeedListView.swift */; };
+		80780F5B266D4E58000D0DD9 /* SummaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* SummaryListView.swift */; };
 		80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */; };
 		80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */; };
 		8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */; };
@@ -64,6 +64,9 @@
 		D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FB267780D700694208 /* AlarmCoordinatorView.swift */; };
 		D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FD267780DE00694208 /* SettingsCoordinator.swift */; };
 		D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FF267780F300694208 /* SettingsCoordinatorView.swift */; };
+		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataModelView.swift */; };
+		D9DC913326A9F70200D38E32 /* SummaryPhasesDataModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataModelView.swift */; };
+		D9DC913526A9F71000D38E32 /* SummaryGeneralDataModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataModelView.swift */; };
 		E52F35914630DFDE987DB5B0 /* Pods_SleepyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61210E5275BC7FC2886643CA /* Pods_SleepyTests.framework */; };
 		E5EFF19FF15FD03F8428C707 /* Pods_Sleepy_WatchOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */; };
 		F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */; };
@@ -202,11 +205,11 @@
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorView.swift; sourceTree = "<group>"; };
-		80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationCoordinator.swift; sourceTree = "<group>"; };
-		80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationCoordinatorView.swift; sourceTree = "<group>"; };
-		80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCoordinator.swift; sourceTree = "<group>"; };
+		80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryNavigationCoordinator.swift; sourceTree = "<group>"; };
+		80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryNavigationCoordinatorView.swift; sourceTree = "<group>"; };
+		80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryListCoordinator.swift; sourceTree = "<group>"; };
 		80780F57266D4C2E000D0DD9 /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
-		80780F5A266D4E58000D0DD9 /* FeedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListView.swift; sourceTree = "<group>"; };
+		80780F5A266D4E58000D0DD9 /* SummaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryListView.swift; sourceTree = "<group>"; };
 		80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCoordinator.swift; sourceTree = "<group>"; };
 		80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Identifiable.swift"; sourceTree = "<group>"; };
 		8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateInterval+String.swift"; sourceTree = "<group>"; };
@@ -258,6 +261,9 @@
 		D99509FB267780D700694208 /* AlarmCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinatorView.swift; sourceTree = "<group>"; };
 		D99509FD267780DE00694208 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D99509FF267780F300694208 /* SettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorView.swift; sourceTree = "<group>"; };
+		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataModelView.swift; sourceTree = "<group>"; };
+		D9DC913226A9F70200D38E32 /* SummaryPhasesDataModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataModelView.swift; sourceTree = "<group>"; };
+		D9DC913426A9F71000D38E32 /* SummaryGeneralDataModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataModelView.swift; sourceTree = "<group>"; };
 		E10D41B95868DE65092B6B39 /* Pods-SleepyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SleepyTests.release.xcconfig"; path = "Target Support Files/Pods-SleepyTests/Pods-SleepyTests.release.xcconfig"; sourceTree = "<group>"; };
 		E190B908F0E65C713AC18A2A /* Pods-Sleepy_WatchOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy_WatchOSTests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy_WatchOSTests/Pods-Sleepy_WatchOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -372,15 +378,15 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */ = {
+		80780F35266D3D03000D0DD9 /* SummaryCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				80780F4B266D4786000D0DD9 /* FeedNavigationCoordinator.swift */,
-				80780F4D266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift */,
+				80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */,
+				80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */,
 				80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */,
-				80780F4F266D4997000D0DD9 /* FeedList */,
+				80780F4F266D4997000D0DD9 /* SummaryList */,
 			);
-			path = FeedNavigationCoordinator;
+			path = SummaryCoordinator;
 			sourceTree = "<group>";
 		};
 		80780F3E266D42D4000D0DD9 /* Services */ = {
@@ -396,7 +402,7 @@
 			children = (
 				80780F42266D4377000D0DD9 /* RootCoordinator.swift */,
 				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
-				80780F35266D3D03000D0DD9 /* FeedNavigationCoordinator */,
+				80780F35266D3D03000D0DD9 /* SummaryCoordinator */,
 				D99509F426777D5800694208 /* HistoryCoordinator */,
 				D99509F326777D4D00694208 /* AlarmCoordinator */,
 				D99509F8267780AD00694208 /* SettingsCoordinator */,
@@ -404,14 +410,15 @@
 			path = MainTabCoordinator;
 			sourceTree = "<group>";
 		};
-		80780F4F266D4997000D0DD9 /* FeedList */ = {
+		80780F4F266D4997000D0DD9 /* SummaryList */ = {
 			isa = PBXGroup;
 			children = (
-				80780F52266D4A93000D0DD9 /* FeedListCoordinator.swift */,
-				80780F5A266D4E58000D0DD9 /* FeedListView.swift */,
+				80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */,
+				80780F5A266D4E58000D0DD9 /* SummaryListView.swift */,
 				801505AC267140E6007574B9 /* Cards */,
+				D99FD91D26A9F4A500A66A85 /* DataViewModels */,
 			);
-			path = FeedList;
+			path = SummaryList;
 			sourceTree = "<group>";
 		};
 		80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */ = {
@@ -626,6 +633,16 @@
 				D99509FF267780F300694208 /* SettingsCoordinatorView.swift */,
 			);
 			path = SettingsCoordinator;
+			sourceTree = "<group>";
+		};
+		D99FD91D26A9F4A500A66A85 /* DataViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D9DC913426A9F71000D38E32 /* SummaryGeneralDataModelView.swift */,
+				D9DC913226A9F70200D38E32 /* SummaryPhasesDataModelView.swift */,
+				D9DC913026A9F6EC00D38E32 /* SummaryHeartDataModelView.swift */,
+			);
+			path = DataViewModels;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -1084,10 +1101,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9DC913526A9F71000D38E32 /* SummaryGeneralDataModelView.swift in Sources */,
+				D9DC913326A9F70200D38E32 /* SummaryPhasesDataModelView.swift in Sources */,
 				80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */,
 				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
+				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataModelView.swift in Sources */,
 				80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */,
-				80780F53266D4A93000D0DD9 /* FeedListCoordinator.swift in Sources */,
+				80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */,
 				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
@@ -1098,13 +1118,13 @@
 				8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */,
 				8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */,
 				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
-				80780F5B266D4E58000D0DD9 /* FeedListView.swift in Sources */,
+				80780F5B266D4E58000D0DD9 /* SummaryListView.swift in Sources */,
 				D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */,
 				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
 				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,
-				80780F4C266D4786000D0DD9 /* FeedNavigationCoordinator.swift in Sources */,
+				80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */,
 				801505AB26714097007574B9 /* PhasesCardView.swift in Sources */,
-				80780F4E266D47AE000D0DD9 /* FeedNavigationCoordinatorView.swift in Sources */,
+				80780F4E266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
