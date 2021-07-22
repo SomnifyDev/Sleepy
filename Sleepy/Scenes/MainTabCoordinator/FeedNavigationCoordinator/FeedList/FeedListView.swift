@@ -46,6 +46,9 @@ struct FeedListView: View {
                                             awakeTime: sleepEnd,
                                             fallingAsleepDuration: fallAsleepDuration)
                             .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            .onNavigation {
+                                viewModel.open(.general)
+                            }
 
                         if showPhasesCard {
                             CardNameTextView(text: "Sleep session",
@@ -79,6 +82,9 @@ struct FeedListView: View {
                                                                                             .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                                .onNavigation {
+                                    viewModel.open(.phases)
+                                }
                         }
 
                         if showHeartCard {
@@ -111,6 +117,9 @@ struct FeedListView: View {
                                                                                             .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                                .onNavigation {
+                                    viewModel.open(.heart)
+                                }
                         }
                     }
                 }
@@ -122,14 +131,6 @@ struct FeedListView: View {
             getPhasesData()
             getHeartData()
         }
-        //        List(viewModel.cards ?? []) { card in
-        //            HStack {
-        //                containedView(card: card)
-        //            }
-        //            .onNavigation {
-        //                viewModel.open(card)
-        //            }
-        //        }
     }
 
     private func getHeartData() {
@@ -204,23 +205,6 @@ struct FeedListView: View {
         }
 
         return shortData
-    }
-
-    // MARK: Internal methods
-
-    func containedView(card: CardType) -> AnyView {
-        switch card {
-
-        case .heart:
-            return AnyView(HeartCardView().frame(height: 250))
-
-        case .general:
-            return AnyView(GeneralCardView().frame(height: 50))
-
-        case .phases:
-            return AnyView(PhasesCardView().frame(height: 150))
-
-        }
     }
 
 }
