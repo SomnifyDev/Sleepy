@@ -30,7 +30,8 @@ public enum SleepStatType {
 }
 
 public enum PhasesStatisticsType {
-    
+
+    case phasesData
     case deepPhaseTime
     case lightPhaseTime
     case mostIntervalInDeepPhase

@@ -19,7 +19,9 @@ struct FeedListView: View {
     @State private var maxHeartRate: String = ""
     @State private var minHeartRate: String = ""
 
-    @State private var phasesData: [Double] = [0] // Чтобы массив не был пустым и пока отображалась карточка захардкоженная
+    @State private var phasesData: [Double] = []
+    @State private var timeInLightPhase: String = ""
+    @State private var timeInDeepPhase: String = ""
 
     @State private var showHeartCard: Bool = false
     @State private var showPhasesCard: Bool = false
@@ -57,19 +59,23 @@ struct FeedListView: View {
                                               chartView: StandardChartView(colorProvider: viewModel.colorProvider,
                                                                            chartType: .phasesChart,
                                                                            chartHeight: 75,
-                                                                           points: [0.75, 1, 0.3, 0.45, 0.2, 0.35, 0.45, 0.25, 0.65, 0.8, 0.85, 0.9, 0.45, 0.1, 0.65, 0.45, 0.2, 0.35, 0.5, 0.2, 0.6, 0.8, 1],
+                                                                           points: phasesData,
                                                                            dragGestureData: "",
                                                                            chartColor: nil,
                                                                            needOXLine: true,
                                                                            needTimeLine: true,
-                                                                           startTime: "23:00",
-                                                                           endTime: "6:54",
+                                                                           startTime: sleepStart,
+                                                                           endTime: sleepEnd,
                                                                            needDragGesture: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The duration of light phase was ")
-                                                                                          + Text("3h 45min").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))).bold()
+                                                                                          + Text(timeInLightPhase)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor)))
+                                                                                            .bold()
                                                                                           + Text(", while the duration of deep phase was ")
-                                                                                          + Text("2h 12min").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor))).bold()
+                                                                                          + Text(timeInDeepPhase)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)))
+                                                                                            .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -96,9 +102,13 @@ struct FeedListView: View {
                                                                            needDragGesture: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The maximal heartbeat was ")
-                                                                                          + Text("\(maxHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
+                                                                                          + Text(maxHeartRate)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
+                                                                                            .bold()
                                                                                           + Text(", while the minimal was ")
-                                                                                          + Text("\(minHeartRate) bpm").foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))).bold()
+                                                                                          + Text(minHeartRate)
+                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
+                                                                                            .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -128,8 +138,8 @@ struct FeedListView: View {
 
         if let maxHR = provider.getData(dataType: .heart, indicatorType: .max),
            let minHR = provider.getData(dataType: .heart, indicatorType: .min) {
-            maxHeartRate = Int(maxHR).description
-            minHeartRate = Int(minHR).description
+            maxHeartRate = "\(Int(maxHR)) bpm"
+            minHeartRate = "\(Int(minHR)) bpm"
         } else {
             maxHeartRate = "-"
             minHeartRate = "-"
@@ -142,7 +152,18 @@ struct FeedListView: View {
 
     private func getPhasesData() {
         let provider = viewModel.statisticsProvider
-        // TODO: Phases logic
+        guard
+            let deepSleepMinutes = viewModel.statisticsProvider.getData(for: .deepPhaseTime) as? Int,
+            let lightSleepMinutes = viewModel.statisticsProvider.getData(for: .lightPhaseTime) as? Int,
+            let phasesData = provider.getData(for: .phasesData) as? [Double]
+        else {
+            return
+        }
+
+        self.phasesData = phasesData
+        self.timeInLightPhase = "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min"
+        self.timeInDeepPhase = "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min"
+
         if !phasesData.isEmpty {
             showPhasesCard = true
         }
