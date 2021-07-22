@@ -10,15 +10,17 @@ public struct CardWithChartView<T: View, U: View>: View {
     private let titleText: String
     private let mainTitleText: String
     private let titleColor: Color
+    private let showChevron: Bool
     private let chartView: T
     private let bottomView: U
 
-    public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainTitleText: String, titleColor: Color, chartView: T, bottomView: U) {
+    public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainTitleText: String, titleColor: Color, showChevron: Bool, chartView: T, bottomView: U) {
         self.colorProvider = colorProvider
         self.systemImageName = systemImageName
         self.titleText = titleText
         self.mainTitleText = mainTitleText
         self.titleColor = titleColor
+        self.showChevron = showChevron
         self.chartView = chartView
         self.bottomView = bottomView
     }
@@ -31,9 +33,11 @@ public struct CardWithChartView<T: View, U: View>: View {
                                   systemImageName: systemImageName,
                                   titleText: titleText,
                                   mainText: mainTitleText,
-                                  titleColor: titleColor)
+                                  titleColor: titleColor,
+                                  showChevron: showChevron)
 
                     chartView
+                        .padding(.top, 8)
 
                     bottomView
                 }

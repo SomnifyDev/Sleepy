@@ -56,6 +56,7 @@ struct FeedListView: View {
                                               titleText: "Sleep: phases",
                                               mainTitleText: "Here is the info about phases of your last sleep.",
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
+                                              showChevron: true,
                                               chartView: StandardChartView(colorProvider: viewModel.colorProvider,
                                                                            chartType: .phasesChart,
                                                                            chartHeight: 75,
@@ -89,17 +90,16 @@ struct FeedListView: View {
                                               titleText: "Sleep: heart rate",
                                               mainTitleText: "Here is the info about heart rate of your last sleep.",
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                              chartView: StandardChartView(colorProvider: viewModel.colorProvider,
-                                                                           chartType: .defaultChart,
-                                                                           chartHeight: 75,
-                                                                           points: heartRateData,
-                                                                           dragGestureData: "",
-                                                                           chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                                                           needOXLine: true,
-                                                                           needTimeLine: true,
-                                                                           startTime: sleepStart,
-                                                                           endTime: sleepEnd,
-                                                                           needDragGesture: false),
+                                              showChevron: true,
+                                              chartView: CirclesChartView(colorProvider: viewModel.colorProvider,
+                                                                          points: heartRateData,
+                                                                          dragGestureData: nil,
+                                                                          chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                                                          chartHeight: 75,
+                                                                          needOXLine: true,
+                                                                          needTimeLine: true,
+                                                                          startTime: sleepStart,
+                                                                          endTime: sleepEnd),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The maximal heartbeat was ")
                                                                                           + Text(maxHeartRate)
@@ -147,6 +147,7 @@ struct FeedListView: View {
 
         if !heartRateData.isEmpty {
             showHeartCard = true
+            print(heartRateData)
         }
     }
 
@@ -179,30 +180,26 @@ struct FeedListView: View {
 
     private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
         guard
-            heartRateData.count > 22,
+            heartRateData.count > 27,
             let max = heartRateData.max(),
             let min = heartRateData.min()
         else {
             return heartRateData
         }
 
-        let stackCapacity = heartRateData.count / 22
+        let stackCapacity = heartRateData.count / 27
         var shortData: [Double] = []
 
         for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
-            let shortDataSize = shortData.count
             for stackIndex in index..<index+stackCapacity {
                 if stackIndex < heartRateData.count {
-                    if heartRateData[stackIndex] == max || heartRateData[stackIndex] == min {
-                        shortData.append(heartRateData[stackIndex])
+                    if !(heartRateData[stackIndex] == max) && !(heartRateData[stackIndex] == min) {
+                        shortData.append(heartRateData[index])
                         break
                     }
                 } else {
                     return shortData
                 }
-            }
-            if shortData.count == shortDataSize {
-                shortData.append(heartRateData[index])
             }
         }
 

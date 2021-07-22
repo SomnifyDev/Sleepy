@@ -27,6 +27,7 @@ struct SleepHistoryStatsView: View {
                                   titleText: "Month sleep duration",
                                   mainTitleText: "Here is the info about your month sleep sessions",
                                   titleColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
+                                  showChevron: false,
                                   chartView: StandardChartView(colorProvider: colorProvider,
                                                                chartType: .defaultChart,
                                                                chartHeight: 75,
