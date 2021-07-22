@@ -5,7 +5,7 @@ import HKStatistics
 
 // MARK: - Protocol
 
-protocol FeedListCoordinator: ViewModel {
+protocol SummaryListCoordinator: ViewModel {
 
     var colorProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
@@ -19,7 +19,7 @@ protocol FeedListCoordinator: ViewModel {
 
 // MARK: - Implementation
 
-class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
+class SummaryListCoordinatorImpl: ObservableObject, SummaryListCoordinator {
 
     // MARK: Stored Properties
 
@@ -27,7 +27,7 @@ class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
     @Published private(set) var cards: [CardType]?
 
     private let cardService: CardService
-    private unowned let coordinator: FeedNavigationCoordinator
+    private unowned let coordinator: SummaryNavigationCoordinator
     let colorProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
 
@@ -37,7 +37,7 @@ class FeedListCoordinatorImpl: ObservableObject, FeedListCoordinator {
          statisticsProvider: HKStatisticsProvider,
          title: String,
          cardService: CardService,
-         coordinator: FeedNavigationCoordinator,
+         coordinator: SummaryNavigationCoordinator,
          filter: @escaping (CardType) -> Bool) {
 
         self.colorProvider = colorProvider

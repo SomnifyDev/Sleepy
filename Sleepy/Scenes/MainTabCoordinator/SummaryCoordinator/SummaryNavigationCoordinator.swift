@@ -6,9 +6,9 @@ import HKStatistics
 
 // MARK: - Protocol
 
-protocol FeedNavigationCoordinator: ViewModel {
+protocol SummaryNavigationCoordinator: ViewModel {
 
-    var viewModel: FeedListCoordinator! { get }
+    var viewModel: SummaryListCoordinator! { get }
     var detailViewModel: CardDetailViewRouter? { get set }
 
     var colorProvider: ColorSchemeProvider { get }
@@ -20,7 +20,7 @@ protocol FeedNavigationCoordinator: ViewModel {
     func open(_ url: URL)
 }
 
-extension FeedNavigationCoordinator {
+extension SummaryNavigationCoordinator {
 
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
@@ -32,11 +32,11 @@ extension FeedNavigationCoordinator {
 
 // MARK: - Implementation
 
-class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator, Identifiable {
+class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoordinator, Identifiable {
 
     // MARK: Stored Properties
 
-    @Published private(set) var viewModel: FeedListCoordinator!
+    @Published private(set) var viewModel: SummaryListCoordinator!
     @Published var detailViewModel: CardDetailViewRouter?
 
     private let _filter: (CardType) -> Bool
@@ -69,7 +69,7 @@ class FeedNavigationCoordinatorImpl: ObservableObject, FeedNavigationCoordinator
 
         // создаем дочерний координатор списка карточек
         self.viewModel =
-        FeedListCoordinatorImpl(colorProvider: colorProvider,
+        SummaryListCoordinatorImpl(colorProvider: colorProvider,
                                 statisticsProvider: statisticsProvider,
                                 title: title,
                                 cardService: cardService,

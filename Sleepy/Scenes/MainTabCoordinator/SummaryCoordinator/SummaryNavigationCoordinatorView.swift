@@ -1,21 +1,23 @@
 import SwiftUI
 import XUI
 
-struct FeedNavigationCoordinatorView: View {
+struct SummaryNavigationCoordinatorView: View {
 
     // MARK: Stored Properties
 
-    @Store var coordinator: FeedNavigationCoordinator
+    @Store var coordinator: SummaryNavigationCoordinator
 
     // MARK: Views
 
     var body: some View {
         NavigationView {
-            FeedListView(viewModel: coordinator.viewModel)
+            SummaryListView(viewModel: coordinator.viewModel)
                 .navigation(model: $coordinator.detailViewModel) { viewModel in
                     CardDetailView(viewModel: viewModel)
                 }
         }
     }
+
+    
 
 }

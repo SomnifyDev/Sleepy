@@ -42,11 +42,9 @@ struct HistoryListView: View {
                             SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel,
                                                   colorProvider: viewModel.colorSchemeProvider)
                         }
-                    } else if inbedHistoryStatsViewModel != nil && calendarType == .inbed {
-                        if let inbedHistoryStatsViewModel = inbedHistoryStatsViewModel {
+                    } else if let inbedHistoryStatsViewModel = inbedHistoryStatsViewModel, calendarType == .inbed {
                             SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel,
                                                   colorProvider: viewModel.colorSchemeProvider)
-                        }
                     } else if heartHistoryStatsViewModel != nil && calendarType == .heart {
                         if let heartHistoryStatsViewModel = heartHistoryStatsViewModel {
                             HeartHistoryStatsView(viewModel: heartHistoryStatsViewModel,
