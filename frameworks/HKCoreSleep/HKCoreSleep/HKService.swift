@@ -93,7 +93,7 @@ public class HKService {
     /// - Parameters:
     ///   - completionHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
     public func enableBackgroundDelivery(completionHandler: @escaping (Bool, Error?) -> Void) {
-        for type in [HealthType.asleep.hkValue, HealthType.inbed.hkValue] {
+        for type in [HealthType.asleep.hkValue] {
             healthStore.enableBackgroundDelivery(for: type, frequency: .immediate, withCompletion: completionHandler)
         }
     }
