@@ -103,16 +103,16 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 // We need to defiene if new samples are from apple
 
                 self?.hkService?.readDataLast(type: .inbed, completionHandler: { query, samples, error in
-                    guard error == nil, let samples = samples else {
-                        self?.notifyByPush(title: "error by reading last", body: "\(error!.localizedDescription)")
+                    guard error == nil, let samples = samples, !samples.isEmpty else {
+                        self?.notifyByPush(title: "error or empty arr", body: "\(error!.localizedDescription)")
                         completionHandler()
                         return
                     }
 
                     if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
-                        self?.retrieveData(completionHandler: {error in
+                        self?.retrieveData(completionHandler: { sleep in
                             // If you have subscribed for background updates you must call the completion handler here.
-                            self?.notifyByPush(title: "new sleep added", body: "\(error?.sleepInterval.duration)")
+                            self?.notifyByPush(title: "new/old sleep definetly fetched", body: "\(sleep?.sleepInterval.duration)")
                             completionHandler()
                             return
                         })
