@@ -8,10 +8,10 @@ struct SleepyApp: App {
 
     // MARK: Stored Properties
 
-    let hkService: HKService
-    let cardService: CardService
-    let colorSchemeProvider: ColorSchemeProvider
-    let sleepDetectionProvider: HKSleepAppleDetectionProvider
+    @State var hkService: HKService?
+    @State var cardService: CardService?
+    @State var colorSchemeProvider: ColorSchemeProvider?
+    @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
 
     @State var statisticsProvider: HKStatisticsProvider?
     @State var coordinator: RootCoordinatorImpl?
@@ -19,15 +19,7 @@ struct SleepyApp: App {
     @State var hasOpenedURL = false
     @State var canShowApp: Bool = false
 
-    // MARK: Initialization
-
-    init() {
-        // инициализация сервисов, которые будут необходимы экранам и подэкранам
-        hkService = HKService()
-        colorSchemeProvider = ColorSchemeProvider()
-        sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
-        cardService = CardService()
-    }
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     // MARK: Scenes
 
@@ -35,19 +27,25 @@ struct SleepyApp: App {
         WindowGroup {
             if canShowApp {
                 RootCoordinatorView(coordinator: coordinator!)
-                    .accentColor(colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
-                    .onOpenURL { coordinator!.startDeepLink(from: $0) }
-                    .onAppear { simulateURLOpening() }
+                    .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                //.onOpenURL { coordinator!.startDeepLink(from: $0) }
+                //.onAppear { simulateURLOpening() }
             } else {
                 Text("Loading")
                     .onAppear {
-                        sleepDetectionProvider.retrieveData { sleep in
+
+                        self.hkService = self.appDelegate.hkService
+                        self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
+                        self.colorSchemeProvider = ColorSchemeProvider()
+                        self.cardService = CardService()
+
+                        sleepDetectionProvider?.retrieveData { sleep in
                             if let sleep = sleep {
                                 showDebugSleepDuration(sleep)
 
-                                statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService)
+                                statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 
-                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService, cardService: cardService)
+                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
                                 canShowApp = true
@@ -67,7 +65,7 @@ struct SleepyApp: App {
         }
         hasOpenedURL = true
 
-        self.cardService.fetchCards { cards in
+        self.cardService?.fetchCards { cards in
             // summary:// - открывает экран карточек
             // summary://card?type=heart - открывает детальную карточку сердца
             // summary://card?type=phases - открывает детальную карточку фаз
