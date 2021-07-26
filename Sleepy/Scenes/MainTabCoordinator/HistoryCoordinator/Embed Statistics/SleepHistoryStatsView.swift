@@ -21,7 +21,8 @@ struct SleepHistoryStatsView: View {
     var body: some View {
 
         VStack {
-            if let monthSleepPoints = viewModel.monthSleepPoints {
+            if let monthSleepPoints = viewModel.monthSleepPoints,
+            let monthBeforeDateInterval = viewModel.monthBeforeDateInterval {
                 CardWithChartView(colorProvider: colorProvider,
                                   systemImageName: "sleep",
                                   titleText: "Month sleep duration",
@@ -36,8 +37,8 @@ struct SleepHistoryStatsView: View {
                                                                chartColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                                                needOXLine: true,
                                                                needTimeLine: true,
-                                                               startTime: "23:00",
-                                                               endTime: "6:54",
+                                                               startTime: monthBeforeDateInterval.start.getFormattedDate(format: "dd.MM"),
+                                                               endTime: monthBeforeDateInterval.end.getFormattedDate(format: "dd.MM"),
                                                                needDragGesture: false),
                                   bottomView: EmptyView())
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
@@ -75,6 +76,7 @@ struct SleepHistoryStatsView: View {
 struct SleepHistoryStatsViewModel {
     let cellData: [StatisticsCellData]
     let monthSleepPoints: [Double]?
+    let monthBeforeDateInterval: DateInterval?
     let currentWeeksProgress: ProgressItem
     let beforeWeeksProgress: ProgressItem
     let analysisString: String

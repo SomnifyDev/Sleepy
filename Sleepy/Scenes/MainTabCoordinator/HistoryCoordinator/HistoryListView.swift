@@ -168,6 +168,7 @@ struct HistoryListView: View {
                 let tmp = SleepHistoryStatsViewModel(
                     cellData: last30daysCellData,
                     monthSleepPoints: monthSleepPoints,
+                    monthBeforeDateInterval: monthBeforeDateInterval,
                     currentWeeksProgress: ProgressItem(title: "Mean duration: \(Date.minutesToDateDescription(minutes: Int(mean1)))",
                                                        text: current2weeksInterval.stringFromDateInterval(),
                                                        value: Int(mean1))
