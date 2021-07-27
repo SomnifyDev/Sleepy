@@ -30,7 +30,7 @@ struct SummaryListView: View {
                     VStack(alignment: .center) {
 
                         if let generalViewModel = generalViewModel,
-                            showGeneralCard {
+                           showGeneralCard {
                             CardNameTextView(text: "Sleep information",
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
@@ -41,7 +41,7 @@ struct SummaryListView: View {
                                                 awakeTime: generalViewModel.sleepEnd,
                                                 fallingAsleepDuration: generalViewModel.fallAsleepDuration)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                                .onNavigation {
+                                .onTapGesture {
                                     viewModel.open(.general)
                                 }
                         }
@@ -80,7 +80,7 @@ struct SummaryListView: View {
                                                                                             .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                                .onNavigation {
+                                .onTapGesture {
                                     viewModel.open(.phases)
                                 }
                         }
@@ -101,7 +101,7 @@ struct SummaryListView: View {
                                                                           points: heartViewModel.heartRateData,
                                                                           dragGestureData: nil,
                                                                           chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                                                          chartHeight: 75,
+                                                                          chartHeight: 100,
                                                                           needOXLine: true,
                                                                           needTimeLine: true,
                                                                           startTime: generalViewModel.sleepStart,
@@ -117,7 +117,7 @@ struct SummaryListView: View {
                                                                                             .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                                .onNavigation {
+                                .onTapGesture {
                                     viewModel.open(.heart)
                                 }
                         }
@@ -183,27 +183,21 @@ struct SummaryListView: View {
 
     private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
         guard
-            heartRateData.count > 27,
-            let max = heartRateData.max(),
-            let min = heartRateData.min()
+            heartRateData.count > 25
         else {
             return heartRateData
         }
 
-        let stackCapacity = heartRateData.count / 27
+        let stackCapacity = heartRateData.count / 25
         var shortData: [Double] = []
 
         for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
+            var mean: Double = 0.0
             for stackIndex in index..<index+stackCapacity {
-                if stackIndex < heartRateData.count {
-                    if !(heartRateData[stackIndex] == max) && !(heartRateData[stackIndex] == min) {
-                        shortData.append(heartRateData[index])
-                        break
-                    }
-                } else {
-                    return shortData
-                }
+                guard stackIndex < heartRateData.count else { return shortData }
+                mean += heartRateData[stackIndex]
             }
+            shortData.append(mean / Double(stackCapacity))
         }
 
         return shortData
