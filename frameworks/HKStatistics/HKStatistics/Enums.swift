@@ -12,6 +12,7 @@ public enum IndicatorType {
     case min
     case max
     case mean
+    case sum
     
 }
 

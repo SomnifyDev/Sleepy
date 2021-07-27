@@ -83,10 +83,14 @@ struct CalendarDayView: View {
     private func getData() {
         let date = Calendar.current.date(byAdding: .day, value: dateIndex - monthDate.getDayInt(), to: monthDate) ?? Date()
         description = ""
+        value = nil
+        getCircleColor()
 
         switch type {
         case .heart:
-            statsProvider.getDataByIntervalWithIndicator(healthType: .heart, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
+            statsProvider.getMetaDataByIntervalWithIndicator(healthType: .heart,
+                                                             indicatorType: .mean,
+                                                             for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
                 value = val
                 getCircleColor()
 
@@ -98,7 +102,9 @@ struct CalendarDayView: View {
             }
 
         case .energy:
-            statsProvider.getDataByIntervalWithIndicator(healthType: .energy, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
+            statsProvider.getMetaDataByIntervalWithIndicator(healthType: .energy,
+                                                             indicatorType: .mean,
+                                                             for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
                 value = val
                 getCircleColor()
 
@@ -110,7 +116,10 @@ struct CalendarDayView: View {
             }
 
         case .sleep:
-            statsProvider.getDataByIntervalWithIndicator(healthType: .asleep, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+            statsProvider.getDataByIntervalWithIndicator(healthType: .asleep,
+                                                         indicatorType: .mean,
+                                                         for: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                                         bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
                 getCircleColor()
 
