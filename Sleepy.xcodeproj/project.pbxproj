@@ -24,7 +24,7 @@
 		80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */; };
 		80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F57266D4C2E000D0DD9 /* CardService.swift */; };
 		80780F5B266D4E58000D0DD9 /* SummaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* SummaryListView.swift */; };
-		80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */; };
+		80780F5F266D4F42000D0DD9 /* CardDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */; };
 		80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */; };
 		8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */; };
 		808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; };
@@ -55,6 +55,7 @@
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; };
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D98D925526B0960100C6B7E4 /* BankOfSleepDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */; };
 		D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509EF26777D4200694208 /* HistoryCoordinator.swift */; };
 		D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F026777D4200694208 /* HistoryCoordinatorView.swift */; };
 		D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F9267780C400694208 /* AlarmCoordinator.swift */; };
@@ -207,7 +208,7 @@
 		80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryListCoordinator.swift; sourceTree = "<group>"; };
 		80780F57266D4C2E000D0DD9 /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
 		80780F5A266D4E58000D0DD9 /* SummaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryListView.swift; sourceTree = "<group>"; };
-		80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewCoordinator.swift; sourceTree = "<group>"; };
+		80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewCoordinator.swift; sourceTree = "<group>"; };
 		80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Identifiable.swift"; sourceTree = "<group>"; };
 		8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateInterval+String.swift"; sourceTree = "<group>"; };
 		808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKCoreSleep.xcodeproj; path = frameworks/HKCoreSleep/HKCoreSleep.xcodeproj; sourceTree = "<group>"; };
@@ -252,6 +253,7 @@
 		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
 		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
+		D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfSleepDataViewModel.swift; sourceTree = "<group>"; };
 		D99509EF26777D4200694208 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		D99509F026777D4200694208 /* HistoryCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinatorView.swift; sourceTree = "<group>"; };
 		D99509F9267780C400694208 /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
@@ -413,7 +415,8 @@
 		80780F59266D4D92000D0DD9 /* CardsDetail */ = {
 			isa = PBXGroup;
 			children = (
-				D99F446626B0138B00998590 /* Coordinator */,
+				80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */,
+				801505AD267140F5007574B9 /* CardDetailView.swift */,
 				D9B1722826B0146D002C3B0D /* DetailViews */,
 			);
 			path = CardsDetail;
@@ -624,21 +627,13 @@
 			path = SettingsCoordinator;
 			sourceTree = "<group>";
 		};
-		D99F446626B0138B00998590 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
-				801505AD267140F5007574B9 /* CardDetailView.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
 		D99FD91D26A9F4A500A66A85 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */,
 				D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */,
 				D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */,
+				D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1114,7 +1109,7 @@
 				80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */,
 				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
 				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */,
-				80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */,
+				80780F5F266D4F42000D0DD9 /* CardDetailViewCoordinator.swift in Sources */,
 				D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */,
 				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
@@ -1125,6 +1120,7 @@
 				D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */,
 				8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */,
 				8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */,
+				D98D925526B0960100C6B7E4 /* BankOfSleepDataViewModel.swift in Sources */,
 				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
 				80780F5B266D4E58000D0DD9 /* SummaryListView.swift in Sources */,
 				D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */,

@@ -137,9 +137,13 @@ struct SummaryListView: View {
 
     private func getSleepData() {
         let provider = viewModel.statisticsProvider
+        let sleepDuration = provider.getData(for: .asleep)
+        let inBedDuration = provider.getData(for: .inBed)
+
         generalViewModel = SummaryGeneralDataViewModel(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
                                                        sleepEnd: provider.getTodaySleepIntervalBoundary(boundary: .end),
-                                                       sleepDuration: provider.getTodaySleepDuration(),
+                                                       sleepDuration: "\(sleepDuration / 60)h \(sleepDuration - (sleepDuration / 60) * 60)min",
+                                                       inBedDuration: "\(inBedDuration / 60)h \(inBedDuration - (inBedDuration / 60) * 60)min",
                                                        fallAsleepDuration: provider.getTodayFallingAsleepDuration())
         showGeneralCard = true
     }
@@ -149,8 +153,8 @@ struct SummaryListView: View {
     private func getPhasesData() {
         let provider = viewModel.statisticsProvider
         guard
-            let deepSleepMinutes = viewModel.statisticsProvider.getData(for: .deepPhaseTime) as? Int,
-            let lightSleepMinutes = viewModel.statisticsProvider.getData(for: .lightPhaseTime) as? Int,
+            let deepSleepMinutes = provider.getData(for: .deepPhaseTime) as? Int,
+            let lightSleepMinutes = provider.getData(for: .lightPhaseTime) as? Int,
             let phasesData = provider.getData(for: .phasesData) as? [Double]
         else {
             return
@@ -159,7 +163,9 @@ struct SummaryListView: View {
         if !phasesData.isEmpty {
             phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
                                                          timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
-                                                         timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min")
+                                                         timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
+                                                         mostIntervalInLightPhase: "-",
+                                                         mostIntervalInDeepPhase: "-")
             showPhasesCard = true
         }
     }
@@ -168,15 +174,20 @@ struct SummaryListView: View {
 
     private func getHeartData() {
         let provider = viewModel.statisticsProvider
-        var minHeartRate = "-", maxHeartRate = "-"
+        var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
         let heartRateData = getShortHeartRateData(heartRateData: provider.getTodayData(of: .heart))
 
         if !heartRateData.isEmpty,
            let maxHR = provider.getData(dataType: .heart, indicatorType: .max),
-           let minHR = provider.getData(dataType: .heart, indicatorType: .min) {
+           let minHR = provider.getData(dataType: .heart, indicatorType: .min),
+           let averageHR = provider.getData(dataType: .heart, indicatorType: .mean) {
             maxHeartRate = "\(Int(maxHR)) bpm"
             minHeartRate = "\(Int(minHR)) bpm"
-            heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate)
+            averageHeartRate = "\(Int(averageHR)) bpm"
+            heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
+                                                       maxHeartRate: maxHeartRate,
+                                                       minHeartRate: minHeartRate,
+                                                       averageHeartRate: averageHeartRate)
             showHeartCard = true
         }
     }

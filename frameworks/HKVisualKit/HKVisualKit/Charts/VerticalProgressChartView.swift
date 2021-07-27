@@ -6,29 +6,34 @@ import SwiftUI
 ///  - points: значения в процентах по выполнению какой-либо цели
 ///  - dragGestureData: строковые элементы для отображения при dragGesture
 ///  - needDragGesture: true, если нужен dragGesture  
-struct VerticalProgressChartView: View {
+public struct VerticalProgressChartView: View {
 
-    private let chartColor: Color
+    private let foregroundElementColor: Color
+    private let backgroundElementColor: Color
     private let dragGestureData: String?
     private let points: [Double]
     private let needDragGesture: Bool
+    private let chartHeight: CGFloat
 
-    init(chartColor: Color, points: [Double], dragGestureData: String? = nil, needDragGesture: Bool) {
-        self.chartColor = chartColor
+    public init(foregroundElementColor: Color, backgroundElementColor: Color, chartHeight: CGFloat, points: [Double], dragGestureData: String? = nil, needDragGesture: Bool) {
+        self.foregroundElementColor = foregroundElementColor
+        self.backgroundElementColor = backgroundElementColor
+        self.chartHeight = chartHeight
         self.dragGestureData = dragGestureData
         self.points = points
         self.needDragGesture = needDragGesture
     }
 
-    var body: some View {
-        GeometryReader { geometry in
-            HStack (spacing: 3) {
-                ForEach(0 ..< points.count, id: \.self) { index in
-                    VerticalProgressElementView(percentage: points[index], color: .green)
-                }
+    public var body: some View {
+        HStack (spacing: 10) {
+            ForEach(0 ..< points.count, id: \.self) { index in
+                VerticalProgressElementView(percentage: points[index],
+                                            foregroundElementColor: foregroundElementColor,
+                                            backgroundElementColor: backgroundElementColor,
+                                            height: chartHeight)
             }
-            .gesture(getDrugGesture())
         }
+        .gesture(getDrugGesture())
     }
 
     private func getDrugGesture() -> some Gesture {

@@ -27,11 +27,4 @@ final class HKSleepStatisticsProvider {
         return mins < 0 ? "0m" : "\(mins)m"
     }
 
-    func getSleepDuration(sleep: Sleep) -> String {
-        let totalMins = sleep.sleepInterval.end.minutes(from: sleep.sleepInterval.start)
-        let hours = totalMins / 60
-        let minutes = totalMins - hours * 60
-        return "\(hours)h \(minutes)m"
-    }
-
 }

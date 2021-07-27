@@ -5,25 +5,25 @@ struct RootCoordinatorView: View {
     
     // MARK: Stored Properties
     
-    @Store var coordinator: RootCoordinator
+    @Store var viewModel: RootCoordinator
 
     // MARK: Views
     
     var body: some View {
-        TabView(selection: $coordinator.tab) {
-            SummaryNavigationCoordinatorView(coordinator: coordinator.feedCoordinator)
+        TabView(selection: $viewModel.tab) {
+            SummaryNavigationCoordinatorView(viewModel: viewModel.summaryCoordinator)
                 .tabItem { Label("summary", systemImage: "hare.fill") }
                 .tag(TabBarTab.summary)
             
-            HistoryCoordinatorView(coordinator: coordinator.historyCoordinator)
+            HistoryCoordinatorView(coordinator: viewModel.historyCoordinator)
                 .tabItem { Label("history", systemImage: "hare.fill") }
                 .tag(TabBarTab.history)
             
-            AlarmCoordinatorView(coordinator: coordinator.alarmCoordinator)
+            AlarmCoordinatorView(coordinator: viewModel.alarmCoordinator)
                 .tabItem { Label("alarm", systemImage: "hare.fill") }
                 .tag(TabBarTab.alarm)
             
-            SettingsCoordinatorView(coordinator: coordinator.settingsCoordinator)
+            SettingsCoordinatorView(coordinator: viewModel.settingsCoordinator)
                 .tabItem { Label("settings", systemImage: "hare.fill") }
                 .tag(TabBarTab.settings)
         }

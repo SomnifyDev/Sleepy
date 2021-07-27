@@ -5,14 +5,14 @@ struct SummaryNavigationCoordinatorView: View {
 
     // MARK: Stored Properties
 
-    @Store var coordinator: SummaryNavigationCoordinator
+    @Store var viewModel: SummaryNavigationCoordinator
 
     // MARK: Views
 
     var body: some View {
         NavigationView {
-            SummaryListView(viewModel: coordinator.viewModel)
-                .navigation(model: $coordinator.detailViewModel) { viewModel in
+            SummaryListView(viewModel: viewModel.summaryListCoordinator)
+                .navigation(model: $viewModel.cardDetailViewCoordinator) { viewModel in
                     CardDetailView(viewModel: viewModel)
                 }
         }

@@ -26,7 +26,7 @@ struct SleepyApp: App {
     var body: some Scene {
         WindowGroup {
             if canShowApp {
-                RootCoordinatorView(coordinator: coordinator!)
+                RootCoordinatorView(viewModel: coordinator!)
                     .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                 //.onOpenURL { coordinator!.startDeepLink(from: $0) }
                 //.onAppear { simulateURLOpening() }

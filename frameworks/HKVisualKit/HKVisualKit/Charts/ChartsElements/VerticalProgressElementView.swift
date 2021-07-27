@@ -7,27 +7,29 @@ import SwiftUI
 struct VerticalProgressElementView: View {
 
     private let cornerRadius: Double = 50
-    private let opacity: Double = 0.1
     private let percentage: Double
-    private let color: Color
+    private let foregroundElementColor: Color
+    private let backgroundElementColor: Color
+    private let height: CGFloat
 
-    init(percentage: Double, color: Color) {
+    init(percentage: Double, foregroundElementColor: Color, backgroundElementColor: Color, height: CGFloat) {
         self.percentage = percentage
-        self.color = color
+        self.foregroundElementColor = foregroundElementColor
+        self.backgroundElementColor = backgroundElementColor
+        self.height = height
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
-                Rectangle()
-                    .fill(Color(.black).opacity(opacity))
-                    .cornerRadius(cornerRadius)
+        ZStack(alignment: .bottom) {
+            Rectangle()
+                .fill(backgroundElementColor)
+                .cornerRadius(cornerRadius)
 
-                Rectangle()
-                    .fill(color)
-                    .frame(height: geometry.size.height * percentage)
-                    .cornerRadius(cornerRadius)
-            }
+            Rectangle()
+                .fill(foregroundElementColor)
+                .frame(height: height * percentage)
+                .cornerRadius(cornerRadius)
         }
+        .frame(height: height)
     }
 }

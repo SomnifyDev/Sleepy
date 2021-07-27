@@ -44,12 +44,12 @@ public struct ProgressChartView: View {
 
                     ProgressItemView(progressItem: currentWeeksProgress)
                         .padding(.top, 8)
-                        .padding(.trailing, currentWeeksProgress.value > beforeWeeksProgress.value ? 0 : 64)
+                        .padding(.trailing, currentWeeksProgress.value >= beforeWeeksProgress.value ? 0 : 64)
                         .foregroundColor(mainColor)
 
                     ProgressItemView(progressItem: beforeWeeksProgress)
                         .padding(.top, 8)
-                        .padding(.trailing, beforeWeeksProgress.value > currentWeeksProgress.value ? 0 : 64)
+                        .padding(.trailing, beforeWeeksProgress.value >= currentWeeksProgress.value ? 0 : 64)
                         .foregroundColor(mainColor.opacity(0.5))
 
                     CardBottomSimpleDescriptionView(descriptionText: Text(analysisString), colorProvider: colorProvider)
@@ -107,12 +107,3 @@ public struct ProgressItemView: View {
         }
     }
 }
-
-//struct ProgressView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProgressChartView(colorProvider: ColorSchemeProvider(), currentWeeksProgress: ProgressItem(title: "title", text: "text", value: 320),
-//                          beforeWeeksProgress: ProgressItem(title: "title", text: "text", value: 360),
-//                          analysisString: "sleep analysis here",
-//                          mainColor: Color(UIColor.yellow))
-//    }
-//}

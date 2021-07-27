@@ -8,13 +8,13 @@ public struct CardWithChartView<T: View, U: View>: View {
     private let colorProvider: ColorSchemeProvider
     private let systemImageName: String
     private let titleText: String
-    private let mainTitleText: String
+    private let mainTitleText: String?
     private let titleColor: Color
     private let showChevron: Bool
     private let chartView: T
     private let bottomView: U
 
-    public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainTitleText: String, titleColor: Color, showChevron: Bool, chartView: T, bottomView: U) {
+    public init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainTitleText: String?, titleColor: Color, showChevron: Bool, chartView: T, bottomView: U) {
         self.colorProvider = colorProvider
         self.systemImageName = systemImageName
         self.titleText = titleText

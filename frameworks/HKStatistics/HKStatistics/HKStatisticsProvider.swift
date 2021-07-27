@@ -90,10 +90,6 @@ public final class HKStatisticsProvider: HKStatistics {
         return sleepStatisticsProvider.getFallingAsleepDuration(sleep: sleep)
     }
 
-    public func getTodaySleepDuration() -> String {
-        return sleepStatisticsProvider.getSleepDuration(sleep: sleep)
-    }
-
     /// Возвращает значение по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
     public func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                                indicatorType: IndicatorType,

@@ -18,7 +18,7 @@ public struct HorizontalStatisticCellView: View {
     }
 
     public var body: some View {
-        VStack(spacing: -4) {
+        VStack (spacing: -8) {
             ForEach(data, id: \.self) { cellInfo in
                 HStack {
                     Text(cellInfo.title)

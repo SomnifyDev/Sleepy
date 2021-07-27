@@ -28,6 +28,17 @@ struct RoundedGradientCard: ViewModifier {
     }
 }
 
+struct UsefulInfoCardBackground: ViewModifier {
+    var color: Color
+
+    func body(content: Content) -> some View {
+        content
+            .background(color)
+            .cornerRadius(12)
+            .padding([.leading, .trailing, .bottom])
+    }
+}
+
 public extension View {
     func roundedCardBackground(color: Color) -> some View {
         self.modifier(CardBackground(color: color))
@@ -35,5 +46,9 @@ public extension View {
 
     func roundedGradientCard(color1: Color, color2: Color) -> some View {
         self.modifier(RoundedGradientCard(color1: color1, color2: color2))
+    }
+
+    func usefulInfoCardBackground(color: Color) -> some View {
+        self.modifier(UsefulInfoCardBackground(color: color))
     }
 }

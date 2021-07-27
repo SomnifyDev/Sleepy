@@ -4,8 +4,10 @@ import XUI
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
+
 // all types of main tab bar windows
 enum TabBarTab: String {
+
     case summary
     case history
     case alarm
@@ -18,7 +20,7 @@ protocol RootCoordinator: ViewModel {
     
     var tab: TabBarTab { get set }
 
-    var feedCoordinator: SummaryNavigationCoordinator! { get }
+    var summaryCoordinator: SummaryNavigationCoordinator! { get }
     var historyCoordinator: HistoryCoordinator! { get }
     var alarmCoordinator: AlarmCoordinator! { get }
     var settingsCoordinator: SettingsCoordinator! { get }
@@ -40,7 +42,7 @@ extension RootCoordinator {
     
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
-        feedCoordinator
+        summaryCoordinator
         historyCoordinator
         alarmCoordinator
         settingsCoordinator
@@ -57,7 +59,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     @Published var tab = TabBarTab.summary
     @Published var openedURL: URL?
     
-    @Published private(set) var feedCoordinator: SummaryNavigationCoordinator!
+    @Published private(set) var summaryCoordinator: SummaryNavigationCoordinator!
     @Published private(set) var historyCoordinator: HistoryCoordinator!
     @Published private(set) var alarmCoordinator: AlarmCoordinator!
     @Published private(set) var settingsCoordinator: SettingsCoordinator!
@@ -78,7 +80,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
-        self.feedCoordinator = SummaryNavigationCoordinatorImpl(
+        self.summaryCoordinator = SummaryNavigationCoordinatorImpl(
             colorProvider: colorSchemeProvider,
             statisticsProvider: statisticsProvider,
             title: "main list",

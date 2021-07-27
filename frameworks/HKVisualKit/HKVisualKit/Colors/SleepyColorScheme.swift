@@ -56,6 +56,9 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     // texts
     private let standartText: Color
 
+    // charts
+    private let verticalProgressChartElementColor: Color
+
     // MARK: init
     
     init() {
@@ -78,6 +81,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         standartText = Color("SleepyStandartTexts")
         sleepDurationColor = Color("sleepDurationColor")
         fallAsleepDurationColor = Color("fallAsleepDurationColor")
+        verticalProgressChartElementColor = Color("VerticalProgressChartElementBackground")
     }
 
     // MARK: Public methods
@@ -137,6 +141,8 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
             // texts
         case .textsColors(.standartText):
             return standartText
+        case .chartColors(.verticalProgressChartElement):
+            return verticalProgressChartElementColor
         }
     }
 

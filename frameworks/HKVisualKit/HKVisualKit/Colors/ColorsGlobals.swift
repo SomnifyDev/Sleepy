@@ -22,6 +22,7 @@ public enum ColorType {
     case calendar(CalendarColors)
     case summaryCardColors(SummaryCardColors)
     case textsColors(TextsColors)
+    case chartColors(ChartColors)
 
     public enum GeneralColors {
         case appBackgroundColor
@@ -64,6 +65,10 @@ public enum ColorType {
 
     public enum TextsColors {
         case standartText
+    }
+
+    public enum ChartColors {
+        case verticalProgressChartElement
     }
 
 }

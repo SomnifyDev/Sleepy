@@ -8,8 +8,8 @@ import HKStatistics
 
 protocol SummaryNavigationCoordinator: ViewModel {
 
-    var viewModel: SummaryListCoordinator! { get }
-    var detailViewModel: CardDetailViewCoordinator? { get set }
+    var summaryListCoordinator: SummaryListCoordinator! { get }
+    var cardDetailViewCoordinator: CardDetailViewCoordinator? { get set }
 
     var colorProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
@@ -25,8 +25,8 @@ extension SummaryNavigationCoordinator {
 
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
-        viewModel
-        detailViewModel
+        summaryListCoordinator
+        cardDetailViewCoordinator
     }
 
 }
@@ -37,8 +37,8 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
 
     // MARK: Stored Properties
 
-    @Published private(set) var viewModel: SummaryListCoordinator!
-    @Published var detailViewModel: CardDetailViewCoordinator?
+    @Published private(set) var summaryListCoordinator: SummaryListCoordinator!
+    @Published var cardDetailViewCoordinator: CardDetailViewCoordinator?
 
     private let _filter: (SummaryViewCardType) -> Bool
 
@@ -69,7 +69,7 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
         self._filter = filter
 
         // создаем дочерний координатор списка карточек
-        self.viewModel =
+        self.summaryListCoordinator =
         SummaryListCoordinatorImpl(colorProvider: colorProvider,
                                 statisticsProvider: statisticsProvider,
                                 title: title,
@@ -93,7 +93,7 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
         // пришла команда открыть карту - инициализируем координатор карточки
         // а переменная-то @Published - поэтому она затриггерит к срабатыванию
         // модификатор .navigation(model: у своего view
-        detailViewModel = CardDetailViewCoordinatorImpl(card: card, coordinator: self)
+        cardDetailViewCoordinator = CardDetailViewCoordinatorImpl(card: card, coordinator: self)
     }
 
 }
