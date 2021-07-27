@@ -2,6 +2,7 @@ import SwiftUI
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
+import HealthKit
 
 @main
 struct SleepyApp: App {
@@ -45,6 +46,11 @@ struct SleepyApp: App {
 
                                 statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 
+                                saveSleep(sleep: sleep, completionHandler: { result, error in
+                                    print("new sleep saved")
+                                    // TODO: handle error if so
+                                })
+
                                 coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
@@ -57,6 +63,43 @@ struct SleepyApp: App {
     }
 
     // MARK: Private functions
+
+    /// Saves sleep analysis as inBed & Asleep samples in HealthStore
+    /// - Parameters:
+    ///   - sleep: sleep object to be saved
+    ///   - completionHandler: completion with success or failure of this operation
+    func saveSleep(sleep: Sleep, completionHandler: @escaping (Bool, Error?) -> Void) {
+        // checking sleep analysis existence
+        self.hkService?.readData(type: .asleep, interval: sleep.sleepInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
+            guard let samples = samples, samples.isEmpty else {
+                return
+            }
+
+            if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
+                var metadata: [String: Any] = [:]
+
+                if let value = statisticsProvider?.getData(dataType: .heart, indicatorType: .mean) {
+                    metadata["Heart rate mean"] = value
+                }
+                if let value = statisticsProvider?.getData(dataType: .energy, indicatorType: .sum) {
+                    metadata["Energy consumption"] = value
+                }
+
+                let asleepSample = HKCategorySample(type: sleepType,
+                                                    value: HKCategoryValueSleepAnalysis.asleep.rawValue,
+                                                    start: sleep.sleepInterval.start,
+                                                    end: sleep.sleepInterval.end)
+
+                let inBedSample = HKCategorySample(type: sleepType,
+                                                   value: HKCategoryValueSleepAnalysis.inBed.rawValue,
+                                                   start: sleep.inBedInterval.start,
+                                                   end: sleep.inBedInterval.end,
+                                                   metadata: metadata)
+
+                self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
+            }
+        })
+    }
 
     private func simulateURLOpening() {
 #if DEBUG
@@ -84,32 +127,14 @@ struct SleepyApp: App {
 #endif
     }
 
-    // TODO: - move to extension later
-    private func getFormattedDate(date: Date, _ format: String = "dd.MM", dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = format
-        dateformat.dateStyle = dateStyle
-        dateformat.timeStyle = timeStyle
-        dateformat.timeZone = TimeZone.current
-        dateformat.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
-
-        return dateformat.string(from: date)
-    }
-
     fileprivate func showDebugSleepDuration(_ sleep: Sleep) {
-        print(UTCToLocal(currentDate: sleep.sleepInterval.start))
-        print(UTCToLocal(currentDate: sleep.sleepInterval.end))
+        print("asleep")
+        print(sleep.sleepInterval.start.getFormattedDate(format: "dd.MM.yyyy HH:mm"))
+        print(sleep.sleepInterval.end.getFormattedDate(format: "dd.MM.yyyy HH:mm"))
 
         print("inbed")
-        print(UTCToLocal(currentDate: sleep.inBedInterval.start))
-        print(UTCToLocal(currentDate: sleep.inBedInterval.end))
-    }
-
-    private func UTCToLocal(currentDate: Date, format: String = "dd.MM.yyyy HH:mm") -> String {
-
-        // 4) Set the current date, altered by timezone.
-        let dateString = getFormattedDate(date: currentDate, dateStyle: .medium, timeStyle: .medium)
-        return dateString
+        print(sleep.inBedInterval.start.getFormattedDate(format: "dd.MM.yyyy HH:mm"))
+        print(sleep.inBedInterval.end.getFormattedDate(format: "dd.MM.yyyy HH:mm"))
     }
 
 }

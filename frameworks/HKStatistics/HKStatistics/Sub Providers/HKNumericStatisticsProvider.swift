@@ -28,6 +28,10 @@ final class HKNumericTypesStatisticsProvider {
             case .mean:
                 if data.isEmpty { print("Data is nil in HKNumericTypesStatisticsProvider"); return nil }
                 return data.reduce(0.0) { $0 + $1 } / Double(data.count)
+            case .sum:
+                let sum = data.reduce(0.0) { $0 + $1 }
+                guard sum > 0 else { print("Couldn't get sum from data in HKNumericTypesStatisticsProvider"); return nil }
+                return sum
             }
         } else {
             print("Couldn't get data from samples")
