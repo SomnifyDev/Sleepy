@@ -17,10 +17,10 @@ public struct StandardChartView: View {
     private let chartType: StandardChartType
     private let points: [Double]
     private let chartColor: Color?
-    private let needOXLine: Bool
-    private let needTimeLine: Bool
     private let startTime: String?
     private let endTime: String?
+    private let needOXLine: Bool
+    private let needTimeLine: Bool
     private let dragGestureEnabled: Bool
 
     private let standardWidth: CGFloat = 14
