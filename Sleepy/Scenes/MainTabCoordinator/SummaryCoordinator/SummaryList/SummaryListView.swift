@@ -44,6 +44,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.general)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
 
                         if let phasesViewModel = phasesViewModel,
@@ -83,6 +84,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.phases)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
 
                         if let heartViewModel = heartViewModel,
@@ -120,6 +122,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.heart)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
