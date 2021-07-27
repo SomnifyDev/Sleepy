@@ -24,10 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 self?.scheduleNotification(title: "error", body: "error while registering For PushNotifications")
                 return
             }
-
-            self?.scheduleNotification(title: "success", body: "now push notifications are working")
             self?.setupBackground()
-
         }
 
         return true
@@ -36,8 +33,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func setupBackground() {
         // Setup HK observers to monitor changes
         self.hkService.enableBackgroundDelivery { [weak self] result, error in
-            self?.scheduleNotification(title: "background enabled: \(result)",
-                                       body: "\(error?.localizedDescription)")
+            guard error == nil else {
+                self?.scheduleNotification(title: "error", body: "error while enableBackgroundDelivery")
+                return
+            }
 
             self?.sleepDetectionProvider.observeData()
         }
