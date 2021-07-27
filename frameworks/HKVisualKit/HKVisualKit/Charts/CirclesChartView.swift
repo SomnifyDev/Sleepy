@@ -7,9 +7,9 @@ import SwiftUI
 ///  - chartColor: цвет отображения
 public struct CirclesChartView: View {
 
+    @State private var selectedIndex = -1
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
-    private let dragGestureData: String?
     private let points: [Double]
     private let chartColor: Color
     private let chartHeight: CGFloat
@@ -17,24 +17,27 @@ public struct CirclesChartView: View {
     private let needTimeLine: Bool
     private let startTime: String?
     private let endTime: String?
+    private let dragGestureEnabled: Bool
     private let colorProvider: ColorSchemeProvider
+
+    private let chartSpacing: CGFloat = 2
 
     public init(colorProvider: ColorSchemeProvider,
                 points: [Double],
-                dragGestureData: String?,
                 chartColor: Color,
                 chartHeight: CGFloat,
-                needOXLine: Bool,
-                needTimeLine: Bool,
                 startTime: String?,
-                endTime: String?) {
+                endTime: String?,
+                needOXLine: Bool = true,
+                needTimeLine: Bool = true,
+                dragGestureEnabled: Bool = true) {
         self.colorProvider = colorProvider
         self.points = points
-        self.dragGestureData = dragGestureData
         self.chartColor = chartColor
         self.chartHeight = chartHeight
         self.needOXLine = needOXLine
         self.needTimeLine = needTimeLine
+        self.dragGestureEnabled = dragGestureEnabled
         self.startTime = startTime
         self.endTime = endTime
     }
@@ -43,25 +46,48 @@ public struct CirclesChartView: View {
         VStack {
             GeometryReader { geometry in
                 VStack {
-                    HStack (spacing: 2) {
+                    HStack (spacing: chartSpacing) {
                         let min = points.min()!
                         let max = points.max()!
                         let mean = (max + min) / 2.0
                         ForEach(0 ..< points.count, id: \.self) { index in
                             VStack {
-                                CircleChartElementView(maximal: max,
-                                                       minimal: min,
-                                                       mean: mean,
-                                                       current: points[index],
-                                                       circleColor: chartColor,
-                                                       height: chartHeight,
-                                                       width: abs((geometry.size.width - 2 * CGFloat(points.count - 1))) / CGFloat(points.count))
+                                if selectedIndex == index {
+                                    CircleChartElementView(maximal: max,
+                                                           minimal: min,
+                                                           mean: mean,
+                                                           current: points[index],
+                                                           circleColor: chartColor,
+                                                           height: chartHeight,
+                                                           width: abs((geometry.size.width - 2 * CGFloat(points.count - 1))) / CGFloat(points.count))
+                                        .colorInvert()
+                                } else {
+                                    CircleChartElementView(maximal: max,
+                                                           minimal: min,
+                                                           mean: mean,
+                                                           current: points[index],
+                                                           circleColor: chartColor,
+                                                           height: chartHeight,
+                                                           width: abs((geometry.size.width - 2 * CGFloat(points.count - 1))) / CGFloat(points.count))
+                                }
                                 if needOXLine {
                                     getOXLineElement()
                                 }
                             }
                         }
                     }
+                    .allowsHitTesting(dragGestureEnabled)
+                    .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
+                        let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - chartSpacing)))
+
+                        if selected != selectedIndex && selected < points.count {
+                            selectedIndex = selected
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred(intensity: 0.6)
+                        }
+                    }.onEnded { _ in
+                        selectedIndex = -1
+                    })
+
                     if needTimeLine,
                        let startTime = startTime,
                        let endTime = endTime {

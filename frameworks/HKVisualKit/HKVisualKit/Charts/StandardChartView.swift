@@ -15,14 +15,14 @@ public struct StandardChartView: View {
     private let chartHeight: CGFloat
     private let colorProvider: ColorSchemeProvider
     private let chartType: StandardChartType
-    private let dragGestureData: String?
     private let points: [Double]
     private let chartColor: Color?
     private let needOXLine: Bool
-    private let needDragGesture: Bool
     private let needTimeLine: Bool
     private let startTime: String?
     private let endTime: String?
+    private let dragGestureEnabled: Bool
+
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
 
@@ -30,21 +30,19 @@ public struct StandardChartView: View {
                 chartType: StandardChartType,
                 chartHeight: CGFloat,
                 points: [Double],
-                dragGestureData: String? = nil,
                 chartColor: Color?,
-                needOXLine: Bool,
-                needTimeLine: Bool,
                 startTime: String? = nil,
                 endTime: String? = nil,
-                needDragGesture: Bool) {
+                needOXLine: Bool = true,
+                needTimeLine: Bool = true,
+                dragGestureEnabled: Bool = true) {
         self.colorProvider = colorProvider
         self.points = points
         self.chartHeight = chartHeight
-        self.dragGestureData = dragGestureData
         self.chartColor = chartColor
         self.needOXLine = needOXLine
         self.chartType = chartType
-        self.needDragGesture = needDragGesture
+        self.dragGestureEnabled = dragGestureEnabled
         self.elemWidth = standardWidth
         self.needTimeLine = needTimeLine
         self.startTime = startTime
@@ -73,8 +71,8 @@ public struct StandardChartView: View {
                         }
                     }
                 }
-                .gesture(DragGesture(minimumDistance: 15, coordinateSpace: .global)
-                            .onChanged { gesture in
+                .allowsHitTesting(dragGestureEnabled)
+                .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
                     let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - chartSpacing)))
 
                     if selected != selectedIndex && selected < points.count {
@@ -84,6 +82,7 @@ public struct StandardChartView: View {
                 }.onEnded { _ in
                     selectedIndex = -1
                 })
+
 
                 if needTimeLine,
                    let startTime = startTime,
