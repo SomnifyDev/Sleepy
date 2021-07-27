@@ -124,6 +124,7 @@ public class HKService {
                          ascending: Bool = false,
                          bundlePrefixes: [String] = [],
                          completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void) {
+
         checkReadPermissions(type: type) { result, error in
             if error == nil {
 
@@ -171,6 +172,7 @@ public class HKService {
                              ascending: Bool = false,
                              completionHandler: @escaping (HKSampleQuery?, Double?, Error?) -> Void) {
         checkReadPermissions(type: .inbed) { result, error in
+
             if error == nil {
 
                 let datePredicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [])
@@ -178,10 +180,9 @@ public class HKService {
                 let sortDescriptors = [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: ascending)]
                 let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, myAppPredicate])
 
-
                 let query = HKSampleQuery(sampleType: HealthType.inbed.hkValue,
                                           predicate: queryPredicate,
-                                          limit: 100000,
+                                          limit: 50,
                                           sortDescriptors: sortDescriptors,
                                           resultsHandler: { sampleQuery, samples, error in
 

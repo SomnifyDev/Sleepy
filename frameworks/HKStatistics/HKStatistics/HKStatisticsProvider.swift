@@ -107,10 +107,10 @@ public final class HKStatisticsProvider: HKStatistics {
 
     /// Возвращает значение по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
     public func getMetaDataByIntervalWithIndicator(healthType: HKService.HealthType,
-                                               indicatorType: IndicatorType,
-                                               for timeInterval: DateInterval,
-                                               bundlePrefixes: [String] = ["com.apple"],
-                                               completion: @escaping (Double?) -> Void) {
+                                                   indicatorType: IndicatorType,
+                                                   for timeInterval: DateInterval,
+                                                   bundlePrefixes: [String] = ["com.apple"],
+                                                   completion: @escaping (Double?) -> Void) {
         healthService.readMetaData(key: healthType.metaDataKey, interval: timeInterval, ascending: true) { _, data, error in
             completion(data)
         }
