@@ -10,9 +10,9 @@ struct SummaryListView: View {
 
     // MARK: State Properties
 
-    @State private var generalViewModel: SummaryGeneralDataModelView?
-    @State private var phasesViewModel: SummaryPhasesDataModelView?
-    @State private var heartViewModel: SummaryHeartDataModelView?
+    @State private var generalViewModel: SummaryGeneralDataViewModel?
+    @State private var phasesViewModel: SummaryPhasesDataViewModel?
+    @State private var heartViewModel: SummaryHeartDataViewModel?
 
     @State private var showGeneralCard: Bool = false
     @State private var showPhasesCard: Bool = false
@@ -137,7 +137,7 @@ struct SummaryListView: View {
 
     private func getSleepData() {
         let provider = viewModel.statisticsProvider
-        generalViewModel = SummaryGeneralDataModelView(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
+        generalViewModel = SummaryGeneralDataViewModel(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
                                                        sleepEnd: provider.getTodaySleepIntervalBoundary(boundary: .end),
                                                        sleepDuration: provider.getTodaySleepDuration(),
                                                        fallAsleepDuration: provider.getTodayFallingAsleepDuration())
@@ -157,7 +157,7 @@ struct SummaryListView: View {
         }
 
         if !phasesData.isEmpty {
-            phasesViewModel = SummaryPhasesDataModelView(phasesData: phasesData,
+            phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
                                                          timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
                                                          timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min")
             showPhasesCard = true
@@ -176,7 +176,7 @@ struct SummaryListView: View {
            let minHR = provider.getData(dataType: .heart, indicatorType: .min) {
             maxHeartRate = "\(Int(maxHR)) bpm"
             minHeartRate = "\(Int(minHR)) bpm"
-            heartViewModel = SummaryHeartDataModelView(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate)
+            heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate)
             showHeartCard = true
         }
     }

@@ -18,6 +18,4 @@ struct SummaryNavigationCoordinatorView: View {
         }
     }
 
-    
-
 }

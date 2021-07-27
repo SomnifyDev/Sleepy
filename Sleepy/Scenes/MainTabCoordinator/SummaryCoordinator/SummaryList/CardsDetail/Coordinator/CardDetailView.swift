@@ -4,19 +4,19 @@ import XUI
 struct CardDetailView: View {
 
     // MARK: Stored Properties
-
-    @Store var viewModel: CardDetailViewRouter
+    
+    @Store var viewModel: CardDetailViewCoordinator
 
     // MARK: Views
 
     var body: some View {
         HStack {
             if viewModel.card == .heart {
-                Text("heart detail view")
+                HeartCardDetailView()
             } else if viewModel.card == .general {
-                Text("general detail view")
+                GeneralCardDetailView()
             } else if viewModel.card == .phases {
-                Text("phases details view")
+                PhasesCardDetailView()
             }
         }
     }

@@ -9,15 +9,16 @@ import HKStatistics
 protocol SummaryNavigationCoordinator: ViewModel {
 
     var viewModel: SummaryListCoordinator! { get }
-    var detailViewModel: CardDetailViewRouter? { get set }
+    var detailViewModel: CardDetailViewCoordinator? { get set }
 
     var colorProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
 
-    func filter(_ card: CardType) -> Bool
+    func filter(_ card: SummaryViewCardType) -> Bool
 
-    func open(_ card: CardType)
+    func open(_ card: SummaryViewCardType)
     func open(_ url: URL)
+
 }
 
 extension SummaryNavigationCoordinator {
@@ -37,9 +38,9 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
     // MARK: Stored Properties
 
     @Published private(set) var viewModel: SummaryListCoordinator!
-    @Published var detailViewModel: CardDetailViewRouter?
+    @Published var detailViewModel: CardDetailViewCoordinator?
 
-    private let _filter: (CardType) -> Bool
+    private let _filter: (SummaryViewCardType) -> Bool
 
     private let hkStoreService: HKService
     private let cardService: CardService
@@ -55,7 +56,7 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
          hkStoreService: HKService,
          cardService: CardService,
          parent: RootCoordinator,
-         filter: @escaping (CardType) -> Bool) {
+         filter: @escaping (SummaryViewCardType) -> Bool) {
 
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
@@ -80,7 +81,7 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
 
     // MARK: Internal Methods
 
-    func filter(_ card: CardType) -> Bool {
+    func filter(_ card: SummaryViewCardType) -> Bool {
         _filter(card)
     }
 
@@ -88,7 +89,7 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
         parent.open(url)
     }
 
-    func open(_ card: CardType) {
+    func open(_ card: SummaryViewCardType) {
         // пришла команда открыть карту - инициализируем координатор карточки
         // а переменная-то @Published - поэтому она затриггерит к срабатыванию
         // модификатор .navigation(model: у своего view

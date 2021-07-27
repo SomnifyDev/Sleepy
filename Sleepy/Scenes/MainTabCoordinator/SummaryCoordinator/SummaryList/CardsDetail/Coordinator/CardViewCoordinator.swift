@@ -1,25 +1,23 @@
 import Foundation
 import XUI
 
-protocol CardDetailViewRouter: ViewModel {
+protocol CardDetailViewCoordinator: ViewModel {
 
-    var card: CardType { get }
-
+    var card: SummaryViewCardType { get }
     func open(_ url: URL)
 
 }
 
-class CardDetailViewCoordinatorImpl: CardDetailViewRouter, ObservableObject, Identifiable {
+class CardDetailViewCoordinatorImpl: CardDetailViewCoordinator, ObservableObject, Identifiable {
 
     // MARK: Stored Properties
-
-    @Published private(set) var card: CardType
-
+    
+    @Published private(set) var card: SummaryViewCardType
     private unowned let coordinator: SummaryNavigationCoordinator
 
     // MARK: Initialization
 
-    init(card: CardType, coordinator: SummaryNavigationCoordinator) {
+    init(card: SummaryViewCardType, coordinator: SummaryNavigationCoordinator) {
         self.coordinator = coordinator
         self.card = card
     }

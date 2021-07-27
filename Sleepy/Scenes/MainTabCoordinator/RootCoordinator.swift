@@ -120,7 +120,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
                           assertionFailure("Trying to open app with illegal url \(url).")
                           return
                       }
-                let cardType: CardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
+                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
                 openCard(for: cardType)
 
             case "history":
@@ -143,7 +143,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     
     // MARK: Private Methods
     
-    func openCard(for cardType: CardType) {
+    func openCard(for cardType: SummaryViewCardType) {
         // этот момент (строчку 111) я пока детально не зашарил, но давай просто осознаем общую логику:
         // тут мы делегируем открытие карточки дальше по цепочке
         // теперь это задача для роутера экрана со списком карточек

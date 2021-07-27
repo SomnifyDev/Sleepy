@@ -76,11 +76,11 @@
 		805D750526921E9000C19034 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				D99F445D26B00AB700998590 /* UsefulInfo */,
 				D90BB4C2269DF8BD002E9E5A /* Elements */,
 				805D751026922E9400C19034 /* ProgressChartView.swift */,
 				D90BB4C3269DF8E0002E9E5A /* CardWithChartView.swift */,
 				D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */,
-				D99F445D26B00AB700998590 /* UsefulInfo */,
 			);
 			path = Cards;
 			sourceTree = "<group>";

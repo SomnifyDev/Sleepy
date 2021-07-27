@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct SummaryHeartDataModelView {
+struct SummaryHeartDataViewModel {
+
     let heartRateData: [Double]
     let maxHeartRate: String
     let minHeartRate: String
+
 }

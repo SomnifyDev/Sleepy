@@ -11,9 +11,6 @@
 		8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A526A1FA3600A7192A /* HistoryListView.swift */; };
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
-		801505A726713DBF007574B9 /* HeartCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A626713DBF007574B9 /* HeartCardView.swift */; };
-		801505A926714067007574B9 /* GeneralCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505A826714067007574B9 /* GeneralCardView.swift */; };
-		801505AB26714097007574B9 /* PhasesCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AA26714097007574B9 /* PhasesCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
@@ -64,9 +61,12 @@
 		D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FB267780D700694208 /* AlarmCoordinatorView.swift */; };
 		D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FD267780DE00694208 /* SettingsCoordinator.swift */; };
 		D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FF267780F300694208 /* SettingsCoordinatorView.swift */; };
-		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataModelView.swift */; };
-		D9DC913326A9F70200D38E32 /* SummaryPhasesDataModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataModelView.swift */; };
-		D9DC913526A9F71000D38E32 /* SummaryGeneralDataModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataModelView.swift */; };
+		D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F446426B0136D00998590 /* GeneralCardDetailView.swift */; };
+		D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */; };
+		D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */; };
+		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */; };
+		D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */; };
+		D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */; };
 		E52F35914630DFDE987DB5B0 /* Pods_SleepyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61210E5275BC7FC2886643CA /* Pods_SleepyTests.framework */; };
 		E5EFF19FF15FD03F8428C707 /* Pods_Sleepy_WatchOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */; };
 		F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */; };
@@ -196,9 +196,6 @@
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
-		801505A626713DBF007574B9 /* HeartCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardView.swift; sourceTree = "<group>"; };
-		801505A826714067007574B9 /* GeneralCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardView.swift; sourceTree = "<group>"; };
-		801505AA26714097007574B9 /* PhasesCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
@@ -261,9 +258,12 @@
 		D99509FB267780D700694208 /* AlarmCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinatorView.swift; sourceTree = "<group>"; };
 		D99509FD267780DE00694208 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D99509FF267780F300694208 /* SettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorView.swift; sourceTree = "<group>"; };
-		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataModelView.swift; sourceTree = "<group>"; };
-		D9DC913226A9F70200D38E32 /* SummaryPhasesDataModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataModelView.swift; sourceTree = "<group>"; };
-		D9DC913426A9F71000D38E32 /* SummaryGeneralDataModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataModelView.swift; sourceTree = "<group>"; };
+		D99F446426B0136D00998590 /* GeneralCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardDetailView.swift; sourceTree = "<group>"; };
+		D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardDetailView.swift; sourceTree = "<group>"; };
+		D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardDetailView.swift; sourceTree = "<group>"; };
+		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataViewModel.swift; sourceTree = "<group>"; };
+		D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataViewModel.swift; sourceTree = "<group>"; };
+		D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataViewModel.swift; sourceTree = "<group>"; };
 		E10D41B95868DE65092B6B39 /* Pods-SleepyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SleepyTests.release.xcconfig"; path = "Target Support Files/Pods-SleepyTests/Pods-SleepyTests.release.xcconfig"; sourceTree = "<group>"; };
 		E190B908F0E65C713AC18A2A /* Pods-Sleepy_WatchOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy_WatchOSTests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy_WatchOSTests/Pods-Sleepy_WatchOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -332,16 +332,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		801505AC267140E6007574B9 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				801505A826714067007574B9 /* GeneralCardView.swift */,
-				801505AA26714097007574B9 /* PhasesCardView.swift */,
-				801505A626713DBF007574B9 /* HeartCardView.swift */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
 		805D75152692456000C19034 /* Embed Statistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,7 +373,6 @@
 			children = (
 				80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */,
 				80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */,
-				80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */,
 				80780F4F266D4997000D0DD9 /* SummaryList */,
 			);
 			path = SummaryCoordinator;
@@ -415,19 +404,19 @@
 			children = (
 				80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* SummaryListView.swift */,
-				801505AC267140E6007574B9 /* Cards */,
-				D99FD91D26A9F4A500A66A85 /* DataViewModels */,
+				D99FD91D26A9F4A500A66A85 /* ViewModels */,
+				80780F59266D4D92000D0DD9 /* CardsDetail */,
 			);
 			path = SummaryList;
 			sourceTree = "<group>";
 		};
-		80780F59266D4D92000D0DD9 /* CardsDetailCoordinator */ = {
+		80780F59266D4D92000D0DD9 /* CardsDetail */ = {
 			isa = PBXGroup;
 			children = (
-				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
-				801505AD267140F5007574B9 /* CardDetailView.swift */,
+				D99F446626B0138B00998590 /* Coordinator */,
+				D9B1722826B0146D002C3B0D /* DetailViews */,
 			);
-			path = CardsDetailCoordinator;
+			path = CardsDetail;
 			sourceTree = "<group>";
 		};
 		80780F63266D5BC8000D0DD9 /* Extensions */ = {
@@ -635,14 +624,33 @@
 			path = SettingsCoordinator;
 			sourceTree = "<group>";
 		};
-		D99FD91D26A9F4A500A66A85 /* DataViewModels */ = {
+		D99F446626B0138B00998590 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				D9DC913426A9F71000D38E32 /* SummaryGeneralDataModelView.swift */,
-				D9DC913226A9F70200D38E32 /* SummaryPhasesDataModelView.swift */,
-				D9DC913026A9F6EC00D38E32 /* SummaryHeartDataModelView.swift */,
+				80780F5E266D4F42000D0DD9 /* CardViewCoordinator.swift */,
+				801505AD267140F5007574B9 /* CardDetailView.swift */,
 			);
-			path = DataViewModels;
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		D99FD91D26A9F4A500A66A85 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */,
+				D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */,
+				D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D9B1722826B0146D002C3B0D /* DetailViews */ = {
+			isa = PBXGroup;
+			children = (
+				D99F446426B0136D00998590 /* GeneralCardDetailView.swift */,
+				D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */,
+				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
+			);
+			path = DetailViews;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -1101,16 +1109,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9DC913526A9F71000D38E32 /* SummaryGeneralDataModelView.swift in Sources */,
-				D9DC913326A9F70200D38E32 /* SummaryPhasesDataModelView.swift in Sources */,
+				D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */,
+				D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */,
 				80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */,
 				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
-				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataModelView.swift in Sources */,
+				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */,
 				80780F5F266D4F42000D0DD9 /* CardViewCoordinator.swift in Sources */,
+				D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */,
 				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
-				801505A926714067007574B9 /* GeneralCardView.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
 				80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */,
 				8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */,
@@ -1123,7 +1131,7 @@
 				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
 				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,
 				80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */,
-				801505AB26714097007574B9 /* PhasesCardView.swift in Sources */,
+				D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */,
 				80780F4E266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
@@ -1131,10 +1139,10 @@
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
+				D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
 				80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */,
-				801505A726713DBF007574B9 /* HeartCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

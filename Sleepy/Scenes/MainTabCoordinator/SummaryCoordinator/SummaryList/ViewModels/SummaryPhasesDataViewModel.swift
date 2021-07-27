@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct SummaryPhasesDataModelView {
+struct SummaryPhasesDataViewModel {
+
     let phasesData: [Double]
     let timeInLightPhase: String
     let timeInDeepPhase: String
+    
 }

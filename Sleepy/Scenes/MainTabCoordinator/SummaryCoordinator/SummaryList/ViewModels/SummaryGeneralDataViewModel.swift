@@ -7,9 +7,11 @@
 
 import Foundation
 
-struct SummaryGeneralDataModelView {
+struct SummaryGeneralDataViewModel {
+
     let sleepStart: String
     let sleepEnd: String
     let sleepDuration: String
     let fallAsleepDuration: String
+    
 }
