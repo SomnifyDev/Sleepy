@@ -41,7 +41,7 @@ struct SummaryListView: View {
                                                 awakeTime: generalViewModel.sleepEnd,
                                                 fallingAsleepDuration: generalViewModel.fallAsleepDuration)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                                .onTapGesture {
+                                .onNavigation {
                                     viewModel.open(.general)
                                 }
                         }
@@ -80,7 +80,7 @@ struct SummaryListView: View {
                                                                                             .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                                .onTapGesture {
+                                .onNavigation {
                                     viewModel.open(.phases)
                                 }
                         }
@@ -117,7 +117,7 @@ struct SummaryListView: View {
                                                                                             .bold()
                                                                                           + Text("."), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                                .onTapGesture {
+                                .onNavigation {
                                     viewModel.open(.heart)
                                 }
                         }
