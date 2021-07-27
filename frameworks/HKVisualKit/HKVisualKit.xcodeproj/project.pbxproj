@@ -29,6 +29,8 @@
 		D9276A1C269ED27A004490FF /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9276A1B269ED27A004490FF /* TimeLineView.swift */; };
 		D93BF2992698DC3500C0C33D /* View+TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */; };
 		D93BF2A02698DE5C00C0C33D /* ColorsGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BF29F2698DE5C00C0C33D /* ColorsGlobals.swift */; };
+		D99F445C26B0083800998590 /* UsefulInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F445B26B0083800998590 /* UsefulInfoCardView.swift */; };
+		D99F445F26B00ACF00998590 /* UsefulInfoCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F445E26B00ACF00998590 /* UsefulInfoCardDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		D9276A1B269ED27A004490FF /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+TextModifiers.swift"; sourceTree = "<group>"; };
 		D93BF29F2698DE5C00C0C33D /* ColorsGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsGlobals.swift; sourceTree = "<group>"; };
+		D99F445B26B0083800998590 /* UsefulInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoCardView.swift; sourceTree = "<group>"; };
+		D99F445E26B00ACF00998590 /* UsefulInfoCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoCardDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 				805D751026922E9400C19034 /* ProgressChartView.swift */,
 				D90BB4C3269DF8E0002E9E5A /* CardWithChartView.swift */,
 				D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */,
+				D99F445D26B00AB700998590 /* UsefulInfo */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -179,6 +184,15 @@
 			path = Elements;
 			sourceTree = "<group>";
 		};
+		D99F445D26B00AB700998590 /* UsefulInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D99F445B26B0083800998590 /* UsefulInfoCardView.swift */,
+				D99F445E26B00ACF00998590 /* UsefulInfoCardDetailView.swift */,
+			);
+			path = UsefulInfo;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -274,11 +288,13 @@
 				805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */,
 				8002F3AD26A2212700A7192A /* MotivationCellView.swift in Sources */,
 				805D751126922E9400C19034 /* ProgressChartView.swift in Sources */,
+				D99F445F26B00ACF00998590 /* UsefulInfoCardDetailView.swift in Sources */,
 				8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */,
 				80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */,
 				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
 				80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */,
 				D90BB4C6269E0603002E9E5A /* SummaryInfoCardView.swift in Sources */,
+				D99F445C26B0083800998590 /* UsefulInfoCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,7 +429,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -424,7 +440,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.HKVisualKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.HKVisualKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -439,7 +455,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -38,7 +38,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         self.hkService.enableBackgroundDelivery { [weak self] result, error in
             self?.scheduleNotification(title: "background enabled: \(result)",
                                        body: "\(error?.localizedDescription)")
-
             self?.sleepDetectionProvider.observeData()
         }
     }
@@ -60,7 +59,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-
         completionHandler([.alert, .sound])
     }
 
