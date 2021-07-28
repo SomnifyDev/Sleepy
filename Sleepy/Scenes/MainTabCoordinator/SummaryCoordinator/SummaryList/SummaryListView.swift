@@ -30,7 +30,7 @@ struct SummaryListView: View {
                     VStack(alignment: .center) {
 
                         if let generalViewModel = generalViewModel,
-                            showGeneralCard {
+                           showGeneralCard {
                             CardNameTextView(text: "Sleep information",
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
@@ -44,6 +44,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.general)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
 
                         if let phasesViewModel = phasesViewModel,
@@ -62,13 +63,9 @@ struct SummaryListView: View {
                                                                            chartType: .phasesChart,
                                                                            chartHeight: 75,
                                                                            points: phasesViewModel.phasesData,
-                                                                           dragGestureData: "",
                                                                            chartColor: nil,
-                                                                           needOXLine: true,
-                                                                           needTimeLine: true,
                                                                            startTime: generalViewModel.sleepStart,
-                                                                           endTime: generalViewModel.sleepEnd,
-                                                                           needDragGesture: false),
+                                                                           endTime: generalViewModel.sleepEnd),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The duration of light phase was ")
                                                                                           + Text(phasesViewModel.timeInLightPhase)
@@ -83,6 +80,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.phases)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
 
                         if let heartViewModel = heartViewModel,
@@ -99,11 +97,8 @@ struct SummaryListView: View {
                                               showChevron: true,
                                               chartView: CirclesChartView(colorProvider: viewModel.colorProvider,
                                                                           points: heartViewModel.heartRateData,
-                                                                          dragGestureData: nil,
                                                                           chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                                                          chartHeight: 75,
-                                                                          needOXLine: true,
-                                                                          needTimeLine: true,
+                                                                          chartHeight: 100,
                                                                           startTime: generalViewModel.sleepStart,
                                                                           endTime: generalViewModel.sleepEnd),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
@@ -120,6 +115,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.heart)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
@@ -194,27 +190,21 @@ struct SummaryListView: View {
 
     private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
         guard
-            heartRateData.count > 27,
-            let max = heartRateData.max(),
-            let min = heartRateData.min()
+            heartRateData.count > 25
         else {
             return heartRateData
         }
 
-        let stackCapacity = heartRateData.count / 27
+        let stackCapacity = heartRateData.count / 25
         var shortData: [Double] = []
 
         for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
+            var mean: Double = 0.0
             for stackIndex in index..<index+stackCapacity {
-                if stackIndex < heartRateData.count {
-                    if !(heartRateData[stackIndex] == max) && !(heartRateData[stackIndex] == min) {
-                        shortData.append(heartRateData[index])
-                        break
-                    }
-                } else {
-                    return shortData
-                }
+                guard stackIndex < heartRateData.count else { return shortData }
+                mean += heartRateData[stackIndex]
             }
+            shortData.append(mean / Double(stackCapacity))
         }
 
         return shortData

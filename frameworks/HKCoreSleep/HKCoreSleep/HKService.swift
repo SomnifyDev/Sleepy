@@ -6,7 +6,7 @@ public class HKService {
     public enum HealthType {
         case energy, heart, asleep, inbed
 
-        var hkValue: HKSampleType {
+        public var hkValue: HKSampleType {
             switch self {
             case .energy:
                 return HKSampleType.quantityType(forIdentifier: .activeEnergyBurned)!
@@ -16,6 +16,19 @@ public class HKService {
                 return HKSampleType.categoryType(forIdentifier: .sleepAnalysis)!
             case .inbed:
                 return HKSampleType.categoryType(forIdentifier: .sleepAnalysis)!
+            }
+        }
+
+        public var metaDataKey: String {
+            switch self {
+            case .energy:
+                return "Energy Consumption"
+            case .heart:
+                return "Heart rate mean"
+            case .asleep:
+                return ""
+            case .inbed:
+                return ""
             }
         }
     }
@@ -106,7 +119,12 @@ public class HKService {
     ///   - ascending: boolean value indicating your need in ascending order sorting
     ///   - bundlePrefix: bundle prefix of application that created samples you want to read. Do not pass anything if you want every application samples
     ///   - completionHandler: completion with success or failure of this operation and data
-    public func readData(type: HealthType, interval: DateInterval, ascending: Bool = false, bundlePrefixes: [String] = [], completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void) {
+    public func readData(type: HealthType,
+                         interval: DateInterval,
+                         ascending: Bool = false,
+                         bundlePrefixes: [String] = [],
+                         completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void) {
+
         checkReadPermissions(type: type) { result, error in
             if error == nil {
 
@@ -149,6 +167,43 @@ public class HKService {
         }
     }
 
+    public func readMetaData(key: String,
+                             interval: DateInterval,
+                             ascending: Bool = false,
+                             completionHandler: @escaping (HKSampleQuery?, Double?, Error?) -> Void) {
+        checkReadPermissions(type: .inbed) { result, error in
+
+            if error == nil {
+
+                let datePredicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [])
+                let myAppPredicate = HKQuery.predicateForObjects(from: HKSource.default()) // This would retrieve only my app's data
+                let sortDescriptors = [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: ascending)]
+                let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, myAppPredicate])
+
+                let query = HKSampleQuery(sampleType: HealthType.inbed.hkValue,
+                                          predicate: queryPredicate,
+                                          limit: 50,
+                                          sortDescriptors: sortDescriptors,
+                                          resultsHandler: { sampleQuery, samples, error in
+
+                    let samplesFiltered = samples?.filter { sample in
+                        (sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+                    }
+
+                    if let metadata = samplesFiltered?.first?.metadata {
+                        completionHandler(sampleQuery, metadata[key] as? Double, error)
+                        return
+                    }
+                })
+
+                self.healthStore.execute(query)
+
+            } else {
+                completionHandler(nil, nil, error)
+            }
+        }
+    }
+
     /// Gets last sample in database
     /// Be awate that inbed == asleep == Sleep samples
     /// - Parameters:
@@ -160,9 +215,9 @@ public class HKService {
         let predicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date.distantFuture, options: [])
 
         let query = HKSampleQuery(sampleType: type.hkValue,
-                                           predicate: predicate,
-                                           limit: 1,
-                                           sortDescriptors: sortDescriptor,
+                                  predicate: predicate,
+                                  limit: 1,
+                                  sortDescriptors: sortDescriptor,
                                   resultsHandler: completionHandler)
 
         self.healthStore.execute(query)

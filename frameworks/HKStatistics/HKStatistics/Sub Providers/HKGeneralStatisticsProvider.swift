@@ -55,6 +55,8 @@ final class HKGeneralStatisticsProvider {
             case .mean:
                 if data.isEmpty { return nil }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
+            case .sum:
+                return nil
             }
         } else {
             return nil
@@ -74,6 +76,10 @@ final class HKGeneralStatisticsProvider {
             case .mean:
                 if data.isEmpty { return nil }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
+            case .sum:
+                let sum = data.reduce(0.0) { $0 + $1 }
+                guard sum > 0 else { print("Couldn't get sum from data in HKNumericTypesStatisticsProvider"); return nil }
+                return sum
             }
         } else {
             return nil
