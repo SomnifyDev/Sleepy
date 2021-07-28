@@ -27,13 +27,9 @@ struct PhasesCardDetailView: View {
                                               chartType: .phasesChart,
                                               chartHeight: 75,
                                               points: phasesViewModel.phasesData,
-                                              dragGestureData: "",
-                                              chartColor: nil,
-                                              needOXLine: true,
-                                              needTimeLine: true,
+                                              chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                               startTime: generalViewModel.sleepStart,
-                                              endTime: generalViewModel.sleepEnd,
-                                              needDragGesture: false)
+                                              endTime: generalViewModel.sleepEnd)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
 

@@ -27,13 +27,9 @@ struct HeartCardDetailView: View {
                                               chartType: .defaultChart,
                                               chartHeight: 75,
                                               points: heartViewModel.heartRateData,
-                                              dragGestureData: "",
                                               chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                              needOXLine: true,
-                                              needTimeLine: true,
                                               startTime: generalViewModel.sleepStart,
-                                              endTime: generalViewModel.sleepEnd,
-                                              needDragGesture: false)
+                                              endTime: generalViewModel.sleepEnd)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
 
