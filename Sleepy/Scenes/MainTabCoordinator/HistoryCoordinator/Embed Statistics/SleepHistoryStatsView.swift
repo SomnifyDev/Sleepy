@@ -33,13 +33,9 @@ struct SleepHistoryStatsView: View {
                                                                chartType: .defaultChart,
                                                                chartHeight: 75,
                                                                points: monthSleepPoints,
-                                                               dragGestureData: "",
                                                                chartColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
-                                                               needOXLine: true,
-                                                               needTimeLine: true,
                                                                startTime: monthBeforeDateInterval.start.getFormattedDate(format: "dd.MM"),
-                                                               endTime: monthBeforeDateInterval.end.getFormattedDate(format: "dd.MM"),
-                                                               needDragGesture: false),
+                                                               endTime: monthBeforeDateInterval.end.getFormattedDate(format: "dd.MM")),
                                   bottomView: EmptyView())
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
             }

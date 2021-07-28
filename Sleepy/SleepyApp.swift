@@ -22,6 +22,8 @@ struct SleepyApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    let notificationCenter = UNUserNotificationCenter.current()
+
     // MARK: Scenes
 
     var body: some Scene {
@@ -75,6 +77,8 @@ struct SleepyApp: App {
                 return
             }
 
+            scheduleNotification(title: "ACTUALLY SAVING", body: "saving sleep")
+
             if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
                 var metadata: [String: Any] = [:]
 
@@ -99,6 +103,37 @@ struct SleepyApp: App {
                 self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
             }
         })
+    }
+
+    func scheduleNotification(title: String, body: String) {
+        // TODO: вынести в отдельную сущность
+        let content = UNMutableNotificationContent()
+        let categoryIdentifier = "Deleteeeew Notification Type"
+
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        content.badge = 1
+        content.categoryIdentifier = categoryIdentifier
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let identifier = "Localle Notification"
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
+
+        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
+        let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
+        let category = UNNotificationCategory(identifier: categoryIdentifier,
+                                              actions: [snoozeAction, deleteAction],
+                                              intentIdentifiers: [],
+                                              options: [])
+
+        notificationCenter.setNotificationCategories([category])
     }
 
     private func simulateURLOpening() {

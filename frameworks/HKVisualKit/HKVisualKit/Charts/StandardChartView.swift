@@ -10,18 +10,19 @@ import SwiftUI
 ///  - needDragGesture: true, если нужен dragGesture
 public struct StandardChartView: View {
 
+    @State private var selectedIndex = -1
     @State private var elemWidth: CGFloat
     private let chartHeight: CGFloat
     private let colorProvider: ColorSchemeProvider
     private let chartType: StandardChartType
-    private let dragGestureData: String?
     private let points: [Double]
     private let chartColor: Color?
-    private let needOXLine: Bool
-    private let needDragGesture: Bool
-    private let needTimeLine: Bool
     private let startTime: String?
     private let endTime: String?
+    private let needOXLine: Bool
+    private let needTimeLine: Bool
+    private let dragGestureEnabled: Bool
+
     private let standardWidth: CGFloat = 14
     private let chartSpacing: CGFloat = 3
 
@@ -29,21 +30,19 @@ public struct StandardChartView: View {
                 chartType: StandardChartType,
                 chartHeight: CGFloat,
                 points: [Double],
-                dragGestureData: String? = nil,
                 chartColor: Color?,
-                needOXLine: Bool,
-                needTimeLine: Bool,
                 startTime: String? = nil,
                 endTime: String? = nil,
-                needDragGesture: Bool) {
+                needOXLine: Bool = true,
+                needTimeLine: Bool = true,
+                dragGestureEnabled: Bool = true) {
         self.colorProvider = colorProvider
         self.points = points
         self.chartHeight = chartHeight
-        self.dragGestureData = dragGestureData
         self.chartColor = chartColor
         self.needOXLine = needOXLine
         self.chartType = chartType
-        self.needDragGesture = needDragGesture
+        self.dragGestureEnabled = dragGestureEnabled
         self.elemWidth = standardWidth
         self.needTimeLine = needTimeLine
         self.startTime = startTime
@@ -58,7 +57,13 @@ public struct StandardChartView: View {
                         if let max = points.max() {
                             let height = chartHeight * (points[index] / max)
                             VStack {
-                                getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
+                                if selectedIndex == index {
+                                    getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
+                                        .colorInvert()
+                                } else {
+                                    getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
+                                }
+
                                 if needOXLine {
                                     getOXLineElement()
                                 }
@@ -66,7 +71,19 @@ public struct StandardChartView: View {
                         }
                     }
                 }
-                .gesture(getDrugGesture())
+                .allowsHitTesting(dragGestureEnabled)
+                .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
+                    let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - chartSpacing)))
+
+                    if selected != selectedIndex && selected < points.count {
+                        selectedIndex = selected
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred(intensity: 0.6)
+                    }
+                }.onEnded { _ in
+                    selectedIndex = -1
+                })
+
+
                 if needTimeLine,
                    let startTime = startTime,
                    let endTime = endTime {
@@ -94,16 +111,11 @@ public struct StandardChartView: View {
     }
 
     private func getPhaseColor(for value: Double) -> Color {
-        return value < 0.55 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)) : value >= 1 ? colorProvider.sleepyColorScheme.getColor(of: .phases(.wakeUpColor)) : colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))
-    }
-
-    private func getDrugGesture() -> some Gesture {
-        return DragGesture(minimumDistance: 3, coordinateSpace: .local)
-            .onChanged { gesture in
-                if needDragGesture {
-                    // TODO: drag gesture.
-                }
-            }
+        return value < 0.55
+        ? colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor))
+        : value >= 1
+        ? colorProvider.sleepyColorScheme.getColor(of: .phases(.wakeUpColor))
+        : colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))
     }
 
     private func getOXLineElement() -> some View {

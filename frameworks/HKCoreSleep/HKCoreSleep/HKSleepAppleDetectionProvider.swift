@@ -107,12 +107,10 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
                         self?.retrieveData(completionHandler: { sleep in
                             // If you have subscribed for background updates you must call the completion handler here.
-                            self?.notifyByPush(title: "new/old sleep definetly fetched", body: "\(sleep?.sleepInterval.duration)")
                             completionHandler()
                             return
                         })
                     } else {
-                        self?.notifyByPush(title: "not apple", body: "new samples were not by apple")
                         completionHandler()
                         return
                     }

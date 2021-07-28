@@ -44,6 +44,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.general)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
 
                         if let phasesViewModel = phasesViewModel,
@@ -62,13 +63,9 @@ struct SummaryListView: View {
                                                                            chartType: .phasesChart,
                                                                            chartHeight: 75,
                                                                            points: phasesViewModel.phasesData,
-                                                                           dragGestureData: "",
                                                                            chartColor: nil,
-                                                                           needOXLine: true,
-                                                                           needTimeLine: true,
                                                                            startTime: generalViewModel.sleepStart,
-                                                                           endTime: generalViewModel.sleepEnd,
-                                                                           needDragGesture: false),
+                                                                           endTime: generalViewModel.sleepEnd),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The duration of light phase was ")
                                                                                           + Text(phasesViewModel.timeInLightPhase)
@@ -83,6 +80,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.phases)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
 
                         if let heartViewModel = heartViewModel,
@@ -99,11 +97,8 @@ struct SummaryListView: View {
                                               showChevron: true,
                                               chartView: CirclesChartView(colorProvider: viewModel.colorProvider,
                                                                           points: heartViewModel.heartRateData,
-                                                                          dragGestureData: nil,
                                                                           chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                                                           chartHeight: 100,
-                                                                          needOXLine: true,
-                                                                          needTimeLine: true,
                                                                           startTime: generalViewModel.sleepStart,
                                                                           endTime: generalViewModel.sleepEnd),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
@@ -120,6 +115,7 @@ struct SummaryListView: View {
                                 .onNavigation {
                                     viewModel.open(.heart)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
