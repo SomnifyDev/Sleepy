@@ -22,7 +22,7 @@ public class HKService {
         public var metaDataKey: String {
             switch self {
             case .energy:
-                return "Energy Consumption"
+                return "Energy consumption"
             case .heart:
                 return "Heart rate mean"
             case .asleep:
@@ -128,7 +128,7 @@ public class HKService {
         checkReadPermissions(type: type) { result, error in
             if error == nil {
 
-                let predicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [])
+                let predicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [.strictEndDate])
                 let sortDescriptors = [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: ascending)]
 
                 if type != .asleep && type != .inbed {
@@ -154,6 +154,14 @@ public class HKService {
                             (sample as? HKCategorySample)?.value == ((type == .asleep)
                                                                      ? HKCategoryValueSleepAnalysis.asleep.rawValue
                                                                      : HKCategoryValueSleepAnalysis.inBed.rawValue)
+                        }
+                        if samplesFiltered?.count == 2 {
+                            print(samplesFiltered?.first?.startDate)
+                            print(samplesFiltered?.first?.endDate)
+                            print("@@")
+                            print(samplesFiltered?[1].startDate)
+                            print(samplesFiltered?[1].endDate)
+                            print("____")
                         }
                         completionHandler(sampleQuery, samplesFiltered, error)
                     })

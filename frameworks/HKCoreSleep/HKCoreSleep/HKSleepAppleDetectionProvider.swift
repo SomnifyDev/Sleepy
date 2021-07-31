@@ -11,6 +11,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
     private let hkService: HKService?
     private let notificationCenter = UNUserNotificationCenter.current()
+
     // MARK: - Init
 
     public init(hkService: HKService) {
@@ -18,6 +19,54 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
     }
 
     // MARK: - Public methods
+
+    /// Saves sleep analysis as inBed & Asleep samples in HealthStore
+    /// - Parameters:
+    ///   - sleep: sleep object to be saved
+    ///   - completionHandler: completion with success or failure of this operation
+    public func saveSleep(sleep: Sleep, completionHandler: @escaping (Bool, Error?) -> Void) {
+        // checking sleep analysis existence
+
+        // lets expand sleep interval a little bit to be 100% while not sure about strict predicate comparsion ( < or <=)
+        let expandedIntervalStart = Calendar.current.date(byAdding: .minute, value: -5, to: sleep.inBedInterval.start)!
+        let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: sleep.inBedInterval.end)!
+        let expandedInterval = DateInterval(start: expandedIntervalStart, end: expandedIntervalEnd)
+        self.hkService?.readData(type: .asleep, interval: expandedInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
+            guard let samples = samples, samples.isEmpty else {
+                completionHandler(false, nil)
+                return
+            }
+
+            if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
+                var metadata: [String: Any] = [:]
+
+                if let quantityData = sleep.heartSamples as? [HKQuantitySample], !quantityData.isEmpty {
+                    let data = quantityData.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
+                    let value = (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
+                    metadata["Heart rate mean"] = value
+                }
+
+                if let quantityData = sleep.energySamples as? [HKQuantitySample], !quantityData.isEmpty {
+                    let data = quantityData.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
+                    let value = (data.reduce(0.0) { $0 + Double($1) })
+                    metadata["Energy consumption"] = value
+                }
+
+                let asleepSample = HKCategorySample(type: sleepType,
+                                                    value: HKCategoryValueSleepAnalysis.asleep.rawValue,
+                                                    start: sleep.sleepInterval.start,
+                                                    end: sleep.sleepInterval.end)
+
+                let inBedSample = HKCategorySample(type: sleepType,
+                                                   value: HKCategoryValueSleepAnalysis.inBed.rawValue,
+                                                   start: sleep.inBedInterval.start,
+                                                   end: sleep.inBedInterval.end,
+                                                   metadata: metadata)
+
+                self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
+            }
+        })
+    }
 
     public func retrieveData(completionHandler: @escaping (Sleep?) -> Void) {
         // считываем все данные здоровья, например, за трое суток
@@ -69,7 +118,14 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             let phasesService = PhasesComputationService(sleep: sleep)
             sleep.phases = phasesService.phasesData
 
-            completionHandler(sleep)
+            self.saveSleep(sleep: sleep, completionHandler: { result, error in
+                guard error == nil else {
+                    print(error.debugDescription)
+                    completionHandler(nil)
+                    return
+                }
+                completionHandler(sleep)
+            })
         }
     }
 
@@ -86,7 +142,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         for type in [HKSampleType.categoryType(forIdentifier: .sleepAnalysis)!] {
             let query = HKObserverQuery(sampleType: type,
-                                              predicate: queryPredicate) { [weak self] (query, completionHandler, errorOrNil) in
+                                        predicate: queryPredicate) { [weak self] (query, completionHandler, errorOrNil) in
                 guard errorOrNil == nil else {
                     self?.notifyByPush(title: "error", body: "\(errorOrNil!.localizedDescription)")
                     completionHandler()
@@ -111,6 +167,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                             return
                         })
                     } else {
+                        self?.notifyByPush(title: "not apple", body: "new samples were not by apple")
                         completionHandler()
                         return
                     }
@@ -220,13 +277,13 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         if inBedSamples.isEmpty || asleepSamples.isEmpty {
             return (nil, nil, nil, nil, nil, nil, true)
         }
-        
+
         assert(!inBedSamples.isEmpty, "InBed Samples should not be empty")
         assert(!asleepSamples.isEmpty, "Asleep Samples should not be empty")
 
         // итоговый интервал сна/времяпрепровождения в кровати
         var asleepInterval = DateInterval(start: asleepSamples.last!.startDate, end: asleepSamples.first!.endDate)
-        let inbedInterval = DateInterval(start: inBedSamples.last!.startDate, end: inBedSamples.first!.endDate)
+        var inbedInterval = DateInterval(start: inBedSamples.last!.startDate, end: inBedSamples.first!.endDate)
 
         // может такое случиться, что часы заряжались => за прошлую ночь asleep сэмплы отсутствуют (а inbed есть),
         // тогда asleep вытащятся за позапрошлые сутки (последние сэмплы asleep) и это будут разные промежутки у inbed и asleep
@@ -241,18 +298,25 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             }
         }
 
+        // может такое случиться, что inbed конец по времени будет раньше конца asleep
+        // словно человек встал с кровати раньше чем проснулся
+        // Пытаемся пофиксить данный случай
+        if inbedInterval.end < asleepInterval.end {
+            inbedInterval.end = asleepInterval.end
+        }
+
         // остается отфильтровать сердце, энергию, чтоб оно было внутри сна
         let heartSamples = heartSamplesRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
         let energySamples = energySamplesRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
-        
+
         return (asleepInterval, inbedInterval, inBedSamples, asleepSamples, heartSamples, energySamples, false)
     }
 
-    /// Func that gets all raw data samples for provider to star analysis
-    /// - Parameters:
-    ///   - interval: date interval for samples to extract from
-    ///   - completion: result with samples and errors if so occured
-    func getRawData(interval: DateInterval, completion: @escaping((HKSampleQuery?, [HKSample]?, Error?, // asleep
+        /// Func that gets all raw data samples for provider to star analysis
+        /// - Parameters:
+        ///   - interval: date interval for samples to extract from
+        ///   - completion: result with samples and errors if so occured
+    private func getRawData(interval: DateInterval, completion: @escaping((HKSampleQuery?, [HKSample]?, Error?, // asleep
                                                                    HKSampleQuery?, [HKSample]?, Error?, // heart
                                                                    HKSampleQuery?, [HKSample]?, Error?, // energy
                                                                    HKSampleQuery?, [HKSample]?, Error?) // inbed

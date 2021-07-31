@@ -82,7 +82,7 @@ struct CalendarDayView: View {
 
     private func getData() {
         let date = Calendar.current.date(byAdding: .day, value: dateIndex - monthDate.getDayInt(), to: monthDate) ?? Date()
-        description = ""
+        description = "-"
         value = nil
         getCircleColor()
 
@@ -117,7 +117,7 @@ struct CalendarDayView: View {
 
         case .sleep:
             statsProvider.getDataByIntervalWithIndicator(healthType: .asleep,
-                                                         indicatorType: .mean,
+                                                         indicatorType: .sum,
                                                          for: DateInterval(start: date.startOfDay, end: date.endOfDay),
                                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
@@ -131,7 +131,10 @@ struct CalendarDayView: View {
             }
             
         case .inbed:
-            statsProvider.getDataByIntervalWithIndicator(healthType: .inbed, indicatorType: .mean, for: DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+            statsProvider.getDataByIntervalWithIndicator(healthType: .inbed,
+                                                         indicatorType: .sum,
+                                                         for: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                                         bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
                 getCircleColor()
 
