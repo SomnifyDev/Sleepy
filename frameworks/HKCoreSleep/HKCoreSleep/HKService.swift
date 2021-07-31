@@ -155,15 +155,8 @@ public class HKService {
                                                                      ? HKCategoryValueSleepAnalysis.asleep.rawValue
                                                                      : HKCategoryValueSleepAnalysis.inBed.rawValue)
                         }
-                        if samplesFiltered?.count == 2 {
-                            print(samplesFiltered?.first?.startDate)
-                            print(samplesFiltered?.first?.endDate)
-                            print("@@")
-                            print(samplesFiltered?[1].startDate)
-                            print(samplesFiltered?[1].endDate)
-                            print("____")
-                        }
                         completionHandler(sampleQuery, samplesFiltered, error)
+                        return
                     })
 
                     self.healthStore.execute(query)
