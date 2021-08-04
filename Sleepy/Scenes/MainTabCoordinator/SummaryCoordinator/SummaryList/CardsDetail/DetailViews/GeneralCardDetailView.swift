@@ -42,8 +42,7 @@ struct GeneralCardDetailView: View {
                                                                                    backgroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .chartColors(.verticalProgressChartElement)),
                                                                                    chartHeight: 100,
                                                                                    points: bankOfSleepViewModel.bankOfSleepData,
-                                                                                   dragGestureData: nil,
-                                                                                   needDragGesture: false),
+                                                                                   dragGestureEnabled: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("Sleep for ")
                                                                                           + Text("\(bankOfSleepViewModel.timeToCloseDebt)")

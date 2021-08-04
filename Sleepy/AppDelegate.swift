@@ -21,7 +21,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         notificationCenter.delegate = self
         self.registerForPushNotifications { [weak self] result, error in
             guard error == nil else {
-                self?.scheduleNotification(title: "error", body: "error while registering For PushNotifications")
                 return
             }
             self?.setupBackground()
@@ -34,7 +33,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Setup HK observers to monitor changes
         self.hkService.enableBackgroundDelivery { [weak self] result, error in
             guard error == nil else {
-                self?.scheduleNotification(title: "error", body: "error while enableBackgroundDelivery")
                 return
             }
 
@@ -71,36 +69,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
 
         completionHandler()
-    }
-
-    func scheduleNotification(title: String, body: String) {
-        // TODO: вынести в отдельную сущность
-        let content = UNMutableNotificationContent()
-        let categoryIdentifier = "Deletee Notification Type"
-
-        content.title = title
-        content.body = body
-        content.sound = UNNotificationSound.default
-        content.badge = 1
-        content.categoryIdentifier = categoryIdentifier
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let identifier = "Locall Notification"
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Error \(error.localizedDescription)")
-            }
-        }
-
-        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
-        let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
-        let category = UNNotificationCategory(identifier: categoryIdentifier,
-                                              actions: [snoozeAction, deleteAction],
-                                              intentIdentifiers: [],
-                                              options: [])
-
-        notificationCenter.setNotificationCategories([category])
     }
 }

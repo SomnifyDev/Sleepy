@@ -38,7 +38,7 @@ public struct CardTitleView: View {
 
                         if showChevron {
                             Image(systemName: "chevron.right")
-                                .foregroundColor(Color(.black).opacity(0.25))
+                                .foregroundColor(titleColor)
                         }
                     }
 

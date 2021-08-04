@@ -101,7 +101,7 @@ public final class HKStatisticsProvider: HKStatistics {
         }
     }
 
-    /// Возвращает значение по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
+    /// Возвращает значение метадаты по любому типу здоровья, по соответствующему индикатору и в нужном интервале времени
     public func getMetaDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                                    indicatorType: IndicatorType,
                                                    for timeInterval: DateInterval,

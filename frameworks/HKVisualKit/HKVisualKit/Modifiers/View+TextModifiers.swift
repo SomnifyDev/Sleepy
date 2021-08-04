@@ -120,7 +120,7 @@ extension Text {
             .padding([.leading, .trailing], 10)
             .font(.system(size: 14).weight(.semibold))
             .opacity(isSelectedType ? 1 : 0.3)
-            .foregroundColor(isSelectedType ? .white : .black)
+            .foregroundColor(.white)
     }
 
     public func linkTextModifier() -> some View {

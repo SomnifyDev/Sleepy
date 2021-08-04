@@ -8,40 +8,55 @@ import SwiftUI
 ///  - needDragGesture: true, если нужен dragGesture  
 public struct VerticalProgressChartView: View {
 
+    @State private var selectedIndex = -1
+
     private let foregroundElementColor: Color
     private let backgroundElementColor: Color
-    private let dragGestureData: String?
     private let points: [Double]
-    private let needDragGesture: Bool
     private let chartHeight: CGFloat
+    private let dragGestureEnabled: Bool
 
-    public init(foregroundElementColor: Color, backgroundElementColor: Color, chartHeight: CGFloat, points: [Double], dragGestureData: String? = nil, needDragGesture: Bool) {
+    private let chartSpacing: CGFloat = 10
+
+    public init(foregroundElementColor: Color, backgroundElementColor: Color, chartHeight: CGFloat, points: [Double], dragGestureEnabled: Bool = true) {
         self.foregroundElementColor = foregroundElementColor
         self.backgroundElementColor = backgroundElementColor
         self.chartHeight = chartHeight
-        self.dragGestureData = dragGestureData
         self.points = points
-        self.needDragGesture = needDragGesture
+        self.dragGestureEnabled = dragGestureEnabled
     }
 
     public var body: some View {
-        HStack (spacing: 10) {
-            ForEach(0 ..< points.count, id: \.self) { index in
-                VerticalProgressElementView(percentage: points[index],
-                                            foregroundElementColor: foregroundElementColor,
-                                            backgroundElementColor: backgroundElementColor,
-                                            height: chartHeight)
-            }
-        }
-        .gesture(getDrugGesture())
-    }
+        GeometryReader { geometry in
+            HStack (spacing: 10) {
+                ForEach(0 ..< points.count, id: \.self) { index in
+                    if selectedIndex == index {
+                        VerticalProgressElementView(percentage: points[index],
+                                                    foregroundElementColor: foregroundElementColor,
+                                                    backgroundElementColor: backgroundElementColor,
+                                                    height: chartHeight)
+                            .colorInvert()
+                    } else {
 
-    private func getDrugGesture() -> some Gesture {
-        return DragGesture(minimumDistance: 3, coordinateSpace: .local)
-            .onChanged { gesture in
-                if needDragGesture {
-                    // TODO: drag gesture
+                        VerticalProgressElementView(percentage: points[index],
+                                                    foregroundElementColor: foregroundElementColor,
+                                                    backgroundElementColor: backgroundElementColor,
+                                                    height: chartHeight)
+                    }
                 }
             }
+            .allowsHitTesting(dragGestureEnabled)
+            .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
+                let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - chartSpacing)))
+
+                if selected != selectedIndex && selected < points.count {
+                    selectedIndex = selected
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred(intensity: 0.6)
+                }
+            }.onEnded { _ in
+                selectedIndex = -1
+            })
+        }
     }
+    
 }
