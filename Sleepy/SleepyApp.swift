@@ -2,6 +2,7 @@ import SwiftUI
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
+import SettingsKit
 
 @main
 struct SleepyApp: App {
@@ -11,6 +12,7 @@ struct SleepyApp: App {
     @State var cardService: CardService?
     @State var colorSchemeProvider: ColorSchemeProvider?
     @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
+    @State var settingsProvider: SettingsProvider?
 
     @State var statisticsProvider: HKStatisticsProvider?
     @State var coordinator: RootCoordinatorImpl?
@@ -31,6 +33,14 @@ struct SleepyApp: App {
             } else {
                 Text("Loading")
                     .onAppear {
+                        
+                        if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                            UserDefaults.standard.set(true, forKey: "launchedBefore")
+                            self.settingsProvider = SettingsProviderImpl()
+                            self.settingsProvider?.saveSleepGoal(sleepGoal: 480) // в дальнейшем будем устанавливать значение, которое пользователь выбрал на старте, пока так
+                        } else {
+                            self.settingsProvider = SettingsProviderImpl()
+                        }
 
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
@@ -43,7 +53,7 @@ struct SleepyApp: App {
 
                                 statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 
-                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
+                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!, settingsProvider: settingsProvider!)
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
                                 canShowApp = true

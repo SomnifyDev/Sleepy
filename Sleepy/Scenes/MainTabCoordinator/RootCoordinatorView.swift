@@ -23,7 +23,7 @@ struct RootCoordinatorView: View {
                 .tabItem { Label("alarm", systemImage: "hare.fill") }
                 .tag(TabBarTab.alarm)
             
-            SettingsCoordinatorView(coordinator: viewModel.settingsCoordinator)
+            SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
                 .tabItem { Label("settings", systemImage: "hare.fill") }
                 .tag(TabBarTab.settings)
         }

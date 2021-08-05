@@ -114,6 +114,7 @@ struct GeneralCardDetailView: View {
 
     private func getbankOfSleepInfo() {
         let provider = viewModel.statisticsProvider
+        let sleepGoal = viewModel.settingsProvider.getSleepGoal()
         guard
             let twoWeeksBackDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
         else {
@@ -122,14 +123,12 @@ struct GeneralCardDetailView: View {
         provider.getDataByInterval(healthType: .asleep, for: DateInterval(start: twoWeeksBackDate, end: Date()), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
             if data.count == 14 {
 
-                // TODO: 480.0 заменить на нормальную цель сна пользователя
+                let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
 
-                let bankOfSleepData = data.map({$0 / 480.0})
-
-                let backlogValue = Int(data.reduce(0.0) { $1 < 480 ? $0 + (480 - $1) : $0 + 0 })
+                let backlogValue = Int(data.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
                 let backlogString = "\(backlogValue / 60)h \(backlogValue - (backlogValue / 60) * 60)min"
 
-                let timeToCloseDebtValue = backlogValue / 14 + 480
+                let timeToCloseDebtValue = backlogValue / 14 + sleepGoal
                 let timeToCloseDebtString = "\(timeToCloseDebtValue / 60)h \(timeToCloseDebtValue - (timeToCloseDebtValue / 60) * 60)min"
 
                 self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
@@ -140,10 +139,8 @@ struct GeneralCardDetailView: View {
     }
 
     private func getGoalPercentage() -> Int {
-
-        // TODO: 480.0 заменить на нормальную цель сна пользователя
-
-        return Int((Double(viewModel.statisticsProvider.getData(for: .asleep)) / 480.0) * 100)
+        let sleepGoal = viewModel.settingsProvider.getSleepGoal()
+        return Int((Double(viewModel.statisticsProvider.getData(for: .asleep)) / Double(sleepGoal)) * 100)
     }
     
 }
