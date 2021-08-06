@@ -21,9 +21,12 @@ public struct ErrorView: View {
     }
 
     // MARK: Private properties
+
+    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
+    // = CGFloat.infinity - variant for VStack
     
-    public let errorType: ErrorType
-    public let colorScheme: SleepyColorScheme
+    private let errorType: ErrorType
+    private let colorProvider: ColorSchemeProvider
     
     private var iconName: String = ""
     private var titleText: String = ""
@@ -31,9 +34,9 @@ public struct ErrorView: View {
 
     // MARK: Init
 
-    public init(errorType: ErrorType, colorScheme: SleepyColorScheme) {
+    public init(errorType: ErrorType, colorProvider: ColorSchemeProvider) {
         self.errorType = errorType
-        self.colorScheme = colorScheme
+        self.colorProvider = colorProvider
         
         titleText = getTitleText()
         dataText = getDataText()
@@ -41,51 +44,56 @@ public struct ErrorView: View {
     }
     
     public var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 8) {
-                
-                // TODO: make images and text vary base on errorType
-                HStack {
-                    Image(systemName: getIconName())
-                        .foregroundColor(colorScheme.getColor(of: .heart(.heartColor)))
-                    Text("titleText")
-                        .fontWeight(.bold)
-                        .foregroundColor(colorScheme.getColor(of: .heart(.heartColor)))
-                    Spacer()
+        VStack {
+            GeometryReader { geometry in
+                VStack(spacing: 8) {
+
+                    CardTitleView(colorProvider: colorProvider,
+                                  systemImageName: self.getIconName(),
+                                  titleText: "Error occured",
+                                  mainText: getDataText(),
+                                  navigationText: "Read FAQ",
+                                  titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                  showSeparator: false,
+                                  showChevron: true)
+
                 }
-                .padding(.top, 4)
-                .padding(.leading, 16)
-                
-                HStack {
-                    Text(getDataText())
-                        .bold()
-                        .minimumScaleFactor(0.01)
-                    Spacer()
-                }
-                .padding(.top, 4)
-                .padding(.bottom, 4)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                
+                .frame(width: geometry.size.width)
+                .background(viewHeightReader($totalHeight))
             }
-            .frame(width: geometry.size.width)
-            .foregroundColor(colorScheme.getColor(of: .heart(.heartColor)))
         }
+        .frame(height: totalHeight) // - variant for ScrollView/List
+        //.frame(maxHeight: totalHeight) - variant for VStack
     }
     
     // MARK: Private Methods
+
+    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
+        return GeometryReader { geometry -> Color in
+            let rect = geometry.frame(in: .local)
+            DispatchQueue.main.async {
+                binding.wrappedValue = rect.size.height
+            }
+            return .clear
+        }
+    }
     
     private func getTitleText() -> String {
-         return "data empty"
+        return "data empty"
     }
     
     private func getDataText() -> String {
-        return "data empty"
+        switch self.errorType {
+        case .emptyData(type: let type):
+            return "No data of type \(type.rawValue) was recieved"
+        case .brokenData(type: let type):
+            return "There was not enought data to display your \(type.rawValue) charts. Try to sleep with Apple Watch More"
+        }
     }
     
     private func getIconName() -> String {
         // TODO: add switch for different data states
-        return "person"
+        return "exclamationmark.square.fill"
     }
     
 }
@@ -93,6 +101,6 @@ public struct ErrorView: View {
 public struct ErrorView_Previews: PreviewProvider {
     public static var previews: some View {
         ErrorView(errorType: .brokenData(type: .heart),
-                  colorScheme: SleepyColorScheme())
+                  colorProvider: ColorSchemeProvider())
     }
 }

@@ -14,10 +14,6 @@ struct SummaryListView: View {
     @State private var phasesViewModel: SummaryPhasesDataViewModel?
     @State private var heartViewModel: SummaryHeartDataViewModel?
 
-    @State private var showGeneralCard: Bool = false
-    @State private var showPhasesCard: Bool = false
-    @State private var showHeartCard: Bool = false
-
     // MARK: View
 
     var body: some View {
@@ -29,8 +25,7 @@ struct SummaryListView: View {
                 ScrollView {
                     VStack(alignment: .center) {
 
-                        if let generalViewModel = generalViewModel,
-                           showGeneralCard {
+                        if let generalViewModel = generalViewModel {
                             CardNameTextView(text: "Sleep information",
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
@@ -47,11 +42,11 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         }
 
+                        CardNameTextView(text: "Sleep session",
+                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+
                         if let phasesViewModel = phasesViewModel,
-                           let generalViewModel = generalViewModel,
-                           showPhasesCard {
-                            CardNameTextView(text: "Sleep session",
-                                             color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                           let generalViewModel = generalViewModel {
 
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "sleep",
@@ -81,13 +76,24 @@ struct SummaryListView: View {
                                     viewModel.open(.phases)
                                 }
                                 .buttonStyle(PlainButtonStyle())
+                        } else {
+
+                            ErrorView(errorType: .emptyData(type: .sleep),
+                                      colorProvider: viewModel.colorProvider)
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+
+                            CardWithChartView<StandardChartView, EmptyView>(colorProvider: viewModel.colorProvider,
+                                                                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
+                                                                            chartType: .phasesChart)
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                                .blur(radius: 4)
                         }
 
+                        CardNameTextView(text: "Heart rate",
+                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+
                         if let heartViewModel = heartViewModel,
-                           let generalViewModel = generalViewModel,
-                           showHeartCard {
-                            CardNameTextView(text: "Heart rate",
-                                             color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                           let generalViewModel = generalViewModel {
                             
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "suit.heart.fill",
@@ -116,6 +122,17 @@ struct SummaryListView: View {
                                     viewModel.open(.heart)
                                 }
                                 .buttonStyle(PlainButtonStyle())
+                        } else {
+
+                            ErrorView(errorType: .emptyData(type: .heart),
+                                      colorProvider: viewModel.colorProvider)
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+
+                            CardWithChartView<StandardChartView, EmptyView>(colorProvider: viewModel.colorProvider,
+                                                                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                                                            chartType: .defaultChart)
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                                .blur(radius: 4)
                         }
                     }
                 }
@@ -141,7 +158,6 @@ struct SummaryListView: View {
                                                        sleepDuration: "\(sleepDuration / 60)h \(sleepDuration - (sleepDuration / 60) * 60)min",
                                                        inBedDuration: "\(inBedDuration / 60)h \(inBedDuration - (inBedDuration / 60) * 60)min",
                                                        fallAsleepDuration: provider.getTodayFallingAsleepDuration())
-        showGeneralCard = true
     }
 
     // MARK: Phases data
@@ -162,7 +178,6 @@ struct SummaryListView: View {
                                                          timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
                                                          mostIntervalInLightPhase: "-",
                                                          mostIntervalInDeepPhase: "-")
-            showPhasesCard = true
         }
     }
 
@@ -184,7 +199,6 @@ struct SummaryListView: View {
                                                        maxHeartRate: maxHeartRate,
                                                        minHeartRate: minHeartRate,
                                                        averageHeartRate: averageHeartRate)
-            showHeartCard = true
         }
     }
 

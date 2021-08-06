@@ -8,16 +8,18 @@ public struct CardTitleView: View {
     private let colorProvider: ColorSchemeProvider
     private let systemImageName: String
     private let titleText: String
+    private let navigationText: String?
     private let mainText: String?
     private let titleColor: Color
     private let showChevron: Bool
     private let showSeparator: Bool
 
-    init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String?, titleColor: Color, showSeparator: Bool = true, showChevron: Bool = false) {
+    init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String? = nil, navigationText: String? = nil, titleColor: Color, showSeparator: Bool = true, showChevron: Bool = false) {
         self.colorProvider = colorProvider
         self.systemImageName = systemImageName
         self.titleText = titleText
         self.mainText = mainText
+        self.navigationText = navigationText
         self.titleColor = titleColor
         self.showChevron = showChevron
         self.showSeparator = showSeparator
@@ -35,6 +37,11 @@ public struct CardTitleView: View {
                             .cardTitleTextModifier(color: titleColor)
 
                         Spacer()
+
+                        if let navigationText = navigationText {
+                            Text(navigationText)
+                                .cardTitleTextModifier(color: titleColor)
+                        }
 
                         if showChevron {
                             Image(systemName: "chevron.right")

@@ -25,6 +25,25 @@ public struct CardWithChartView<T: View, U: View>: View {
         self.bottomView = bottomView
     }
 
+    /// Use for shimmers only
+    public init(colorProvider: ColorSchemeProvider, color: Color, chartType: StandardChartType) {
+        self.colorProvider = colorProvider
+        self.systemImageName = "person"
+        self.titleText = "tfklw"
+        self.mainTitleText = "some long description in order to fill blur card with"
+        self.titleColor = color
+        self.showChevron = false
+        self.chartView = StandardChartView(colorProvider: colorProvider,
+                                           chartType: chartType,
+                                           chartHeight: 75,
+                                           points: [13, 23, 10, 15, 30, 23, 25, 26, 30, 13, 23, 10, 15, 30, 23, 25, 26, 30,13, 23, 10, 15, 30, 23, 25, 26, 30],
+                                           chartColor: color,
+                                           startTime: "",
+                                           endTime: "",
+                                           dragGestureEnabled: false) as! T
+        self.bottomView = EmptyView() as! U
+    }
+
     public var body: some View {
         VStack {
             GeometryReader { geometry in

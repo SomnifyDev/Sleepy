@@ -114,12 +114,11 @@ extension Text {
             .frame(width: width)
     }
 
-    public func healthTypeSwitchTextModifier(isSelectedType: Bool) -> some View {
+    public func healthTypeSwitchTextModifier() -> some View {
         self
             .padding([.top, .bottom], 6)
             .padding([.leading, .trailing], 10)
             .font(.system(size: 14).weight(.semibold))
-            .opacity(isSelectedType ? 1 : 0.3)
             .foregroundColor(.white)
     }
 
