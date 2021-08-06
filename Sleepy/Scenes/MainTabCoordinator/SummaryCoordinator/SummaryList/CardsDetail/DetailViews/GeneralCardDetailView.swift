@@ -155,7 +155,7 @@ struct GeneralCardDetailView: View {
             return "Not the best result for today. Pay more attention to your sleep to be more healthy and productive every day!"
         } else if sleepGoalPercentage >= 80 && sleepGoalPercentage < 100 {
             return "Not bad result, but you can do it better for sure. For a reminder, sleep is the key to longevity and youth!"
-        } else if sleepGoalPercentage >= 100 {
+        } else {
             return "Amazing result for today. Keep up the good work and stay healthy!"
         }
     }
