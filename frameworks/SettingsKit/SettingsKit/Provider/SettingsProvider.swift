@@ -16,14 +16,16 @@ public protocol SettingsProvider {
 
 public final class SettingsProviderImpl: SettingsProvider {
 
+    private let sleepGoalKey: String = "sleepGoal"
+
     public init() {}
 
     public func getSleepGoal() -> Int {
-        return UserDefaults.standard.integer(forKey: "sleepGoal")
+        return UserDefaults.standard.integer(forKey: sleepGoalKey)
     }
 
     public func saveSleepGoal(sleepGoal: Int) {
-        UserDefaults.standard.set(sleepGoal, forKey: "sleepGoal")
+        UserDefaults.standard.set(sleepGoal, forKey: sleepGoalKey)
     }
 
 }
