@@ -71,10 +71,14 @@ struct GeneralCardDetailView: View {
                                               mainText: "Your sleep duration was \(generalViewModel.sleepDuration). It is \(getGoalPercentage())% of your goal.",
                                               systemImage: "zzz",
                                               colorProvider: viewModel.colorProvider,
-                                              currentWeeksProgress: ProgressItem(title: "Sleep goal", text: "8h 0min", value: 1),
-                                              beforeWeeksProgress: ProgressItem(title: "Today sleep duration", text: "8h 0min", value: 1),
-                                              analysisString: "Amazing result for today!", // я просто устал, потом придумаю анализ какой-нибудь сюда
-                                              mainColor: .blue)
+                                              currentProgress: ProgressItem(title: "Your sleep goal",
+                                                                            text: getStringFormatOfTime(minutes: viewModel.settingsProvider.getSleepGoal()),
+                                                                            value: viewModel.settingsProvider.getSleepGoal()),
+                                              beforeProgress: ProgressItem(title: "Today sleep duration",
+                                                                           text: generalViewModel.sleepDuration,
+                                                                           value: viewModel.statisticsProvider.getData(for: .asleep)),
+                                              analysisString: getAnalysisString(),
+                                              mainColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
@@ -107,8 +111,8 @@ struct GeneralCardDetailView: View {
 
         generalViewModel = SummaryGeneralDataViewModel(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
                                                        sleepEnd: provider.getTodaySleepIntervalBoundary(boundary: .end),
-                                                       sleepDuration: "\(sleepDuration / 60)h \(sleepDuration - (sleepDuration / 60) * 60)min",
-                                                       inBedDuration: "\(inBedDuration / 60)h \(inBedDuration - (inBedDuration / 60) * 60)min",
+                                                       sleepDuration: getStringFormatOfTime(minutes: sleepDuration),
+                                                       inBedDuration: getStringFormatOfTime(minutes: inBedDuration),
                                                        fallAsleepDuration: provider.getTodayFallingAsleepDuration())
     }
 
@@ -126,10 +130,10 @@ struct GeneralCardDetailView: View {
                 let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
 
                 let backlogValue = Int(data.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
-                let backlogString = "\(backlogValue / 60)h \(backlogValue - (backlogValue / 60) * 60)min"
+                let backlogString = getStringFormatOfTime(minutes: backlogValue)
 
                 let timeToCloseDebtValue = backlogValue / 14 + sleepGoal
-                let timeToCloseDebtString = "\(timeToCloseDebtValue / 60)h \(timeToCloseDebtValue - (timeToCloseDebtValue / 60) * 60)min"
+                let timeToCloseDebtString = getStringFormatOfTime(minutes: timeToCloseDebtValue)
 
                 self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
                                                                      backlog: backlogString,
@@ -141,6 +145,19 @@ struct GeneralCardDetailView: View {
     private func getGoalPercentage() -> Int {
         let sleepGoal = viewModel.settingsProvider.getSleepGoal()
         return Int((Double(viewModel.statisticsProvider.getData(for: .asleep)) / Double(sleepGoal)) * 100)
+    }
+
+    // MARK: Addittional methods
+
+    private func getAnalysisString() -> String {
+        let sleepGoalPercentage = getGoalPercentage()
+        if sleepGoalPercentage < 80 {
+            return "Not the best result for today. Pay more attention to your sleep to be more healthy and productive every day!"
+        } else if sleepGoalPercentage >= 80 && sleepGoalPercentage < 100 {
+            return "Not bad result, but you can do it better for sure. For a reminder, sleep is the key to longevity and youth!"
+        } else if sleepGoalPercentage >= 100 {
+            return "Amazing result for today. Keep up the good work and stay healthy!"
+        }
     }
     
 }

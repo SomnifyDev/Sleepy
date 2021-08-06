@@ -54,11 +54,11 @@ struct SleepHistoryStatsView: View {
                               mainText: "Thats some progress you've made in several weeks",
                               systemImage: "timer",
                               colorProvider: colorProvider,
-                              currentWeeksProgress:
+                              currentProgress:
                                 ProgressItem(title: viewModel.currentWeeksProgress.title,
                                              text: viewModel.currentWeeksProgress.text,
                                              value: viewModel.currentWeeksProgress.value),
-                              beforeWeeksProgress:
+                              beforeProgress:
                                 ProgressItem(title: viewModel.beforeWeeksProgress.title,
                                              text: viewModel.beforeWeeksProgress.text,
                                              value: viewModel.beforeWeeksProgress.value),
