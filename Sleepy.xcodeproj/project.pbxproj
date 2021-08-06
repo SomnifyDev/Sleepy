@@ -53,10 +53,10 @@
 		D9441A25266CD4C70019902F /* Sleepy_WatchOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A24266CD4C70019902F /* Sleepy_WatchOSTests.swift */; };
 		D9441A30266CD4C70019902F /* Sleepy_WatchOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */; };
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		D9488FF226BC4E8300F71BB1 /* SettingsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9488FEE26BC4C9700F71BB1 /* SettingsKit.framework */; };
-		D9488FF326BC4E8300F71BB1 /* SettingsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9488FEE26BC4C9700F71BB1 /* SettingsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; };
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; platformFilter = ios; };
+		D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D98D925526B0960100C6B7E4 /* BankOfSleepDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */; };
 		D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509EF26777D4200694208 /* HistoryCoordinator.swift */; };
 		D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F026777D4200694208 /* HistoryCoordinatorView.swift */; };
@@ -132,13 +132,6 @@
 			remoteGlobalIDString = D94419FC266CD4C50019902F;
 			remoteInfo = Sleepy_WatchOS;
 		};
-		D9488FED26BC4C9700F71BB1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9488FE926BC4C9600F71BB1 /* SettingsKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D9488FDF26BC4C9600F71BB1;
-			remoteInfo = SettingsKit;
-		};
 		D96DBC432687126100A0E018 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */;
@@ -153,6 +146,13 @@
 			remoteGlobalIDString = D96DBC2D2687126000A0E018;
 			remoteInfo = HKStatisticsTests;
 		};
+		D97C396326BD1531005CCDFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D97C395526BD1530005CCDFB;
+			remoteInfo = SettingsKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -164,7 +164,7 @@
 			files = (
 				808FDF3F2685EB8000B38B78 /* HKCoreSleep.framework in Embed Frameworks */,
 				80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */,
-				D9488FF326BC4E8300F71BB1 /* SettingsKit.framework in Embed Frameworks */,
+				D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */,
 				D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -262,8 +262,8 @@
 		D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sleepy_WatchOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
 		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9488FE926BC4C9600F71BB1 /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = ../SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
+		D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = frameworks/SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
 		D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfSleepDataViewModel.swift; sourceTree = "<group>"; };
 		D99509EF26777D4200694208 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		D99509F026777D4200694208 /* HistoryCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinatorView.swift; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 				80780F32266D3B94000D0DD9 /* XUI in Frameworks */,
 				80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */,
 				D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */,
-				D9488FF226BC4E8300F71BB1 /* SettingsKit.framework in Frameworks */,
+				D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */,
 				808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */,
 				F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */,
 				808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */,
@@ -359,7 +359,6 @@
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
-				D9488FE926BC4C9600F71BB1 /* SettingsKit.xcodeproj */,
 				D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */,
 				808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */,
 				80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */,
@@ -467,6 +466,7 @@
 		882574914EFE6785A847CA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */,
 				80780F04266CE356000D0DD9 /* HK */,
 				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
 				7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */,
@@ -601,19 +601,19 @@
 			path = Sleepy_WatchOSUITests;
 			sourceTree = "<group>";
 		};
-		D9488FEA26BC4C9600F71BB1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D9488FEE26BC4C9700F71BB1 /* SettingsKit.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D96DBC3E2687126000A0E018 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				D96DBC442687126100A0E018 /* HKStatistics.framework */,
 				D96DBC462687126100A0E018 /* HKStatisticsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D97C396026BD1530005CCDFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D97C396426BD1531005CCDFB /* SettingsKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -889,8 +889,8 @@
 					ProjectRef = 80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */;
 				},
 				{
-					ProductGroup = D9488FEA26BC4C9600F71BB1 /* Products */;
-					ProjectRef = D9488FE926BC4C9600F71BB1 /* SettingsKit.xcodeproj */;
+					ProductGroup = D97C396026BD1530005CCDFB /* Products */;
+					ProjectRef = D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -921,13 +921,6 @@
 			remoteRef = 808FDF342685E48B00B38B78 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D9488FEE26BC4C9700F71BB1 /* SettingsKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SettingsKit.framework;
-			remoteRef = D9488FED26BC4C9700F71BB1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D96DBC442687126100A0E018 /* HKStatistics.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -940,6 +933,13 @@
 			fileType = wrapper.cfbundle;
 			path = HKStatisticsTests.xctest;
 			remoteRef = D96DBC452687126100A0E018 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D97C396426BD1531005CCDFB /* SettingsKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SettingsKit.framework;
+			remoteRef = D97C396326BD1531005CCDFB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
