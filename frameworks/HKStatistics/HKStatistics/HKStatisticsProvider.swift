@@ -25,7 +25,6 @@ public protocol HKStatistics {
                            for timeInterval: DateInterval,
                            bundlePrefixes: [String],
                            completion: @escaping ([Double]) -> Void)
-
 }
 
 public final class HKStatisticsProvider: HKStatistics {

@@ -359,6 +359,7 @@
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
+				D9488FE926BC4C9600F71BB1 /* SettingsKit.xcodeproj */,
 				D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */,
 				808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */,
 				80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */,
@@ -466,7 +467,6 @@
 		882574914EFE6785A847CA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D9488FE926BC4C9600F71BB1 /* SettingsKit.xcodeproj */,
 				80780F04266CE356000D0DD9 /* HK */,
 				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
 				7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */,
@@ -1391,7 +1391,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1416,7 +1416,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
