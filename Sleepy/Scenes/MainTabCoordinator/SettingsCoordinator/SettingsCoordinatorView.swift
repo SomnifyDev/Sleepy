@@ -18,15 +18,14 @@ struct SettingsCoordinatorView: View {
     @Store var viewModel: SettingsCoordinator
 
     @State private var stepperValue: Int = 300
-    @State private var isToggleOn: Bool = false
     
     // MARK: Views
     
     var body: some View {
         NavigationView {
             List {
-                Section(header: HFWithImageView(imageName: "heart.circle", text: "Health")) {
-                    Stepper("Sleep goal – \(stepperValue / 60)h \(stepperValue - (stepperValue / 60) * 60)min",
+                Section(header: HFView(text: "Health", imageName: "heart.circle")) {
+                    Stepper("Sleep goal – \(Date.minutesToDateDescription(minutes: stepperValue))",
                             value: $stepperValue,
                             in: 300...720,
                             step: 15) { _ in

@@ -72,7 +72,7 @@ struct GeneralCardDetailView: View {
                                               systemImage: "zzz",
                                               colorProvider: viewModel.colorProvider,
                                               currentProgress: ProgressItem(title: "Your sleep goal",
-                                                                            text: getStringFormatOfTime(minutes: viewModel.settingsProvider.getSleepGoal()),
+                                                                            text: Date.minutesToDateDescription(minutes: viewModel.settingsProvider.getSleepGoal()),
                                                                             value: viewModel.settingsProvider.getSleepGoal()),
                                               beforeProgress: ProgressItem(title: "Today sleep duration",
                                                                            text: generalViewModel.sleepDuration,
@@ -111,8 +111,8 @@ struct GeneralCardDetailView: View {
 
         generalViewModel = SummaryGeneralDataViewModel(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
                                                        sleepEnd: provider.getTodaySleepIntervalBoundary(boundary: .end),
-                                                       sleepDuration: getStringFormatOfTime(minutes: sleepDuration),
-                                                       inBedDuration: getStringFormatOfTime(minutes: inBedDuration),
+                                                       sleepDuration: Date.minutesToDateDescription(minutes: sleepDuration),
+                                                       inBedDuration: Date.minutesToDateDescription(minutes: inBedDuration),
                                                        fallAsleepDuration: provider.getTodayFallingAsleepDuration())
     }
 
@@ -130,10 +130,10 @@ struct GeneralCardDetailView: View {
                 let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
 
                 let backlogValue = Int(data.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
-                let backlogString = getStringFormatOfTime(minutes: backlogValue)
+                let backlogString = Date.minutesToDateDescription(minutes: backlogValue)
 
                 let timeToCloseDebtValue = backlogValue / 14 + sleepGoal
-                let timeToCloseDebtString = getStringFormatOfTime(minutes: timeToCloseDebtValue)
+                let timeToCloseDebtString = Date.minutesToDateDescription(minutes: timeToCloseDebtValue)
 
                 self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
                                                                      backlog: backlogString,
