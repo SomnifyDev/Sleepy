@@ -12,6 +12,9 @@
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
+		8020734A26BF32B6007E1147 /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020734926BF32B6007E1147 /* AppStoreReviewManager.swift */; };
+		8020734C26BF32E6007E1147 /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020734B26BF32E6007E1147 /* UserDefaults+Keys.swift */; };
+		8020734E26BF34C0007E1147 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8020734D26BF34C0007E1147 /* ActivityViewController.swift */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
 		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -198,6 +201,9 @@
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		8020734926BF32B6007E1147 /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
+		8020734B26BF32E6007E1147 /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
+		8020734D26BF34C0007E1147 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -334,6 +340,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8020734426BF3295007E1147 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8020734926BF32B6007E1147 /* AppStoreReviewManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		805D75152692456000C19034 /* Embed Statistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +443,7 @@
 				80D7F0B9268C75D80055ECEE /* Date+Components.swift */,
 				8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */,
 				80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */,
+				8020734B26BF32E6007E1147 /* UserDefaults+Keys.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,7 +516,9 @@
 				808FDF4926861EFD00B38B78 /* Sleepy.entitlements */,
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
 				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
+				8020734D26BF34C0007E1147 /* ActivityViewController.swift */,
 				80780F34266D3CFD000D0DD9 /* Scenes */,
+				8020734426BF3295007E1147 /* Managers */,
 				80780F3E266D42D4000D0DD9 /* Services */,
 				80780F63266D5BC8000D0DD9 /* Extensions */,
 				D94419D4266CD3C50019902F /* Assets.xcassets */,
@@ -1105,10 +1122,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */,
+				8020734C26BF32E6007E1147 /* UserDefaults+Keys.swift in Sources */,
 				D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */,
 				80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */,
 				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
 				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */,
+				8020734A26BF32B6007E1147 /* AppStoreReviewManager.swift in Sources */,
 				80780F5F266D4F42000D0DD9 /* CardDetailViewCoordinator.swift in Sources */,
 				D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */,
@@ -1137,6 +1156,7 @@
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
 				D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
+				8020734E26BF34C0007E1147 /* ActivityViewController.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
 				80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */,
 			);
@@ -1355,7 +1375,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1380,7 +1400,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

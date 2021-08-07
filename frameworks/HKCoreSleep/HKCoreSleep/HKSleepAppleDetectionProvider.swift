@@ -155,7 +155,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
                 self?.hkService?.readDataLast(type: .inbed, completionHandler: { query, samples, error in
                     guard error == nil, let samples = samples, !samples.isEmpty else {
-                        self?.notifyByPush(title: "error or empty arr", body: "\(error!.localizedDescription)")
+                        self?.notifyByPush(title: "error or empty arr", body: "\(error?.localizedDescription)")
                         completionHandler()
                         return
                     }
