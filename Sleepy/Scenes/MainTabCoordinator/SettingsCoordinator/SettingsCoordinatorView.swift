@@ -29,7 +29,12 @@ struct SettingsCoordinatorView: View {
                             value: $stepperValue,
                             in: 300...720,
                             step: 15) { _ in
-                        viewModel.settingsProvider.saveSleepGoal(sleepGoal: stepperValue)
+
+                        do {
+                            try viewModel.settingsProvider.setSetting(type: .sleepGoal, value: stepperValue)
+                        } catch {
+                            print("Error during saving sleep goal setting")
+                        }
                     }
                 }
             }
@@ -37,8 +42,18 @@ struct SettingsCoordinatorView: View {
             .navigationBarTitle("Settings", displayMode: .large)
         }
         .onAppear {
-            self.stepperValue = viewModel.settingsProvider.getSleepGoal()
+            self.stepperValue = getSleepGoal()
         }
+    }
+
+    private func getSleepGoal() -> Int {
+        guard
+            let sleepGoal = viewModel.settingsProvider.getSetting(type: .sleepGoal) as? Int
+        else {
+            assertionFailure("Invalid setting type returned")
+            return 0
+        }
+        return sleepGoal
     }
     
 }

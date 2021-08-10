@@ -72,8 +72,8 @@ struct GeneralCardDetailView: View {
                                               systemImage: "zzz",
                                               colorProvider: viewModel.colorProvider,
                                               currentProgress: ProgressItem(title: "Your sleep goal",
-                                                                            text: Date.minutesToDateDescription(minutes: viewModel.settingsProvider.getSleepGoal()),
-                                                                            value: viewModel.settingsProvider.getSleepGoal()),
+                                                                            text: Date.minutesToDateDescription(minutes: getSleepGoal()),
+                                                                            value: getSleepGoal()),
                                               beforeProgress: ProgressItem(title: "Today sleep duration",
                                                                            text: generalViewModel.sleepDuration,
                                                                            value: viewModel.statisticsProvider.getData(for: .asleep)),
@@ -118,7 +118,7 @@ struct GeneralCardDetailView: View {
 
     private func getbankOfSleepInfo() {
         let provider = viewModel.statisticsProvider
-        let sleepGoal = viewModel.settingsProvider.getSleepGoal()
+        let sleepGoal = getSleepGoal()
         guard
             let twoWeeksBackDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
         else {
@@ -143,7 +143,7 @@ struct GeneralCardDetailView: View {
     }
 
     private func getGoalPercentage() -> Int {
-        let sleepGoal = viewModel.settingsProvider.getSleepGoal()
+        let sleepGoal = getSleepGoal()
         return Int((Double(viewModel.statisticsProvider.getData(for: .asleep)) / Double(sleepGoal)) * 100)
     }
 
@@ -158,6 +158,16 @@ struct GeneralCardDetailView: View {
         } else {
             return "Amazing result for today. Keep up the good work and stay healthy!"
         }
+    }
+
+    private func getSleepGoal() -> Int {
+        guard
+            let sleepGoal = viewModel.settingsProvider.getSetting(type: .sleepGoal) as? Int
+        else {
+            assertionFailure("Invalid setting type returned")
+            return 0
+        }
+        return sleepGoal
     }
     
 }

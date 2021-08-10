@@ -33,11 +33,12 @@ struct SleepyApp: App {
             } else {
                 Text("Loading")
                     .onAppear {
-                        
                         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")
                             self.settingsProvider = SettingsProviderImpl()
-                            self.settingsProvider?.saveSleepGoal(sleepGoal: 480) // в дальнейшем будем устанавливать значение, которое пользователь выбрал на старте, пока так
+                            do {
+                                try self.settingsProvider?.setSetting(type: .sleepGoal, value: 480) // в дальнейшем будем устанавливать значение, которое пользователь выбрал на старте, пока так
+                            } catch {}
                         } else {
                             self.settingsProvider = SettingsProviderImpl()
                         }
