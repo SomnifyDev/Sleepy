@@ -171,4 +171,12 @@ extension Date {
         return "\(hours):\(minutesStr)"
     }
 
+    static func minutesToClearString(minutes: Int) -> String {
+        let hours = minutes / 60
+        let minutes = minutes % 60
+        let minutesStr = minutes > 9 ? String(minutes) : "0" + String(minutes)
+
+        return "\(hours)h \(minutesStr)min"
+    }
+
 }

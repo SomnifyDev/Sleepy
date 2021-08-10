@@ -25,7 +25,7 @@ struct SettingsCoordinatorView: View {
         NavigationView {
             List {
                 Section(header: HFView(text: "Health", imageName: "heart.circle")) {
-                    Stepper("Sleep goal – \(Date.minutesToDateDescription(minutes: stepperValue))",
+                    Stepper("Sleep goal – \(Date.minutesToClearString(minutes: stepperValue))",
                             value: $stepperValue,
                             in: 300...720,
                             step: 15) { _ in
