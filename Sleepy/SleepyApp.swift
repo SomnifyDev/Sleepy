@@ -2,6 +2,7 @@ import SwiftUI
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
+import SettingsKit
 
 @main
 struct SleepyApp: App {
@@ -11,7 +12,6 @@ struct SleepyApp: App {
     @State var cardService: CardService?
     @State var colorSchemeProvider: ColorSchemeProvider?
     @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
-
     @State var statisticsProvider: HKStatisticsProvider?
     @State var coordinator: RootCoordinatorImpl?
 
@@ -31,7 +31,10 @@ struct SleepyApp: App {
             } else {
                 Text("Loading")
                     .onAppear {
-
+                        if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+                            UserDefaults.standard.set(true, forKey: "launchedBefore")
+                            UserDefaults.standard.set_setting(480, forKey: .sleepGoal)
+                        }
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
                         self.colorSchemeProvider = ColorSchemeProvider()

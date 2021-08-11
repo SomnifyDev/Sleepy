@@ -55,6 +55,8 @@
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; };
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; platformFilter = ios; };
+		D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D98D925526B0960100C6B7E4 /* BankOfSleepDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */; };
 		D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509EF26777D4200694208 /* HistoryCoordinator.swift */; };
 		D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F026777D4200694208 /* HistoryCoordinatorView.swift */; };
@@ -144,6 +146,13 @@
 			remoteGlobalIDString = D96DBC2D2687126000A0E018;
 			remoteInfo = HKStatisticsTests;
 		};
+		D97C396326BD1531005CCDFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D97C395526BD1530005CCDFB;
+			remoteInfo = SettingsKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -155,6 +164,7 @@
 			files = (
 				808FDF3F2685EB8000B38B78 /* HKCoreSleep.framework in Embed Frameworks */,
 				80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */,
+				D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */,
 				D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -253,6 +263,7 @@
 		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
 		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
+		D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = frameworks/SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
 		D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfSleepDataViewModel.swift; sourceTree = "<group>"; };
 		D99509EF26777D4200694208 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		D99509F026777D4200694208 /* HistoryCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinatorView.swift; sourceTree = "<group>"; };
@@ -279,6 +290,7 @@
 				80780F32266D3B94000D0DD9 /* XUI in Frameworks */,
 				80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */,
 				D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */,
+				D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */,
 				808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */,
 				F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */,
 				808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */,
@@ -454,8 +466,9 @@
 		882574914EFE6785A847CA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
+				D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */,
 				80780F04266CE356000D0DD9 /* HK */,
+				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
 				7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */,
 				755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */,
 				6B18099E1729DF44447B75B1 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework */,
@@ -593,6 +606,14 @@
 			children = (
 				D96DBC442687126100A0E018 /* HKStatistics.framework */,
 				D96DBC462687126100A0E018 /* HKStatisticsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D97C396026BD1530005CCDFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D97C396426BD1531005CCDFB /* SettingsKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -867,6 +888,10 @@
 					ProductGroup = 80780F1B266CE39F000D0DD9 /* Products */;
 					ProjectRef = 80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */;
 				},
+				{
+					ProductGroup = D97C396026BD1530005CCDFB /* Products */;
+					ProjectRef = D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -908,6 +933,13 @@
 			fileType = wrapper.cfbundle;
 			path = HKStatisticsTests.xctest;
 			remoteRef = D96DBC452687126100A0E018 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D97C396426BD1531005CCDFB /* SettingsKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SettingsKit.framework;
+			remoteRef = D97C396326BD1531005CCDFB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1347,7 +1379,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1356,10 +1388,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1372,7 +1404,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1381,10 +1413,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1395,7 +1427,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = SleepyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1418,7 +1450,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = SleepyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1440,7 +1472,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = SleepyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1461,7 +1493,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = SleepyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1482,7 +1514,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1490,7 +1522,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1506,7 +1538,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1514,7 +1546,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1531,10 +1563,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1551,10 +1583,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1571,7 +1603,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1595,7 +1627,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1617,7 +1649,7 @@
 			baseConfigurationReference = 3DDF5078896DFF8709277BAC /* Pods-Sleepy-Sleepy_WatchOSUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1639,7 +1671,7 @@
 			baseConfigurationReference = E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

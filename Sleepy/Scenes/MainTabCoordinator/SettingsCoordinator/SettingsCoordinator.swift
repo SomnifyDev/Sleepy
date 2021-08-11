@@ -7,11 +7,12 @@
 
 import Foundation
 import XUI
+import SettingsKit
 
 // MARK: Protocol
 
 protocol SettingsCoordinator: ViewModel {
-    
+
     var openedURL: URL? { get set }
     func open(_ url: URL)
     
@@ -25,6 +26,7 @@ class SettingsCoordinatorImpl: ObservableObject, SettingsCoordinator {
     
     @Published var openedURL: URL?
     @Published private(set) var viewModel: SettingsCoordinatorView!
+
     private unowned let parent: RootCoordinator
     
     // MARK: Initialization
@@ -34,7 +36,7 @@ class SettingsCoordinatorImpl: ObservableObject, SettingsCoordinator {
         self.parent = parent
         
         self.viewModel = SettingsCoordinatorView(
-            coordinator: self
+            viewModel: self
         )
     }
     

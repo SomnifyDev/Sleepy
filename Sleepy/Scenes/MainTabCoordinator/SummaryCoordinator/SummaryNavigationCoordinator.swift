@@ -3,6 +3,7 @@ import XUI
 import HKCoreSleep
 import HKVisualKit
 import HKStatistics
+import SettingsKit
 
 // MARK: - Protocol
 
@@ -71,11 +72,11 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
         // создаем дочерний координатор списка карточек
         self.summaryListCoordinator =
         SummaryListCoordinatorImpl(colorProvider: colorProvider,
-                                statisticsProvider: statisticsProvider,
-                                title: title,
-                                cardService: cardService,
-                                coordinator: self,
-                                filter: filter)
+                                   statisticsProvider: statisticsProvider,
+                                   title: title,
+                                   cardService: cardService,
+                                   coordinator: self,
+                                   filter: filter)
         
     }
 

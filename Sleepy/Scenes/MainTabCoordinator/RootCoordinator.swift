@@ -4,6 +4,7 @@ import XUI
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
+import SettingsKit
 
 // all types of main tab bar windows
 enum TabBarTab: String {
@@ -103,6 +104,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         self.settingsCoordinator = SettingsCoordinatorImpl(
             title: "settings",
             parent: self)
+
     }
     
     // MARK: Internal Methods

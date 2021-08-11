@@ -9,8 +9,8 @@ public struct ProgressChartView: View {
     private let mainText: String
     private let systemImage: String
     private let colorProvider: ColorSchemeProvider
-    private var currentWeeksProgress: ProgressItem
-    private var beforeWeeksProgress: ProgressItem
+    private var currentProgress: ProgressItem
+    private var beforeProgress: ProgressItem
     private var analysisString: String
     private let mainColor: Color
 
@@ -18,16 +18,16 @@ public struct ProgressChartView: View {
                 mainText: String,
                 systemImage: String,
                 colorProvider: ColorSchemeProvider,
-                currentWeeksProgress: ProgressItem,
-                beforeWeeksProgress: ProgressItem,
+                currentProgress: ProgressItem,
+                beforeProgress: ProgressItem,
                 analysisString: String,
                 mainColor: Color) {
         self.titleText = titleText
         self.mainText = mainText
         self.systemImage = systemImage
         self.colorProvider = colorProvider
-        self.currentWeeksProgress = currentWeeksProgress
-        self.beforeWeeksProgress = beforeWeeksProgress
+        self.currentProgress = currentProgress
+        self.beforeProgress = beforeProgress
         self.analysisString = analysisString
         self.mainColor = mainColor
     }
@@ -42,14 +42,14 @@ public struct ProgressChartView: View {
                                   mainText: mainText,
                                   titleColor: mainColor)
 
-                    ProgressItemView(progressItem: currentWeeksProgress)
+                    ProgressItemView(progressItem: currentProgress)
                         .padding(.top, 8)
-                        .padding(.trailing, currentWeeksProgress.value >= beforeWeeksProgress.value ? 0 : 64)
+                        .padding(.trailing, currentProgress.value >= beforeProgress.value ? 0 : 64)
                         .foregroundColor(mainColor)
 
-                    ProgressItemView(progressItem: beforeWeeksProgress)
+                    ProgressItemView(progressItem: beforeProgress)
                         .padding(.top, 8)
-                        .padding(.trailing, beforeWeeksProgress.value >= currentWeeksProgress.value ? 0 : 64)
+                        .padding(.trailing, beforeProgress.value >= currentProgress.value ? 0 : 64)
                         .foregroundColor(mainColor.opacity(0.5))
 
                     CardBottomSimpleDescriptionView(descriptionText: Text(analysisString), colorProvider: colorProvider)

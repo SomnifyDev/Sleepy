@@ -2,6 +2,7 @@ import SwiftUI
 import XUI
 import HKVisualKit
 import HKStatistics
+import SettingsKit
 
 // MARK: - Protocol
 

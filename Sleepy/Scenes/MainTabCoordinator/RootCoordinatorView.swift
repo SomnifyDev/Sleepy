@@ -12,19 +12,19 @@ struct RootCoordinatorView: View {
     var body: some View {
         TabView(selection: $viewModel.tab) {
             SummaryNavigationCoordinatorView(viewModel: viewModel.summaryCoordinator)
-                .tabItem { Label("summary", systemImage: "hare.fill") }
+                .tabItem { Label("summary", systemImage: "bed.double.fill") }
                 .tag(TabBarTab.summary)
             
             HistoryCoordinatorView(coordinator: viewModel.historyCoordinator)
-                .tabItem { Label("history", systemImage: "hare.fill") }
+                .tabItem { Label("history", systemImage: "calendar") }
                 .tag(TabBarTab.history)
             
             AlarmCoordinatorView(coordinator: viewModel.alarmCoordinator)
-                .tabItem { Label("alarm", systemImage: "hare.fill") }
+                .tabItem { Label("alarm", systemImage: "alarm.fill") }
                 .tag(TabBarTab.alarm)
             
-            SettingsCoordinatorView(coordinator: viewModel.settingsCoordinator)
-                .tabItem { Label("settings", systemImage: "hare.fill") }
+            SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
+                .tabItem { Label("settings", systemImage: "gear") }
                 .tag(TabBarTab.settings)
         }
     }

@@ -2,6 +2,7 @@ import Foundation
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
+import SettingsKit
 import XUI
 
 protocol CardDetailViewCoordinator: ViewModel {
