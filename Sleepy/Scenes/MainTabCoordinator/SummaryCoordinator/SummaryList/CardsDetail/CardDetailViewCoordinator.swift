@@ -9,7 +9,6 @@ protocol CardDetailViewCoordinator: ViewModel {
 
     var colorProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
-    var settingsProvider: SettingsProvider { get }
 
     var card: SummaryViewCardType { get }
     func open(_ url: URL)
@@ -27,7 +26,6 @@ class CardDetailViewCoordinatorImpl: CardDetailViewCoordinator, ObservableObject
 
     var colorProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
-    var settingsProvider: SettingsProvider
 
     // MARK: Initialization
 
@@ -36,7 +34,6 @@ class CardDetailViewCoordinatorImpl: CardDetailViewCoordinator, ObservableObject
         self.card = card
         self.colorProvider = coordinator.colorProvider
         self.statisticsProvider = coordinator.statisticsProvider
-        self.settingsProvider = coordinator.settingsProvider
     }
 
     // MARK: Methods

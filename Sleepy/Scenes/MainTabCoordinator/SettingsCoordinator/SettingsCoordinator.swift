@@ -13,7 +13,6 @@ import SettingsKit
 
 protocol SettingsCoordinator: ViewModel {
 
-    var settingsProvider: SettingsProvider { get }
     var openedURL: URL? { get set }
     func open(_ url: URL)
     
@@ -29,14 +28,12 @@ class SettingsCoordinatorImpl: ObservableObject, SettingsCoordinator {
     @Published private(set) var viewModel: SettingsCoordinatorView!
 
     private unowned let parent: RootCoordinator
-    var settingsProvider: SettingsProvider
     
     // MARK: Initialization
     
     init(title: String,
-         parent: RootCoordinator, settingsProvider: SettingsProvider) {
+         parent: RootCoordinator) {
         self.parent = parent
-        self.settingsProvider = settingsProvider
         
         self.viewModel = SettingsCoordinatorView(
             viewModel: self

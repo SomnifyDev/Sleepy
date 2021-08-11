@@ -14,7 +14,6 @@ protocol SummaryNavigationCoordinator: ViewModel {
 
     var colorProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
-    var settingsProvider: SettingsProvider { get }
 
     func filter(_ card: SummaryViewCardType) -> Bool
 
@@ -49,7 +48,6 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
     private unowned let parent: RootCoordinator
     let colorProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
-    let settingsProvider: SettingsProvider
 
     // MARK: Initialization
 
@@ -58,13 +56,11 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
          title: String,
          hkStoreService: HKService,
          cardService: CardService,
-         settingsProvider: SettingsProvider,
          parent: RootCoordinator,
          filter: @escaping (SummaryViewCardType) -> Bool) {
 
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
-        self.settingsProvider = settingsProvider
         self.parent = parent
         // координатор экрана получил сервисы которые мб понадобятся ему или дочерним роутерам
         // обрати внимание на View данного координатора
@@ -79,7 +75,6 @@ class SummaryNavigationCoordinatorImpl: ObservableObject, SummaryNavigationCoord
                                    statisticsProvider: statisticsProvider,
                                    title: title,
                                    cardService: cardService,
-                                   settingsProvider: settingsProvider,
                                    coordinator: self,
                                    filter: filter)
         

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D97C397126BD157E005CCDFB /* SettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C397026BD157E005CCDFB /* SettingsProvider.swift */; };
+		D97C397126BD157E005CCDFB /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C397026BD157E005CCDFB /* UserDefaults+Extension.swift */; };
 		D97C397326BD158B005CCDFB /* Headers+Footers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C397226BD158B005CCDFB /* Headers+Footers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D97C395526BD1530005CCDFB /* SettingsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SettingsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D97C397026BD157E005CCDFB /* SettingsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsProvider.swift; sourceTree = "<group>"; };
+		D97C397026BD157E005CCDFB /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		D97C397226BD158B005CCDFB /* Headers+Footers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Headers+Footers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,18 +47,18 @@
 		D97C395726BD1530005CCDFB /* SettingsKit */ = {
 			isa = PBXGroup;
 			children = (
-				D97C397426BD1596005CCDFB /* Provider */,
+				D97C397426BD1596005CCDFB /* UserDefaults */,
 				D97C397526BD15A2005CCDFB /* Views */,
 			);
 			path = SettingsKit;
 			sourceTree = "<group>";
 		};
-		D97C397426BD1596005CCDFB /* Provider */ = {
+		D97C397426BD1596005CCDFB /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
-				D97C397026BD157E005CCDFB /* SettingsProvider.swift */,
+				D97C397026BD157E005CCDFB /* UserDefaults+Extension.swift */,
 			);
-			path = Provider;
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		D97C397526BD15A2005CCDFB /* Views */ = {
@@ -148,7 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D97C397126BD157E005CCDFB /* SettingsProvider.swift in Sources */,
+				D97C397126BD157E005CCDFB /* UserDefaults+Extension.swift in Sources */,
 				D97C397326BD158B005CCDFB /* Headers+Footers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

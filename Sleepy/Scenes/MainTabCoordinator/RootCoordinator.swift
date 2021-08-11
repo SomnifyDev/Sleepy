@@ -28,7 +28,6 @@ protocol RootCoordinator: ViewModel {
 
     var colorSchemeProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
-    var settingsProvider: SettingsProvider { get }
     var hkStoreService: HKService { get }
     var cardService: CardService { get }
 
@@ -68,19 +67,17 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
 
     var colorSchemeProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
-    var settingsProvider: SettingsProvider
     var hkStoreService: HKService
     var cardService: CardService
     
     // MARK: Initialization
     
-    init(colorSchemeProvider: ColorSchemeProvider, statisticsProvider: HKStatisticsProvider, hkStoreService: HKService, cardService: CardService, settingsProvider: SettingsProvider) {
+    init(colorSchemeProvider: ColorSchemeProvider, statisticsProvider: HKStatisticsProvider, hkStoreService: HKService, cardService: CardService) {
         // наш главный координатор таббара получил сервисы
         self.colorSchemeProvider = colorSchemeProvider
         self.statisticsProvider = statisticsProvider
         self.cardService = cardService
         self.hkStoreService = hkStoreService
-        self.settingsProvider = settingsProvider
         
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
@@ -90,7 +87,6 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
             title: "main list",
             hkStoreService: hkStoreService,
             cardService: cardService,
-            settingsProvider: settingsProvider,
             parent: self,
             filter: { _ in true }
         )
@@ -107,8 +103,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         
         self.settingsCoordinator = SettingsCoordinatorImpl(
             title: "settings",
-            parent: self,
-            settingsProvider: settingsProvider)
+            parent: self)
 
     }
     

@@ -161,13 +161,7 @@ struct GeneralCardDetailView: View {
     }
 
     private func getSleepGoal() -> Int {
-        guard
-            let sleepGoal = viewModel.settingsProvider.getSetting(type: .sleepGoal) as? Int
-        else {
-            assertionFailure("Invalid setting type returned")
-            return 0
-        }
-        return sleepGoal
+        return UserDefaults.standard.get_integer(forKey: .sleepGoal) ?? 0
     }
     
 }

@@ -10,7 +10,6 @@ protocol SummaryListCoordinator: ViewModel {
 
     var colorProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
-    var settingsProvider: SettingsProvider { get }
 
     var title: String { get }
     var cards: [SummaryViewCardType]? { get }
@@ -32,7 +31,6 @@ class SummaryListCoordinatorImpl: ObservableObject, SummaryListCoordinator {
     private unowned let coordinator: SummaryNavigationCoordinator
     let colorProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
-    let settingsProvider: SettingsProvider
 
     // MARK: Initialization
 
@@ -40,13 +38,11 @@ class SummaryListCoordinatorImpl: ObservableObject, SummaryListCoordinator {
          statisticsProvider: HKStatisticsProvider,
          title: String,
          cardService: CardService,
-         settingsProvider: SettingsProvider,
          coordinator: SummaryNavigationCoordinator,
          filter: @escaping (SummaryViewCardType) -> Bool) {
 
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
-        self.settingsProvider = settingsProvider
         self.title = title
         self.coordinator = coordinator
         self.cardService = cardService
