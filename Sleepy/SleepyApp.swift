@@ -3,6 +3,7 @@ import HKCoreSleep
 import HKStatistics
 import HKVisualKit
 import SettingsKit
+import Armchair
 
 @main
 struct SleepyApp: App {
@@ -50,8 +51,18 @@ struct SleepyApp: App {
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
                                 canShowApp = true
+
+                                Armchair.userDidSignificantEvent(true)
                             } else {
-                                statisticsProvider = HKStatisticsProvider(sleep: Sleep(sleepInterval: DateInterval(), inBedInterval: DateInterval(), inBedSamples: nil, asleepSamples: nil, heartSamples: nil, energySamples: nil, phases: nil), healthService: hkService!)
+                                // сон не был прочитан успешно
+                                statisticsProvider = HKStatisticsProvider(sleep: Sleep(sleepInterval: DateInterval(),
+                                                                                       inBedInterval: DateInterval(),
+                                                                                       inBedSamples: nil,
+                                                                                       asleepSamples: nil,
+                                                                                       heartSamples: nil,
+                                                                                       energySamples: nil,
+                                                                                       phases: nil),
+                                                                          healthService: hkService!)
                                 coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
                                 
                                 canShowApp = true

@@ -30,6 +30,7 @@
 		808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; };
 		808FDF3F2685EB8000B38B78 /* HKCoreSleep.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF4A26861EFD00B38B78 /* HealthKit.framework */; };
+		80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765DB26C7C5A000A66554 /* ActivityViewController.swift */; };
 		80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B7268C71EE0055ECEE /* CalendarView.swift */; };
 		80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B9268C75D80055ECEE /* Date+Components.swift */; };
 		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
@@ -224,6 +225,7 @@
 		808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKCoreSleep.xcodeproj; path = frameworks/HKCoreSleep/HKCoreSleep.xcodeproj; sourceTree = "<group>"; };
 		808FDF4926861EFD00B38B78 /* Sleepy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sleepy.entitlements; sourceTree = "<group>"; };
 		808FDF4A26861EFD00B38B78 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		80A765DB26C7C5A000A66554 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		80D7F0B7268C71EE0055ECEE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		80D7F0B9268C75D80055ECEE /* Date+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
 		80D7F0BB268C77050055ECEE /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
@@ -453,6 +455,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		80A765DA26C7C59300A66554 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				80A765DB26C7C5A000A66554 /* ActivityViewController.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		80D7F0B2268C71DA0055ECEE /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +652,7 @@
 		D99509F8267780AD00694208 /* SettingsCoordinator */ = {
 			isa = PBXGroup;
 			children = (
+				80A765DA26C7C59300A66554 /* SubViews */,
 				D99509FD267780DE00694208 /* SettingsCoordinator.swift */,
 				D99509FF267780F300694208 /* SettingsCoordinatorView.swift */,
 			);
@@ -700,6 +711,7 @@
 				D9441A3C266CD4C70019902F /* Embed Watch Content */,
 				80780F22266CE43A000D0DD9 /* Embed Frameworks */,
 				80780F2D266CF63E000D0DD9 /* ShellScript */,
+				0E7EBE5C9106494C99218ACF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -741,6 +753,7 @@
 				D94419E5266CD3C50019902F /* Sources */,
 				D94419E6266CD3C50019902F /* Frameworks */,
 				D94419E7266CD3C50019902F /* Resources */,
+				A8D220E46497483F9FE27961 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -814,6 +827,7 @@
 				D9441A27266CD4C70019902F /* Sources */,
 				D9441A28266CD4C70019902F /* Frameworks */,
 				D9441A29266CD4C70019902F /* Resources */,
+				3E92C51FE4D91340E06EFD41 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1002,6 +1016,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0E7EBE5C9106494C99218ACF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		252B714DB7E5CF1888E8F1D0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1090,6 +1121,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3E92C51FE4D91340E06EFD41 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		80780F2D266CF63E000D0DD9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1106,6 +1154,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		A8D220E46497483F9FE27961 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		C2F1F5FB0A2730DC30DC40A0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1167,6 +1232,7 @@
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
+				80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */,
 				D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
@@ -1379,7 +1445,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1388,7 +1454,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1404,7 +1470,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
@@ -1413,7 +1479,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1427,7 +1493,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = SleepyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1450,7 +1516,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = SleepyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1472,7 +1538,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = SleepyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1493,7 +1559,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = SleepyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1514,7 +1580,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1522,7 +1588,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1538,7 +1604,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1546,7 +1612,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1563,10 +1629,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1583,10 +1649,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1603,7 +1669,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1627,7 +1693,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1649,7 +1715,7 @@
 			baseConfigurationReference = 3DDF5078896DFF8709277BAC /* Pods-Sleepy-Sleepy_WatchOSUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1671,7 +1737,7 @@
 			baseConfigurationReference = E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
