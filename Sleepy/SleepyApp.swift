@@ -52,7 +52,9 @@ struct SleepyApp: App {
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
                                 canShowApp = true
 
-                                Armchair.userDidSignificantEvent(true)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                                    Armchair.userDidSignificantEvent(true)
+                                }
                             } else {
                                 // сон не был прочитан успешно
                                 statisticsProvider = HKStatisticsProvider(sleep: Sleep(sleepInterval: DateInterval(),

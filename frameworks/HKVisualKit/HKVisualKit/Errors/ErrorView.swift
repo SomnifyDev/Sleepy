@@ -6,7 +6,8 @@ public struct ErrorView: View {
         
         case emptyData(type: HealthData)
         case brokenData(type: HealthData)
-        
+        case restrictedData(type: HealthData)
+
         public static func ==(lhs: ErrorType, rhs: ErrorType) -> Bool {
             switch (lhs, rhs) {
             case (brokenData, brokenData):
@@ -88,12 +89,18 @@ public struct ErrorView: View {
             return "No data of type \(type.rawValue) was recieved"
         case .brokenData(type: let type):
             return "There was not enought data to display your \(type.rawValue) charts. Try to sleep with Apple Watch More"
+        case .restrictedData(type: let type):
+            return "Sleepy was restricted from reading your \(type.rawValue) data. Fix that in your settings"
         }
     }
     
     private func getIconName() -> String {
-        // TODO: add switch for different data states
-        return "exclamationmark.square.fill"
+        switch self.errorType {
+        case .emptyData(type: _), .brokenData(type: _):
+            return "exclamationmark.square.fill"
+        case .restrictedData(type: _):
+            return "eye.slash.fill"
+        }
     }
     
 }

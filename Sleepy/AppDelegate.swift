@@ -98,16 +98,19 @@ extension AppDelegate {
         Armchair.debugEnabled(true)
 
         // This overrides the default value of 30, but it doesn't matter here because of Debug mode enabled
-        Armchair.daysUntilPrompt(1)
+        Armchair.daysUntilPrompt(3)
 
         // This overrides the default value of 1, but it doesn't matter here because of Debug mode enabled
         Armchair.daysBeforeReminding(3)
+
+        // The usesUntilPrompt configuration determines how many times the user will need to have 'used' the same version of you App before they will be prompted to rate it. Its default is 20 uses.
+        Armchair.usesUntilPrompt(6)
 
         // This means that the popup won't show if you have already rated any version of the app, but it doesn't matter here because of Debug mode enabled
         Armchair.shouldPromptIfRated(true)
 
         // This overrides the default value of 20, but it doesn't matter here because of Debug mode enabled
-        Armchair.significantEventsUntilPrompt(4)
+        Armchair.significantEventsUntilPrompt(6)
 
         // This means that UAAppReviewManager won't track this version if it hasn't already, but it doesn't matter here because of Debug mode enabled
         Armchair.tracksNewVersions(true) // TODO: is it important?
