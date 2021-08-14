@@ -60,7 +60,7 @@ struct HealthTypeSwitchView: View {
 
     private func item(for type: HealthData) -> some View {
         Text(getItemDescription(for: type))
-            .healthTypeSwitchTextModifier(isSelectedType: selectedType == type)
+            .healthTypeSwitchTextModifier()
             .background(type == selectedType
                         ? getSelectedItemColor(for: type)
                         : colorScheme.getColor(of: .calendar(.emptyDayColor)))

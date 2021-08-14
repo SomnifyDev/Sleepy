@@ -37,23 +37,61 @@ struct HistoryListView: View {
                                  statsProvider: viewModel.statisticsProvider)
                         .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
-                    if asleepHistoryStatsViewModel != nil && calendarType == .sleep {
+                    if calendarType == .sleep {
                         if let asleepHistoryStatsViewModel = asleepHistoryStatsViewModel {
                             SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel,
                                                   colorProvider: viewModel.colorSchemeProvider)
+                        } else {
+                            MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
+
+                            ErrorView(errorType: .brokenData(type: .sleep),
+                                      colorProvider: viewModel.colorSchemeProvider)
+                                .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+
+                            SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+                                .blur(radius: 4)
                         }
-                    } else if let inbedHistoryStatsViewModel = inbedHistoryStatsViewModel, calendarType == .inbed {
+                    } else if calendarType == .inbed {
+                        if let inbedHistoryStatsViewModel = inbedHistoryStatsViewModel {
                             SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel,
                                                   colorProvider: viewModel.colorSchemeProvider)
-                    } else if heartHistoryStatsViewModel != nil && calendarType == .heart {
+                        } else {
+                            MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
+
+                            ErrorView(errorType: .brokenData(type: .inbed),
+                                      colorProvider: viewModel.colorSchemeProvider)
+                                .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+
+                            SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+                                .blur(radius: 4)
+                        }
+                    } else if calendarType == .heart {
                         if let heartHistoryStatsViewModel = heartHistoryStatsViewModel {
                             HeartHistoryStatsView(viewModel: heartHistoryStatsViewModel,
                                                   colorProvider: viewModel.colorSchemeProvider)
+                        } else {
+                            MotivationCellView(type: .heart, colorProvider: self.viewModel.colorSchemeProvider)
+
+                            ErrorView(errorType: .brokenData(type: .heart),
+                                      colorProvider: viewModel.colorSchemeProvider)
+                                .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+
+                            HeartHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+                                .blur(radius: 4)
                         }
-                    } else if energyHistoryStatsViewModel != nil && calendarType == .energy {
+                    } else if calendarType == .energy {
                         if let energyHistoryStatsViewModel = energyHistoryStatsViewModel {
                             EnergyHistoryStatsView(viewModel: energyHistoryStatsViewModel,
                                                    colorProvider: viewModel.colorSchemeProvider)
+                        } else {
+                            MotivationCellView(type: .energy, colorProvider: self.viewModel.colorSchemeProvider)
+
+                            ErrorView(errorType: .brokenData(type: .energy),
+                                      colorProvider: viewModel.colorSchemeProvider)
+                                .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+
+                            EnergyHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+                                .blur(radius: 4)
                         }
                     } else {
                         Text("Loading")
@@ -251,7 +289,9 @@ struct HistoryListView: View {
         }
 
         group.notify(queue: .global(qos: .default)) {
-            heartHistoryStatsViewModel = HeartHistoryStatsViewModel(cellData: last30daysCellData)
+            if !last30daysCellData.isEmpty {
+                heartHistoryStatsViewModel = HeartHistoryStatsViewModel(cellData: last30daysCellData)
+            }
         }
 
     }
@@ -302,7 +342,9 @@ struct HistoryListView: View {
         }
 
         group.notify(queue: .global(qos: .default)) {
-            energyHistoryStatsViewModel = EnergyHistoryStatsViewModel(cellData: last30daysCellData)
+            if !last30daysCellData.isEmpty {
+                energyHistoryStatsViewModel = EnergyHistoryStatsViewModel(cellData: last30daysCellData)
+            }
         }
 
     }

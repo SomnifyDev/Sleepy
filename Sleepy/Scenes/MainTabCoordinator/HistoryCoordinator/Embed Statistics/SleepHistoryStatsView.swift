@@ -12,10 +12,25 @@ struct SleepHistoryStatsView: View {
 
     private let viewModel: SleepHistoryStatsViewModel
     private let colorProvider: ColorSchemeProvider
+    private var shouldShowAdvice = true
 
     init(viewModel: SleepHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
         self.viewModel = viewModel
         self.colorProvider = colorProvider
+    }
+
+
+    /// Use for shimmers only
+    init(colorProvider: ColorSchemeProvider) {
+        self.viewModel = SleepHistoryStatsViewModel(cellData: [StatisticsCellData(title: "some data", value: "14.243")],
+                                                    monthSleepPoints: [350, 320, 450, 300, 0, 302,350, 320, 450, 300, 0, 302],
+                                                    monthBeforeDateInterval: DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date())!, end: Date()),
+                                                    currentWeeksProgress: ProgressItem(title: "some title", text: "some subtitle", value: 480),
+                                                    beforeWeeksProgress: ProgressItem(title: "some title", text: "some subtitle", value: 480),
+                                                    analysisString: "your sleep is idewkd weoo weoow woo qo oqwoe qoe wewe eweefrv")
+
+        self.colorProvider = colorProvider
+        self.shouldShowAdvice = false
     }
 
     var body: some View {
@@ -40,7 +55,9 @@ struct SleepHistoryStatsView: View {
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
             }
 
-            MotivationCellView(type: .sleep, colorProvider: colorProvider)
+            if shouldShowAdvice {
+                MotivationCellView(type: .sleep, colorProvider: colorProvider)
+            }
 
             if !viewModel.cellData.isEmpty {
                 CardNameTextView(text: "Last 30 days",
