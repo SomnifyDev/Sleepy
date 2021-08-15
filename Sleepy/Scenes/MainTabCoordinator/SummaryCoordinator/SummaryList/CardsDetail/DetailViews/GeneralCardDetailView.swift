@@ -78,7 +78,8 @@ struct GeneralCardDetailView: View {
                                                                            text: generalViewModel.sleepDuration,
                                                                            value: viewModel.statisticsProvider.getData(for: .asleep)),
                                               analysisString: getAnalysisString(),
-                                              mainColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                                              mainColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                                              mainTextColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
@@ -161,7 +162,7 @@ struct GeneralCardDetailView: View {
     }
 
     private func getSleepGoal() -> Int {
-        return UserDefaults.standard.get_integer(forKey: .sleepGoal) ?? 0
+        return UserDefaults.standard.getInt(forKey: .sleepGoal) ?? 480
     }
     
 }

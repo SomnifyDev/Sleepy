@@ -80,7 +80,8 @@ struct SleepHistoryStatsView: View {
                                              text: viewModel.beforeWeeksProgress.text,
                                              value: viewModel.beforeWeeksProgress.value),
                               analysisString: viewModel.analysisString,
-                              mainColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                              mainColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                              mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                 .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
         }
     }

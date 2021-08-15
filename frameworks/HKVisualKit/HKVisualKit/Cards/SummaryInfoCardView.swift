@@ -28,6 +28,7 @@ public struct SummaryInfoCardView: View {
                                   titleText: "Sleep: general",
                                   mainText: "Here is the info about your last sleep.",
                                   titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                                  mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                   showChevron: true)
 
                     HStack {

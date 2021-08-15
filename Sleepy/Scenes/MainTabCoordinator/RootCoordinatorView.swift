@@ -22,7 +22,12 @@ struct RootCoordinatorView: View {
             AlarmCoordinatorView(coordinator: viewModel.alarmCoordinator)
                 .tabItem { Label("alarm", systemImage: "alarm.fill") }
                 .tag(TabBarTab.alarm)
-            
+
+
+            SoundsCoordinatorView(viewModel: viewModel.soundsCoordinator)
+                .tabItem { Label("sounds", systemImage: "mic") }
+                .tag(TabBarTab.soundRecognision)
+
             SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
                 .tabItem { Label("settings", systemImage: "gear") }
                 .tag(TabBarTab.settings)

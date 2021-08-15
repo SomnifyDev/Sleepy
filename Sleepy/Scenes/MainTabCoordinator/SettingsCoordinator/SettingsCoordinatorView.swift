@@ -18,9 +18,10 @@ struct SettingsCoordinatorView: View {
     
     @Store var viewModel: SettingsCoordinator
 
-    @State private var sleepGoalValue: Int = 300
+    @State private var sleepGoalValue = 480
+    @State private var bitrateValue = 12000
+    @State private var recognisionConfidenceValue: Int = 30
     @State private var isSharePresented: Bool = false
-    // MARK: Views
     
     var body: some View {
         NavigationView {
@@ -31,7 +32,7 @@ struct SettingsCoordinatorView: View {
                             in: 200...720,
                             step: 15) { _ in
 
-                        UserDefaults.standard.set_setting(sleepGoalValue, forKey: .sleepGoal)
+                        UserDefaults.standard.setInt(sleepGoalValue, forKey: .sleepGoal)
                     }
                 }
                 
@@ -50,15 +51,36 @@ struct SettingsCoordinatorView: View {
                         })
                 }
 
+                Section(header: HFView(text: "Sound Recording", imageName: "mic.circle")) {
+                    Stepper("Bitrate – \(bitrateValue)",
+                            value: $bitrateValue,
+                            in: 1000...44000,
+                            step: 1000) { _ in
+
+                        UserDefaults.standard.setInt(sleepGoalValue, forKey: .soundBitrate)
+                    }
+
+                    Stepper("Min. confidence – \(recognisionConfidenceValue)",
+                            value: $recognisionConfidenceValue,
+                            in: 10...100,
+                            step: 10) { _ in
+
+                        UserDefaults.standard.setInt(recognisionConfidenceValue, forKey: .soundRecognisionConfidence)
+                    }
+                }
             }
             .listStyle(.insetGrouped)
             .navigationBarTitle("Settings", displayMode: .large)
-        }
-        .onAppear {
-            self.sleepGoalValue = UserDefaults.standard.get_integer(forKey: .sleepGoal) ?? 0
+            .onAppear {
+                // TODO: если значения нет, то дефолтное не сохраняется в хранилище
+                // см TODO внутри get_integer
+                self.sleepGoalValue = UserDefaults.standard.getInt(forKey: .sleepGoal) ?? 480
+                self.bitrateValue = UserDefaults.standard.getInt(forKey: .soundBitrate) ?? 12000
+
+                self.recognisionConfidenceValue = UserDefaults.standard.getInt(forKey: .soundRecognisionConfidence) ?? 30
+            }
         }
     }
-
 }
 
 struct LabeledButton: View {

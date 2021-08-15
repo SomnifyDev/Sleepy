@@ -45,6 +45,7 @@ public struct MotivationCellView: View {
                                   titleText: motivation.title,
                                   mainText: motivation.description,
                                   titleColor: getTypeColor(for: type),
+                                  mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                   showSeparator: true,
                                   showChevron: true)
                     HStack {

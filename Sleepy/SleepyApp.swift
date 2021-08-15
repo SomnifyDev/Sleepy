@@ -24,6 +24,7 @@ struct SleepyApp: App {
     // MARK: Scenes
     var body: some Scene {
         WindowGroup {
+
             if canShowApp {
                 RootCoordinatorView(viewModel: coordinator!)
                     .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
@@ -34,7 +35,7 @@ struct SleepyApp: App {
                     .onAppear {
                         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")
-                            UserDefaults.standard.set_setting(480, forKey: .sleepGoal)
+                            UserDefaults.standard.setInt(480, forKey: .sleepGoal)
                         }
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
@@ -47,7 +48,10 @@ struct SleepyApp: App {
 
                                 statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 
-                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
+                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!,
+                                                                  statisticsProvider: statisticsProvider!,
+                                                                  hkStoreService: hkService!,
+                                                                  cardService: cardService!)
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
                                 canShowApp = true
@@ -66,7 +70,7 @@ struct SleepyApp: App {
                                                                                        phases: nil),
                                                                           healthService: hkService!)
                                 coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
-                                
+
                                 canShowApp = true
                             }
                         }
