@@ -1,5 +1,7 @@
 import SwiftUI
 import HKVisualKit
+import Armchair
+import SettingsKit
 
 struct HealthTypeSwitchView: View {
 
@@ -67,6 +69,15 @@ struct HealthTypeSwitchView: View {
             .cornerRadius(12)
             .onTapGesture {
                 selectedType = type
+                let date = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "armchair_important_calendar_event"))
+
+                if date.getDayInt() != Date().getDayInt() {
+                    UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "armchair_important_calendar_event")
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                        Armchair.userDidSignificantEvent(true)
+                    }
+                }
             }
     }
 

@@ -1,16 +1,20 @@
 PODS:
+  - Armchair (0.3.7)
   - SwiftLint (0.43.1)
 
 DEPENDENCIES:
+  - Armchair (>= 0.3)
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - Armchair
     - SwiftLint
 
 SPEC CHECKSUMS:
+  Armchair: ea2da13f78515da627bd63d9540bd58a50e71562
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: 44e80b9191407776075a598f7da50df8f1e56849
+PODFILE CHECKSUM: 6645a70737f81b058a4cfc8f1422078e645a3ef8
 
 COCOAPODS: 1.10.1
