@@ -83,7 +83,7 @@ struct SettingsCoordinatorView: View {
     }
 }
 
-struct LabeledButton: View {
+private struct LabeledButton: View {
     let text: String
     let showChevron: Bool
     let action: () -> Void

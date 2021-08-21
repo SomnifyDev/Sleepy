@@ -15,6 +15,13 @@ struct AudioRecordingsListView: View {
     @Store var viewModel: SoundsCoordinator
     @ObservedObject var audioRecorder = AudioRecorder()
 
+    var groupedByDateData: [Date: [Recording]] {
+        Dictionary(grouping: audioRecorder.recordings, by: {$0.createdAt.startOfDay})
+    }
+    var headers: [Date] {
+        groupedByDateData.map({ $0.key }).sorted()
+    }
+
     @State private var showSheetView = false
     @State private var showProgress = false
     // Create a new observer to receive notifications for analysis results.
@@ -25,32 +32,32 @@ struct AudioRecordingsListView: View {
             viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                 .edgesIgnoringSafeArea(.all)
 
-            VStack(spacing: 0) {
-                List {
-                    Section(header: Text("Recordings")) {
-                        ForEach(audioRecorder.recordings, id: \.self) { recording in
-                            VStack {
-                                RecordingRow(audioURL: recording.fileURL,
-                                             colorProvider: viewModel.colorProvider)
-                                    .onTapGesture {
-                                        showProgress = true
-                                        runAnalysis(audioFileURL: recording.fileURL)
-                                    }
-                            }
+            List {
+                ForEach(headers, id: \.self) { header in
+                    Section(header: Text(header, style: .date)) {
+                        ForEach(groupedByDateData[header]!) { recording in
+                            RecordingRow(audioURL: recording.fileURL,
+                                         colorProvider: viewModel.colorProvider)
+                                .padding([.top, .bottom, .leading, .trailing], 4)
+                                .onTapGesture {
+                                    showProgress = true
+                                    runAnalysis(audioFileURL: recording.fileURL)
+                                }
                         }.onDelete { (indexSet) in
                             for index in indexSet {
                                 try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
                                 self.audioRecorder.fetchRecordings()
                             }
                         }
-                    }.sheet(isPresented: $showSheetView) {
-                        AnalysisListView(result: resultsObserver.array,
-                                         fileName: resultsObserver.fileName,
-                                         endDate: resultsObserver.date,
-                                         colorProvider: viewModel.colorProvider,
-                                         showSheetView: $showSheetView)
                     }
                 }
+            }
+            .sheet(isPresented: $showSheetView) {
+                AnalysisListView(result: resultsObserver.array,
+                                 fileName: resultsObserver.fileName,
+                                 endDate: resultsObserver.date,
+                                 colorProvider: viewModel.colorProvider,
+                                 showSheetView: $showSheetView)
             }
 
             if showProgress {
@@ -62,17 +69,24 @@ struct AudioRecordingsListView: View {
         }
     }
 
-    func runAnalysis(audioFileURL: URL) {
-        // TODO: https://medium.com/@narner/classification-of-sound-files-on-ios-with-the-soundanalysis-framework-and-esc-10-coreml-model-3a5154db903f
-        // эта часть доступна онли с айос 15 из-за строчек 70-72. Но это можно исправить!
-        if #available(iOS 15.0, *) {
+    private func runAnalysis(audioFileURL: URL) {
+        // TODO: лучше обучить модель
             do {
-                let version1 = SNClassifierIdentifier.version1
+                let request: SNClassifySoundRequest
 
-                let request = try SNClassifySoundRequest(classifierIdentifier: version1)
+                if #available(iOS 15.0, *) { // apple's sound classifier
+                    let version1 = SNClassifierIdentifier.version1
+                    request = try SNClassifySoundRequest(classifierIdentifier: version1)
+                } else { // sleepy ones
+                    let config = MLModelConfiguration()
+                    let mlModel = try soundClassifier(configuration: config)
+
+                    request = try SNClassifySoundRequest(mlModel: mlModel.model)
+                }
 
                 guard let audioFileAnalyzer = self.createAnalyzer(audioFileURL: audioFileURL)
                 else {
+                    showProgress = false
                     return
                 }
                 resultsObserver.fileName = audioFileURL.lastPathComponent
@@ -86,11 +100,9 @@ struct AudioRecordingsListView: View {
                     showSheetView = result
                     showProgress = false
                 })
-            } catch {}
-        } else {
-            // Fallback on earlier versions
-            showProgress = false
-        }
+            } catch {
+                showProgress = false
+            }
     }
 
     /// Creates an analyzer for an audio file.
@@ -100,21 +112,25 @@ struct AudioRecordingsListView: View {
     }
 }
 
-struct RecordingRow: View {
+private struct RecordingRow: View {
 
     var audioURL: URL
     let colorProvider: ColorSchemeProvider
     var body: some View {
-        HStack {
+        VStack {
             CardTitleView(colorProvider: colorProvider,
                           systemImageName: "mic.circle.fill",
-                          titleText: "\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM HH:mm") ?? "")",
-                          mainText: "sound recording, \(FileHelper.covertToFileString(with: FileHelper.sizeForLocalFilePath(filePath: audioURL.path)))",
-                          navigationText: "sounds",
+                          titleText: "New_recording\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM_HH:mm") ?? "")",
                           titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-                          mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
                           showSeparator: false,
                           showChevron: true)
+            HStack {
+                Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
+                    .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                Spacer()
+                Text(FileHelper.covertToFileString(with: FileHelper.sizeForLocalFilePath(filePath: audioURL.path)))
+                    .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)))
+            }
         }
     }
 }

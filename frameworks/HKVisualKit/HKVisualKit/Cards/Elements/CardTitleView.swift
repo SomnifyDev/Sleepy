@@ -11,7 +11,7 @@ public struct CardTitleView: View {
     private let navigationText: String?
     private let mainText: String?
     private let titleColor: Color
-    private let mainTextColor: Color
+    private let mainTextColor: Color?
     private let showChevron: Bool
     private let showSeparator: Bool
 
@@ -21,7 +21,7 @@ public struct CardTitleView: View {
                 mainText: String? = nil,
                 navigationText: String? = nil,
                 titleColor: Color,
-                mainTextColor: Color,
+                mainTextColor: Color? = nil,
                 showSeparator: Bool = true,
                 showChevron: Bool = false) {
         self.colorProvider = colorProvider
@@ -60,7 +60,8 @@ public struct CardTitleView: View {
                         }
                     }
 
-                    if let mainText = mainText {
+                    if let mainText = mainText,
+                       let mainTextColor = mainTextColor {
                         Text(mainText)
                             .foregroundColor(mainTextColor)
                     }
