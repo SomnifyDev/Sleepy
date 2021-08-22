@@ -28,6 +28,36 @@ struct RoundedGradientCard: ViewModifier {
     }
 }
 
+struct ButtonModifier: ViewModifier {
+    var color: Color
+
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.white)
+            .font(.headline)
+            .padding()
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
+                            .fill(color))
+            .padding([.leading, .trailing, .bottom])
+    }
+}
+
+struct SkipButtonModifier: ViewModifier {
+    var color: Color
+
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.white)
+            .font(.headline)
+            .padding()
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
+                            .fill(Color.gray))
+            .padding(.bottom)
+    }
+}
+
 struct UsefulInfoCardBackground: ViewModifier {
     var color: Color
 
@@ -50,5 +80,13 @@ public extension View {
 
     func usefulInfoCardBackground(color: Color) -> some View {
         self.modifier(UsefulInfoCardBackground(color: color))
+    }
+
+    func customButton(color: Color) -> some View {
+        self.modifier(ButtonModifier(color: color))
+    }
+
+    func skipCustomButton(color: Color) -> some View {
+        self.modifier(SkipButtonModifier(color: color))
     }
 }

@@ -163,6 +163,13 @@ extension Date {
         return Int(df.string(from: self))!
     }
 
+    func toString(dateFormat format: String ) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+
     static func minutesToDateDescription(minutes: Int) -> String {
         let hours = minutes / 60
         let minutes = minutes % 60
@@ -178,5 +185,6 @@ extension Date {
 
         return "\(hours)h \(minutesStr)min"
     }
+    
 
 }

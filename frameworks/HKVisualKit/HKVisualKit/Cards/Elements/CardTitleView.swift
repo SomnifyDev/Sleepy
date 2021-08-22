@@ -11,14 +11,24 @@ public struct CardTitleView: View {
     private let navigationText: String?
     private let mainText: String?
     private let titleColor: Color
+    private let mainTextColor: Color?
     private let showChevron: Bool
     private let showSeparator: Bool
 
-    init(colorProvider: ColorSchemeProvider, systemImageName: String, titleText: String, mainText: String? = nil, navigationText: String? = nil, titleColor: Color, showSeparator: Bool = true, showChevron: Bool = false) {
+    public init(colorProvider: ColorSchemeProvider,
+                systemImageName: String,
+                titleText: String,
+                mainText: String? = nil,
+                navigationText: String? = nil,
+                titleColor: Color,
+                mainTextColor: Color? = nil,
+                showSeparator: Bool = true,
+                showChevron: Bool = false) {
         self.colorProvider = colorProvider
         self.systemImageName = systemImageName
         self.titleText = titleText
         self.mainText = mainText
+        self.mainTextColor = mainTextColor
         self.navigationText = navigationText
         self.titleColor = titleColor
         self.showChevron = showChevron
@@ -41,6 +51,7 @@ public struct CardTitleView: View {
                         if let navigationText = navigationText {
                             Text(navigationText)
                                 .cardTitleTextModifier(color: titleColor)
+                                .lineLimit(1)
                         }
 
                         if showChevron {
@@ -49,9 +60,10 @@ public struct CardTitleView: View {
                         }
                     }
 
-                    if let mainText = mainText {
+                    if let mainText = mainText,
+                       let mainTextColor = mainTextColor {
                         Text(mainText)
-                            .cardDescriptionTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                            .foregroundColor(mainTextColor)
                     }
 
                     if showSeparator {
@@ -77,6 +89,6 @@ public struct CardTitleView: View {
 
 struct CardTitleView_Previews: PreviewProvider {
     static var previews: some View {
-        CardTitleView(colorProvider: ColorSchemeProvider(), systemImageName: "zzz", titleText: "Title", mainText: "Вот основнvые данные о вашем !!!!!!!!!", titleColor: .blue, showChevron: true)
+        CardTitleView(colorProvider: ColorSchemeProvider(), systemImageName: "zzz", titleText: "Title", mainText: "Вот основнvые данные о вашем !!!!!!!!!", titleColor: .blue, mainTextColor: .red, showChevron: true)
     }
 }

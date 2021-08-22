@@ -65,6 +65,7 @@ public enum ColorType {
 
     public enum TextsColors {
         case standartText
+        case secondaryText
     }
 
     public enum ChartColors {

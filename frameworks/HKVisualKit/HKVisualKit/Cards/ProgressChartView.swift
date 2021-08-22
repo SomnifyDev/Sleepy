@@ -13,6 +13,7 @@ public struct ProgressChartView: View {
     private var beforeProgress: ProgressItem
     private var analysisString: String
     private let mainColor: Color
+    private let mainTextColor: Color
 
     public init(titleText: String,
                 mainText: String,
@@ -21,7 +22,8 @@ public struct ProgressChartView: View {
                 currentProgress: ProgressItem,
                 beforeProgress: ProgressItem,
                 analysisString: String,
-                mainColor: Color) {
+                mainColor: Color,
+                mainTextColor: Color) {
         self.titleText = titleText
         self.mainText = mainText
         self.systemImage = systemImage
@@ -30,6 +32,7 @@ public struct ProgressChartView: View {
         self.beforeProgress = beforeProgress
         self.analysisString = analysisString
         self.mainColor = mainColor
+        self.mainTextColor = mainTextColor
     }
 
     public var body: some View {
@@ -40,7 +43,8 @@ public struct ProgressChartView: View {
                     CardTitleView(colorProvider: colorProvider, systemImageName: systemImage,
                                   titleText: titleText,
                                   mainText: mainText,
-                                  titleColor: mainColor)
+                                  titleColor: mainColor,
+                                  mainTextColor: mainTextColor)
 
                     ProgressItemView(progressItem: currentProgress)
                         .padding(.top, 8)

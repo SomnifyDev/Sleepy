@@ -12,6 +12,7 @@ enum TabBarTab: String {
     case summary
     case history
     case alarm
+    case soundRecognision
     case settings
 }
 
@@ -25,6 +26,7 @@ protocol RootCoordinator: ViewModel {
     var historyCoordinator: HistoryCoordinator! { get }
     var alarmCoordinator: AlarmCoordinator! { get }
     var settingsCoordinator: SettingsCoordinator! { get }
+    var soundsCoordinator: SoundsCoordinator! { get }
 
     var colorSchemeProvider: ColorSchemeProvider { get }
     var statisticsProvider: HKStatisticsProvider { get }
@@ -46,6 +48,7 @@ extension RootCoordinator {
         summaryCoordinator
         historyCoordinator
         alarmCoordinator
+        soundsCoordinator
         settingsCoordinator
     }
     
@@ -64,6 +67,7 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     @Published private(set) var historyCoordinator: HistoryCoordinator!
     @Published private(set) var alarmCoordinator: AlarmCoordinator!
     @Published private(set) var settingsCoordinator: SettingsCoordinator!
+    @Published private(set) var soundsCoordinator: SoundsCoordinator!
 
     var colorSchemeProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
@@ -72,7 +76,10 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     
     // MARK: Initialization
     
-    init(colorSchemeProvider: ColorSchemeProvider, statisticsProvider: HKStatisticsProvider, hkStoreService: HKService, cardService: CardService) {
+    init(colorSchemeProvider: ColorSchemeProvider,
+         statisticsProvider: HKStatisticsProvider,
+         hkStoreService: HKService,
+         cardService: CardService) {
         // наш главный координатор таббара получил сервисы
         self.colorSchemeProvider = colorSchemeProvider
         self.statisticsProvider = statisticsProvider
@@ -99,6 +106,11 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         
         self.alarmCoordinator = AlarmCoordinatorImpl(
             title: "alarm",
+            parent: self)
+
+        self.soundsCoordinator = SoundsCoordinatorImpl(
+            title: "sounds",
+            colorSchemeProvider: colorSchemeProvider,
             parent: self)
         
         self.settingsCoordinator = SettingsCoordinatorImpl(
@@ -136,6 +148,9 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
             case "settings":
                 openTabView(of: .settings)
 
+            case "sounds":
+                openTabView(of: .soundRecognision)
+
             default:
                 assertionFailure("Trying to open app with illegal url \(url).")
 
@@ -167,6 +182,8 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
             tab = .settings
         case .summary:
             break
+        case .soundRecognision:
+            tab = .soundRecognision
         }
     }
     

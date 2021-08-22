@@ -95,7 +95,7 @@ extension AppDelegate {
         Armchair.appName("Sleepy")
 
         // Debug means that it will popup on the next available change
-        Armchair.debugEnabled(true)
+//        Armchair.debugEnabled(true)
 
         // This overrides the default value of 30, but it doesn't matter here because of Debug mode enabled
         Armchair.daysUntilPrompt(3)

@@ -55,6 +55,7 @@ public struct ErrorView: View {
                                   mainText: getDataText(),
                                   navigationText: "Read FAQ",
                                   titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                  mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                   showSeparator: false,
                                   showChevron: true)
 

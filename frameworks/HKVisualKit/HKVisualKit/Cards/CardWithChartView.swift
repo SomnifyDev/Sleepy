@@ -53,6 +53,7 @@ public struct CardWithChartView<T: View, U: View>: View {
                                   titleText: titleText,
                                   mainText: mainTitleText,
                                   titleColor: titleColor,
+                                  mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                   showChevron: showChevron)
 
                     chartView
