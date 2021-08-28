@@ -27,7 +27,7 @@
 // MARK: GENERAL TAB
 
 // main card
-"Sleep information" = "Sleep information"
+"Sleep information" = "Sleep information";
 "Here is some info about your last sleep session" = "Here is some info about your last sleep session";
 "Drop off" = "Drop off";
 "Awake" = "Awake";
@@ -36,7 +36,7 @@
 "Falling asleep" = "Falling asleep";
 
 // ... main card details
-"Sleep session" = "Sleep session"
+"Sleep session" = "Sleep session";
 "Sleep start" = "Sleep start";
 "Wake up" = "Wake up";
 "Fall asleep" = "Fall asleep";
