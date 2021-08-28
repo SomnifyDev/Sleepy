@@ -26,7 +26,7 @@ struct SummaryListView: View {
                     VStack(alignment: .center) {
 
                         if let generalViewModel = generalViewModel {
-                            CardNameTextView(text: "Sleep information",
+                            CardNameTextView(text: "Sleep information".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
@@ -42,7 +42,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         }
 
-                        CardNameTextView(text: "Sleep session",
+                        CardNameTextView(text: "Sleep session".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         if let phasesViewModel = phasesViewModel,
@@ -81,7 +81,7 @@ struct SummaryListView: View {
                                 .blur(radius: 4)
                         }
 
-                        CardNameTextView(text: "Heart rate",
+                        CardNameTextView(text: "Heart rate".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         if let heartViewModel = heartViewModel,
@@ -100,7 +100,7 @@ struct SummaryListView: View {
                                                                           startTime: generalViewModel.sleepStart,
                                                                           endTime: generalViewModel.sleepEnd),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
-                                                                                            Text(String(format: "The maximal heartbeat was %@ bpm while the minimal was %@", heartViewModel.minHeartRate, heartViewModel.maxHeartRate)), colorProvider: viewModel.colorProvider))
+                                                                                            Text(String(format: "The maximal heartbeat was %@ bpm while the minimal was %@".localized, heartViewModel.minHeartRate, heartViewModel.maxHeartRate)), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .onNavigation {
                                     viewModel.open(.heart)

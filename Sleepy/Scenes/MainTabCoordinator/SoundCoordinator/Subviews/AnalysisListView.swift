@@ -33,7 +33,7 @@ struct AnalysisListView: View {
                                 CardTitleView(colorProvider: colorProvider,
                                               systemImageName: "waveform",
                                               titleText: item.soundType,
-                                              mainText: String(format: "%.2f confidence".localized,item.confidence),
+                                              mainText: String(format: "%.2f confidence".localized, item.confidence),
                                               navigationText: getDescription(item: item, date: endDate),
                                               titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
                                               mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
