@@ -33,16 +33,16 @@ struct HeartCardDetailView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
 
-                            CardNameTextView(text: "Info",
+                            CardNameTextView(text: "Summary".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-                            HorizontalStatisticCellView(data: [StatisticsCellData(title: "Average pulse, bpm", value: heartViewModel.averageHeartRate),
-                                                               StatisticsCellData(title: "Max pulse", value: heartViewModel.maxHeartRate),
-                                                               StatisticsCellData(title: "Min pulse", value: heartViewModel.minHeartRate)],
+                            HorizontalStatisticCellView(data: [StatisticsCellData(title: "Average pulse".localized, value: heartViewModel.averageHeartRate),
+                                                               StatisticsCellData(title: "Max pulse".localized, value: heartViewModel.maxHeartRate),
+                                                               StatisticsCellData(title: "Min pulse".localized, value: heartViewModel.minHeartRate)],
                                                         colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
 
-                        CardNameTextView(text: "What else?",
+                        CardNameTextView(text: "What else?".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         UsefulInfoCardView(imageName: "heart1", title: "title", description: "description")

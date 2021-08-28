@@ -24,17 +24,17 @@ struct SoundsCoordinatorView: View {
 
                     if audioRecorder.recording == false {
 
-                        Text("Record")
+                        Text("Record".localized)
                             .customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                             .onTapGesture { audioRecorder.startRecording() }
                     } else {
-                        Text("STOP")
+                        Text("STOP".localized)
                             .customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
                             .onTapGesture { audioRecorder.stopRecording() }
                     }
                 }
             }
-            .navigationBarTitle("Sounds recognition")
+            .navigationBarTitle("Sound recognition".localized)
         }
     }
 }

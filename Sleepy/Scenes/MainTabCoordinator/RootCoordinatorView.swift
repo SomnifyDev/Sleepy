@@ -12,7 +12,7 @@ struct RootCoordinatorView: View {
     var body: some View {
         TabView(selection: $viewModel.tab) {
             SummaryNavigationCoordinatorView(viewModel: viewModel.summaryCoordinator)
-                .tabItem { Label("summary", systemImage: "bed.double.fill") }
+                .tabItem { Label("summary".localized, systemImage: "bed.double.fill") }
                 .tag(TabBarTab.summary)
             
             HistoryCoordinatorView(coordinator: viewModel.historyCoordinator)

@@ -57,11 +57,13 @@ public final class HKStatisticsProvider: HKStatistics {
 
     /// Возвращает данные по фазам по сегодняшнему сну, параметр типа статистики
     public func getData(for phasesStatType: PhasesStatisticsType) -> Any? {
+        // TODO: remove Any
         return phasesStatisticsProvider.handlePhasesStatistic(of: phasesStatType, for: sleep.phases)
     }
 
     /// Возвращает длительность сна за сегодня
     public func getData(for sleepStatType: SleepStatType) -> Int {
+        // TODO:
         return sleepStatisticsProvider.handleSleepStatistics(for: sleepStatType, sleep: sleep)
     }
 

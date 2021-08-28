@@ -33,17 +33,18 @@ struct PhasesCardDetailView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
 
-                            CardNameTextView(text: "Info",
+                            CardNameTextView(text: "Summary".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-                            HorizontalStatisticCellView(data: [StatisticsCellData(title: "Total NREM sleep duration", value: phasesViewModel.timeInDeepPhase),
-                                                               StatisticsCellData(title: "Max NREM sleep interval", value: phasesViewModel.mostIntervalInDeepPhase),
-                                                               StatisticsCellData(title: "Total REM sleep duration", value: phasesViewModel.timeInLightPhase),
-                                                               StatisticsCellData(title: "Max REM sleep interval", value: phasesViewModel.mostIntervalInLightPhase)],
+                            HorizontalStatisticCellView(data: [StatisticsCellData(title: "Total NREM sleep duration".localized, value: phasesViewModel.timeInDeepPhase),
+                                                               StatisticsCellData(title: "Max NREM sleep interval".localized, value: phasesViewModel.mostIntervalInDeepPhase),
+                                                               StatisticsCellData(title: "Total REM sleep duration".localized, value: phasesViewModel.timeInLightPhase),
+                                                               StatisticsCellData(title: "Max REM sleep interval".localized, value: phasesViewModel.mostIntervalInLightPhase)
+                                                              ],
                                                         colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
 
-                        CardNameTextView(text: "What else?",
+                        CardNameTextView(text: "What else?".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         UsefulInfoCardView(imageName: "sleep3", title: "title", description: "description")
@@ -72,7 +73,6 @@ struct PhasesCardDetailView: View {
                                                        inBedDuration: "\(inBedDuration / 60)h \(inBedDuration - (inBedDuration / 60) * 60)min",
                                                        fallAsleepDuration: provider.getTodayFallingAsleepDuration())
     }
-
 
     // MARK: Phases data
 
