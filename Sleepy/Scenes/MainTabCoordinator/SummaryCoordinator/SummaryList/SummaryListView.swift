@@ -13,7 +13,7 @@ struct SummaryListView: View {
     @State private var generalViewModel: SummaryGeneralDataViewModel?
     @State private var phasesViewModel: SummaryPhasesDataViewModel?
     @State private var heartViewModel: SummaryHeartDataViewModel?
-
+    @State private var somethingBroken = false
     // MARK: View
 
     var body: some View {
@@ -24,6 +24,12 @@ struct SummaryListView: View {
 
                 ScrollView {
                     VStack(alignment: .center) {
+
+                        if somethingBroken {
+                            ErrorView(errorType: .advice(type: .wearMore, imageSystemName: "wearAdvice"),
+                                      colorProvider: viewModel.colorProvider)
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                        }
 
                         if let generalViewModel = generalViewModel {
                             CardNameTextView(text: "Sleep information",
@@ -40,6 +46,11 @@ struct SummaryListView: View {
                                     viewModel.open(.general)
                                 }
                                 .buttonStyle(PlainButtonStyle())
+                        } else {
+
+                            ErrorView(errorType: .brokenData(type: .sleep),
+                                      colorProvider: viewModel.colorProvider)
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
                         CardNameTextView(text: "Sleep session",
@@ -178,6 +189,8 @@ struct SummaryListView: View {
                                                          timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
                                                          mostIntervalInLightPhase: "-",
                                                          mostIntervalInDeepPhase: "-")
+        } else {
+            self.somethingBroken = true
         }
     }
 
@@ -199,6 +212,8 @@ struct SummaryListView: View {
                                                        maxHeartRate: maxHeartRate,
                                                        minHeartRate: minHeartRate,
                                                        averageHeartRate: averageHeartRate)
+        } else {
+            self.somethingBroken = true
         }
     }
 

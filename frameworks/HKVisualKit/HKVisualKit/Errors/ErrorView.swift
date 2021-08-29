@@ -1,18 +1,29 @@
 import SwiftUI
 
 public struct ErrorView: View {
+
+    public enum AdviceType {
+        case wearMore
+        case soundRecording
+        case some
+    }
     
     public enum ErrorType: Equatable {
         
         case emptyData(type: HealthData)
         case brokenData(type: HealthData)
         case restrictedData(type: HealthData)
+        case advice(type: AdviceType, imageSystemName: String)
 
         public static func ==(lhs: ErrorType, rhs: ErrorType) -> Bool {
             switch (lhs, rhs) {
             case (brokenData, brokenData):
                 return true
             case (.emptyData,.emptyData):
+                return true
+            case (.restrictedData, .restrictedData):
+                return true
+            case (.advice, .advice):
                 return true
             default:
                 return false
@@ -50,14 +61,34 @@ public struct ErrorView: View {
                 VStack(spacing: 8) {
 
                     CardTitleView(colorProvider: colorProvider,
-                                  systemImageName: self.getIconName(),
-                                  titleText: "Error occured",
-                                  mainText: getDataText(),
+                                  systemImageName: self.iconName,
+                                  titleText: self.titleText,
+                                  mainText: self.dataText,
                                   navigationText: "Read FAQ",
-                                  titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                  titleColor: errorType == .advice(type: .some, imageSystemName: "")
+                                  ? self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
+                                  : self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                   mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                  showSeparator: false,
+                                  showSeparator: errorType == .advice(type: .some, imageSystemName: ""),
                                   showChevron: true)
+
+                    if errorType == .advice(type: .some, imageSystemName: "") {
+                        let a = self.getImageSystemName()
+                        Image(a)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 120)
+
+                        HStack {
+                            Text("User Guide - Sleepy")
+                                .linkTextModifier()
+                                .padding(.trailing, 8)
+                            Spacer()
+                            Text("Read more")
+                                .linkTextModifier()
+                                .padding(.trailing, 8)
+                        }
+                    }
 
                 }
                 .frame(width: geometry.size.width)
@@ -81,7 +112,25 @@ public struct ErrorView: View {
     }
     
     private func getTitleText() -> String {
-        return "data empty"
+        switch self.errorType {
+        case .emptyData(type: _),
+                .brokenData(type: _),
+                .restrictedData(type: _):
+            return "Data empty or restricted"
+        case .advice(type: _, let imageSystemName):
+            return "Advice"
+        }
+    }
+
+    private func getImageSystemName() -> String {
+        switch self.errorType {
+        case .emptyData(type: _),
+                .brokenData(type: _),
+                .restrictedData(type: _):
+            return ""
+        case .advice(type: _, let imageSystemName):
+            return imageSystemName
+        }
     }
     
     private func getDataText() -> String {
@@ -92,6 +141,15 @@ public struct ErrorView: View {
             return "There was not enought data to display your \(type.rawValue) charts. Try to sleep with Apple Watch More"
         case .restrictedData(type: let type):
             return "Sleepy was restricted from reading your \(type.rawValue) data. Fix that in your settings"
+        case .advice(type: let type, _):
+            switch type {
+            case .wearMore:
+                return "Try to sleep with your watch on your wrist to get phase, heart, and energy analysis"
+            case .soundRecording:
+                return "Record your sleep sounds by pressing ‘record’ button below  and get sound-recognision after you end recording"
+            case .some:
+                return ""
+            }
         }
     }
     
@@ -101,6 +159,8 @@ public struct ErrorView: View {
             return "exclamationmark.square.fill"
         case .restrictedData(type: _):
             return "eye.slash.fill"
+        case .advice(type: _):
+            return "questionmark.square.dashed"
         }
     }
     
