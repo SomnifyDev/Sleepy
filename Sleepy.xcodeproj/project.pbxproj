@@ -14,6 +14,9 @@
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
 		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
+		80647AF326D9163B0054C03F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80647AF526D9163B0054C03F /* Localizable.strings */; };
+		80647AF826D917380054C03F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80647AF726D917380054C03F /* String+Localizable.swift */; };
+		80647AFA26D918E50054C03F /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80647AF926D918E50054C03F /* SummaryInfoCardView.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
 		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
@@ -223,6 +226,10 @@
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
+		80647AF426D9163B0054C03F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80647AF626D916770054C03F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80647AF726D917380054C03F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		80647AF926D918E50054C03F /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -382,6 +389,14 @@
 			path = "Embed Statistics";
 			sourceTree = "<group>";
 		};
+		80647AFB26D918E90054C03F /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				80647AF926D918E50054C03F /* SummaryInfoCardView.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +460,7 @@
 		80780F4F266D4997000D0DD9 /* SummaryList */ = {
 			isa = PBXGroup;
 			children = (
+				80647AFB26D918E90054C03F /* Cards */,
 				80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* SummaryListView.swift */,
 				D99FD91D26A9F4A500A66A85 /* ViewModels */,
@@ -471,6 +487,7 @@
 				80A765EF26C843F300A66554 /* TimeInterval+String.swift */,
 				8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */,
 				80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */,
+				80647AF726D917380054C03F /* String+Localizable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -590,6 +607,7 @@
 				D94419D4266CD3C50019902F /* Assets.xcassets */,
 				D94419D9266CD3C50019902F /* Info.plist */,
 				D94419D6266CD3C50019902F /* Preview Content */,
+				80647AF526D9163B0054C03F /* Localizable.strings */,
 			);
 			path = Sleepy;
 			sourceTree = "<group>";
@@ -942,6 +960,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = D94419C4266CD3C40019902F;
 			packageReferences = (
@@ -1024,6 +1043,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */,
+				80647AF326D9163B0054C03F /* Localizable.strings in Resources */,
 				D94419D5266CD3C50019902F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1274,6 +1294,7 @@
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
 				80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */,
+				80647AF826D917380054C03F /* String+Localizable.swift in Sources */,
 				805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */,
 				8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */,
 				D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */,
@@ -1295,6 +1316,7 @@
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
+				80647AFA26D918E50054C03F /* SummaryInfoCardView.swift in Sources */,
 				80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */,
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
@@ -1391,11 +1413,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		80647AF526D9163B0054C03F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80647AF426D9163B0054C03F /* en */,
+				80647AF626D916770054C03F /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		D94419F0266CD3C50019902F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1457,6 +1492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

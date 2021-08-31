@@ -51,9 +51,9 @@ public struct ErrorView: View {
 
                     CardTitleView(colorProvider: colorProvider,
                                   systemImageName: self.getIconName(),
-                                  titleText: "Error occured",
+                                  titleText: "Error occured".localized,
                                   mainText: getDataText(),
-                                  navigationText: "Read FAQ",
+                                  navigationText: "Read FAQ".localized,
                                   titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                   mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                   showSeparator: false,
@@ -81,17 +81,17 @@ public struct ErrorView: View {
     }
     
     private func getTitleText() -> String {
-        return "data empty"
+        return "data empty".localized
     }
     
     private func getDataText() -> String {
         switch self.errorType {
         case .emptyData(type: let type):
-            return "No data of type \(type.rawValue) was recieved"
+            return String(format: "No data of type %@ was recieved".localized, type.rawValue)
         case .brokenData(type: let type):
-            return "There was not enought data to display your \(type.rawValue) charts. Try to sleep with Apple Watch More"
+            return String(format: "There was not enought data to display your %@ charts. Try to sleep with Apple Watch More".localized, type.rawValue)
         case .restrictedData(type: let type):
-            return "Sleepy was restricted from reading your \(type.rawValue) data. Fix that in your settings"
+            return String(format: "Sleepy was restricted from reading your %@ data. Fix that in your settings".localized, type.rawValue)
         }
     }
     

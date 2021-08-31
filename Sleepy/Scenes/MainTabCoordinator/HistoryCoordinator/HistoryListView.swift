@@ -94,7 +94,7 @@ struct HistoryListView: View {
                                 .blur(radius: 4)
                         }
                     } else {
-                        Text("Loading")
+                        Text("Loading".localized)
                     }
 
                 }
@@ -103,7 +103,7 @@ struct HistoryListView: View {
             .onChange(of: calendarType) { _ in
                 extractContextStatistics()
             }
-        }.navigationTitle("Sleep history")
+        }.navigationTitle("Sleep history".localized)
     }
 
     /// Loads data for each type of calendar phase to fill statistics view below it
@@ -172,7 +172,7 @@ struct HistoryListView: View {
                                                                         for: monthBeforeDateInterval,
                                                                         bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 if let result = result {
-                    last30daysCellData.append(StatisticsCellData(title: "min. duration", value: Date.minutesToDateDescription(minutes: Int(result))))
+                    last30daysCellData.append(StatisticsCellData(title: "Min. duration".localized, value: Date.minutesToDateDescription(minutes: Int(result))))
                 }
                 group.leave()
             }
@@ -185,7 +185,7 @@ struct HistoryListView: View {
                                                                         for: monthBeforeDateInterval,
                                                                         bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 if let result = result {
-                    last30daysCellData.append(StatisticsCellData(title: "avg. duration", value: Date.minutesToDateDescription(minutes: Int(result))))
+                    last30daysCellData.append(StatisticsCellData(title: "Avg. duration".localized, value: Date.minutesToDateDescription(minutes: Int(result))))
                 }
                 group.leave()
             }
@@ -198,7 +198,7 @@ struct HistoryListView: View {
                                                                         for: monthBeforeDateInterval,
                                                                         bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 if let result = result {
-                    last30daysCellData.append(StatisticsCellData(title: "max. duration", value: Date.minutesToDateDescription(minutes: Int(result))))
+                    last30daysCellData.append(StatisticsCellData(title: "Max. duration".localized, value: Date.minutesToDateDescription(minutes: Int(result))))
                 }
                 group.leave()
             }
@@ -224,15 +224,15 @@ struct HistoryListView: View {
                     cellData: last30daysCellData,
                     monthSleepPoints: monthSleepPoints,
                     monthBeforeDateInterval: monthBeforeDateInterval,
-                    currentWeeksProgress: ProgressItem(title: "Mean duration: \(Date.minutesToDateDescription(minutes: Int(mean1)))",
+                    currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean1))),
                                                        text: current2weeksInterval.stringFromDateInterval(),
                                                        value: Int(mean1))
-                    , beforeWeeksProgress: ProgressItem(title: "Mean duration: \(Date.minutesToDateDescription(minutes: Int(mean2)))",
+                    , beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
                                                         text: last2weeksInterval.stringFromDateInterval(),
                                                         value: Int(mean2)),
                     analysisString: mean1 == mean2
-                    ? "Your \(type == .inbed ? "in bed" : "asleep") time is equal compared to 2 weeks before"
-                    : "Compared to 2 weeks before, you \(type == .inbed ? "were in bed" : "slept") \(mean1 > mean2 ? "more" : "less") by \(Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))) in time")
+                    ? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")
+                    : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time".localized, type == .inbed ? "were in bed" : "slept",mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
 
                 if type == .inbed {
                     inbedHistoryStatsViewModel = tmp

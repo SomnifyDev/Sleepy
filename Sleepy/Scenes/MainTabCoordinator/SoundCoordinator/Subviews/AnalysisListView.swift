@@ -24,7 +24,7 @@ struct AnalysisListView: View {
                 ScrollView(.vertical, showsIndicators: false) {
 
                     VStack(alignment: .center, spacing: 2) {
-                        CardNameTextView(text: "Recognized sounds",
+                        CardNameTextView(text: "Recognized sounds".localized,
                                          color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                             .padding([.top, .bottom])
 
@@ -33,7 +33,7 @@ struct AnalysisListView: View {
                                 CardTitleView(colorProvider: colorProvider,
                                               systemImageName: "waveform",
                                               titleText: item.soundType,
-                                              mainText: "\(String(format: "%.2f",item.confidence))% confidence",
+                                              mainText: String(format: "%.2f confidence".localized, item.confidence),
                                               navigationText: getDescription(item: item, date: endDate),
                                               titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
                                               mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
@@ -49,7 +49,7 @@ struct AnalysisListView: View {
                     }
                 }
             }.navigationTitle(endDate?.getFormattedDate(format: "MMM d") ?? "")
-                .navigationBarItems(trailing: Button("Done",
+                .navigationBarItems(trailing: Button("Done".localized,
                                                      action: { showSheetView = false }))
         }
     }

@@ -31,7 +31,7 @@ struct SleepyApp: App {
                 //.onOpenURL { coordinator!.startDeepLink(from: $0) }
                 //.onAppear { simulateURLOpening() }
             } else {
-                Text("Loading")
+                Text("Loading".localized)
                     .onAppear {
                         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")

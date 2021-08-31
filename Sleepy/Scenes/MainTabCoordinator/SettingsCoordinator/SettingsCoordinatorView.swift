@@ -26,8 +26,8 @@ struct SettingsCoordinatorView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: HFView(text: "Health", imageName: "heart.circle")) {
-                    Stepper("Sleep goal – \(Date.minutesToClearString(minutes: sleepGoalValue))",
+                Section(header: HFView(text: "Health".localized, imageName: "heart.circle")) {
+                    Stepper(String(format: "Sleep goal %d".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
                             value: $sleepGoalValue,
                             in: 200...720,
                             step: 15) { _ in
@@ -36,12 +36,12 @@ struct SettingsCoordinatorView: View {
                     }
                 }
                 
-                Section(header: HFView(text: "Feedback", imageName: "person.2")) {
-                    LabeledButton(text: "Rate us",
+                Section(header: HFView(text: "Feedback".localized, imageName: "person.2")) {
+                    LabeledButton(text: "Rate us".localized,
                                   showChevron: true,
                                   action: { Armchair.rateApp() })
 
-                    LabeledButton(text: "Share about us",
+                    LabeledButton(text: "Share about us".localized,
                                   showChevron: true,
                                   action: { isSharePresented = true })
                         .sheet(isPresented: $isSharePresented,
@@ -51,8 +51,8 @@ struct SettingsCoordinatorView: View {
                         })
                 }
 
-                Section(header: HFView(text: "Sound Recording", imageName: "mic.circle")) {
-                    Stepper("Bitrate – \(bitrateValue)",
+                Section(header: HFView(text: "Sound Recording".localized, imageName: "mic.circle")) {
+                    Stepper(String(format: "Bitrate – %d".localized, bitrateValue),
                             value: $bitrateValue,
                             in: 1000...44000,
                             step: 1000) { _ in
@@ -60,7 +60,7 @@ struct SettingsCoordinatorView: View {
                         UserDefaults.standard.setInt(sleepGoalValue, forKey: .soundBitrate)
                     }
 
-                    Stepper("Min. confidence – \(recognisionConfidenceValue)",
+                    Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
                             value: $recognisionConfidenceValue,
                             in: 10...100,
                             step: 10) { _ in
@@ -70,7 +70,7 @@ struct SettingsCoordinatorView: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationBarTitle("Settings", displayMode: .large)
+            .navigationBarTitle("Settings".localized, displayMode: .large)
             .onAppear {
                 // TODO: если значения нет, то дефолтное не сохраняется в хранилище
                 // см TODO внутри get_integer
