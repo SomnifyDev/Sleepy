@@ -63,7 +63,7 @@ public struct CardTitleView: View {
                     if let mainText = mainText,
                        let mainTextColor = mainTextColor {
                         Text(mainText)
-                            .foregroundColor(mainTextColor)
+                            .cardDescriptionTextModifier(color: mainTextColor)
                     }
 
                     if showSeparator {
