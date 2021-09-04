@@ -11,7 +11,7 @@ import HealthKit
 
 public protocol HKStatistics {
 
-    func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double?
+    func getData(dataType: NumericDataType, indicatorType: IndicatorType, roundPlaces: Int) -> Double?
     func getData(for phasesStatType: PhasesStatisticsType) -> Any?
     func getData(for sleepStatType: SleepStatType) -> Int?
 
@@ -51,9 +51,9 @@ public final class HKStatisticsProvider: HKStatistics {
     // MARK: Functions
 
     /// Возвращает данные по сегодняшнему сну: сердцебиение, энергия с переданным индиктором
-    public func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double? {
+    public func getData(dataType: NumericDataType, indicatorType: IndicatorType, roundPlaces: Int = 2) -> Double? {
         guard let sleep = sleep else { return nil }
-        return numericTypesStatisticsProvider.handleNumericStatistic(for: dataType, of: indicatorType, sleep: sleep)
+        return numericTypesStatisticsProvider.handleNumericStatistic(for: dataType, of: indicatorType, sleep: sleep)?.rounded(toPlaces: roundPlaces)
     }
 
     /// Возвращает данные по фазам по сегодняшнему сну, параметр типа статистики

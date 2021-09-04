@@ -11,6 +11,7 @@
 		80653AA7268C61A500E1079A /* HKPhasesStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80653AA6268C61A500E1079A /* HKPhasesStatisticsProvider.swift */; };
 		80653AA9268C61CF00E1079A /* HKNumericStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80653AA8268C61CF00E1079A /* HKNumericStatisticsProvider.swift */; };
 		80653AAB268C61FD00E1079A /* HKGeneralStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80653AAA268C61FD00E1079A /* HKGeneralStatisticsProvider.swift */; };
+		809FFACD26E3C82F008AFE60 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809FFACC26E3C82F008AFE60 /* Double+Rounding.swift */; };
 		D96DBC2E2687126000A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC252687126000A0E018 /* HKStatistics.framework */; };
 		D96DBC332687126000A0E018 /* HKStatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DBC322687126000A0E018 /* HKStatisticsTests.swift */; };
 		D96DBC4C2687127D00A0E018 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DBC482687127D00A0E018 /* Enums.swift */; };
@@ -52,6 +53,7 @@
 		80653AA6268C61A500E1079A /* HKPhasesStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKPhasesStatisticsProvider.swift; sourceTree = "<group>"; };
 		80653AA8268C61CF00E1079A /* HKNumericStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKNumericStatisticsProvider.swift; sourceTree = "<group>"; };
 		80653AAA268C61FD00E1079A /* HKGeneralStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKGeneralStatisticsProvider.swift; sourceTree = "<group>"; };
+		809FFACC26E3C82F008AFE60 /* Double+Rounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
 		D96DBC252687126000A0E018 /* HKStatistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HKStatistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96DBC2D2687126000A0E018 /* HKStatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HKStatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96DBC322687126000A0E018 /* HKStatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKStatisticsTests.swift; sourceTree = "<group>"; };
@@ -94,6 +96,15 @@
 			path = "Sub Providers";
 			sourceTree = "<group>";
 		};
+		809FFACB26E3C81E008AFE60 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D96DBC602687BF4D00A0E018 /* Date+minutes.swift */,
+				809FFACC26E3C82F008AFE60 /* Double+Rounding.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D96DBC1B2687126000A0E018 = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +130,7 @@
 				D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */,
 				80653AA3268C615700E1079A /* Sub Providers */,
 				D96DBC482687127D00A0E018 /* Enums.swift */,
-				D96DBC602687BF4D00A0E018 /* Date+minutes.swift */,
+				809FFACB26E3C81E008AFE60 /* Extensions */,
 			);
 			path = HKStatistics;
 			sourceTree = "<group>";
@@ -255,6 +266,7 @@
 				80653AAB268C61FD00E1079A /* HKGeneralStatisticsProvider.swift in Sources */,
 				D96DBC4C2687127D00A0E018 /* Enums.swift in Sources */,
 				80653AA7268C61A500E1079A /* HKPhasesStatisticsProvider.swift in Sources */,
+				809FFACD26E3C82F008AFE60 /* Double+Rounding.swift in Sources */,
 				80653AA9268C61CF00E1079A /* HKNumericStatisticsProvider.swift in Sources */,
 				D96DBC4E2687127D00A0E018 /* HKStatisticsProvider.swift in Sources */,
 				80653AA5268C617D00E1079A /* HKSleepStatisticsProvider.swift in Sources */,
