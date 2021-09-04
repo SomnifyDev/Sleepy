@@ -49,8 +49,7 @@ struct SleepHistoryStatsView: View {
                                                                chartHeight: 75,
                                                                points: monthSleepPoints,
                                                                chartColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
-                                                               startTime: monthBeforeDateInterval.start.getFormattedDate(format: "dd.MM"),
-                                                               endTime: monthBeforeDateInterval.end.getFormattedDate(format: "dd.MM")),
+                                                               dateInterval: monthBeforeDateInterval),
                                   bottomView: EmptyView())
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
             }

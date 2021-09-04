@@ -40,14 +40,14 @@ public struct MotivationCellView: View {
             let motivation = array.filter {$0.type == type }.randomElement()
             if let motivation = motivation {
                 VStack {
-                    CardTitleView(colorProvider: colorProvider,
-                                  systemImageName: "zzz",
-                                  titleText: motivation.title,
+                    CardTitleView(titleText: motivation.title,
                                   mainText: motivation.description,
-                                  titleColor: getTypeColor(for: type),
+                                  leftIcon: Image(systemName: "zzz"),
+                                  rightIcon: Image(systemName: "chevron.right"),
+                                  titleColor: self.getTypeColor(for: type),
                                   mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                   showSeparator: true,
-                                  showChevron: true)
+                                  colorProvider: self.colorProvider)
                     HStack {
                         Text(motivation.link)
                             .linkTextModifier()

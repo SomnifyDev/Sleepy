@@ -9,10 +9,8 @@ import Foundation
 
 struct SummaryGeneralDataViewModel {
 
-    let sleepStart: String
-    let sleepEnd: String
-    let sleepDuration: String
-    let inBedDuration: String
-    let fallAsleepDuration: String
+    let sleepInterval: DateInterval
+    let inbedInterval: DateInterval
+    let sleepGoal: Int
     
 }

@@ -15,8 +15,7 @@ public struct CirclesChartView: View {
     private let chartHeight: CGFloat
     private let needOXLine: Bool
     private let needTimeLine: Bool
-    private let startTime: String?
-    private let endTime: String?
+    private let dateInterval: DateInterval?
     private let dragGestureEnabled: Bool
     private let colorProvider: ColorSchemeProvider
 
@@ -26,8 +25,7 @@ public struct CirclesChartView: View {
                 points: [Double],
                 chartColor: Color,
                 chartHeight: CGFloat,
-                startTime: String?,
-                endTime: String?,
+                dateInterval: DateInterval?,
                 needOXLine: Bool = true,
                 needTimeLine: Bool = true,
                 dragGestureEnabled: Bool = true) {
@@ -38,8 +36,7 @@ public struct CirclesChartView: View {
         self.needOXLine = needOXLine
         self.needTimeLine = needTimeLine
         self.dragGestureEnabled = dragGestureEnabled
-        self.startTime = startTime
-        self.endTime = endTime
+        self.dateInterval = dateInterval
     }
 
     public var body: some View {
@@ -89,8 +86,8 @@ public struct CirclesChartView: View {
                     })
 
                     if needTimeLine,
-                       let startTime = startTime,
-                       let endTime = endTime {
+                       let startTime = self.dateInterval?.start,
+                       let endTime = self.dateInterval?.end {
                         TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
                     }
                 }

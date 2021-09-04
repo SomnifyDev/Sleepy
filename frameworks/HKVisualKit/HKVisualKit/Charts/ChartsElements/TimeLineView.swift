@@ -10,10 +10,10 @@ import SwiftUI
 struct TimeLineView: View {
 
     private let colorProvider: ColorSchemeProvider
-    private let startTime: String
-    private let endTime: String
+    private let startTime: Date
+    private let endTime: Date
 
-    init(colorProvider: ColorSchemeProvider, startTime: String, endTime: String) {
+    init(colorProvider: ColorSchemeProvider, startTime: Date, endTime: Date) {
         self.colorProvider = colorProvider
         self.startTime = startTime
         self.endTime = endTime
@@ -21,10 +21,12 @@ struct TimeLineView: View {
 
     var body: some View {
         HStack {
-            Text(startTime)
+            Text("\(startTime)")
                 .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)), size: 10, opacity: 0.4)
+            
             Spacer()
-            Text(endTime)
+
+            Text("\(endTime)")
                 .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)), size: 10, opacity: 0.4)
         }
     }

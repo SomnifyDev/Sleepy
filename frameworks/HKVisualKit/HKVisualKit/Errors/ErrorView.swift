@@ -13,7 +13,7 @@ public struct ErrorView: View {
         case emptyData(type: HealthData)
         case brokenData(type: HealthData)
         case restrictedData(type: HealthData)
-        case advice(type: AdviceType, imageSystemName: String)
+        case advice(type: AdviceType, imageSystemName: String? = nil)
 
         public static func ==(lhs: ErrorType, rhs: ErrorType) -> Bool {
             switch (lhs, rhs) {
@@ -44,6 +44,8 @@ public struct ErrorView: View {
     private var titleText: String = ""
     private var dataText: String = ""
 
+    @State private var viewDidClose = false
+
     // MARK: Init
 
     public init(errorType: ErrorType, colorProvider: ColorSchemeProvider) {
@@ -56,39 +58,37 @@ public struct ErrorView: View {
     }
     
     public var body: some View {
+        if !viewDidClose {
         VStack {
             GeometryReader { geometry in
                 VStack(spacing: 8) {
 
-                    CardTitleView(colorProvider: colorProvider,
-                                  systemImageName: self.iconName,
-                                  titleText: self.titleText,
-                                  mainText: self.dataText,
-                                  navigationText: "Read FAQ",
-                                  titleColor: errorType == .advice(type: .some, imageSystemName: "")
-                                  ? self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
-                                  : self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                  mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                  showSeparator: errorType == .advice(type: .some, imageSystemName: ""),
-                                  showChevron: true)
+                        CardTitleView(titleText: self.titleText,
+                                      mainText: self.dataText,
+                                      leftIcon: Image(systemName: self.iconName),
+                                      rightIcon: Image(systemName: "xmark.circle"),
+                                      titleColor: errorType == .advice(type: .some, imageSystemName: "")
+                                      ? self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.adviceText))
+                                      : self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                      mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
+                                      showSeparator: errorType == .advice(type: .some, imageSystemName: ""),
+                                      colorProvider: self.colorProvider,
+                                      onCloseTapAction: {
+                            viewDidClose.toggle()
+                        })
 
-                    if errorType == .advice(type: .some, imageSystemName: "") {
-                        let a = self.getImageSystemName()
-                        Image(a)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 120)
-
-                        HStack {
-                            Text("User Guide - Sleepy")
-                                .linkTextModifier()
-                                .padding(.trailing, 8)
-                            Spacer()
-                            Text("Read more")
-                                .linkTextModifier()
-                                .padding(.trailing, 8)
+                        if errorType == .advice(type: .some, imageSystemName: ""),
+                           let imageSystemName = self.getImageSystemName() {
+                            Image(imageSystemName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 80)
+                                .padding([.leading, .trailing, .top, .bottom], 8)
+                                .background(Color.gray.opacity(0.08))
+                                .cornerRadius(12)
                         }
-                    }
+
+                        CardBottomSimpleDescriptionView(descriptionText: Text("Read more"), colorProvider: colorProvider, showChevron: true)
 
                 }
                 .frame(width: geometry.size.width)
@@ -96,7 +96,8 @@ public struct ErrorView: View {
             }
         }
         .frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+            //.frame(maxHeight: totalHeight) - variant for VStack
+        }
     }
     
     // MARK: Private Methods
@@ -122,7 +123,7 @@ public struct ErrorView: View {
         }
     }
 
-    private func getImageSystemName() -> String {
+    private func getImageSystemName() -> String? {
         switch self.errorType {
         case .emptyData(type: _),
                 .brokenData(type: _),

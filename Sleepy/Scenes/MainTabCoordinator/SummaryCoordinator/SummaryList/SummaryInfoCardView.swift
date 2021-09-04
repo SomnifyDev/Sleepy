@@ -1,4 +1,5 @@
 import SwiftUI
+import HKVisualKit
 
 public struct SummaryInfoCardView: View {
 
@@ -6,30 +7,24 @@ public struct SummaryInfoCardView: View {
     // = CGFloat.infinity - variant for VStack
 
     private let colorProvider: ColorSchemeProvider
-    private let sleepStartTime: String
-    private let sleepDuration: String
-    private let awakeTime: String
-    private let fallingAsleepDuration: String
+    private let viewModel: SummaryGeneralDataViewModel
 
-    public init(colorProvider: ColorSchemeProvider, sleepStartTime: String, sleepDuration: String, awakeTime: String, fallingAsleepDuration: String) {
+    init(viewModel: SummaryGeneralDataViewModel, colorProvider: ColorSchemeProvider) {
+        self.viewModel = viewModel
         self.colorProvider = colorProvider
-        self.sleepStartTime = sleepStartTime
-        self.sleepDuration = sleepDuration
-        self.awakeTime = awakeTime
-        self.fallingAsleepDuration = fallingAsleepDuration
     }
 
     public var body: some View {
         VStack {
             GeometryReader { geometry in
                 VStack {
-                    CardTitleView(colorProvider: colorProvider,
-                                  systemImageName: "zzz",
-                                  titleText: "Sleep: general",
+                    CardTitleView(titleText: "Sleep: general",
                                   mainText: "Here is the info about your last sleep.",
+                                  leftIcon: Image(systemName: "zzz"),
+                                  rightIcon: Image(systemName: "chevron.right"),
                                   titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
                                   mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                  showChevron: true)
+                                  colorProvider: self.colorProvider)
 
                     HStack {
                         VStack(alignment: .leading, spacing: 22) {
@@ -40,7 +35,7 @@ public struct SummaryInfoCardView: View {
                                                       width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(sleepStartTime)
+                                    Text(viewModel.sleepInterval.start.debugDescription)
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)))
 
                                     Text("Drop off")
@@ -55,7 +50,7 @@ public struct SummaryInfoCardView: View {
                                                       size: 27.5, width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(sleepDuration)
+                                    Text("\("viewModel.sleepDuration")")
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)))
 
                                     Text("Sleep duration")
@@ -75,7 +70,7 @@ public struct SummaryInfoCardView: View {
                                                       width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(awakeTime)
+                                    Text(viewModel.sleepInterval.end.debugDescription)
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)))
 
                                     Text("Awake")
@@ -90,7 +85,7 @@ public struct SummaryInfoCardView: View {
                                                       size: 27.5, width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(fallingAsleepDuration)
+                                    Text("viewModel.fallAsleepDuration")
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)))
 
                                     Text("Falling asleep")

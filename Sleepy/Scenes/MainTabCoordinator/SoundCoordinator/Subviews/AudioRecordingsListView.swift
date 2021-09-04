@@ -126,12 +126,12 @@ private struct RecordingRow: View {
     let colorProvider: ColorSchemeProvider
     var body: some View {
         VStack {
-            CardTitleView(colorProvider: colorProvider,
-                          systemImageName: "mic.circle.fill",
-                          titleText: "New_recording\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM_HH:mm") ?? "")",
+            CardTitleView(titleText: "New_recording\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM_HH:mm") ?? "")",
+                          leftIcon: Image(systemName: "mic.circle.fill"),
+                          rightIcon: Image(systemName: "chevron.right"),
                           titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
                           showSeparator: false,
-                          showChevron: true)
+                          colorProvider: colorProvider)
             HStack {
                 Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
                     .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))

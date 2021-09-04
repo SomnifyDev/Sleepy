@@ -36,11 +36,8 @@ struct SummaryListView: View {
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
-                            SummaryInfoCardView(colorProvider: viewModel.colorProvider,
-                                                sleepStartTime: generalViewModel.sleepStart,
-                                                sleepDuration: generalViewModel.sleepDuration,
-                                                awakeTime: generalViewModel.sleepEnd,
-                                                fallingAsleepDuration: generalViewModel.fallAsleepDuration)
+                            SummaryInfoCardView(viewModel: generalViewModel,
+                                colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .onNavigation {
                                     viewModel.open(.general)
@@ -70,8 +67,7 @@ struct SummaryListView: View {
                                                                            chartHeight: 75,
                                                                            points: phasesViewModel.phasesData,
                                                                            chartColor: nil,
-                                                                           startTime: generalViewModel.sleepStart,
-                                                                           endTime: generalViewModel.sleepEnd),
+                                                                           dateInterval: generalViewModel.sleepInterval),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The duration of light phase was ")
                                                                                           + Text(phasesViewModel.timeInLightPhase)
@@ -116,8 +112,7 @@ struct SummaryListView: View {
                                                                           points: heartViewModel.heartRateData,
                                                                           chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                                                           chartHeight: 100,
-                                                                          startTime: generalViewModel.sleepStart,
-                                                                          endTime: generalViewModel.sleepEnd),
+                                                                          dateInterval: generalViewModel.sleepInterval),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("The maximal heartbeat was ")
                                                                                           + Text(heartViewModel.maxHeartRate)
@@ -161,14 +156,12 @@ struct SummaryListView: View {
 
     private func getSleepData() {
         let provider = viewModel.statisticsProvider
-        let sleepDuration = provider.getData(for: .asleep)
-        let inBedDuration = provider.getData(for: .inBed)
+        guard let sleepInterval = provider.getTodaySleepIntervalBoundary(boundary: .asleep),
+              let inBedInterval = provider.getTodaySleepIntervalBoundary(boundary: .inbed) else { return }
 
-        generalViewModel = SummaryGeneralDataViewModel(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
-                                                       sleepEnd: provider.getTodaySleepIntervalBoundary(boundary: .end),
-                                                       sleepDuration: "\(sleepDuration / 60)h \(sleepDuration - (sleepDuration / 60) * 60)min",
-                                                       inBedDuration: "\(inBedDuration / 60)h \(inBedDuration - (inBedDuration / 60) * 60)min",
-                                                       fallAsleepDuration: provider.getTodayFallingAsleepDuration())
+        self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
+                                                            inbedInterval: inBedInterval,
+                                                            sleepGoal: UserDefaults.standard.getInt(forKey: .sleepGoal) ?? 480)
     }
 
     // MARK: Phases data
@@ -184,7 +177,7 @@ struct SummaryListView: View {
         }
 
         if !phasesData.isEmpty {
-            phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
+            self.phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
                                                          timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
                                                          timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
                                                          mostIntervalInLightPhase: "-",
@@ -208,7 +201,8 @@ struct SummaryListView: View {
             maxHeartRate = "\(Int(maxHR)) bpm"
             minHeartRate = "\(Int(minHR)) bpm"
             averageHeartRate = "\(Int(averageHR)) bpm"
-            heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
+            
+            self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
                                                        maxHeartRate: maxHeartRate,
                                                        minHeartRate: minHeartRate,
                                                        averageHeartRate: averageHeartRate)

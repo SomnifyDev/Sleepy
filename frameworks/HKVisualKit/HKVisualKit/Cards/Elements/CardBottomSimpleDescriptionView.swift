@@ -14,19 +14,29 @@ public struct CardBottomSimpleDescriptionView: View {
     
     private let descriptionText: Text
     private let colorProvider: ColorSchemeProvider
+    private let showChevron: Bool
 
-    public init(descriptionText: Text, colorProvider: ColorSchemeProvider) {
+    public init(descriptionText: Text, colorProvider: ColorSchemeProvider, showChevron: Bool = false) {
         self.descriptionText = descriptionText
         self.colorProvider = colorProvider
+        self.showChevron = showChevron
     }
 
     public var body: some View {
         VStack {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    descriptionText
-                        .cardBottomTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
-                        .padding(.top, 4)
+                    HStack {
+                        descriptionText
+                            .cardBottomTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+
+                        Spacer()
+
+                        if showChevron {
+                            Image(systemName: "chevron.right")
+                        }
+
+                    }.padding(.top, 4)
                 }.background(viewHeightReader($totalHeight))
             }
         }

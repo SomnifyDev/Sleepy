@@ -11,6 +11,7 @@
 		8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A526A1FA3600A7192A /* HistoryListView.swift */; };
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
+		8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
 		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
@@ -220,6 +221,7 @@
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
+		8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 		80780F4F266D4997000D0DD9 /* SummaryList */ = {
 			isa = PBXGroup;
 			children = (
+				8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */,
 				80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* SummaryListView.swift */,
 				D99FD91D26A9F4A500A66A85 /* ViewModels */,
@@ -1294,6 +1297,7 @@
 				80A765EA26C7FA1500A66554 /* AnalysisListView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
+				8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */,
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,

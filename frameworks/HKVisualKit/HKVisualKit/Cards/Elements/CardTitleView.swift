@@ -5,34 +5,37 @@ public struct CardTitleView: View {
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
-    private let colorProvider: ColorSchemeProvider
-    private let systemImageName: String
     private let titleText: String
-    private let navigationText: String?
     private let mainText: String?
+    private let leftIcon: Image
+    private let rightIcon: Image?
+    private let navigationText: String?
     private let titleColor: Color
     private let mainTextColor: Color?
-    private let showChevron: Bool
     private let showSeparator: Bool
+    private let colorProvider: ColorSchemeProvider
+    var onCloseTapAction: (() -> Void)?
 
-    public init(colorProvider: ColorSchemeProvider,
-                systemImageName: String,
-                titleText: String,
+    public init(titleText: String,
                 mainText: String? = nil,
+                leftIcon: Image,
+                rightIcon: Image? = nil,
                 navigationText: String? = nil,
                 titleColor: Color,
                 mainTextColor: Color? = nil,
                 showSeparator: Bool = true,
-                showChevron: Bool = false) {
-        self.colorProvider = colorProvider
-        self.systemImageName = systemImageName
+                colorProvider: ColorSchemeProvider,
+                onCloseTapAction: (() -> Void)? = nil) {
         self.titleText = titleText
         self.mainText = mainText
-        self.mainTextColor = mainTextColor
+        self.leftIcon = leftIcon
+        self.rightIcon = rightIcon
         self.navigationText = navigationText
         self.titleColor = titleColor
-        self.showChevron = showChevron
+        self.mainTextColor = mainTextColor
         self.showSeparator = showSeparator
+        self.colorProvider = colorProvider
+        self.onCloseTapAction = onCloseTapAction
     }
 
     public var body: some View {
@@ -40,7 +43,7 @@ public struct CardTitleView: View {
             GeometryReader { geometry in
                 VStack(alignment: .leading,spacing: 4) {
                     HStack {
-                        Image(systemName: systemImageName)
+                        leftIcon
                             .foregroundColor(titleColor)
 
                         Text(titleText)
@@ -54,9 +57,14 @@ public struct CardTitleView: View {
                                 .lineLimit(1)
                         }
 
-                        if showChevron {
-                            Image(systemName: "chevron.right")
+                        if let rightIcon = rightIcon {
+                            rightIcon
                                 .foregroundColor(titleColor)
+                                .onTapGesture {
+                                    if rightIcon == Image(systemName: "xmark.circle") {
+                                        self.onCloseTapAction?()
+                                    }
+                                }
                         }
                     }
 
@@ -84,11 +92,5 @@ public struct CardTitleView: View {
             }
             return .clear
         }
-    }
-}
-
-struct CardTitleView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardTitleView(colorProvider: ColorSchemeProvider(), systemImageName: "zzz", titleText: "Title", mainText: "Вот основнvые данные о вашем !!!!!!!!!", titleColor: .blue, mainTextColor: .red, showChevron: true)
     }
 }

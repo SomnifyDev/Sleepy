@@ -61,13 +61,7 @@ struct SleepyApp: App {
                                 }
                             } else {
                                 // сон не был прочитан успешно
-                                statisticsProvider = HKStatisticsProvider(sleep: Sleep(sleepInterval: DateInterval(),
-                                                                                       inBedInterval: DateInterval(),
-                                                                                       inBedSamples: nil,
-                                                                                       asleepSamples: nil,
-                                                                                       heartSamples: nil,
-                                                                                       energySamples: nil,
-                                                                                       phases: nil),
+                                statisticsProvider = HKStatisticsProvider(sleep: nil,
                                                                           healthService: hkService!)
                                 coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
 

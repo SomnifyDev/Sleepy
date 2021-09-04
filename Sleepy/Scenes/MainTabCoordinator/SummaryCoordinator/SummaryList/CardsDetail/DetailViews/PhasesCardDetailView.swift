@@ -28,8 +28,7 @@ struct PhasesCardDetailView: View {
                                               chartHeight: 75,
                                               points: phasesViewModel.phasesData,
                                               chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                              startTime: generalViewModel.sleepStart,
-                                              endTime: generalViewModel.sleepEnd)
+                                              dateInterval: generalViewModel.sleepInterval)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
 
@@ -63,14 +62,13 @@ struct PhasesCardDetailView: View {
 
     private func getSleepData() {
         let provider = viewModel.statisticsProvider
-        let sleepDuration = provider.getData(for: .asleep)
-        let inBedDuration = provider.getData(for: .inBed)
+        guard let sleepDuration = provider.getTodaySleepIntervalBoundary(boundary: .asleep),
+              let inBedDuration = provider.getTodaySleepIntervalBoundary(boundary: .inbed),
+              let goal = provider.getTodayFallingAsleepDuration() else { return }
 
-        generalViewModel = SummaryGeneralDataViewModel(sleepStart: provider.getTodaySleepIntervalBoundary(boundary: .start),
-                                                       sleepEnd: provider.getTodaySleepIntervalBoundary(boundary: .end),
-                                                       sleepDuration: "\(sleepDuration / 60)h \(sleepDuration - (sleepDuration / 60) * 60)min",
-                                                       inBedDuration: "\(inBedDuration / 60)h \(inBedDuration - (inBedDuration / 60) * 60)min",
-                                                       fallAsleepDuration: provider.getTodayFallingAsleepDuration())
+        generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepDuration,
+                                                       inbedInterval: inBedDuration,
+                                                       sleepGoal: goal)
     }
 
 

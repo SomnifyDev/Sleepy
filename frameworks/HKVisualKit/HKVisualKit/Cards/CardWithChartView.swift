@@ -38,8 +38,7 @@ public struct CardWithChartView<T: View, U: View>: View {
                                            chartHeight: 75,
                                            points: [13, 23, 10, 15, 30, 23, 25, 26, 30, 13, 23, 10, 15, 30, 23, 25, 26, 30,13, 23, 10, 15, 30, 23, 25, 26, 30],
                                            chartColor: color,
-                                           startTime: "",
-                                           endTime: "",
+                                           dateInterval: DateInterval(start: Date(), end: Date()),
                                            dragGestureEnabled: false) as! T
         self.bottomView = EmptyView() as! U
     }
@@ -48,13 +47,13 @@ public struct CardWithChartView<T: View, U: View>: View {
         VStack {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    CardTitleView(colorProvider: colorProvider,
-                                  systemImageName: systemImageName,
-                                  titleText: titleText,
-                                  mainText: mainTitleText,
-                                  titleColor: titleColor,
-                                  mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                  showChevron: showChevron)
+                    CardTitleView(titleText: self.titleText,
+                                  mainText: self.mainTitleText,
+                                  leftIcon: Image(systemName: self.systemImageName),
+                                  rightIcon: showChevron ? Image(systemName: "chevron.right") : nil,
+                                  titleColor: self.titleColor,
+                                  mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                                  colorProvider: self.colorProvider)
 
                     chartView
                         .padding(.top, 8)

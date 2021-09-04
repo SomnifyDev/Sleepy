@@ -13,7 +13,7 @@ public protocol HKStatistics {
 
     func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double?
     func getData(for phasesStatType: PhasesStatisticsType) -> Any?
-    func getData(for sleepStatType: SleepStatType) -> Int
+    func getData(for sleepStatType: SleepStatType) -> Int?
 
     func getDataByIntervalWithIndicator(healthType: HKService.HealthType,
                                         indicatorType: IndicatorType,
@@ -32,7 +32,7 @@ public final class HKStatisticsProvider: HKStatistics {
     // MARK: Properties
     
     private var healthService: HKService
-    private var sleep: Sleep
+    private var sleep: Sleep?
     
     // MARK: SubProviders
     
@@ -43,7 +43,7 @@ public final class HKStatisticsProvider: HKStatistics {
     
     // MARK: Initialization
     
-    public init(sleep: Sleep, healthService: HKService) {
+    public init(sleep: Sleep?, healthService: HKService) {
         self.sleep = sleep
         self.healthService = healthService
     }
@@ -52,21 +52,25 @@ public final class HKStatisticsProvider: HKStatistics {
 
     /// Возвращает данные по сегодняшнему сну: сердцебиение, энергия с переданным индиктором
     public func getData(dataType: NumericDataType, indicatorType: IndicatorType) -> Double? {
+        guard let sleep = sleep else { return nil }
         return numericTypesStatisticsProvider.handleNumericStatistic(for: dataType, of: indicatorType, sleep: sleep)
     }
 
     /// Возвращает данные по фазам по сегодняшнему сну, параметр типа статистики
     public func getData(for phasesStatType: PhasesStatisticsType) -> Any? {
+        guard let sleep = sleep else { return nil }
         return phasesStatisticsProvider.handlePhasesStatistic(of: phasesStatType, for: sleep.phases)
     }
 
     /// Возвращает длительность сна за сегодня
-    public func getData(for sleepStatType: SleepStatType) -> Int {
+    public func getData(for sleepStatType: SleepStatType) -> Int? {
+        guard let sleep = sleep else { return nil }
         return sleepStatisticsProvider.handleSleepStatistics(for: sleepStatType, sleep: sleep)
     }
 
     /// Возвращает массивы с обработанными данными за последний сон, записанный в Sleep
     public func getTodayData(of healthtype: HKService.HealthType) -> [Double] {
+        guard let sleep = sleep else { return [] }
         switch healthtype {
         case .energy:
             return generalStatisticsProvider.getData(for: .energy, sleepData: sleep.energySamples)
@@ -80,12 +84,14 @@ public final class HKStatisticsProvider: HKStatistics {
     }
 
     /// Возвращает границы сна (начало, конец)
-    public func getTodaySleepIntervalBoundary(boundary: SleepBoundaryType) -> String {
-        return sleepStatisticsProvider.getSleepIntervalBoundary(boundary: boundary, sleep: sleep)
+    public func getTodaySleepIntervalBoundary(boundary: SleepIntervalType) -> DateInterval? {
+        guard let sleep = sleep else { return nil }
+        return boundary == .inbed ? sleep.inBedInterval : sleep.sleepInterval
     }
 
     /// Возвращает время засыпания в минутах
-    public func getTodayFallingAsleepDuration() -> String {
+    public func getTodayFallingAsleepDuration() -> Int? {
+        guard let sleep = sleep else { return nil }
         return sleepStatisticsProvider.getFallingAsleepDuration(sleep: sleep)
     }
 

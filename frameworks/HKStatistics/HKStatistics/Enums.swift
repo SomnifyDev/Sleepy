@@ -47,9 +47,9 @@ public enum PhaseCondition {
     
 }
 
-public enum SleepBoundaryType {
+public enum SleepIntervalType {
 
-    case start
-    case end
+    case inbed
+    case asleep
 
 }

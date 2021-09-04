@@ -11,14 +11,13 @@ import SwiftUI
 public struct StandardChartView: View {
 
     @State private var selectedIndex = -1
-    @State private var elemWidth: CGFloat
+    @State private var elemWidth: CGFloat = 14
     private let chartHeight: CGFloat
     private let colorProvider: ColorSchemeProvider
     private let chartType: StandardChartType
     private let points: [Double]
     private let chartColor: Color?
-    private let startTime: String?
-    private let endTime: String?
+    private let dateInterval: DateInterval?
     private let needOXLine: Bool
     private let needTimeLine: Bool
     private let dragGestureEnabled: Bool
@@ -31,8 +30,7 @@ public struct StandardChartView: View {
                 chartHeight: CGFloat,
                 points: [Double],
                 chartColor: Color?,
-                startTime: String? = nil,
-                endTime: String? = nil,
+                dateInterval: DateInterval?,
                 needOXLine: Bool = true,
                 needTimeLine: Bool = true,
                 dragGestureEnabled: Bool = true) {
@@ -43,10 +41,8 @@ public struct StandardChartView: View {
         self.needOXLine = needOXLine
         self.chartType = chartType
         self.dragGestureEnabled = dragGestureEnabled
-        self.elemWidth = standardWidth
         self.needTimeLine = needTimeLine
-        self.startTime = startTime
-        self.endTime = endTime
+        self.dateInterval = dateInterval
     }
 
     public var body: some View {
@@ -85,8 +81,8 @@ public struct StandardChartView: View {
 
 
                 if needTimeLine,
-                   let startTime = startTime,
-                   let endTime = endTime {
+                   let startTime = dateInterval?.start,
+                   let endTime = dateInterval?.start {
                     TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
                 }
             }
