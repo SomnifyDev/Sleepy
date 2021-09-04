@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  HKVisualKit
+
+  Created by Никита Казанцев on 28.08.2021.
+  
+*/
+
+"Error occured" = "Error occured";
+"Read FAQ" = "Read FAQ";
+"data empty" = "data empty";
+"No data of type %@ was recieved" = "No data of type %@ was recieved";
+"There was not enought data to display your %@ charts. Try to sleep with Apple Watch More" = "There was not enought data to display your %@ charts. Try to sleep with Apple Watch More";
+"Sleepy was restricted from reading your %@ data. Fix that in your settings" = "Sleepy was restricted from reading your %@ data. Fix that in your settings";

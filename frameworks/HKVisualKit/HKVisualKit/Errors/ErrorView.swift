@@ -137,9 +137,9 @@ public struct ErrorView: View {
     private func getDataText() -> String {
         switch self.errorType {
         case .emptyData(type: let type):
-            return "No data of type \(type.rawValue) was recieved"
+            return String(format: "No data of type %@ was recieved".localized, type.rawValue)
         case .brokenData(type: let type):
-            return "There was not enought data to display your \(type.rawValue) charts. Try to sleep with Apple Watch More"
+            return String(format: "There was not enought data to display your %@ charts. Try to sleep with Apple Watch More".localized, type.rawValue)
         case .restrictedData(type: let type):
             return "Sleepy was restricted from reading your \(type.rawValue) data. Fix that in your settings"
         case .advice(type: let type, _):

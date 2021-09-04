@@ -20,6 +20,8 @@
 		8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A72698CA4800288D1A /* CircleChartElementView.swift */; };
 		8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */; };
 		8096A4B02698CA4800288D1A /* StandardChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A92698CA4800288D1A /* StandardChartElementView.swift */; };
+		80A3DC1A26DA52F400692EA4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80A3DC1C26DA52F400692EA4 /* Localizable.strings */; };
+		80A3DC1F26DA535E00692EA4 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
 		80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */; };
 		80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */; };
@@ -48,6 +50,8 @@
 		8096A4A72698CA4800288D1A /* CircleChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleChartElementView.swift; sourceTree = "<group>"; };
 		8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressElementView.swift; sourceTree = "<group>"; };
 		8096A4A92698CA4800288D1A /* StandardChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardChartElementView.swift; sourceTree = "<group>"; };
+		80A3DC1B26DA52F400692EA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
 		80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
 		80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyColorScheme.swift; sourceTree = "<group>"; };
 		80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewModifiers.swift"; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		80780F05266CE39F000D0DD9 = {
 			isa = PBXGroup;
 			children = (
+				80A3DC1C26DA52F400692EA4 /* Localizable.strings */,
 				80780F11266CE39F000D0DD9 /* HKVisualKit */,
 				80780F10266CE39F000D0DD9 /* Products */,
 			);
@@ -110,6 +115,7 @@
 		80780F11266CE39F000D0DD9 /* HKVisualKit */ = {
 			isa = PBXGroup;
 			children = (
+				80A3DC1D26DA535000692EA4 /* Extensions */,
 				8096A4A12698CA4800288D1A /* Charts */,
 				805D750D2692224400C19034 /* Cells */,
 				805D750526921E9000C19034 /* Cards */,
@@ -150,6 +156,14 @@
 				D9276A1B269ED27A004490FF /* TimeLineView.swift */,
 			);
 			path = ChartsElements;
+			sourceTree = "<group>";
+		};
+		80A3DC1D26DA535000692EA4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		80C0266B2670FACA00FAA125 /* Colors */ = {
@@ -258,6 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A3DC1A26DA52F400692EA4 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +294,7 @@
 				8096A4AA2698CA4800288D1A /* StandardChartView.swift in Sources */,
 				8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */,
 				D90BB4C4269DF8E0002E9E5A /* CardWithChartView.swift in Sources */,
+				80A3DC1F26DA535E00692EA4 /* String+Localizable.swift in Sources */,
 				8096A4AD2698CA4800288D1A /* VerticalProgressChartView.swift in Sources */,
 				805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */,
 				D9276A1C269ED27A004490FF /* TimeLineView.swift in Sources */,
@@ -295,6 +311,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		80A3DC1C26DA52F400692EA4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80A3DC1B26DA52F400692EA4 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		80780F15266CE39F000D0DD9 /* Debug */ = {

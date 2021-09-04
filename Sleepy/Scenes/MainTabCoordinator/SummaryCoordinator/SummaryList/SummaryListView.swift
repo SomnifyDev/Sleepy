@@ -32,7 +32,7 @@ struct SummaryListView: View {
                         }
 
                         if let generalViewModel = generalViewModel {
-                            CardNameTextView(text: "Sleep information",
+                            CardNameTextView(text: "Sleep information".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
@@ -50,7 +50,7 @@ struct SummaryListView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
-                        CardNameTextView(text: "Sleep session",
+                        CardNameTextView(text: "Sleep session".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         if let phasesViewModel = phasesViewModel,
@@ -58,8 +58,8 @@ struct SummaryListView: View {
 
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "sleep",
-                                              titleText: "Sleep: phases",
-                                              mainTitleText: "Here is the info about phases of your last sleep.",
+                                              titleText: "Phases".localized,
+                                              mainTitleText: "Here is some info about phases of your last sleep".localized,
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                               showChevron: true,
                                               chartView: StandardChartView(colorProvider: viewModel.colorProvider,
@@ -69,15 +69,7 @@ struct SummaryListView: View {
                                                                            chartColor: nil,
                                                                            dateInterval: generalViewModel.sleepInterval),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
-                                                                                            Text("The duration of light phase was ")
-                                                                                          + Text(phasesViewModel.timeInLightPhase)
-                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor)))
-                                                                                            .bold()
-                                                                                          + Text(", while the duration of deep phase was ")
-                                                                                          + Text(phasesViewModel.timeInDeepPhase)
-                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)))
-                                                                                            .bold()
-                                                                                          + Text("."), colorProvider: viewModel.colorProvider))
+                                                                                            Text(String(format: "Duration of light phase was %@, while the duration of deep sleep was %@".localized, phasesViewModel.timeInLightPhase, phasesViewModel.timeInDeepPhase)), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .onNavigation {
                                     viewModel.open(.phases)
@@ -96,7 +88,7 @@ struct SummaryListView: View {
                                 .blur(radius: 4)
                         }
 
-                        CardNameTextView(text: "Heart rate",
+                        CardNameTextView(text: "Heart rate".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         if let heartViewModel = heartViewModel,
@@ -104,8 +96,8 @@ struct SummaryListView: View {
                             
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "suit.heart.fill",
-                                              titleText: "Sleep: heart rate",
-                                              mainTitleText: "Here is the info about heart rate of your last sleep.",
+                                              titleText: "Heart".localized,
+                                              mainTitleText: "Here is some info about heart rate of your last sleep".localized,
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                               showChevron: true,
                                               chartView: CirclesChartView(colorProvider: viewModel.colorProvider,
@@ -114,15 +106,7 @@ struct SummaryListView: View {
                                                                           chartHeight: 100,
                                                                           dateInterval: generalViewModel.sleepInterval),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
-                                                                                            Text("The maximal heartbeat was ")
-                                                                                          + Text(heartViewModel.maxHeartRate)
-                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
-                                                                                            .bold()
-                                                                                          + Text(", while the minimal was ")
-                                                                                          + Text(heartViewModel.minHeartRate)
-                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
-                                                                                            .bold()
-                                                                                          + Text("."), colorProvider: viewModel.colorProvider))
+                                                                                            Text(String(format: "The maximal heartbeat was %@ bpm while the minimal was %@".localized, heartViewModel.minHeartRate, heartViewModel.maxHeartRate)), colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .onNavigation {
                                     viewModel.open(.heart)
@@ -144,7 +128,7 @@ struct SummaryListView: View {
                 }
             }
         }
-        .navigationTitle("Summary, \(Date().getFormattedDate(format: "MMM d"))")
+        .navigationTitle("\("Summary".localized), \(Date().getFormattedDate(format: "MMM d"))")
         .onAppear {
             getSleepData()
             getPhasesData()
@@ -232,5 +216,4 @@ struct SummaryListView: View {
 
         return shortData
     }
-
 }

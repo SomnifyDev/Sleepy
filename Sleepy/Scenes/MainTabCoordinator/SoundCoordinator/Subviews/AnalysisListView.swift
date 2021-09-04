@@ -24,13 +24,13 @@ struct AnalysisListView: View {
                 ScrollView(.vertical, showsIndicators: false) {
 
                     VStack(alignment: .center, spacing: 2) {
-                        CardNameTextView(text: "Recognized sounds",
+                        CardNameTextView(text: "Recognized sounds".localized,
                                          color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                             .padding([.top, .bottom])
 
                         ForEach(result, id: \.self) { item in
                             VStack {
-                                CardTitleView(titleText: item.soundType,
+                                        CardTitleView(titleText: item.soundType,
                                               mainText: "\(String(format: "%.2f",item.confidence))% confidence",
                                               leftIcon: Image(systemName: "waveform"),
                                               navigationText: self.getDescription(item: item, date: endDate),
@@ -48,7 +48,7 @@ struct AnalysisListView: View {
                     }
                 }
             }.navigationTitle(endDate?.getFormattedDate(format: "MMM d") ?? "")
-                .navigationBarItems(trailing: Button("Done",
+                .navigationBarItems(trailing: Button("Done".localized,
                                                      action: { showSheetView = false }))
         }
     }

@@ -19,6 +19,8 @@ struct SleepyApp: App {
     @State var hasOpenedURL = false
     @State var canShowApp: Bool = false
 
+    @State var sleep: Sleep?
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     // MARK: Scenes
@@ -28,10 +30,21 @@ struct SleepyApp: App {
             if canShowApp {
                 RootCoordinatorView(viewModel: coordinator!)
                     .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
+                        self.hkService?.readData(type: .asleep, interval: interval, ascending: false, bundlePrefixes: ["com.apple"], completionHandler: { _, samples, error in
+                            guard error == nil,
+                                  let sample = samples?.first,
+                                  let sleep = self.sleep  else { return }
+                            if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
+                                canShowApp = false
+                            }
+                        })
+                    }
                 //.onOpenURL { coordinator!.startDeepLink(from: $0) }
                 //.onAppear { simulateURLOpening() }
             } else {
-                Text("Loading")
+                Text("Loading".localized)
                     .onAppear {
                         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")
@@ -44,6 +57,7 @@ struct SleepyApp: App {
 
                         sleepDetectionProvider?.retrieveData { sleep in
                             if let sleep = sleep {
+                                self.sleep = sleep
                                 showDebugSleepDuration(sleep)
 
                                 statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)

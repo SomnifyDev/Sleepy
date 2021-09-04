@@ -12,24 +12,24 @@ struct RootCoordinatorView: View {
     var body: some View {
         TabView(selection: $viewModel.tab) {
             SummaryNavigationCoordinatorView(viewModel: viewModel.summaryCoordinator)
-                .tabItem { Label("summary", systemImage: "bed.double.fill") }
+                .tabItem { Label("summary".localized, systemImage: "bed.double.fill") }
                 .tag(TabBarTab.summary)
             
             HistoryCoordinatorView(coordinator: viewModel.historyCoordinator)
-                .tabItem { Label("history", systemImage: "calendar") }
+                .tabItem { Label("history".localized, systemImage: "calendar") }
                 .tag(TabBarTab.history)
             
             AlarmCoordinatorView(coordinator: viewModel.alarmCoordinator)
-                .tabItem { Label("alarm", systemImage: "alarm.fill") }
+                .tabItem { Label("alarm".localized, systemImage: "alarm.fill") }
                 .tag(TabBarTab.alarm)
 
 
             SoundsCoordinatorView(viewModel: viewModel.soundsCoordinator)
-                .tabItem { Label("sounds", systemImage: "mic") }
+                .tabItem { Label("sounds".localized, systemImage: "mic") }
                 .tag(TabBarTab.soundRecognision)
 
             SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
-                .tabItem { Label("settings", systemImage: "gear") }
+                .tabItem { Label("settings".localized, systemImage: "gear") }
                 .tag(TabBarTab.settings)
         }
     }

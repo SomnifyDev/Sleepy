@@ -19,7 +19,6 @@ struct SleepHistoryStatsView: View {
         self.colorProvider = colorProvider
     }
 
-
     /// Use for shimmers only
     init(colorProvider: ColorSchemeProvider) {
         self.viewModel = SleepHistoryStatsViewModel(cellData: [StatisticsCellData(title: "some data", value: "14.243")],
@@ -40,8 +39,8 @@ struct SleepHistoryStatsView: View {
             let monthBeforeDateInterval = viewModel.monthBeforeDateInterval {
                 CardWithChartView(colorProvider: colorProvider,
                                   systemImageName: "sleep",
-                                  titleText: "Month sleep duration",
-                                  mainTitleText: "Here is the info about your month sleep sessions",
+                                  titleText: "Month sleep duration".localized,
+                                  mainTitleText: "Here is some info about your month sleep sessions".localized,
                                   titleColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                   showChevron: false,
                                   chartView: StandardChartView(colorProvider: colorProvider,
