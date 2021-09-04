@@ -16,31 +16,6 @@ enum TabBarTab: String {
     case settings
 }
 
-// MARK: - Protocol
-
-protocol RootCoordinator: ViewModel {
-    
-    var tab: TabBarTab { get set }
-
-    var summaryCoordinator: SummaryNavigationCoordinator! { get }
-    var historyCoordinator: HistoryCoordinator! { get }
-    var alarmCoordinator: AlarmCoordinator! { get }
-    var settingsCoordinator: SettingsCoordinator! { get }
-    var soundsCoordinator: SoundsCoordinator! { get }
-
-    var colorSchemeProvider: ColorSchemeProvider { get }
-    var statisticsProvider: HKStatisticsProvider { get }
-    var hkStoreService: HKService { get }
-    var cardService: CardService { get }
-
-    var openedURL: URL? { get set }
-    
-    func startDeepLink(from url: URL)
-    
-    func open(_ url: URL)
-    
-}
-
 extension RootCoordinator {
     
     @DeepLinkableBuilder
@@ -54,11 +29,8 @@ extension RootCoordinator {
     
 }
 
-// MARK: - Implementation
 
-class RootCoordinatorImpl: ObservableObject, RootCoordinator {
-    
-    // MARK: Stored Properties
+class RootCoordinator: ObservableObject, ViewModel {
     
     @Published var tab = TabBarTab.summary
     @Published var openedURL: URL?
@@ -72,54 +44,45 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
     var colorSchemeProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
     var hkStoreService: HKService
-    var cardService: CardService
-    
-    // MARK: Initialization
     
     init(colorSchemeProvider: ColorSchemeProvider,
          statisticsProvider: HKStatisticsProvider,
-         hkStoreService: HKService,
-         cardService: CardService) {
+         hkStoreService: HKService) {
         // наш главный координатор таббара получил сервисы
         self.colorSchemeProvider = colorSchemeProvider
         self.statisticsProvider = statisticsProvider
-        self.cardService = cardService
         self.hkStoreService = hkStoreService
         
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
-        self.summaryCoordinator = SummaryNavigationCoordinatorImpl(
+        self.summaryCoordinator = SummaryNavigationCoordinator(
             colorProvider: colorSchemeProvider,
             statisticsProvider: statisticsProvider,
             title: "main list",
             hkStoreService: hkStoreService,
-            cardService: cardService,
-            parent: self,
-            filter: { _ in true }
+            parent: self
         )
         
-        self.historyCoordinator = HistoryCoordinatorImpl(
+        self.historyCoordinator = HistoryCoordinator(
             title: "history",
             colorSchemeProvider: colorSchemeProvider,
             statisticsProvider: statisticsProvider,
             parent: self)
         
-        self.alarmCoordinator = AlarmCoordinatorImpl(
+        self.alarmCoordinator = AlarmCoordinator(
             title: "alarm",
             parent: self)
 
-        self.soundsCoordinator = SoundsCoordinatorImpl(
+        self.soundsCoordinator = SoundsCoordinator(
             title: "sounds",
             colorSchemeProvider: colorSchemeProvider,
             parent: self)
         
-        self.settingsCoordinator = SettingsCoordinatorImpl(
+        self.settingsCoordinator = SettingsCoordinator(
             title: "settings",
             parent: self)
 
     }
-    
-    // MARK: Internal Methods
     
     func open(_ url: URL) {
         self.openedURL = url
@@ -160,15 +123,12 @@ class RootCoordinatorImpl: ObservableObject, RootCoordinator {
         }
     }
     
-    // MARK: Private Methods
-    
     func openCard(for cardType: SummaryViewCardType) {
         // этот момент (строчку 111) я пока детально не зашарил, но давай просто осознаем общую логику:
         // тут мы делегируем открытие карточки дальше по цепочке
         // теперь это задача для роутера экрана со списком карточек
         
-        let feedListCoordinator = firstReceiver(as: SummaryNavigationCoordinator.self,
-                                                where: { $0.filter(cardType) })
+        let feedListCoordinator = firstReceiver(as: SummaryNavigationCoordinator.self)
         feedListCoordinator!.open(cardType)
     }
     

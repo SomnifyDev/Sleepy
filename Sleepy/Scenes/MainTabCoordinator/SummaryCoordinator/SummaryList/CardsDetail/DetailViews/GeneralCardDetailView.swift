@@ -6,15 +6,12 @@ import XUI
 
 struct GeneralCardDetailView: View {
 
-    // MARK: Stored Propertie
-
+    
+    @EnvironmentObject var cardService: CardService
     @Store var viewModel: CardDetailViewCoordinator
 
-    // MARK: State properties
-
-    @State var generalViewModel: SummaryGeneralDataViewModel?
-    @State var bankOfSleepViewModel: BankOfSleepDataViewModel?
-    // MARK: Body
+    
+    
 
     var body: some View {
         GeometryReader { geometry in
@@ -26,7 +23,7 @@ struct GeneralCardDetailView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center) {
 
-                        if let bankOfSleepViewModel = bankOfSleepViewModel {
+                        if let bankOfSleepViewModel = cardService.bankOfSleepViewModel {
                             CardNameTextView(text: "Bank",
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
@@ -52,15 +49,16 @@ struct GeneralCardDetailView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
-                        if let generalViewModel = generalViewModel {
+                        if let generalViewModel = cardService.generalViewModel {
                             CardNameTextView(text: "Summary".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-                            HorizontalStatisticCellView(data: [StatisticsCellData(title: "Sleep start".localized, value: generalViewModel.sleepInterval.start.debugDescription),
-                                                               StatisticsCellData(title: "Wake up".localized, value: "generalViewModel.sleepEnd"),
-                                                               StatisticsCellData(title: "Fall asleep".localized, value: "generalViewModel.fallAsleepDuration"),
-                                                               StatisticsCellData(title: "Time asleep".localized, value: "generalViewModel.sleepDuration"),
-                                                               StatisticsCellData(title: "Time in bed".localized, value: "generalViewModel.inBedDuration")
+                            HorizontalStatisticCellView(data: [StatisticsCellData(title: "Sleep start".localized, value: generalViewModel.sleepInterval.start.getFormattedDate(format: "HH:mm")),
+                                                               StatisticsCellData(title: "Wake up".localized, value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")),
+                                                               StatisticsCellData(title: "Fall asleep".localized, value: generalViewModel.sleepInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start)),
+                                                               StatisticsCellData(title: "Time asleep".localized, value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)),
+                                                               StatisticsCellData(title: "Time in bed".localized,
+                                                                                  value: generalViewModel.inbedInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start))
                                                               ],
                                                         colorScheme: viewModel.colorProvider.sleepyColorScheme)
 
@@ -68,14 +66,15 @@ struct GeneralCardDetailView: View {
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                             ProgressChartView(titleText: "Sleep: goal".localized,
-                                              mainText: String(format: "Your sleep duration was %@, it is %d of your goal".localized, generalViewModel.sleepInterval.duration.debugDescription,  ((generalViewModel.sleepInterval.duration / 60.0) - Double(generalViewModel.sleepGoal)) / 100.0),
+                                              mainText: String(format: "Your sleep duration was %@, it is %d of your goal".localized,
+                                                               generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start),  ((generalViewModel.sleepInterval.duration / 60.0) - Double(generalViewModel.sleepGoal)) / 100.0),
                                               systemImage: "zzz",
                                               colorProvider: viewModel.colorProvider,
                                               currentProgress: ProgressItem(title: "Your sleep goal".localized,
                                                                             text: Date.minutesToClearString(minutes: generalViewModel.sleepGoal),
                                                                             value: generalViewModel.sleepGoal),
                                               beforeProgress: ProgressItem(title: "Sleep duration today".localized,
-                                                                           text: String(generalViewModel.sleepInterval.duration / 60),
+                                                                           text: Date.minutesToClearString(minutes: Int(generalViewModel.sleepInterval.duration) / 60),
                                                                            value: Int(generalViewModel.sleepInterval.duration) / 60),
                                               analysisString: getAnalysisString(),
                                               mainColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
@@ -97,62 +96,14 @@ struct GeneralCardDetailView: View {
             }
             .navigationTitle("\(Date().getFormattedDate(format: "E, MMMM d"))")
         }
-        .onAppear {
-            getSleepData()
-            getbankOfSleepInfo()
-        }
     }
-
-    // MARK: Sleep data
-
-    private func getSleepData() {
-        let provider = viewModel.statisticsProvider
-        guard let sleepInterval = provider.getTodaySleepIntervalBoundary(boundary: .asleep),
-              let inBedInterval = provider.getTodaySleepIntervalBoundary(boundary: .inbed),
-        let goal = provider.getTodayFallingAsleepDuration() else { return }
-
-        self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval, inbedInterval: inBedInterval, sleepGoal: goal)
-    }
-
-    private func getbankOfSleepInfo() {
-        let provider = viewModel.statisticsProvider
-        guard
-            let sleepGoal = provider.getTodayFallingAsleepDuration(),
-            let twoWeeksBackDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
-        else {
-            return
-        }
-        provider.getDataByInterval(healthType: .asleep, for: DateInterval(start: twoWeeksBackDate, end: Date()), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
-            if data.count == 14 {
-
-                let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
-
-                let backlogValue = Int(data.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
-                let backlogString = Date.minutesToClearString(minutes: backlogValue)
-
-                let timeToCloseDebtValue = backlogValue / 14 + sleepGoal
-                let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
-
-                self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
-                                                                     backlog: backlogString,
-                                                                     timeToCloseDebt: timeToCloseDebtString)
-            }
-        }
-    }
-
-    //Double(sleepGoal)) * 100
-//    private func getGoalPercentage() -> Int {
-//        guard viewModel.statisticsProvider.getData(for: .asleep) else { return }
-//        let sleepGoal = getSleepGoal()
-//        return Int((Double(viewModel.statisticsProvider.getData(for: .asleep)) / Double(sleepGoal)) * 100)
-//    }
 
     // MARK: Addittional methods
 
     private func getAnalysisString() -> String {
         let provider = viewModel.statisticsProvider
         guard let sleepGoal = provider.getTodayFallingAsleepDuration(),
-        let sleepDuration = viewModel.statisticsProvider.getData(for: .asleep) else { return "" }
+              let sleepDuration = viewModel.statisticsProvider.getData(for: .asleep) else { return "" }
         let sleepGoalPercentage =  Int((Double(sleepDuration) / Double(sleepGoal)) * 100)
         if sleepGoalPercentage < 80 {
             return "Pay more attention to your sleep to be more healthy and productive every day!".localized

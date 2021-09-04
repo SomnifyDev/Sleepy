@@ -21,12 +21,12 @@ struct TimeLineView: View {
 
     var body: some View {
         HStack {
-            Text("\(startTime)")
+            Text(startTime.getFormattedDate(format: "HH:mm"))
                 .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)), size: 10, opacity: 0.4)
             
             Spacer()
 
-            Text("\(endTime)")
+            Text(endTime.getFormattedDate(format: "HH:mm"))
                 .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)), size: 10, opacity: 0.4)
         }
     }

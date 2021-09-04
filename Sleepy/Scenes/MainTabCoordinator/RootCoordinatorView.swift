@@ -3,11 +3,7 @@ import XUI
 
 struct RootCoordinatorView: View {
     
-    // MARK: Stored Properties
-    
     @Store var viewModel: RootCoordinator
-
-    // MARK: Views
     
     var body: some View {
         TabView(selection: $viewModel.tab) {
@@ -15,14 +11,13 @@ struct RootCoordinatorView: View {
                 .tabItem { Label("summary".localized, systemImage: "bed.double.fill") }
                 .tag(TabBarTab.summary)
             
-            HistoryCoordinatorView(coordinator: viewModel.historyCoordinator)
+            HistoryCoordinatorView(viewModel: viewModel.historyCoordinator)
                 .tabItem { Label("history".localized, systemImage: "calendar") }
                 .tag(TabBarTab.history)
             
-            AlarmCoordinatorView(coordinator: viewModel.alarmCoordinator)
+            AlarmCoordinatorView(viewModel: viewModel.alarmCoordinator)
                 .tabItem { Label("alarm".localized, systemImage: "alarm.fill") }
                 .tag(TabBarTab.alarm)
-
 
             SoundsCoordinatorView(viewModel: viewModel.soundsCoordinator)
                 .tabItem { Label("sounds".localized, systemImage: "mic") }

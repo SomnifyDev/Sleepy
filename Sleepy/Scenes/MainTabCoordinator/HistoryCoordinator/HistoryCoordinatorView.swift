@@ -11,17 +11,15 @@ import HKVisualKit
 
 struct HistoryCoordinatorView: View {
     
-    // MARK: Stored Properties
-    
-    @Store var coordinator: HistoryCoordinator
+    @Store var viewModel: HistoryCoordinator
 
     @State private var calendarType: HealthData = .sleep
 
-    // MARK: Views
+    
     
     var body: some View {
         NavigationView {
-            HistoryListView(viewModel: coordinator, calendarType: $calendarType)
+            HistoryListView(viewModel: viewModel, calendarType: $calendarType)
         }.navigationTitle("History")
     }
 }

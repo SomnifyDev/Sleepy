@@ -20,6 +20,7 @@
 		8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A72698CA4800288D1A /* CircleChartElementView.swift */; };
 		8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */; };
 		8096A4B02698CA4800288D1A /* StandardChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A92698CA4800288D1A /* StandardChartElementView.swift */; };
+		809FFACF26E41ED3008AFE60 /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809FFACE26E41ED3008AFE60 /* Date+Components.swift */; };
 		80A3DC1A26DA52F400692EA4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80A3DC1C26DA52F400692EA4 /* Localizable.strings */; };
 		80A3DC1F26DA535E00692EA4 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
@@ -50,6 +51,7 @@
 		8096A4A72698CA4800288D1A /* CircleChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleChartElementView.swift; sourceTree = "<group>"; };
 		8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressElementView.swift; sourceTree = "<group>"; };
 		8096A4A92698CA4800288D1A /* StandardChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardChartElementView.swift; sourceTree = "<group>"; };
+		809FFACE26E41ED3008AFE60 /* Date+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
 		80A3DC1B26DA52F400692EA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
 		80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */,
+				809FFACE26E41ED3008AFE60 /* Date+Components.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				8096A4AD2698CA4800288D1A /* VerticalProgressChartView.swift in Sources */,
 				805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */,
 				D9276A1C269ED27A004490FF /* TimeLineView.swift in Sources */,
+				809FFACF26E41ED3008AFE60 /* Date+Components.swift in Sources */,
 				805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */,
 				8002F3AD26A2212700A7192A /* MotivationCellView.swift in Sources */,
 				805D751126922E9400C19034 /* ProgressChartView.swift in Sources */,

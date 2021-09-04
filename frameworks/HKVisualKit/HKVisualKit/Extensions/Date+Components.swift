@@ -1,3 +1,10 @@
+//
+//  Date+Components.swift
+//  Date+Components
+//
+//  Created by Никита Казанцев on 05.09.2021.
+//
+
 import Foundation
 
 extension Date {
@@ -13,5 +20,5 @@ extension Date {
         dateformat.dateFormat = format
         return dateformat.string(from: self)
     }
-    
+
 }

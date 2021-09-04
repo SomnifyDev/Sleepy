@@ -79,7 +79,6 @@ public struct StandardChartView: View {
                     selectedIndex = -1
                 })
 
-
                 if needTimeLine,
                    let startTime = dateInterval?.start,
                    let endTime = dateInterval?.start {

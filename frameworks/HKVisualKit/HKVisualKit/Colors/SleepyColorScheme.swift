@@ -17,7 +17,7 @@ public protocol HKApplicationColorScheme {
 
 }
 
-// MARK: - Implementation
+
 
 public final class SleepyColorScheme: HKApplicationColorScheme {
 
@@ -60,7 +60,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     // charts
     private let verticalProgressChartElementColor: Color
 
-    // MARK: init
+    
     
     init() {
         appBackgroundColor = Color("backgroundColor")

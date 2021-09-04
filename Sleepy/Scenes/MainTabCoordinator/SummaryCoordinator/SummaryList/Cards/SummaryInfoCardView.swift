@@ -35,7 +35,7 @@ public struct SummaryInfoCardView: View {
                                                       width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(viewModel.sleepInterval.start.debugDescription)
+                                    Text(viewModel.sleepInterval.start.getFormattedDate(format: "HH:mm"))
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)))
 
                                     Text("Drop off".localized)
@@ -50,7 +50,7 @@ public struct SummaryInfoCardView: View {
                                                       size: 27.5, width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text("\("viewModel.sleepDuration")")
+                                    Text(viewModel.sleepInterval.end.hoursMinutes(from: viewModel.sleepInterval.start))
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)))
 
                                     Text("Sleep duration".localized)
@@ -70,7 +70,7 @@ public struct SummaryInfoCardView: View {
                                                       width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(viewModel.sleepInterval.end.debugDescription)
+                                    Text(self.viewModel.sleepInterval.end.getFormattedDate(format: "HH:mm"))
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)))
 
                                     Text("Awake".localized)
@@ -85,7 +85,7 @@ public struct SummaryInfoCardView: View {
                                                       size: 27.5, width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text("viewModel.fallAsleepDuration")
+                                    Text(self.viewModel.sleepInterval.start.hoursMinutes(from: viewModel.inbedInterval.start))
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)))
 
                                     Text("Falling asleep")

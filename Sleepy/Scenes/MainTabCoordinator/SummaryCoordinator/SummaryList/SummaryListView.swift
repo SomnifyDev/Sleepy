@@ -4,17 +4,19 @@ import HKVisualKit
 
 struct SummaryListView: View {
 
-    // MARK: Stored Propertie
+    
 
     @Store var viewModel: SummaryListCoordinator
 
-    // MARK: State Properties
+    @EnvironmentObject var cardService: CardService
+
+    
 
     @State private var generalViewModel: SummaryGeneralDataViewModel?
     @State private var phasesViewModel: SummaryPhasesDataViewModel?
     @State private var heartViewModel: SummaryHeartDataViewModel?
     @State private var somethingBroken = false
-    // MARK: View
+    
 
     var body: some View {
         GeometryReader { geometry in
@@ -31,13 +33,13 @@ struct SummaryListView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
-                        if let generalViewModel = generalViewModel {
+                        if let generalViewModel = cardService.generalViewModel {
                             CardNameTextView(text: "Sleep information".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
                             SummaryInfoCardView(viewModel: generalViewModel,
-                                colorProvider: viewModel.colorProvider)
+                                                colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .onNavigation {
                                     viewModel.open(.general)
@@ -53,8 +55,8 @@ struct SummaryListView: View {
                         CardNameTextView(text: "Sleep session".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-                        if let phasesViewModel = phasesViewModel,
-                           let generalViewModel = generalViewModel {
+                        if let phasesViewModel = cardService.phasesViewModel,
+                           let generalViewModel = cardService.generalViewModel {
 
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "sleep",
@@ -91,8 +93,8 @@ struct SummaryListView: View {
                         CardNameTextView(text: "Heart rate".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-                        if let heartViewModel = heartViewModel,
-                           let generalViewModel = generalViewModel {
+                        if let heartViewModel = cardService.heartViewModel,
+                           let generalViewModel = cardService.generalViewModel {
                             
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "suit.heart.fill",
@@ -129,91 +131,5 @@ struct SummaryListView: View {
             }
         }
         .navigationTitle("\("Summary".localized), \(Date().getFormattedDate(format: "MMM d"))")
-        .onAppear {
-            getSleepData()
-            getPhasesData()
-            getHeartData()
-        }
-    }
-
-    // MARK: Sleep data
-
-    private func getSleepData() {
-        let provider = viewModel.statisticsProvider
-        guard let sleepInterval = provider.getTodaySleepIntervalBoundary(boundary: .asleep),
-              let inBedInterval = provider.getTodaySleepIntervalBoundary(boundary: .inbed) else { return }
-
-        self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
-                                                            inbedInterval: inBedInterval,
-                                                            sleepGoal: UserDefaults.standard.getInt(forKey: .sleepGoal) ?? 480)
-    }
-
-    // MARK: Phases data
-
-    private func getPhasesData() {
-        let provider = viewModel.statisticsProvider
-        guard
-            let deepSleepMinutes = provider.getData(for: .deepPhaseTime) as? Int,
-            let lightSleepMinutes = provider.getData(for: .lightPhaseTime) as? Int,
-            let phasesData = provider.getData(for: .phasesData) as? [Double]
-        else {
-            return
-        }
-
-        if !phasesData.isEmpty {
-            self.phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
-                                                         timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
-                                                         timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
-                                                         mostIntervalInLightPhase: "-",
-                                                         mostIntervalInDeepPhase: "-")
-        } else {
-            self.somethingBroken = true
-        }
-    }
-
-    // MARK: Heart data
-
-    private func getHeartData() {
-        let provider = viewModel.statisticsProvider
-        var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-        let heartRateData = getShortHeartRateData(heartRateData: provider.getTodayData(of: .heart))
-
-        if !heartRateData.isEmpty,
-           let maxHR = provider.getData(dataType: .heart, indicatorType: .max),
-           let minHR = provider.getData(dataType: .heart, indicatorType: .min),
-           let averageHR = provider.getData(dataType: .heart, indicatorType: .mean) {
-            maxHeartRate = "\(Int(maxHR)) bpm"
-            minHeartRate = "\(Int(minHR)) bpm"
-            averageHeartRate = "\(Int(averageHR)) bpm"
-            
-            self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
-                                                       maxHeartRate: maxHeartRate,
-                                                       minHeartRate: minHeartRate,
-                                                       averageHeartRate: averageHeartRate)
-        } else {
-            self.somethingBroken = true
-        }
-    }
-
-    private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
-        guard
-            heartRateData.count > 25
-        else {
-            return heartRateData
-        }
-
-        let stackCapacity = heartRateData.count / 25
-        var shortData: [Double] = []
-
-        for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
-            var mean: Double = 0.0
-            for stackIndex in index..<index+stackCapacity {
-                guard stackIndex < heartRateData.count else { return shortData }
-                mean += heartRateData[stackIndex]
-            }
-            shortData.append(mean / Double(stackCapacity))
-        }
-
-        return shortData
     }
 }

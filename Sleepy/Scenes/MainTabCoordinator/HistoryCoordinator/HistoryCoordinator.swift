@@ -10,23 +10,7 @@ import XUI
 import HKVisualKit
 import HKStatistics
 
-// MARK: Protocol
-
-protocol HistoryCoordinator: ViewModel {
-
-    var colorSchemeProvider: ColorSchemeProvider { get }
-    var statisticsProvider: HKStatisticsProvider { get }
-
-    var openedURL: URL? { get set }
-    func open(_ url: URL)
-    
-}
-
-// MARK: - Implementation
-
-class HistoryCoordinatorImpl: ObservableObject, HistoryCoordinator {
-    
-    // MARK: Stored Properties
+class HistoryCoordinator: ObservableObject, ViewModel {
     
     @Published var openedURL: URL?
     @Published private(set) var viewModel: HistoryCoordinatorView!
@@ -36,7 +20,7 @@ class HistoryCoordinatorImpl: ObservableObject, HistoryCoordinator {
 
     private unowned let parent: RootCoordinator
     
-    // MARK: Initialization
+    
     
     init(title: String,
          colorSchemeProvider: ColorSchemeProvider,
@@ -48,7 +32,7 @@ class HistoryCoordinatorImpl: ObservableObject, HistoryCoordinator {
         self.statisticsProvider = statisticsProvider
         
         self.viewModel = HistoryCoordinatorView(
-            coordinator: self
+            viewModel: self
         )
     }
     

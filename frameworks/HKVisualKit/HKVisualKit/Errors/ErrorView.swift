@@ -46,7 +46,7 @@ public struct ErrorView: View {
 
     @State private var viewDidClose = false
 
-    // MARK: Init
+    
 
     public init(errorType: ErrorType, colorProvider: ColorSchemeProvider) {
         self.errorType = errorType
