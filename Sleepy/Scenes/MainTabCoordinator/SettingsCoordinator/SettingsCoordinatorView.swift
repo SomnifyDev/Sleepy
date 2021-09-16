@@ -33,7 +33,7 @@ struct SettingsCoordinatorView: View {
                             value: $sleepGoalValue,
                             in: 200...720,
                             step: 15) { _ in
-                        saveSleepGoal(sleepGoal: sleepGoalValue)
+                        saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
                 }
                 
@@ -56,14 +56,14 @@ struct SettingsCoordinatorView: View {
                             value: $bitrateValue,
                             in: 1000...44000,
                             step: 1000) { _ in
-                        saveSoundBitrate(bitrate: bitrateValue)
+                        saveSetting(with: bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
                     }
 
                     Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
                             value: $recognisionConfidenceValue,
                             in: 10...100,
                             step: 10) { _ in
-                        saveRecognisionConfidence(confidence: recognisionConfidenceValue)
+                        saveSetting(with: recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
                     }
                 }
             }
@@ -77,16 +77,8 @@ struct SettingsCoordinatorView: View {
 
     // MARK: Private methods
 
-    private func saveSleepGoal(sleepGoal: Int) {
-        UserDefaults.standard.set(sleepGoal, forKey: SleepySettingsKeys.sleepGoal.rawValue)
-    }
-
-    private func saveSoundBitrate(bitrate: Int) {
-        UserDefaults.standard.set(bitrate, forKey: SleepySettingsKeys.soundBitrate.rawValue)
-    }
-
-    private func saveRecognisionConfidence(confidence: Int) {
-        UserDefaults.standard.set(confidence, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+    private func saveSetting(with value: Int, forKey key: String) {
+        UserDefaults.standard.set(value, forKey: key)
     }
 
     private func getAllValuesFromUserDefaults() {
