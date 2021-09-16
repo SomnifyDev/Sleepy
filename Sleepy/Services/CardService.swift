@@ -15,6 +15,8 @@ extension SummaryViewCardType: Identifiable {
 
 class CardService: ObservableObject {
 
+    // MARK: Properties
+
     var statisticsProvider: HKStatisticsProvider
 
     @Published var bankOfSleepViewModel: BankOfSleepDataViewModel?
@@ -26,15 +28,17 @@ class CardService: ObservableObject {
     private let phasesCard: SummaryViewCardType = .phases
     private let heartCard: SummaryViewCardType = .heart
 
+    // MARK: Initialization
+
     init(statisticsProvider: HKStatisticsProvider) {
         self.statisticsProvider = statisticsProvider
-
-        self.getbankOfSleepInfo()
         self.getSleepData()
         self.getPhasesData()
         self.getHeartData()
-
+        self.getBankOfSleepInfo()
     }
+
+    // MARK: Other methods
 
     func fetchCard(id: String, _ completion: @escaping (SummaryViewCardType?) -> Void) {
         fetchCards { cards in
@@ -50,30 +54,59 @@ class CardService: ObservableObject {
         )
     }
 
-    private func getbankOfSleepInfo() {
-        guard
-            let sleepGoal = statisticsProvider.getTodayFallingAsleepDuration(),
-            let twoWeeksBackDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
-        else {
-            return
+    private func getSleepGoal() -> Int {
+        return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
+    }
+
+    // MARK: Bank of sleep
+
+    private func getBankOfSleepInfo() {
+        getbankOfSleepData { data in
+            let sleepGoal = self.getSleepGoal()
+            let filteredData = data.filter({$0 != 0})
+
+            let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
+
+            let backlogValue = Int(filteredData.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
+            let backlogString = Date.minutesToClearString(minutes: backlogValue)
+
+            let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
+            let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
+
+            self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
+                                                                 backlog: backlogString,
+                                                                 timeToCloseDebt: timeToCloseDebtString)
         }
-        self.statisticsProvider.getDataByInterval(healthType: .asleep, for: DateInterval(start: twoWeeksBackDate, end: Date()), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
-            if data.count == 14 {
+    }
 
-                let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
-
-                let backlogValue = Int(data.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
-                let backlogString = Date.minutesToClearString(minutes: backlogValue)
-
-                let timeToCloseDebtValue = backlogValue / 14 + sleepGoal
-                let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
-
-                self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
-                                                                     backlog: backlogString,
-                                                                     timeToCloseDebt: timeToCloseDebtString)
+    private func getbankOfSleepData(completion: @escaping ([Double]) -> Void) {
+        var resultData: [Double] = Array(repeating: 0, count: 14)
+        var samplesLeft = 14
+        let queue = DispatchQueue(label: "bankOfSleepQueue", qos: .userInitiated)
+        for start in 0..<14 {
+            let end = start - 1
+            guard
+                let startDate = Calendar.current.date(byAdding: .day, value: -start, to: Date()),
+                let endDate = Calendar.current.date(byAdding: .day, value: -end, to: Date())
+            else {
+                return
+            }
+            self.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep,
+                                                                                   indicatorType: .sum,
+                                                                   for: DateInterval(start: startDate, end: endDate)) { data in
+                let isComplete = queue.sync { () -> Bool in
+                    resultData[start] = data ?? 0
+                    samplesLeft -= 1
+                    return samplesLeft == 0
+                }
+                if isComplete {
+                    completion(resultData)
+                }
             }
         }
     }
+
+    // MARK: Sleep + phases
 
     private func getSleepData() {
         guard let sleepInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .asleep),
@@ -95,27 +128,29 @@ class CardService: ObservableObject {
 
         if !phasesData.isEmpty {
             self.phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
-                                                         timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
-                                                         timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
-                                                         mostIntervalInLightPhase: "-",
-                                                         mostIntervalInDeepPhase: "-")
+                                                              timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
+                                                              timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
+                                                              mostIntervalInLightPhase: "-",
+                                                              mostIntervalInDeepPhase: "-")
         }
     }
 
-    private func getHeartData() {
-            var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-            let heartRateData = getShortHeartRateData(heartRateData: statisticsProvider.getTodayData(of: .heart))
+    // MARK: Heart data
 
-            if !heartRateData.isEmpty,
-               let maxHR = statisticsProvider.getData(dataType: .heart, indicatorType: .max),
-               let minHR = statisticsProvider.getData(dataType: .heart, indicatorType: .min),
-               let averageHR = statisticsProvider.getData(dataType: .heart, indicatorType: .mean) {
-                maxHeartRate = "\(Int(maxHR)) bpm"
-                minHeartRate = "\(Int(minHR)) bpm"
-                averageHeartRate = "\(Int(averageHR)) bpm"
-                self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate, averageHeartRate: averageHeartRate)
-            }
+    private func getHeartData() {
+        var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
+        let heartRateData = getShortHeartRateData(heartRateData: statisticsProvider.getTodayData(of: .heart))
+
+        if !heartRateData.isEmpty,
+           let maxHR = statisticsProvider.getData(dataType: .heart, indicatorType: .max),
+           let minHR = statisticsProvider.getData(dataType: .heart, indicatorType: .min),
+           let averageHR = statisticsProvider.getData(dataType: .heart, indicatorType: .mean) {
+            maxHeartRate = "\(Int(maxHR)) bpm"
+            minHeartRate = "\(Int(minHR)) bpm"
+            averageHeartRate = "\(Int(averageHR)) bpm"
+            self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate, averageHeartRate: averageHeartRate)
         }
+    }
 
     private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
         guard

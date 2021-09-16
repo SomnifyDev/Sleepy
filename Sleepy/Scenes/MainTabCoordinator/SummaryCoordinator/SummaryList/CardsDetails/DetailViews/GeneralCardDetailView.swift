@@ -2,16 +2,13 @@ import SwiftUI
 import HKStatistics
 import HKVisualKit
 import HKCoreSleep
+import SettingsKit
 import XUI
 
 struct GeneralCardDetailView: View {
 
-    
     @EnvironmentObject var cardService: CardService
     @Store var viewModel: CardDetailViewCoordinator
-
-    
-    
 
     var body: some View {
         GeometryReader { geometry in
@@ -66,7 +63,7 @@ struct GeneralCardDetailView: View {
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                             ProgressChartView(titleText: "Sleep: goal".localized,
-                                              mainText: String(format: "Your sleep duration was %@, it is %d of your goal".localized,
+                                              mainText: String(format: "Your sleep duration was %@, it is %u of your goal".localized,
                                                                generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start),  ((generalViewModel.sleepInterval.duration / 60.0) - Double(generalViewModel.sleepGoal)) / 100.0),
                                               systemImage: "zzz",
                                               colorProvider: viewModel.colorProvider,
@@ -101,10 +98,11 @@ struct GeneralCardDetailView: View {
     // MARK: Addittional methods
 
     private func getAnalysisString() -> String {
-        let provider = viewModel.statisticsProvider
-        guard let sleepGoal = provider.getTodayFallingAsleepDuration(),
-              let sleepDuration = viewModel.statisticsProvider.getData(for: .asleep) else { return "" }
-        let sleepGoalPercentage =  Int((Double(sleepDuration) / Double(sleepGoal)) * 100)
+        guard
+            let sleepDuration = viewModel.statisticsProvider.getData(for: .asleep)
+        else { return "" }
+
+        let sleepGoalPercentage = Int((Double(sleepDuration) / Double(getSleepGoal())) * 100)
         if sleepGoalPercentage < 80 {
             return "Pay more attention to your sleep to be more healthy and productive every day!".localized
         } else if sleepGoalPercentage >= 80 && sleepGoalPercentage < 100 {
@@ -112,6 +110,10 @@ struct GeneralCardDetailView: View {
         } else {
             return "Amazing result for today. Keep it up and stay healthy!".localized
         }
+    }
+
+    private func getSleepGoal() -> Int {
+        return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
     }
     
 }

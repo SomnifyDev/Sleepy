@@ -4,20 +4,15 @@ import HKVisualKit
 
 struct SummaryListView: View {
 
-    
-
     @Store var viewModel: SummaryListCoordinator
 
     @EnvironmentObject var cardService: CardService
-
-    
 
     @State private var generalViewModel: SummaryGeneralDataViewModel?
     @State private var phasesViewModel: SummaryPhasesDataViewModel?
     @State private var heartViewModel: SummaryHeartDataViewModel?
     @State private var somethingBroken = false
     
-
     var body: some View {
         GeometryReader { geometry in
             ZStack {

@@ -5,8 +5,6 @@ struct CardDetailView: View {
     
     @Store var coordinator: CardDetailViewCoordinator
 
-    
-
     var body: some View {
         HStack {
             if coordinator.card == .heart {
