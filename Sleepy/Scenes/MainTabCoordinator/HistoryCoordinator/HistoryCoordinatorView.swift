@@ -15,8 +15,6 @@ struct HistoryCoordinatorView: View {
 
     @State private var calendarType: HealthData = .sleep
 
-    
-    
     var body: some View {
         NavigationView {
             HistoryListView(viewModel: viewModel, calendarType: $calendarType)

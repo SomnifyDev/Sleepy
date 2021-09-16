@@ -17,11 +17,8 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
     let colorSchemeProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
-
     private unowned let parent: RootCoordinator
-    
-    
-    
+
     init(title: String,
          colorSchemeProvider: ColorSchemeProvider,
          statisticsProvider: HKStatisticsProvider,

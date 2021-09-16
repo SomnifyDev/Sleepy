@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import AVFoundation
 import Combine
+import SettingsKit
 
 class AudioRecorder: NSObject, ObservableObject {
 
@@ -51,7 +52,7 @@ class AudioRecorder: NSObject, ObservableObject {
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioFilename = documentPath.appendingPathComponent("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH:mm:ss")).m4a")
 
-        let bitrate = UserDefaults.standard.getInt(forKey: .soundBitrate) ?? 12000
+        let bitrate = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: bitrate,

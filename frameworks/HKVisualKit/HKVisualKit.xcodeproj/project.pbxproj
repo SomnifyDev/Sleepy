@@ -12,7 +12,7 @@
 		805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D750B2692216500C19034 /* CardBottomSimpleDescriptionView.swift */; };
 		805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D750E2692229700C19034 /* HorizontalStatisticCellView.swift */; };
 		805D751126922E9400C19034 /* ProgressChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751026922E9400C19034 /* ProgressChartView.swift */; };
-		80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F24266CE484000D0DD9 /* ErrorView.swift */; };
+		80780F25266CE484000D0DD9 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F24266CE484000D0DD9 /* BannerView.swift */; };
 		8096A4AA2698CA4800288D1A /* StandardChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A22698CA4800288D1A /* StandardChartView.swift */; };
 		8096A4AB2698CA4800288D1A /* CirclesChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A32698CA4800288D1A /* CirclesChartView.swift */; };
 		8096A4AC2698CA4800288D1A /* ChartsGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A42698CA4800288D1A /* ChartsGlobals.swift */; };
@@ -43,7 +43,7 @@
 		805D751026922E9400C19034 /* ProgressChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressChartView.swift; sourceTree = "<group>"; };
 		80780F0F266CE39F000D0DD9 /* HKVisualKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HKVisualKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80780F13266CE39F000D0DD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		80780F24266CE484000D0DD9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		80780F24266CE484000D0DD9 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		8096A4A22698CA4800288D1A /* StandardChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardChartView.swift; sourceTree = "<group>"; };
 		8096A4A32698CA4800288D1A /* CirclesChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirclesChartView.swift; sourceTree = "<group>"; };
 		8096A4A42698CA4800288D1A /* ChartsGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsGlobals.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		80780F23266CE442000D0DD9 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				80780F24266CE484000D0DD9 /* ErrorView.swift */,
+				80780F24266CE484000D0DD9 /* BannerView.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 				D99F445F26B00ACF00998590 /* UsefulInfoCardDetailView.swift in Sources */,
 				8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */,
 				80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */,
-				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
+				80780F25266CE484000D0DD9 /* BannerView.swift in Sources */,
 				80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */,
 				D99F445C26B0083800998590 /* UsefulInfoCardView.swift in Sources */,
 			);

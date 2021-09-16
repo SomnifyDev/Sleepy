@@ -28,7 +28,7 @@ struct SummaryListView: View {
                     VStack(alignment: .center) {
 
                         if somethingBroken {
-                            ErrorView(errorType: .advice(type: .wearMore, imageSystemName: "wearAdvice"),
+                            BannerView(bannerViewType: .advice(type: .wearMore, imageSystemName: "wearAdvice"),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -47,7 +47,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
 
-                            ErrorView(errorType: .brokenData(type: .sleep),
+                            BannerView(bannerViewType: .brokenData(type: .sleep),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -79,7 +79,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
 
-                            ErrorView(errorType: .emptyData(type: .sleep),
+                            BannerView(bannerViewType: .emptyData(type: .sleep),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
@@ -116,7 +116,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
 
-                            ErrorView(errorType: .emptyData(type: .heart),
+                            BannerView(bannerViewType: .emptyData(type: .heart),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
