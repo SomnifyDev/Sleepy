@@ -722,7 +722,7 @@
 			);
 			mainGroup = D94419C4266CD3C40019902F;
 			packageReferences = (
-				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */,
+				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */,
 			);
 			productRefGroup = D94419CE266CD3C40019902F /* Products */;
 			projectDirPath = "";
@@ -1276,7 +1276,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */ = {
+		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/quickbirdstudios/XUI.git";
 			requirement = {
@@ -1289,7 +1289,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		80780F31266D3B94000D0DD9 /* XUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */;
+			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */;
 			productName = XUI;
 		};
 /* End XCSwiftPackageProductDependency section */

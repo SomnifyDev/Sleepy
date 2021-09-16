@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import HKStatistics
+import SettingsKit
 
 enum SummaryViewCardType: String {
     case heart
@@ -80,7 +81,7 @@ class CardService: ObservableObject {
 
         self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
                                                             inbedInterval: inBedInterval,
-                                                            sleepGoal: UserDefaults.standard.getInt(forKey: .sleepGoal) ?? 480)
+                                                            sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
     }
 
     private func getPhasesData() {

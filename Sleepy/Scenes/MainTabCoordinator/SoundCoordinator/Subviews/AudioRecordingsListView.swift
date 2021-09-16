@@ -34,7 +34,7 @@ struct AudioRecordingsListView: View {
 
             VStack {
                 if audioRecorder.recordings.isEmpty {
-                    ErrorView(errorType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
+                    BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
                               colorProvider: viewModel.colorProvider)
                         .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                 } else {
