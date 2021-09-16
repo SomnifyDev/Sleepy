@@ -32,27 +32,35 @@ struct AudioRecordingsListView: View {
             viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                 .edgesIgnoringSafeArea(.all)
 
-            List {
-                ForEach(headers, id: \.self) { header in
-                    Section(header: Text(header, style: .date)) {
-                        ForEach(groupedByDateData[header]!) { recording in
-                            RecordingRow(audioURL: recording.fileURL,
-                                         colorProvider: viewModel.colorProvider)
-                                .padding([.top, .bottom, .leading, .trailing], 4)
-                                .onTapGesture {
-                                    showProgress = true
-                                    runAnalysis(audioFileURL: recording.fileURL)
+            VStack {
+                if audioRecorder.recordings.isEmpty {
+                    ErrorView(errorType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
+                              colorProvider: viewModel.colorProvider)
+                        .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                } else {
+                    List {
+                        ForEach(headers, id: \.self) { header in
+                            Section(header: Text(header, style: .date)) {
+                                ForEach(groupedByDateData[header]!) { recording in
+                                    RecordingRow(audioURL: recording.fileURL,
+                                                 colorProvider: viewModel.colorProvider)
+                                        .padding([.top, .bottom, .leading, .trailing], 4)
+                                        .onTapGesture {
+                                            showProgress = true
+                                            runAnalysis(audioFileURL: recording.fileURL)
+                                        }
+                                }.onDelete { (indexSet) in
+                                    for index in indexSet {
+                                        try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
+                                        self.audioRecorder.fetchRecordings()
+                                    }
                                 }
-                        }.onDelete { (indexSet) in
-                            for index in indexSet {
-                                try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
-                                self.audioRecorder.fetchRecordings()
                             }
                         }
                     }
                 }
-            }
-            .sheet(isPresented: $showSheetView) {
+                Spacer()
+            }.sheet(isPresented: $showSheetView) {
                 AnalysisListView(result: resultsObserver.array,
                                  fileName: resultsObserver.fileName,
                                  endDate: resultsObserver.date,
@@ -71,38 +79,38 @@ struct AudioRecordingsListView: View {
 
     private func runAnalysis(audioFileURL: URL) {
         // TODO: лучше обучить модель
-            do {
-                let request: SNClassifySoundRequest
+        do {
+            let request: SNClassifySoundRequest
 
-                if #available(iOS 15.0, *) { // apple's sound classifier
-                    let version1 = SNClassifierIdentifier.version1
-                    request = try SNClassifySoundRequest(classifierIdentifier: version1)
-                } else { // sleepy ones
-                    let config = MLModelConfiguration()
-                    let mlModel = try soundClassifier(configuration: config)
+            if #available(iOS 15.0, *) { // apple's sound classifier
+                let version1 = SNClassifierIdentifier.version1
+                request = try SNClassifySoundRequest(classifierIdentifier: version1)
+            } else { // sleepy ones
+                let config = MLModelConfiguration()
+                let mlModel = try soundClassifier(configuration: config)
 
-                    request = try SNClassifySoundRequest(mlModel: mlModel.model)
-                }
-
-                guard let audioFileAnalyzer = self.createAnalyzer(audioFileURL: audioFileURL)
-                else {
-                    showProgress = false
-                    return
-                }
-                resultsObserver.fileName = audioFileURL.lastPathComponent
-                resultsObserver.date = FileHelper.creationDateForLocalFilePath(filePath: audioFileURL.path)
-                resultsObserver.array = []
-
-                // Prepare a new request for the trained model.
-                try audioFileAnalyzer.add(request, withObserver: resultsObserver)
-
-                audioFileAnalyzer.analyze(completionHandler: { result in
-                    showSheetView = result
-                    showProgress = false
-                })
-            } catch {
-                showProgress = false
+                request = try SNClassifySoundRequest(mlModel: mlModel.model)
             }
+
+            guard let audioFileAnalyzer = self.createAnalyzer(audioFileURL: audioFileURL)
+            else {
+                showProgress = false
+                return
+            }
+            resultsObserver.fileName = audioFileURL.lastPathComponent
+            resultsObserver.date = FileHelper.creationDateForLocalFilePath(filePath: audioFileURL.path)
+            resultsObserver.array = []
+
+            // Prepare a new request for the trained model.
+            try audioFileAnalyzer.add(request, withObserver: resultsObserver)
+
+            audioFileAnalyzer.analyze(completionHandler: { result in
+                showSheetView = result
+                showProgress = false
+            })
+        } catch {
+            showProgress = false
+        }
     }
 
     /// Creates an analyzer for an audio file.
@@ -118,12 +126,12 @@ private struct RecordingRow: View {
     let colorProvider: ColorSchemeProvider
     var body: some View {
         VStack {
-            CardTitleView(colorProvider: colorProvider,
-                          systemImageName: "mic.circle.fill",
-                          titleText: "New_recording\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM_HH:mm") ?? "")",
+            CardTitleView(titleText: "New_recording\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM_HH:mm") ?? "")",
+                          leftIcon: Image(systemName: "mic.circle.fill"),
+                          rightIcon: Image(systemName: "chevron.right"),
                           titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
                           showSeparator: false,
-                          showChevron: true)
+                          colorProvider: colorProvider)
             HStack {
                 Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
                     .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))

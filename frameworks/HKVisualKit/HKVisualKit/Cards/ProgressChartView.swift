@@ -40,11 +40,12 @@ public struct ProgressChartView: View {
             GeometryReader { geometry in
 
                 VStack(alignment: .leading) {
-                    CardTitleView(colorProvider: colorProvider, systemImageName: systemImage,
-                                  titleText: titleText,
+                    CardTitleView(titleText: self.titleText,
                                   mainText: mainText,
-                                  titleColor: mainColor,
-                                  mainTextColor: mainTextColor)
+                                  leftIcon: Image(systemName: self.systemImage),
+                                  titleColor: self.mainColor,
+                                  mainTextColor: self.mainTextColor,
+                                  colorProvider: self.colorProvider)
 
                     ProgressItemView(progressItem: currentProgress)
                         .padding(.top, 8)

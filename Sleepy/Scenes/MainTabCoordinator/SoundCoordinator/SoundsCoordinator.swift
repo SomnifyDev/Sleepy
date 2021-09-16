@@ -8,22 +8,10 @@ import Foundation
 import XUI
 import SettingsKit
 import HKVisualKit
-// MARK: Protocol
 
-protocol SoundsCoordinator: ViewModel {
 
-    var colorProvider: ColorSchemeProvider { get }
-    var openedURL: URL? { get set }
-    
-    func open(_ url: URL)
 
-}
-
-// MARK: - Implementation
-
-class SoundsCoordinatorImpl: ObservableObject, SoundsCoordinator {
-
-    // MARK: Stored Properties
+class SoundsCoordinator: ObservableObject, ViewModel {
 
     @Published var openedURL: URL?
     @Published private(set) var viewModel: SoundsCoordinatorView!
@@ -32,7 +20,7 @@ class SoundsCoordinatorImpl: ObservableObject, SoundsCoordinator {
 
     private unowned let parent: RootCoordinator
 
-    // MARK: Initialization
+    
 
     init(title: String,
          colorSchemeProvider: ColorSchemeProvider,

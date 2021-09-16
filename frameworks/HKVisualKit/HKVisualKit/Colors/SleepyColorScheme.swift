@@ -17,7 +17,7 @@ public protocol HKApplicationColorScheme {
 
 }
 
-// MARK: - Implementation
+
 
 public final class SleepyColorScheme: HKApplicationColorScheme {
 
@@ -56,11 +56,11 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     // texts
     private let standartText: Color
     private let secondaryText: Color
-
+    private let adviceText: Color
     // charts
     private let verticalProgressChartElementColor: Color
 
-    // MARK: init
+    
     
     init() {
         appBackgroundColor = Color("backgroundColor")
@@ -80,7 +80,8 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         moonColor = Color("moonColor")
         energyColor = Color("energyColor")
         standartText = Color("SleepyStandartTexts")
-        secondaryText = Color("SleepyStandartTexts").opacity(0.8)
+        secondaryText = Color("SecondaryText")
+        adviceText = Color("AdviceText")
         sleepDurationColor = Color("sleepDurationColor")
         fallAsleepDurationColor = Color("fallAsleepDurationColor")
         verticalProgressChartElementColor = Color("VerticalProgressChartElementBackground")
@@ -147,6 +148,8 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
             return secondaryText
         case .chartColors(.verticalProgressChartElement):
             return verticalProgressChartElementColor
+        case .textsColors(.adviceText):
+            return adviceText
         }
     }
 

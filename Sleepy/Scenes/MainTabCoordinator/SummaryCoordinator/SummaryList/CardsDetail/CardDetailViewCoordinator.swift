@@ -5,21 +5,10 @@ import HKVisualKit
 import SettingsKit
 import XUI
 
-protocol CardDetailViewCoordinator: ViewModel {
-
-    var colorProvider: ColorSchemeProvider { get }
-    var statisticsProvider: HKStatisticsProvider { get }
-
-    var card: SummaryViewCardType { get }
-    func open(_ url: URL)
-
-}
-
-class CardDetailViewCoordinatorImpl: CardDetailViewCoordinator, ObservableObject, Identifiable {
-
-    // MARK: Stored Properties
+class CardDetailViewCoordinator: ViewModel, ObservableObject, Identifiable {
     
     @Published private(set) var card: SummaryViewCardType
+
     private unowned let coordinator: SummaryNavigationCoordinator
 
     // MARK: Properties
@@ -27,7 +16,7 @@ class CardDetailViewCoordinatorImpl: CardDetailViewCoordinator, ObservableObject
     var colorProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
 
-    // MARK: Initialization
+    
 
     init(card: SummaryViewCardType, coordinator: SummaryNavigationCoordinator) {
         self.coordinator = coordinator
@@ -36,7 +25,7 @@ class CardDetailViewCoordinatorImpl: CardDetailViewCoordinator, ObservableObject
         self.statisticsProvider = coordinator.statisticsProvider
     }
 
-    // MARK: Methods
+    
 
     func open(_ url: URL) {
         self.coordinator.open(url)

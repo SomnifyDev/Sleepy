@@ -33,7 +33,7 @@ public class HKService {
         }
     }
 
-    // MARK: Init
+    
 
     public init() {
     }

@@ -8,33 +8,22 @@
 import Foundation
 import XUI
 
-// MARK: Protocol
 
-protocol AlarmCoordinator: ViewModel {
-    
-    var openedURL: URL? { get set }
-    func open(_ url: URL)
-    
-}
 
-// MARK: - Implementation
-
-class AlarmCoordinatorImpl: ObservableObject, AlarmCoordinator {
-    
-    // MARK: Stored Properties
+class AlarmCoordinator: ObservableObject, ViewModel {
     
     @Published var openedURL: URL?
     @Published private(set) var viewModel: AlarmCoordinatorView!
     private unowned let parent: RootCoordinator
     
-    // MARK: Initialization
+    
     
     init(title: String,
          parent: RootCoordinator) {
         self.parent = parent
         
         self.viewModel = AlarmCoordinatorView(
-            coordinator: self
+            viewModel: self
         )
     }
     

@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C845AFBD9129D07199D3362 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B18099E1729DF44447B75B1 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework */; };
 		8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A526A1FA3600A7192A /* HistoryListView.swift */; };
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
+		8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
 		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		80647AF326D9163B0054C03F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80647AF526D9163B0054C03F /* Localizable.strings */; };
 		80647AF826D917380054C03F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80647AF726D917380054C03F /* String+Localizable.swift */; };
-		80647AFA26D918E50054C03F /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80647AF926D918E50054C03F /* SummaryInfoCardView.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
 		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
@@ -51,12 +50,9 @@
 		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
 		80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */; };
 		80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */; };
-		C5562385977B9BE864A30123 /* Pods_Sleepy_SleepyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755EE027EAE16912B3161FCB /* Pods_Sleepy_SleepyUITests.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
 		D94419D5266CD3C50019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D4266CD3C50019902F /* Assets.xcassets */; };
 		D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D7266CD3C50019902F /* Preview Assets.xcassets */; };
-		D94419E3266CD3C50019902F /* SleepyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419E2266CD3C50019902F /* SleepyTests.swift */; };
-		D94419EE266CD3C50019902F /* SleepyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419ED266CD3C50019902F /* SleepyUITests.swift */; };
 		D9441A00266CD4C60019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419FF266CD4C60019902F /* Assets.xcassets */; };
 		D9441A07266CD4C60019902F /* Sleepy_WatchOS Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D9441A06266CD4C60019902F /* Sleepy_WatchOS Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D9441A0C266CD4C60019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A0B266CD4C60019902F /* SleepyApp.swift */; };
@@ -66,8 +62,6 @@
 		D9441A14266CD4C60019902F /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A13266CD4C60019902F /* ComplicationController.swift */; };
 		D9441A16266CD4C70019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9441A15266CD4C70019902F /* Assets.xcassets */; };
 		D9441A19266CD4C70019902F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9441A18266CD4C70019902F /* Preview Assets.xcassets */; };
-		D9441A25266CD4C70019902F /* Sleepy_WatchOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A24266CD4C70019902F /* Sleepy_WatchOSTests.swift */; };
-		D9441A30266CD4C70019902F /* Sleepy_WatchOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */; };
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; };
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -86,8 +80,6 @@
 		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */; };
 		D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */; };
 		D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */; };
-		E52F35914630DFDE987DB5B0 /* Pods_SleepyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61210E5275BC7FC2886643CA /* Pods_SleepyTests.framework */; };
-		E5EFF19FF15FD03F8428C707 /* Pods_Sleepy_WatchOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ECF754580332D4C4A4FF74A /* Pods_Sleepy_WatchOSTests.framework */; };
 		F35457EB47FEEFB0DAF7D4A5 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7471D5A6A4C3192A5860DAE5 /* Pods_Sleepy.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,40 +98,12 @@
 			remoteGlobalIDString = 808FDF242685E48A00B38B78;
 			remoteInfo = HKCoreSleep;
 		};
-		D94419DF266CD3C50019902F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D94419C5266CD3C40019902F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D94419CC266CD3C40019902F;
-			remoteInfo = Sleepy;
-		};
-		D94419EA266CD3C50019902F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D94419C5266CD3C40019902F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D94419CC266CD3C40019902F;
-			remoteInfo = Sleepy;
-		};
 		D9441A08266CD4C60019902F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D94419C5266CD3C40019902F /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D9441A05266CD4C60019902F;
 			remoteInfo = "Sleepy_WatchOS Extension";
-		};
-		D9441A21266CD4C70019902F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D94419C5266CD3C40019902F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D9441A05266CD4C60019902F;
-			remoteInfo = "Sleepy_WatchOS Extension";
-		};
-		D9441A2C266CD4C70019902F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D94419C5266CD3C40019902F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D94419FC266CD4C50019902F;
-			remoteInfo = Sleepy_WatchOS;
 		};
 		D9441A32266CD4C70019902F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -223,13 +187,13 @@
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
+		8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		80647AF426D9163B0054C03F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80647AF626D916770054C03F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80647AF726D917380054C03F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
-		80647AF926D918E50054C03F /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -270,12 +234,6 @@
 		D94419D4266CD3C50019902F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D94419D7266CD3C50019902F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D94419D9266CD3C50019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D94419DE266CD3C50019902F /* SleepyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SleepyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D94419E2266CD3C50019902F /* SleepyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyTests.swift; sourceTree = "<group>"; };
-		D94419E4266CD3C50019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D94419E9266CD3C50019902F /* SleepyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SleepyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D94419ED266CD3C50019902F /* SleepyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyUITests.swift; sourceTree = "<group>"; };
-		D94419EF266CD3C50019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepy_WatchOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94419FF266CD4C60019902F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9441A01266CD4C60019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -289,12 +247,6 @@
 		D9441A18266CD4C70019902F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D9441A1A266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9441A1B266CD4C70019902F /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		D9441A20266CD4C70019902F /* Sleepy_WatchOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sleepy_WatchOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9441A24266CD4C70019902F /* Sleepy_WatchOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSTests.swift; sourceTree = "<group>"; };
-		D9441A26266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sleepy_WatchOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleepy_WatchOSUITests.swift; sourceTree = "<group>"; };
-		D9441A31266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
 		D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = frameworks/SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
 		D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfSleepDataViewModel.swift; sourceTree = "<group>"; };
@@ -330,42 +282,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D94419DB266CD3C50019902F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E52F35914630DFDE987DB5B0 /* Pods_SleepyTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D94419E6266CD3C50019902F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C5562385977B9BE864A30123 /* Pods_Sleepy_SleepyUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D9441A03266CD4C60019902F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D9441A1D266CD4C70019902F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E5EFF19FF15FD03F8428C707 /* Pods_Sleepy_WatchOSTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D9441A28266CD4C70019902F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C845AFBD9129D07199D3362 /* Pods_Sleepy_Sleepy_WatchOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +312,7 @@
 		80647AFB26D918E90054C03F /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				80647AF926D918E50054C03F /* SummaryInfoCardView.swift */,
+				8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -568,12 +488,8 @@
 			isa = PBXGroup;
 			children = (
 				D94419CF266CD3C40019902F /* Sleepy */,
-				D94419E1266CD3C50019902F /* SleepyTests */,
-				D94419EC266CD3C50019902F /* SleepyUITests */,
 				D94419FE266CD4C50019902F /* Sleepy_WatchOS */,
 				D9441A0A266CD4C60019902F /* Sleepy_WatchOS Extension */,
-				D9441A23266CD4C70019902F /* Sleepy_WatchOSTests */,
-				D9441A2E266CD4C70019902F /* Sleepy_WatchOSUITests */,
 				D94419CE266CD3C40019902F /* Products */,
 				E2E51B75C4408BE321656654 /* Pods */,
 				882574914EFE6785A847CA1B /* Frameworks */,
@@ -584,12 +500,8 @@
 			isa = PBXGroup;
 			children = (
 				D94419CD266CD3C40019902F /* Sleepy.app */,
-				D94419DE266CD3C50019902F /* SleepyTests.xctest */,
-				D94419E9266CD3C50019902F /* SleepyUITests.xctest */,
 				D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */,
 				D9441A06266CD4C60019902F /* Sleepy_WatchOS Extension.appex */,
-				D9441A20266CD4C70019902F /* Sleepy_WatchOSTests.xctest */,
-				D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -618,24 +530,6 @@
 				D94419D7266CD3C50019902F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		D94419E1266CD3C50019902F /* SleepyTests */ = {
-			isa = PBXGroup;
-			children = (
-				D94419E2266CD3C50019902F /* SleepyTests.swift */,
-				D94419E4266CD3C50019902F /* Info.plist */,
-			);
-			path = SleepyTests;
-			sourceTree = "<group>";
-		};
-		D94419EC266CD3C50019902F /* SleepyUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D94419ED266CD3C50019902F /* SleepyUITests.swift */,
-				D94419EF266CD3C50019902F /* Info.plist */,
-			);
-			path = SleepyUITests;
 			sourceTree = "<group>";
 		};
 		D94419FE266CD4C50019902F /* Sleepy_WatchOS */ = {
@@ -669,24 +563,6 @@
 				D9441A18266CD4C70019902F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		D9441A23266CD4C70019902F /* Sleepy_WatchOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				D9441A24266CD4C70019902F /* Sleepy_WatchOSTests.swift */,
-				D9441A26266CD4C70019902F /* Info.plist */,
-			);
-			path = Sleepy_WatchOSTests;
-			sourceTree = "<group>";
-		};
-		D9441A2E266CD4C70019902F /* Sleepy_WatchOSUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D9441A2F266CD4C70019902F /* Sleepy_WatchOSUITests.swift */,
-				D9441A31266CD4C70019902F /* Info.plist */,
-			);
-			path = Sleepy_WatchOSUITests;
 			sourceTree = "<group>";
 		};
 		D96DBC3E2687126000A0E018 /* Products */ = {
@@ -804,45 +680,6 @@
 			productReference = D94419CD266CD3C40019902F /* Sleepy.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D94419DD266CD3C50019902F /* SleepyTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D94419F5266CD3C50019902F /* Build configuration list for PBXNativeTarget "SleepyTests" */;
-			buildPhases = (
-				29B2875EF30ECC7DDC176C5B /* [CP] Check Pods Manifest.lock */,
-				D94419DA266CD3C50019902F /* Sources */,
-				D94419DB266CD3C50019902F /* Frameworks */,
-				D94419DC266CD3C50019902F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D94419E0266CD3C50019902F /* PBXTargetDependency */,
-			);
-			name = SleepyTests;
-			productName = SleepyTests;
-			productReference = D94419DE266CD3C50019902F /* SleepyTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		D94419E8266CD3C50019902F /* SleepyUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D94419F8266CD3C50019902F /* Build configuration list for PBXNativeTarget "SleepyUITests" */;
-			buildPhases = (
-				3D6BD0E348F97AF0AB1A17E0 /* [CP] Check Pods Manifest.lock */,
-				D94419E5266CD3C50019902F /* Sources */,
-				D94419E6266CD3C50019902F /* Frameworks */,
-				D94419E7266CD3C50019902F /* Resources */,
-				A8D220E46497483F9FE27961 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D94419EB266CD3C50019902F /* PBXTargetDependency */,
-			);
-			name = SleepyUITests;
-			productName = SleepyUITests;
-			productReference = D94419E9266CD3C50019902F /* SleepyUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		D94419FC266CD4C50019902F /* Sleepy_WatchOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D9441A39266CD4C70019902F /* Build configuration list for PBXNativeTarget "Sleepy_WatchOS" */;
@@ -878,45 +715,6 @@
 			productReference = D9441A06266CD4C60019902F /* Sleepy_WatchOS Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
-		D9441A1F266CD4C70019902F /* Sleepy_WatchOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D9441A3D266CD4C70019902F /* Build configuration list for PBXNativeTarget "Sleepy_WatchOSTests" */;
-			buildPhases = (
-				252B714DB7E5CF1888E8F1D0 /* [CP] Check Pods Manifest.lock */,
-				D9441A1C266CD4C70019902F /* Sources */,
-				D9441A1D266CD4C70019902F /* Frameworks */,
-				D9441A1E266CD4C70019902F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D9441A22266CD4C70019902F /* PBXTargetDependency */,
-			);
-			name = Sleepy_WatchOSTests;
-			productName = Sleepy_WatchOSTests;
-			productReference = D9441A20266CD4C70019902F /* Sleepy_WatchOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		D9441A2A266CD4C70019902F /* Sleepy_WatchOSUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D9441A40266CD4C70019902F /* Build configuration list for PBXNativeTarget "Sleepy_WatchOSUITests" */;
-			buildPhases = (
-				39D85746A92B88A138EF444C /* [CP] Check Pods Manifest.lock */,
-				D9441A27266CD4C70019902F /* Sources */,
-				D9441A28266CD4C70019902F /* Frameworks */,
-				D9441A29266CD4C70019902F /* Resources */,
-				3E92C51FE4D91340E06EFD41 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D9441A2D266CD4C70019902F /* PBXTargetDependency */,
-			);
-			name = Sleepy_WatchOSUITests;
-			productName = Sleepy_WatchOSUITests;
-			productReference = D9441A2B266CD4C70019902F /* Sleepy_WatchOSUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -929,27 +727,11 @@
 					D94419CC266CD3C40019902F = {
 						CreatedOnToolsVersion = 12.5;
 					};
-					D94419DD266CD3C50019902F = {
-						CreatedOnToolsVersion = 12.5;
-						TestTargetID = D94419CC266CD3C40019902F;
-					};
-					D94419E8266CD3C50019902F = {
-						CreatedOnToolsVersion = 12.5;
-						TestTargetID = D94419CC266CD3C40019902F;
-					};
 					D94419FC266CD4C50019902F = {
 						CreatedOnToolsVersion = 12.5;
 					};
 					D9441A05266CD4C60019902F = {
 						CreatedOnToolsVersion = 12.5;
-					};
-					D9441A1F266CD4C70019902F = {
-						CreatedOnToolsVersion = 12.5;
-						TestTargetID = D9441A05266CD4C60019902F;
-					};
-					D9441A2A266CD4C70019902F = {
-						CreatedOnToolsVersion = 12.5;
-						TestTargetID = D94419FC266CD4C50019902F;
 					};
 				};
 			};
@@ -989,12 +771,8 @@
 			projectRoot = "";
 			targets = (
 				D94419CC266CD3C40019902F /* Sleepy */,
-				D94419DD266CD3C50019902F /* SleepyTests */,
-				D94419E8266CD3C50019902F /* SleepyUITests */,
 				D94419FC266CD4C50019902F /* Sleepy_WatchOS */,
 				D9441A05266CD4C60019902F /* Sleepy_WatchOS Extension */,
-				D9441A1F266CD4C70019902F /* Sleepy_WatchOSTests */,
-				D9441A2A266CD4C70019902F /* Sleepy_WatchOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1048,20 +826,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D94419DC266CD3C50019902F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D94419E7266CD3C50019902F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D94419FB266CD4C50019902F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1076,20 +840,6 @@
 			files = (
 				D9441A19266CD4C70019902F /* Preview Assets.xcassets in Resources */,
 				D9441A16266CD4C70019902F /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D9441A1E266CD4C70019902F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D9441A29266CD4C70019902F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,111 +863,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		252B714DB7E5CF1888E8F1D0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sleepy_WatchOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		29B2875EF30ECC7DDC176C5B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SleepyTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		39D85746A92B88A138EF444C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sleepy-Sleepy_WatchOSUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3D6BD0E348F97AF0AB1A17E0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sleepy-SleepyUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3E92C51FE4D91340E06EFD41 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy-Sleepy_WatchOSUITests/Pods-Sleepy-Sleepy_WatchOSUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		80780F2D266CF63E000D0DD9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1234,23 +879,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		A8D220E46497483F9FE27961 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy-SleepyUITests/Pods-Sleepy-SleepyUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		C2F1F5FB0A2730DC30DC40A0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1315,8 +943,8 @@
 				80A765EA26C7FA1500A66554 /* AnalysisListView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
+				8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
-				80647AFA26D918E50054C03F /* SummaryInfoCardView.swift in Sources */,
 				80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */,
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
@@ -1334,22 +962,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D94419DA266CD3C50019902F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D94419E3266CD3C50019902F /* SleepyTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D94419E5266CD3C50019902F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D94419EE266CD3C50019902F /* SleepyUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D9441A02266CD4C60019902F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1362,49 +974,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D9441A1C266CD4C70019902F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D9441A25266CD4C70019902F /* Sleepy_WatchOSTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D9441A27266CD4C70019902F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D9441A30266CD4C70019902F /* Sleepy_WatchOSUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D94419E0266CD3C50019902F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D94419CC266CD3C40019902F /* Sleepy */;
-			targetProxy = D94419DF266CD3C50019902F /* PBXContainerItemProxy */;
-		};
-		D94419EB266CD3C50019902F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D94419CC266CD3C40019902F /* Sleepy */;
-			targetProxy = D94419EA266CD3C50019902F /* PBXContainerItemProxy */;
-		};
 		D9441A09266CD4C60019902F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D9441A05266CD4C60019902F /* Sleepy_WatchOS Extension */;
 			targetProxy = D9441A08266CD4C60019902F /* PBXContainerItemProxy */;
-		};
-		D9441A22266CD4C70019902F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D9441A05266CD4C60019902F /* Sleepy_WatchOS Extension */;
-			targetProxy = D9441A21266CD4C70019902F /* PBXContainerItemProxy */;
-		};
-		D9441A2D266CD4C70019902F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D94419FC266CD4C50019902F /* Sleepy_WatchOS */;
-			targetProxy = D9441A2C266CD4C70019902F /* PBXContainerItemProxy */;
 		};
 		D9441A33266CD4C70019902F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1594,94 +1170,6 @@
 			};
 			name = Release;
 		};
-		D94419F6266CD3C50019902F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 159E17D4132A1A5EB678DED5 /* Pods-SleepyTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = SleepyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = AnasBenMustafa.SleepyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sleepy.app/Sleepy";
-			};
-			name = Debug;
-		};
-		D94419F7266CD3C50019902F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E10D41B95868DE65092B6B39 /* Pods-SleepyTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = SleepyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = AnasBenMustafa.SleepyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sleepy.app/Sleepy";
-			};
-			name = Release;
-		};
-		D94419F9266CD3C50019902F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8867A2F399E527D317B7896E /* Pods-Sleepy-SleepyUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = SleepyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = AnasBenMustafa.SleepyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Sleepy;
-			};
-			name = Debug;
-		};
-		D94419FA266CD3C50019902F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E8E54E67A3140C18D05934A /* Pods-Sleepy-SleepyUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = SleepyUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = AnasBenMustafa.SleepyUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Sleepy;
-			};
-			name = Release;
-		};
 		D9441A36266CD4C70019902F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1770,98 +1258,6 @@
 			};
 			name = Release;
 		};
-		D9441A3E266CD4C70019902F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF632548D612EE7E7D4A8586 /* Pods-Sleepy_WatchOSTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AnasBenMustafa.Sleepy.Sleepy-WatchOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sleepy_WatchOS Extension.appex/Sleepy_WatchOS Extension";
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Debug;
-		};
-		D9441A3F266CD4C70019902F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E190B908F0E65C713AC18A2A /* Pods-Sleepy_WatchOSTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = Sleepy_WatchOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AnasBenMustafa.Sleepy.Sleepy-WatchOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sleepy_WatchOS Extension.appex/Sleepy_WatchOS Extension";
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Release;
-		};
-		D9441A41266CD4C70019902F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DDF5078896DFF8709277BAC /* Pods-Sleepy-Sleepy_WatchOSUITests.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AnasBenMustafa.Sleepy.Sleepy-WatchOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = Sleepy_WatchOS;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Debug;
-		};
-		D9441A42266CD4C70019902F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E98F2FCC13C74777CC71C957 /* Pods-Sleepy-Sleepy_WatchOSUITests.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
-				INFOPLIST_FILE = Sleepy_WatchOSUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "AnasBenMustafa.Sleepy.Sleepy-WatchOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = Sleepy_WatchOS;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1883,24 +1279,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D94419F5266CD3C50019902F /* Build configuration list for PBXNativeTarget "SleepyTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D94419F6266CD3C50019902F /* Debug */,
-				D94419F7266CD3C50019902F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D94419F8266CD3C50019902F /* Build configuration list for PBXNativeTarget "SleepyUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D94419F9266CD3C50019902F /* Debug */,
-				D94419FA266CD3C50019902F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		D9441A35266CD4C70019902F /* Build configuration list for PBXNativeTarget "Sleepy_WatchOS Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1915,24 +1293,6 @@
 			buildConfigurations = (
 				D9441A3A266CD4C70019902F /* Debug */,
 				D9441A3B266CD4C70019902F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D9441A3D266CD4C70019902F /* Build configuration list for PBXNativeTarget "Sleepy_WatchOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D9441A3E266CD4C70019902F /* Debug */,
-				D9441A3F266CD4C70019902F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D9441A40266CD4C70019902F /* Build configuration list for PBXNativeTarget "Sleepy_WatchOSUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D9441A41266CD4C70019902F /* Debug */,
-				D9441A42266CD4C70019902F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

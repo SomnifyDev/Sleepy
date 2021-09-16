@@ -14,8 +14,6 @@ import Armchair
 
 struct SettingsCoordinatorView: View {
     
-    // MARK: Stored Properties
-    
     @Store var viewModel: SettingsCoordinator
 
     @State private var sleepGoalValue = 480

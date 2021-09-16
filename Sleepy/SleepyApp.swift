@@ -8,13 +8,13 @@ import Armchair
 @main
 struct SleepyApp: App {
 
-    // MARK: Stored Properties
     @State var hkService: HKService?
-    @State var cardService: CardService?
+    @State var cardService: CardService!
     @State var colorSchemeProvider: ColorSchemeProvider?
     @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
     @State var statisticsProvider: HKStatisticsProvider?
-    @State var coordinator: RootCoordinatorImpl?
+
+    @State var viewModel: RootCoordinator?
 
     @State var hasOpenedURL = false
     @State var canShowApp: Bool = false
@@ -23,12 +23,12 @@ struct SleepyApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    // MARK: Scenes
     var body: some Scene {
         WindowGroup {
 
             if canShowApp {
-                RootCoordinatorView(viewModel: coordinator!)
+                RootCoordinatorView(viewModel: viewModel!)
+                    .environmentObject(cardService)
                     .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
@@ -37,7 +37,7 @@ struct SleepyApp: App {
                                   let sample = samples?.first,
                                   let sleep = self.sleep  else { return }
                             if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
-                                canShowApp = false
+                                self.canShowApp = false
                             }
                         })
                     }
@@ -53,39 +53,32 @@ struct SleepyApp: App {
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
                         self.colorSchemeProvider = ColorSchemeProvider()
-                        self.cardService = CardService()
-
                         sleepDetectionProvider?.retrieveData { sleep in
                             if let sleep = sleep {
                                 self.sleep = sleep
-                                showDebugSleepDuration(sleep)
+                                self.showDebugSleepDuration(sleep)
 
-                                statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+                                self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 
-                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!,
+                                self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
+
+                                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
                                                                   statisticsProvider: statisticsProvider!,
-                                                                  hkStoreService: hkService!,
-                                                                  cardService: cardService!)
+                                                                  hkStoreService: hkService!)
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
-                                canShowApp = true
+                                self.canShowApp = true
 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
                                     Armchair.userDidSignificantEvent(true)
                                 }
                             } else {
                                 // сон не был прочитан успешно
-                                statisticsProvider = HKStatisticsProvider(sleep: Sleep(sleepInterval: DateInterval(),
-                                                                                       inBedInterval: DateInterval(),
-                                                                                       inBedSamples: nil,
-                                                                                       asleepSamples: nil,
-                                                                                       heartSamples: nil,
-                                                                                       energySamples: nil,
-                                                                                       phases: nil),
+                                self.statisticsProvider = HKStatisticsProvider(sleep: nil,
                                                                           healthService: hkService!)
-                                coordinator = RootCoordinatorImpl(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!, cardService: cardService!)
+                                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
 
-                                canShowApp = true
+                                self.canShowApp = true
                             }
                         }
                     }
@@ -93,7 +86,6 @@ struct SleepyApp: App {
         }
     }
 
-    // MARK: Private functions
     private func simulateURLOpening() {
 #if DEBUG
         guard !hasOpenedURL else {
@@ -115,7 +107,7 @@ struct SleepyApp: App {
                       return
                   }
 
-            coordinator!.startDeepLink(from: url)
+            viewModel!.startDeepLink(from: url)
         }
 #endif
     }

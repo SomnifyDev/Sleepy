@@ -20,13 +20,13 @@
 		8096A4AE2698CA4800288D1A /* CircleChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A72698CA4800288D1A /* CircleChartElementView.swift */; };
 		8096A4AF2698CA4800288D1A /* VerticalProgressElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */; };
 		8096A4B02698CA4800288D1A /* StandardChartElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8096A4A92698CA4800288D1A /* StandardChartElementView.swift */; };
+		809FFACF26E41ED3008AFE60 /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809FFACE26E41ED3008AFE60 /* Date+Components.swift */; };
 		80A3DC1A26DA52F400692EA4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80A3DC1C26DA52F400692EA4 /* Localizable.strings */; };
 		80A3DC1F26DA535E00692EA4 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */; };
 		80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */; };
 		80C0266F2670FB0300FAA125 /* SleepyColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */; };
 		80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */; };
 		D90BB4C4269DF8E0002E9E5A /* CardWithChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BB4C3269DF8E0002E9E5A /* CardWithChartView.swift */; };
-		D90BB4C6269E0603002E9E5A /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */; };
 		D90BB4C8269E0B6A002E9E5A /* ImageModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90BB4C7269E0B6A002E9E5A /* ImageModifiers.swift */; };
 		D9276A1C269ED27A004490FF /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9276A1B269ED27A004490FF /* TimeLineView.swift */; };
 		D93BF2992698DC3500C0C33D /* View+TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */; };
@@ -51,13 +51,13 @@
 		8096A4A72698CA4800288D1A /* CircleChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleChartElementView.swift; sourceTree = "<group>"; };
 		8096A4A82698CA4800288D1A /* VerticalProgressElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressElementView.swift; sourceTree = "<group>"; };
 		8096A4A92698CA4800288D1A /* StandardChartElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardChartElementView.swift; sourceTree = "<group>"; };
+		809FFACE26E41ED3008AFE60 /* Date+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
 		80A3DC1B26DA52F400692EA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
 		80C0266C2670FAE600FAA125 /* ColorSchemeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeProvider.swift; sourceTree = "<group>"; };
 		80C0266E2670FB0300FAA125 /* SleepyColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyColorScheme.swift; sourceTree = "<group>"; };
 		80D7F0C2268DC2590055ECEE /* View+ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ViewModifiers.swift"; sourceTree = "<group>"; };
 		D90BB4C3269DF8E0002E9E5A /* CardWithChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWithChartView.swift; sourceTree = "<group>"; };
-		D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		D90BB4C7269E0B6A002E9E5A /* ImageModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModifiers.swift; sourceTree = "<group>"; };
 		D9276A1B269ED27A004490FF /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
 		D93BF2982698DC3500C0C33D /* View+TextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+TextModifiers.swift"; sourceTree = "<group>"; };
@@ -84,7 +84,6 @@
 				D90BB4C2269DF8BD002E9E5A /* Elements */,
 				805D751026922E9400C19034 /* ProgressChartView.swift */,
 				D90BB4C3269DF8E0002E9E5A /* CardWithChartView.swift */,
-				D90BB4C5269E0603002E9E5A /* SummaryInfoCardView.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -165,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				80A3DC1E26DA535E00692EA4 /* String+Localizable.swift */,
+				809FFACE26E41ED3008AFE60 /* Date+Components.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -301,6 +301,7 @@
 				8096A4AD2698CA4800288D1A /* VerticalProgressChartView.swift in Sources */,
 				805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */,
 				D9276A1C269ED27A004490FF /* TimeLineView.swift in Sources */,
+				809FFACF26E41ED3008AFE60 /* Date+Components.swift in Sources */,
 				805D750F2692229700C19034 /* HorizontalStatisticCellView.swift in Sources */,
 				8002F3AD26A2212700A7192A /* MotivationCellView.swift in Sources */,
 				805D751126922E9400C19034 /* ProgressChartView.swift in Sources */,
@@ -309,7 +310,6 @@
 				80D7F0C3268DC2590055ECEE /* View+ViewModifiers.swift in Sources */,
 				80780F25266CE484000D0DD9 /* ErrorView.swift in Sources */,
 				80C0266D2670FAE600FAA125 /* ColorSchemeProvider.swift in Sources */,
-				D90BB4C6269E0603002E9E5A /* SummaryInfoCardView.swift in Sources */,
 				D99F445C26B0083800998590 /* UsefulInfoCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

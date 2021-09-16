@@ -2,21 +2,19 @@ import SwiftUI
 import XUI
 
 struct CardDetailView: View {
-
-    // MARK: Stored Properties
     
-    @Store var viewModel: CardDetailViewCoordinator
+    @Store var coordinator: CardDetailViewCoordinator
 
-    // MARK: Views
+    
 
     var body: some View {
         HStack {
-            if viewModel.card == .heart {
-                HeartCardDetailView(viewModel: viewModel)
-            } else if viewModel.card == .general {
-                GeneralCardDetailView(viewModel: viewModel)
-            } else if viewModel.card == .phases {
-                PhasesCardDetailView(viewModel: viewModel)
+            if coordinator.card == .heart {
+                HeartCardDetailView(viewModel: self.coordinator)
+            } else if coordinator.card == .general {
+                GeneralCardDetailView(viewModel: self.coordinator)
+            } else if coordinator.card == .phases {
+                PhasesCardDetailView(viewModel: self.coordinator)
             }
         }
     }

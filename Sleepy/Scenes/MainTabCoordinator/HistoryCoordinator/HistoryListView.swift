@@ -12,8 +12,6 @@ import HKCoreSleep
 
 struct HistoryListView: View {
 
-    // MARK: Stored Properties
-
     @Store var viewModel: HistoryCoordinator
     @Binding var calendarType: HealthData
 

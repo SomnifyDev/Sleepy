@@ -163,8 +163,7 @@ extension Date {
         return Int(df.string(from: self))!
     }
 
-    func toString(dateFormat format: String ) -> String
-    {
+    func toString(dateFormat format: String ) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
@@ -179,7 +178,7 @@ extension Date {
     }
 
     static func minutesToClearString(minutes: Int) -> String {
-        // TODO: не спамить функциями
+        // TODO: localize
         let hours = minutes / 60
         let minutes = minutes % 60
         let minutesStr = minutes > 9 ? String(minutes) : "0" + String(minutes)
