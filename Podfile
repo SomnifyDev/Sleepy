@@ -24,23 +24,4 @@ post_install do |installer|
           end
       end
   end
-
-  target 'Sleepy_WatchOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'Sleepy_WatchOSUITests' do
-    # Pods for testing
-  end
-
-  target 'SleepyTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'SleepyUITests' do
-    # Pods for testing
-  end
-
 end
