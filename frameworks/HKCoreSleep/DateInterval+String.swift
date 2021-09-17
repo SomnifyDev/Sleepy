@@ -1,9 +1,10 @@
 //
-//  TimeInterval.swift
-//  Sleepy
+//  DateInterval+String.swift
+//  DateInterval+String
 //
-//  Created by Никита Казанцев on 11.07.2021.
+//  Created by Никита Казанцев on 17.09.2021.
 //
+
 
 import Foundation
 

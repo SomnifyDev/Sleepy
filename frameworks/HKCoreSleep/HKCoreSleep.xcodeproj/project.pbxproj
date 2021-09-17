@@ -12,6 +12,9 @@
 		808FDF432685FE8200B38B78 /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF422685FE8200B38B78 /* Sleep.swift */; };
 		808FDF452685FEB000B38B78 /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF442685FEB000B38B78 /* Phase.swift */; };
 		808FDF482686149E00B38B78 /* Date+minutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808FDF472686149E00B38B78 /* Date+minutes.swift */; };
+		80BF46E126F4D5F200F0747F /* DateInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BF46E026F4D5F200F0747F /* DateInterval+String.swift */; };
+		80BF46E326F4D65300F0747F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BF46E226F4D65300F0747F /* String+Localizable.swift */; };
+		80BF46E626F4D67F00F0747F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80BF46E826F4D67F00F0747F /* Localizable.strings */; };
 		D996B21B26A7642800295922 /* PhasesComputationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D996B21A26A7642800295922 /* PhasesComputationService.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 		808FDF422685FE8200B38B78 /* Sleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep.swift; sourceTree = "<group>"; };
 		808FDF442685FEB000B38B78 /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		808FDF472686149E00B38B78 /* Date+minutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+minutes.swift"; sourceTree = "<group>"; };
+		80BF46E026F4D5F200F0747F /* DateInterval+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateInterval+String.swift"; sourceTree = "<group>"; };
+		80BF46E226F4D65300F0747F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		80BF46E726F4D67F00F0747F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D996B21A26A7642800295922 /* PhasesComputationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesComputationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,6 +47,8 @@
 			isa = PBXGroup;
 			children = (
 				808FDF472686149E00B38B78 /* Date+minutes.swift */,
+				80BF46E026F4D5F200F0747F /* DateInterval+String.swift */,
+				80BF46E226F4D65300F0747F /* String+Localizable.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -48,6 +56,7 @@
 		808FDF1A2685E48A00B38B78 = {
 			isa = PBXGroup;
 			children = (
+				80BF46E826F4D67F00F0747F /* Localizable.strings */,
 				808FDF262685E48A00B38B78 /* HKCoreSleep */,
 				8018CB3226B465D100DE85BD /* Extensions */,
 				808FDF252685E48A00B38B78 /* Products */,
@@ -159,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80BF46E626F4D67F00F0747F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,11 +184,24 @@
 				808FDF482686149E00B38B78 /* Date+minutes.swift in Sources */,
 				808FDF452685FEB000B38B78 /* Phase.swift in Sources */,
 				808FDF412685FD4C00B38B78 /* HKSleepAppleDetectionProvider.swift in Sources */,
+				80BF46E126F4D5F200F0747F /* DateInterval+String.swift in Sources */,
 				808FDF432685FE8200B38B78 /* Sleep.swift in Sources */,
+				80BF46E326F4D65300F0747F /* String+Localizable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		80BF46E826F4D67F00F0747F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80BF46E726F4D67F00F0747F /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		808FDF2B2685E48A00B38B78 /* Debug */ = {

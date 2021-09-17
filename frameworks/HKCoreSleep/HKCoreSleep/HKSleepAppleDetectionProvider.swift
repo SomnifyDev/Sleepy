@@ -43,13 +43,13 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 if let quantityData = sleep.heartSamples as? [HKQuantitySample], !quantityData.isEmpty {
                     let data = quantityData.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
                     let value = (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
-                    metadata["Heart rate mean"] = value
+                    metadata["Heart rate mean"] = String(format: "%.3f", value)
                 }
 
                 if let quantityData = sleep.energySamples as? [HKQuantitySample], !quantityData.isEmpty {
                     let data = quantityData.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
                     let value = (data.reduce(0.0) { $0 + Double($1) })
-                    metadata["Energy consumption"] = value
+                    metadata["Energy consumption"] = String(format: "%.3f", value)
                 }
 
                 let asleepSample = HKCategorySample(type: sleepType,
@@ -144,7 +144,6 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             let query = HKObserverQuery(sampleType: type,
                                         predicate: queryPredicate) { [weak self] (query, completionHandler, errorOrNil) in
                 guard errorOrNil == nil else {
-                    self?.notifyByPush(title: "error", body: "\(errorOrNil!.localizedDescription)")
                     completionHandler()
                     return
                 }
@@ -152,10 +151,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 // Take whatever sleep samples are necessary to update your app.
                 // This often involves executing other queries to access the new data.
                 // We need to defiene if new samples are from apple
-
                 self?.hkService?.readDataLast(type: .inbed, completionHandler: { query, samples, error in
                     guard error == nil, let samples = samples, !samples.isEmpty else {
-                        self?.notifyByPush(title: "error or empty arr", body: "\(error?.localizedDescription)")
                         completionHandler()
                         return
                     }
@@ -163,15 +160,16 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
                         self?.retrieveData(completionHandler: { sleep in
                             // If you have subscribed for background updates you must call the completion handler here.
+                            if let sleep = sleep {
+                                self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+                            }
                             completionHandler()
                             return
                         })
                     } else {
-                        self?.notifyByPush(title: "not apple", body: "new samples were not by apple")
                         completionHandler()
                         return
                     }
-
                 })
             }
 

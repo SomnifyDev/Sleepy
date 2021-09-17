@@ -32,8 +32,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             guard error == nil else {
                 return
             }
-            self?.setupBackground()
         }
+
+        self.setupBackground()
 
         return true
     }
@@ -53,10 +54,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 
         self.notificationCenter.requestAuthorization(options: options, completionHandler: completionHandler)
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
     }
     
 }

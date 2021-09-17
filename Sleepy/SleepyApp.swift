@@ -31,6 +31,8 @@ struct SleepyApp: App {
                     .environmentObject(cardService)
                     .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        UIApplication.shared.applicationIconBadgeNumber = 0
+
                         let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
                         self.hkService?.readData(type: .asleep, interval: interval, ascending: false, bundlePrefixes: ["com.apple"], completionHandler: { _, samples, error in
                             guard error == nil,
@@ -50,6 +52,7 @@ struct SleepyApp: App {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")
                             UserDefaults.standard.setInt(480, forKey: .sleepGoal)
                         }
+
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
                         self.colorSchemeProvider = ColorSchemeProvider()
@@ -63,8 +66,8 @@ struct SleepyApp: App {
                                 self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
 
                                 self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
-                                                                  statisticsProvider: statisticsProvider!,
-                                                                  hkStoreService: hkService!)
+                                                                 statisticsProvider: statisticsProvider!,
+                                                                 hkStoreService: hkService!)
 
                                 // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
                                 self.canShowApp = true
@@ -75,7 +78,7 @@ struct SleepyApp: App {
                             } else {
                                 // сон не был прочитан успешно
                                 self.statisticsProvider = HKStatisticsProvider(sleep: nil,
-                                                                          healthService: hkService!)
+                                                                               healthService: hkService!)
                                 self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
 
                                 self.canShowApp = true
