@@ -372,19 +372,19 @@
 				80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* SummaryListView.swift */,
 				D99FD91D26A9F4A500A66A85 /* ViewModels */,
-				80780F59266D4D92000D0DD9 /* CardsDetail */,
+				80780F59266D4D92000D0DD9 /* CardsDetails */,
 			);
 			path = SummaryList;
 			sourceTree = "<group>";
 		};
-		80780F59266D4D92000D0DD9 /* CardsDetail */ = {
+		80780F59266D4D92000D0DD9 /* CardsDetails */ = {
 			isa = PBXGroup;
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailView.swift */,
 				D9B1722826B0146D002C3B0D /* DetailViews */,
 			);
-			path = CardsDetail;
+			path = CardsDetails;
 			sourceTree = "<group>";
 		};
 		80780F63266D5BC8000D0DD9 /* Extensions */ = {

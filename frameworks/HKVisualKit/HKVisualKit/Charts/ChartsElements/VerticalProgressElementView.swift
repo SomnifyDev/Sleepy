@@ -27,7 +27,7 @@ struct VerticalProgressElementView: View {
 
             Rectangle()
                 .fill(foregroundElementColor)
-                .frame(height: height * percentage)
+                .frame(height: min(height * percentage, height))
                 .cornerRadius(cornerRadius)
         }
         .frame(height: height)

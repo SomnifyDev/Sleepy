@@ -31,7 +31,7 @@ struct SettingsCoordinatorView: View {
                 Section(header: HFView(text: "Health".localized, imageName: "heart.circle")) {
                     Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
                             value: $sleepGoalValue,
-                            in: 200...720,
+                            in: 360...720,
                             step: 15) { _ in
                         saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
@@ -62,7 +62,7 @@ struct SettingsCoordinatorView: View {
                     Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
                             value: $recognisionConfidenceValue,
                             in: 10...100,
-                            step: 10) { _ in
+                            step: 5) { _ in
                         saveSetting(with: recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
                     }
                 }
