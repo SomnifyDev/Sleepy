@@ -42,7 +42,7 @@ struct HistoryListView: View {
                         } else {
                             MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
 
-                            ErrorView(errorType: .brokenData(type: .sleep),
+                            BannerView(bannerViewType: .brokenData(type: .sleep),
                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
@@ -56,7 +56,7 @@ struct HistoryListView: View {
                         } else {
                             MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
 
-                            ErrorView(errorType: .brokenData(type: .inbed),
+                            BannerView(bannerViewType: .brokenData(type: .inbed),
                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
@@ -70,7 +70,7 @@ struct HistoryListView: View {
                         } else {
                             MotivationCellView(type: .heart, colorProvider: self.viewModel.colorSchemeProvider)
 
-                            ErrorView(errorType: .brokenData(type: .heart),
+                            BannerView(bannerViewType: .brokenData(type: .heart),
                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
@@ -84,7 +84,7 @@ struct HistoryListView: View {
                         } else {
                             MotivationCellView(type: .energy, colorProvider: self.viewModel.colorSchemeProvider)
 
-                            ErrorView(errorType: .brokenData(type: .energy),
+                            BannerView(bannerViewType: .brokenData(type: .energy),
                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 

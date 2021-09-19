@@ -9,17 +9,13 @@ import Foundation
 import XUI
 import SettingsKit
 
-
-
 class SettingsCoordinator: ObservableObject, ViewModel {
     
     @Published var openedURL: URL?
     @Published private(set) var viewModel: SettingsCoordinatorView!
 
     private unowned let parent: RootCoordinator
-    
-    
-    
+
     init(title: String,
          parent: RootCoordinator) {
         self.parent = parent

@@ -45,7 +45,7 @@
 "Sleep: goal" = "Sleep: goal";
 "Your sleep goal" = "Your sleep goal";
 "Sleep duration today" = "Sleep duration today";
-"Your sleep duration was %@, it is %d of your goal" = "Your sleep duration was %@, it is %d of your goal";
+"Your sleep duration was %@, it is %u of your goal" = "Your sleep duration was %@, it is %u of your goal";
 "Pay more attention to your sleep to be more healthy and productive every day!" = "Pay more attention to your sleep to be more healthy and productive every day!";
 "You can do better! For a reminder, sleep is the key to longevity and youth!" = "You can do better! For a reminder, sleep is the key to longevity and youth!";
 "Amazing result for today. Keep it up and stay healthy!" = "Amazing result for today. Keep it up and stay healthy!";

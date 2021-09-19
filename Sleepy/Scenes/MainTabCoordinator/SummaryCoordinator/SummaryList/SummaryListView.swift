@@ -4,20 +4,15 @@ import HKVisualKit
 
 struct SummaryListView: View {
 
-    
-
     @Store var viewModel: SummaryListCoordinator
 
     @EnvironmentObject var cardService: CardService
-
-    
 
     @State private var generalViewModel: SummaryGeneralDataViewModel?
     @State private var phasesViewModel: SummaryPhasesDataViewModel?
     @State private var heartViewModel: SummaryHeartDataViewModel?
     @State private var somethingBroken = false
     
-
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -28,7 +23,7 @@ struct SummaryListView: View {
                     VStack(alignment: .center) {
 
                         if somethingBroken {
-                            ErrorView(errorType: .advice(type: .wearMore, imageSystemName: "wearAdvice"),
+                            BannerView(bannerViewType: .advice(type: .wearMore, imageSystemName: "wearAdvice"),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -47,7 +42,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
 
-                            ErrorView(errorType: .brokenData(type: .sleep),
+                            BannerView(bannerViewType: .brokenData(type: .sleep),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
@@ -79,7 +74,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
 
-                            ErrorView(errorType: .emptyData(type: .sleep),
+                            BannerView(bannerViewType: .emptyData(type: .sleep),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
@@ -116,7 +111,7 @@ struct SummaryListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
 
-                            ErrorView(errorType: .emptyData(type: .heart),
+                            BannerView(bannerViewType: .emptyData(type: .heart),
                                       colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 

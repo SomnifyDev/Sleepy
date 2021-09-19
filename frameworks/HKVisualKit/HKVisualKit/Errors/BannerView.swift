@@ -1,25 +1,26 @@
 import SwiftUI
 
-public struct ErrorView: View {
+public struct BannerView: View {
 
-    public enum AdviceType {
+    // MARK: Enums
+
+    public enum AdviceType: String {
         case wearMore
         case soundRecording
         case some
     }
     
-    public enum ErrorType: Equatable {
-        
+    public enum BannerViewType: Equatable {
         case emptyData(type: HealthData)
         case brokenData(type: HealthData)
         case restrictedData(type: HealthData)
         case advice(type: AdviceType, imageSystemName: String? = nil)
 
-        public static func ==(lhs: ErrorType, rhs: ErrorType) -> Bool {
+        public static func ==(lhs: BannerViewType, rhs: BannerViewType) -> Bool {
             switch (lhs, rhs) {
-            case (brokenData, brokenData):
+            case (.brokenData, .brokenData):
                 return true
-            case (.emptyData,.emptyData):
+            case (.emptyData, .emptyData):
                 return true
             case (.restrictedData, .restrictedData):
                 return true
@@ -29,55 +30,65 @@ public struct ErrorView: View {
                 return false
             }
         }
-        
     }
 
     // MARK: Private properties
 
+    @State private var viewDidClose = false
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
     
-    private let errorType: ErrorType
+    private let bannerViewType: BannerViewType
     private let colorProvider: ColorSchemeProvider
     
     private var iconName: String = ""
     private var titleText: String = ""
     private var dataText: String = ""
 
-    @State private var viewDidClose = false
+    // MARK: Init
 
-    
-
-    public init(errorType: ErrorType, colorProvider: ColorSchemeProvider) {
-        self.errorType = errorType
+    public init(bannerViewType: BannerViewType, colorProvider: ColorSchemeProvider) {
+        self.bannerViewType = bannerViewType
         self.colorProvider = colorProvider
         
         titleText = getTitleText()
         dataText = getDataText()
         iconName = getIconName()
+
+        switch bannerViewType {
+        case .advice(let type, _):
+            let typeString = type.rawValue
+            if keyExists(key: typeString) {
+                _viewDidClose = State(initialValue: true)
+            }
+        default:
+            break
+        }
     }
+
+    // MARK: Body
     
     public var body: some View {
         if !viewDidClose {
         VStack {
             GeometryReader { geometry in
                 VStack(spacing: 8) {
-
                         CardTitleView(titleText: self.titleText,
                                       mainText: self.dataText,
                                       leftIcon: Image(systemName: self.iconName),
                                       rightIcon: Image(systemName: "xmark.circle"),
-                                      titleColor: errorType == .advice(type: .some, imageSystemName: "")
+                                      titleColor: bannerViewType == .advice(type: .some, imageSystemName: "")
                                       ? self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.adviceText))
                                       : self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                       mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
-                                      showSeparator: errorType == .advice(type: .some, imageSystemName: ""),
+                                      showSeparator: bannerViewType == .advice(type: .some, imageSystemName: ""),
                                       colorProvider: self.colorProvider,
                                       onCloseTapAction: {
-                            viewDidClose.toggle()
+                            viewDidClose = true
+                            UserDefaults.standard.set(true, forKey: getBannerUserDefaultsKey())
                         })
 
-                        if errorType == .advice(type: .some, imageSystemName: ""),
+                        if bannerViewType == .advice(type: .some, imageSystemName: ""),
                            let imageSystemName = self.getImageSystemName() {
                             Image(imageSystemName)
                                 .resizable()
@@ -102,6 +113,19 @@ public struct ErrorView: View {
     
     // MARK: Private Methods
 
+    private func keyExists(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+
+    private func getBannerUserDefaultsKey() -> String {
+        switch bannerViewType {
+        case .advice(let type, _):
+            return type.rawValue
+        default:
+            return ""
+        }
+    }
+
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
         return GeometryReader { geometry -> Color in
             let rect = geometry.frame(in: .local)
@@ -113,7 +137,7 @@ public struct ErrorView: View {
     }
     
     private func getTitleText() -> String {
-        switch self.errorType {
+        switch self.bannerViewType {
         case .emptyData(type: _),
                 .brokenData(type: _),
                 .restrictedData(type: _):
@@ -124,7 +148,7 @@ public struct ErrorView: View {
     }
 
     private func getImageSystemName() -> String? {
-        switch self.errorType {
+        switch self.bannerViewType {
         case .emptyData(type: _),
                 .brokenData(type: _),
                 .restrictedData(type: _):
@@ -135,7 +159,7 @@ public struct ErrorView: View {
     }
     
     private func getDataText() -> String {
-        switch self.errorType {
+        switch self.bannerViewType {
         case .emptyData(type: let type):
             return String(format: "No data of type %@ was recieved".localized, type.rawValue)
         case .brokenData(type: let type):
@@ -155,7 +179,7 @@ public struct ErrorView: View {
     }
     
     private func getIconName() -> String {
-        switch self.errorType {
+        switch self.bannerViewType {
         case .emptyData(type: _), .brokenData(type: _):
             return "exclamationmark.square.fill"
         case .restrictedData(type: _):
@@ -169,7 +193,7 @@ public struct ErrorView: View {
 
 public struct ErrorView_Previews: PreviewProvider {
     public static var previews: some View {
-        ErrorView(errorType: .brokenData(type: .heart),
+        BannerView(bannerViewType: .brokenData(type: .heart),
                   colorProvider: ColorSchemeProvider())
     }
 }

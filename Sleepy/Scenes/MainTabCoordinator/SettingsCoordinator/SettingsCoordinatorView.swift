@@ -13,6 +13,8 @@ import HKVisualKit
 import Armchair
 
 struct SettingsCoordinatorView: View {
+
+    // MARK: Properties
     
     @Store var viewModel: SettingsCoordinator
 
@@ -20,17 +22,18 @@ struct SettingsCoordinatorView: View {
     @State private var bitrateValue = 12000
     @State private var recognisionConfidenceValue: Int = 30
     @State private var isSharePresented: Bool = false
+
+    // MARK: Body
     
     var body: some View {
         NavigationView {
             List {
                 Section(header: HFView(text: "Health".localized, imageName: "heart.circle")) {
-                    Stepper(String(format: "Sleep goal %d".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
+                    Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
                             value: $sleepGoalValue,
-                            in: 200...720,
+                            in: 360...720,
                             step: 15) { _ in
-
-                        UserDefaults.standard.setInt(sleepGoalValue, forKey: .sleepGoal)
+                        saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
                 }
                 
@@ -38,7 +41,6 @@ struct SettingsCoordinatorView: View {
                     LabeledButton(text: "Rate us".localized,
                                   showChevron: true,
                                   action: { Armchair.rateApp() })
-
                     LabeledButton(text: "Share about us".localized,
                                   showChevron: true,
                                   action: { isSharePresented = true })
@@ -54,30 +56,35 @@ struct SettingsCoordinatorView: View {
                             value: $bitrateValue,
                             in: 1000...44000,
                             step: 1000) { _ in
-
-                        UserDefaults.standard.setInt(sleepGoalValue, forKey: .soundBitrate)
+                        saveSetting(with: bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
                     }
 
                     Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
                             value: $recognisionConfidenceValue,
                             in: 10...100,
-                            step: 10) { _ in
-
-                        UserDefaults.standard.setInt(recognisionConfidenceValue, forKey: .soundRecognisionConfidence)
+                            step: 5) { _ in
+                        saveSetting(with: recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
                     }
                 }
             }
             .listStyle(.insetGrouped)
             .navigationBarTitle("Settings".localized, displayMode: .large)
             .onAppear {
-                // TODO: если значения нет, то дефолтное не сохраняется в хранилище
-                // см TODO внутри get_integer
-                self.sleepGoalValue = UserDefaults.standard.getInt(forKey: .sleepGoal) ?? 480
-                self.bitrateValue = UserDefaults.standard.getInt(forKey: .soundBitrate) ?? 12000
-
-                self.recognisionConfidenceValue = UserDefaults.standard.getInt(forKey: .soundRecognisionConfidence) ?? 30
+                getAllValuesFromUserDefaults()
             }
         }
+    }
+
+    // MARK: Private methods
+
+    private func saveSetting(with value: Int, forKey key: String) {
+        UserDefaults.standard.set(value, forKey: key)
+    }
+
+    private func getAllValuesFromUserDefaults() {
+        self.sleepGoalValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
+        self.bitrateValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
+        self.recognisionConfidenceValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
     }
 }
 

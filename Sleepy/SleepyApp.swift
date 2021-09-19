@@ -8,24 +8,24 @@ import Armchair
 @main
 struct SleepyApp: App {
 
+    // MARK: Properties
+
     @State var hkService: HKService?
     @State var cardService: CardService!
     @State var colorSchemeProvider: ColorSchemeProvider?
     @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
     @State var statisticsProvider: HKStatisticsProvider?
-
     @State var viewModel: RootCoordinator?
-
     @State var hasOpenedURL = false
     @State var canShowApp: Bool = false
-
     @State var sleep: Sleep?
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    // MARK: Body
+
     var body: some Scene {
         WindowGroup {
-
             if canShowApp {
                 RootCoordinatorView(viewModel: viewModel!)
                     .environmentObject(cardService)
@@ -50,7 +50,7 @@ struct SleepyApp: App {
                     .onAppear {
                         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")
-                            UserDefaults.standard.setInt(480, forKey: .sleepGoal)
+                            setAllUserDefaults()
                         }
 
                         self.hkService = self.appDelegate.hkService
@@ -85,6 +85,24 @@ struct SleepyApp: App {
                             }
                         }
                     }
+            }
+        }
+    }
+
+    // MARK: Private methods
+
+    private func setAllUserDefaults() {
+        SleepySettingsKeys.allCases.forEach {
+            switch $0 {
+            case .sleepGoal:
+                let defaultSleepGoal = SleepySettingsKeys.sleepGoal.settingKeyIntegerValue
+                UserDefaults.standard.set(defaultSleepGoal, forKey: SleepySettingsKeys.sleepGoal.rawValue)
+            case .soundBitrate:
+                let defaultSoundBitrate = SleepySettingsKeys.soundBitrate.settingKeyIntegerValue
+                UserDefaults.standard.set(defaultSoundBitrate, forKey: SleepySettingsKeys.soundBitrate.rawValue)
+            case .soundRecognisionConfidence:
+                let defaultSoundRecognisionConfidence = SleepySettingsKeys.soundRecognisionConfidence.settingKeyIntegerValue
+                UserDefaults.standard.set(defaultSoundRecognisionConfidence, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
             }
         }
     }

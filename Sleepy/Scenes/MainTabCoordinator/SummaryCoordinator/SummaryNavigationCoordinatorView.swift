@@ -5,8 +5,6 @@ struct SummaryNavigationCoordinatorView: View {
 
     @Store var viewModel: SummaryNavigationCoordinator
 
-    
-
     var body: some View {
         NavigationView {
             SummaryListView(viewModel: viewModel.summaryListCoordinator)

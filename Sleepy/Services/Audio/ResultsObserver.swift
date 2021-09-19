@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SoundAnalysis
+import SettingsKit
 
 /// An observer that receives results from a classify sound request.
 class ResultsObserver: NSObject, SNResultsObserving {
@@ -31,7 +32,8 @@ class ResultsObserver: NSObject, SNResultsObserving {
 
         // Convert the confidence to a percentage string.
         let percent = classification.confidence * 100.0
-        guard percent >= Double(UserDefaults.standard.getInt(forKey: .soundRecognisionConfidence) ?? 0) else { return }
+        let confidence = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+        guard percent >= Double(confidence) else { return }
         let resultItem = SoundAnalysisResult(start: TimeInterval(timeInSeconds),
                                              end: TimeInterval(result.timeRange.end.seconds),
                                              soundType: classification.identifier.replacingOccurrences(of: "_", with: " "),
