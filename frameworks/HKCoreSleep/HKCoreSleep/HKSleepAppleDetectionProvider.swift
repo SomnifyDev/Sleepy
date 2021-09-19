@@ -118,12 +118,22 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             let phasesService = PhasesComputationService(sleep: sleep)
             sleep.phases = phasesService.phasesData
 
-            self.saveSleep(sleep: sleep, completionHandler: { result, error in
+            self.saveSleep(sleep: sleep, completionHandler: { [weak self] result, error in
                 guard error == nil else {
                     print(error.debugDescription)
                     completionHandler(nil)
                     return
                 }
+
+                DispatchQueue.main.async {
+                    let state = UIApplication.shared.applicationState
+                    if state == .background || state == .inactive {
+                        // background sleep analysis push being delivered in 15 minutes
+                        self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+                    }
+                }
+
+
                 completionHandler(sleep)
             })
         }
@@ -159,16 +169,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
                     if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
                         self?.retrieveData(completionHandler: { sleep in
-                            let state = UIApplication.shared.applicationState
-                            if state == .background || state == .inactive {
-                                // background
-                                if let sleep = sleep {
-                                    self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
-                                }
-                            } else {
-                                // foreground
-                                observeHandler(sleep)
-                            }
+                            observeHandler(sleep)
                             // If you have subscribed for background updates you must call the completion handler here.
                             completionHandler()
                             return
