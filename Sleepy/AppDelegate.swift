@@ -4,16 +4,16 @@ import HKCoreSleep
 import Armchair
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-
     let appID = "361309726" // Pages iOS for armchair. TODO: replace with ours
     let notificationCenter = UNUserNotificationCenter.current()
 
     var hkService: HKService
     var sleepDetectionProvider: HKSleepAppleDetectionProvider
+    var sleep: Sleep?
 
     override init() {
-        hkService = HKService()
-        sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
+        self.hkService = HKService()
+        self.sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
 
         super.init()
     }
@@ -27,11 +27,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         print("Application did finished launching with options")
 
-        notificationCenter.delegate = self
+        self.notificationCenter.delegate = self
         self.registerForPushNotifications { [weak self] result, error in
             guard error == nil else {
                 return
             }
+            self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["Sleepy Notification"])
         }
 
         self.setupBackground()
@@ -46,7 +47,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 return
             }
 
-            self?.sleepDetectionProvider.observeData()
+            self?.sleepDetectionProvider.observeData { sleep in
+                self?.sleep = sleep
+            }
         }
     }
 
@@ -59,7 +62,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -70,8 +72,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
 
-        if response.notification.request.identifier == "Local Notification" {
-            print("Handling notifications with the Local Notification Identifier")
+        if response.notification.request.identifier == "Sleepy Notification" {
+            print("Handling notifications with the Sleepy Notification Identifier")
         }
 
         completionHandler()
@@ -79,7 +81,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 }
 
 extension AppDelegate {
-
     func setupArmchair() {
         // Normally, all the setup would be here.
         // It is always best to load Armchair as early as possible

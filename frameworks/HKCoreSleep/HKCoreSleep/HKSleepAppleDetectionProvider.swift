@@ -131,8 +131,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
     /// Observes the HealthStore for changes in the types we're interested in, e.g, inbed, asleep samples
     /// - Parameters:
-    ///   - completionHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
-    public func observeData() {
+    ///   - observeHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
+    public func observeData(observeHandler: @escaping (Sleep?) -> Void) {
         let startDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())
         let sampleDataPredicate = HKQuery.predicateForSamples(withStart: startDate,
                                                               end: Date.distantFuture,
@@ -159,10 +159,17 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
                     if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
                         self?.retrieveData(completionHandler: { sleep in
-                            // If you have subscribed for background updates you must call the completion handler here.
-                            if let sleep = sleep {
-                                self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+                            let state = UIApplication.shared.applicationState
+                            if state == .background || state == .inactive {
+                                // background
+                                if let sleep = sleep {
+                                    self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+                                }
+                            } else {
+                                // foreground
+                                observeHandler(sleep)
                             }
+                            // If you have subscribed for background updates you must call the completion handler here.
                             completionHandler()
                             return
                         })
@@ -191,8 +198,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         content.badge = 1
         content.categoryIdentifier = categoryIdentifier
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let identifier = "Local Notification"
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15*60, repeats: false)
+        let identifier = "Sleepy Notification"
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 
         notificationCenter.add(request) { (error) in
@@ -310,15 +317,15 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         return (asleepInterval, inbedInterval, inBedSamples, asleepSamples, heartSamples, energySamples, false)
     }
 
-        /// Func that gets all raw data samples for provider to star analysis
-        /// - Parameters:
-        ///   - interval: date interval for samples to extract from
-        ///   - completion: result with samples and errors if so occured
+    /// Func that gets all raw data samples for provider to star analysis
+    /// - Parameters:
+    ///   - interval: date interval for samples to extract from
+    ///   - completion: result with samples and errors if so occured
     private func getRawData(interval: DateInterval, completion: @escaping((HKSampleQuery?, [HKSample]?, Error?, // asleep
-                                                                   HKSampleQuery?, [HKSample]?, Error?, // heart
-                                                                   HKSampleQuery?, [HKSample]?, Error?, // energy
-                                                                   HKSampleQuery?, [HKSample]?, Error?) // inbed
-                                                                  -> Void)) {
+                                                                           HKSampleQuery?, [HKSample]?, Error?, // heart
+                                                                           HKSampleQuery?, [HKSample]?, Error?, // energy
+                                                                           HKSampleQuery?, [HKSample]?, Error?) // inbed
+                                                                          -> Void)) {
         var query1: HKSampleQuery?
         var samples1: [HKSample]?
         var error1: Error?
