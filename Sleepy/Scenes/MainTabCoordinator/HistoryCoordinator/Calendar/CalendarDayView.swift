@@ -81,10 +81,6 @@ struct CalendarDayView: View {
     }
 
     private func getData() {
-        guard let sleepInterval = self.statsProvider.getTodaySleepIntervalBoundary(boundary: .asleep) else {
-            return
-        }
-
         let date = Calendar.current.date(byAdding: .day, value: dateIndex - monthDate.getDayInt(), to: monthDate) ?? Date()
         description = "-"
         value = nil
@@ -94,7 +90,7 @@ struct CalendarDayView: View {
         case .heart:
             statsProvider.getMetaDataByIntervalWithIndicator(healthType: .heart,
                                                              indicatorType: .mean,
-                                                             for: DateInterval(start: sleepInterval.start, end: sleepInterval.end)) { val in
+                                                             for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
                 value = val
                 getCircleColor()
 
@@ -108,7 +104,7 @@ struct CalendarDayView: View {
         case .energy:
             statsProvider.getMetaDataByIntervalWithIndicator(healthType: .energy,
                                                              indicatorType: .mean,
-                                                             for: DateInterval(start: sleepInterval.start, end: sleepInterval.end)) { val in
+                                                             for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
                 value = val
                 getCircleColor()
 
