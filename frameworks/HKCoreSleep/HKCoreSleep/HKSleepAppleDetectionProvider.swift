@@ -118,7 +118,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             let phasesService = PhasesComputationService(sleep: sleep)
             sleep.phases = phasesService.phasesData
 
-            self.saveSleep(sleep: sleep, completionHandler: { [weak self] result, error in
+            self.saveSleep(sleep: sleep, completionHandler: { [weak self] success, error in
                 guard error == nil else {
                     print(error.debugDescription)
                     completionHandler(nil)
@@ -127,12 +127,11 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
                 DispatchQueue.main.async {
                     let state = UIApplication.shared.applicationState
-                    if state == .background || state == .inactive {
+                    if (state == .background || state == .inactive) && success {
                         // background sleep analysis push being delivered in 15 minutes
                         self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
                     }
                 }
-
 
                 completionHandler(sleep)
             })
