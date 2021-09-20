@@ -9,7 +9,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
     var hkService: HKService
     var sleepDetectionProvider: HKSleepAppleDetectionProvider
-    var sleep: Sleep?
 
     override init() {
         self.hkService = HKService()
@@ -35,6 +34,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["Sleepy Notification"])
         }
 
+        // настраиваем сесcию, которая будет в дальнейшем реагировать на появление сэмплов от эпла
         self.setupBackground()
 
         return true
@@ -47,9 +47,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 return
             }
 
-            self?.sleepDetectionProvider.observeData { sleep in
-                self?.sleep = sleep
-            }
+            self?.sleepDetectionProvider.observeData()
         }
     }
 

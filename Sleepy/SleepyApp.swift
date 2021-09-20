@@ -61,10 +61,7 @@ struct SleepyApp: App {
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
                         self.colorSchemeProvider = ColorSchemeProvider()
 
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            self.sleep = self.appDelegate.sleep
-                            self.finalizeAnalysis(sleep: self.sleep)
-                        }
+                        self.retrieveSleep()
                     }
             }
         }
@@ -72,34 +69,10 @@ struct SleepyApp: App {
 
     // MARK: Private methods
 
-    /// Функция для проверки  'достался ли сон с помощью бэкграунд сессии в аппделегате'
-    /// Если нет (мб прав нет, 3 секунд не хватило, еще чего), попробуем достать вновь
-    /// - Parameters:
-    ///   - sleep: сон
-    ///   - shouldRepeat: параметр для рекурсии внутри самой функции
-    private func finalizeAnalysis(sleep: Sleep?, shouldRepeat: Bool = true) {
-        if let sleep = sleep {
-            self.showDebugSleepDuration(sleep)
-
-            self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
-
-            self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-
-            self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
-                                             statisticsProvider: statisticsProvider!,
-                                             hkStoreService: hkService!)
-
-            // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
-            self.canShowApp = true
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
-                Armchair.userDidSignificantEvent(true)
-            }
-        } else if shouldRepeat {
-            // сон не был прочитан успешно бэкграунд сессией
+    private func retrieveSleep() {
             self.sleepDetectionProvider?.retrieveData { sleep in
                 guard let sleep = sleep else {
-                    // сон не был прочитан со второй попытки
+                    // сон не был прочитан
                     self.statisticsProvider = HKStatisticsProvider(sleep: nil,
                                                                    healthService: hkService!)
                     self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
@@ -107,10 +80,20 @@ struct SleepyApp: App {
                     self.canShowApp = true
                     return
                 }
-                // со второй попытки сон прочитался
-                self.finalizeAnalysis(sleep: sleep, shouldRepeat: false)
+                // сон прочитался
+                self.showDebugSleepDuration(sleep)
+
+                self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+                self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
+                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
+                                                 statisticsProvider: statisticsProvider!,
+                                                 hkStoreService: hkService!)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                    Armchair.userDidSignificantEvent(true)
+                }
+                self.canShowApp = true
             }
-        }
     }
 
     /// Установка дефолтных значений настроек
