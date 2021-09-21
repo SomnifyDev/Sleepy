@@ -5,13 +5,11 @@ struct SummaryNavigationCoordinatorView: View {
 
     @Store var viewModel: SummaryNavigationCoordinator
 
-    
-
     var body: some View {
         NavigationView {
-            SummaryListView(viewModel: viewModel.summaryListCoordinator)
+            SummaryCardsListView(viewModel: viewModel.summaryListCoordinator)
                 .navigation(model: $viewModel.cardDetailViewCoordinator) { viewModel in
-                    CardDetailView(coordinator: viewModel)
+                    CardDetailsView(coordinator: viewModel)
                 }
         }
     }

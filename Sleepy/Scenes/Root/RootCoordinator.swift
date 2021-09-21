@@ -29,7 +29,6 @@ extension RootCoordinator {
     
 }
 
-
 class RootCoordinator: ObservableObject, ViewModel {
     
     @Published var tab = TabBarTab.summary
@@ -100,7 +99,7 @@ class RootCoordinator: ObservableObject, ViewModel {
                           return
                       }
                 let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
-                openCard(for: cardType)
+//                openCard(for: cardType, with: <#AdvicesViewType#>)
 
             case "history":
                 openTabView(of: .history)

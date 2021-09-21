@@ -20,14 +20,12 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
 
     private unowned let parent: RootCoordinator
 
-    @Published private(set) var summaryListCoordinator: SummaryListCoordinator!
-    @Published var cardDetailViewCoordinator: CardDetailViewCoordinator?
+    @Published private(set) var summaryListCoordinator: SummaryCardsListCoordinator!
+    @Published var cardDetailViewCoordinator: CardDetailsViewCoordinator?
 
     let colorProvider: ColorSchemeProvider
     let hkStoreService: HKService
     let statisticsProvider: HKStatisticsProvider
-
-    
 
     init(colorProvider: ColorSchemeProvider,
          statisticsProvider: HKStatisticsProvider,
@@ -44,7 +42,7 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
         self.hkStoreService = hkStoreService
 
         // создаем дочерний координатор списка карточек
-        self.summaryListCoordinator = SummaryListCoordinator(colorProvider: colorProvider,
+        self.summaryListCoordinator = SummaryCardsListCoordinator(colorProvider: colorProvider,
                                                              statisticsProvider: statisticsProvider,
                                                              title: title,
                                                              coordinator: self)
@@ -58,7 +56,7 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
         // пришла команда открыть карту - инициализируем координатор карточки
         // а переменная-то @Published - поэтому она затриггерит к срабатыванию
         // модификатор .navigation(model: у своего view
-        cardDetailViewCoordinator = CardDetailViewCoordinator(card: card, coordinator: self)
+        cardDetailViewCoordinator = CardDetailsViewCoordinator(card: card, coordinator: self)
     }
 
 }

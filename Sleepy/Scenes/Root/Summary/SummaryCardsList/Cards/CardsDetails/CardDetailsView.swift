@@ -1,11 +1,9 @@
 import SwiftUI
 import XUI
 
-struct CardDetailView: View {
+struct CardDetailsView: View {
     
-    @Store var coordinator: CardDetailViewCoordinator
-
-    
+    @Store var coordinator: CardDetailsViewCoordinator
 
     var body: some View {
         HStack {

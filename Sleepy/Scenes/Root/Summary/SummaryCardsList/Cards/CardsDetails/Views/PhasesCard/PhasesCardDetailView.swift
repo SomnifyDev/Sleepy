@@ -6,8 +6,7 @@ import XUI
 
 struct PhasesCardDetailView: View {
 
-    @Store var viewModel: CardDetailViewCoordinator
-
+    @Store var viewModel: CardDetailsViewCoordinator
     @EnvironmentObject var cardService: CardService
 
     var body: some View {

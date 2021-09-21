@@ -9,6 +9,13 @@ enum SummaryViewCardType: String {
     case phases
 }
 
+enum AdvicesViewType: String {
+    case sleepImportance
+    case sleepImprovement
+    case phasesAndStages
+    case heartAndSleep
+}
+
 extension SummaryViewCardType: Identifiable {
     var id: Self { self }
 }

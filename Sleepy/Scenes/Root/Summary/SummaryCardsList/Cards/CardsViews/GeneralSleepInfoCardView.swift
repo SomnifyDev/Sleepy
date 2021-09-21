@@ -1,7 +1,7 @@
 import SwiftUI
 import HKVisualKit
 
-public struct SummaryInfoCardView: View {
+public struct GeneralSleepInfoCardView: View {
 
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack

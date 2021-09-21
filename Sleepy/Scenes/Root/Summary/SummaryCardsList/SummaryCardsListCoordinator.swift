@@ -4,9 +4,7 @@ import HKVisualKit
 import HKStatistics
 import SettingsKit
 
-
-
-class SummaryListCoordinator: ObservableObject, ViewModel {
+class SummaryCardsListCoordinator: ObservableObject, ViewModel {
 
     @Published private(set) var title: String
     @Published private(set) var cards: [SummaryViewCardType]?
@@ -15,8 +13,6 @@ class SummaryListCoordinator: ObservableObject, ViewModel {
     
     let colorProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
-
-    
 
     init(colorProvider: ColorSchemeProvider,
          statisticsProvider: HKStatisticsProvider,
@@ -28,8 +24,6 @@ class SummaryListCoordinator: ObservableObject, ViewModel {
         self.title = title
         self.coordinator = coordinator
     }
-
-    
 
     func open(_ card: SummaryViewCardType) {
         coordinator.open(card)

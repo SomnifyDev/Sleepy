@@ -10,8 +10,8 @@
 		8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A526A1FA3600A7192A /* HistoryListView.swift */; };
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
-		8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */; };
-		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
+		8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */; };
+		801505AE267140F5007574B9 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailsView.swift */; };
 		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		80647AF326D9163B0054C03F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80647AF526D9163B0054C03F /* Localizable.strings */; };
@@ -24,10 +24,10 @@
 		80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */; };
 		80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */; };
 		80780F4E266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */; };
-		80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */; };
+		80780F53266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F52266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift */; };
 		80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F57266D4C2E000D0DD9 /* CardService.swift */; };
-		80780F5B266D4E58000D0DD9 /* SummaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* SummaryListView.swift */; };
-		80780F5F266D4F42000D0DD9 /* CardDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */; };
+		80780F5B266D4E58000D0DD9 /* SummaryCardsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5A266D4E58000D0DD9 /* SummaryCardsListView.swift */; };
+		80780F5F266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */; };
 		80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */; };
 		8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */; };
 		808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; };
@@ -180,8 +180,8 @@
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
-		8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
-		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSleepInfoCardView.swift; sourceTree = "<group>"; };
+		801505AD267140F5007574B9 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
 		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		80647AF426D9163B0054C03F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -193,10 +193,10 @@
 		80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorView.swift; sourceTree = "<group>"; };
 		80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryNavigationCoordinator.swift; sourceTree = "<group>"; };
 		80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryNavigationCoordinatorView.swift; sourceTree = "<group>"; };
-		80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryListCoordinator.swift; sourceTree = "<group>"; };
+		80780F52266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCardsListCoordinator.swift; sourceTree = "<group>"; };
 		80780F57266D4C2E000D0DD9 /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
-		80780F5A266D4E58000D0DD9 /* SummaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryListView.swift; sourceTree = "<group>"; };
-		80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewCoordinator.swift; sourceTree = "<group>"; };
+		80780F5A266D4E58000D0DD9 /* SummaryCardsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCardsListView.swift; sourceTree = "<group>"; };
+		80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsViewCoordinator.swift; sourceTree = "<group>"; };
 		80780F64266D5BDE000D0DD9 /* URL+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Identifiable.swift"; sourceTree = "<group>"; };
 		8087D5E8269AD287007AB4C2 /* DateInterval+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateInterval+String.swift"; sourceTree = "<group>"; };
 		808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKCoreSleep.xcodeproj; path = frameworks/HKCoreSleep/HKCoreSleep.xcodeproj; sourceTree = "<group>"; };
@@ -297,14 +297,6 @@
 			path = "Embed Statistics";
 			sourceTree = "<group>";
 		};
-		80647AFB26D918E90054C03F /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,19 +318,19 @@
 		80780F34266D3CFD000D0DD9 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				80780F48266D451B000D0DD9 /* MainTabCoordinator */,
+				80780F48266D451B000D0DD9 /* Root */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		80780F35266D3D03000D0DD9 /* SummaryCoordinator */ = {
+		80780F35266D3D03000D0DD9 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
 				80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */,
 				80780F4D266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift */,
-				80780F4F266D4997000D0DD9 /* SummaryList */,
+				80780F4F266D4997000D0DD9 /* SummaryCardsList */,
 			);
-			path = SummaryCoordinator;
+			path = Summary;
 			sourceTree = "<group>";
 		};
 		80780F3E266D42D4000D0DD9 /* Services */ = {
@@ -351,40 +343,38 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		80780F48266D451B000D0DD9 /* MainTabCoordinator */ = {
+		80780F48266D451B000D0DD9 /* Root */ = {
 			isa = PBXGroup;
 			children = (
 				80780F42266D4377000D0DD9 /* RootCoordinator.swift */,
 				80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */,
-				80780F35266D3D03000D0DD9 /* SummaryCoordinator */,
-				D99509F426777D5800694208 /* HistoryCoordinator */,
-				D99509F326777D4D00694208 /* AlarmCoordinator */,
-				80A765F126C85E9F00A66554 /* SoundCoordinator */,
-				D99509F8267780AD00694208 /* SettingsCoordinator */,
+				80780F35266D3D03000D0DD9 /* Summary */,
+				D99509F426777D5800694208 /* History */,
+				D99509F326777D4D00694208 /* Alarm */,
+				80A765F126C85E9F00A66554 /* Sound */,
+				D99509F8267780AD00694208 /* Settings */,
 			);
-			path = MainTabCoordinator;
+			path = Root;
 			sourceTree = "<group>";
 		};
-		80780F4F266D4997000D0DD9 /* SummaryList */ = {
+		80780F4F266D4997000D0DD9 /* SummaryCardsList */ = {
 			isa = PBXGroup;
 			children = (
-				80647AFB26D918E90054C03F /* Cards */,
-				80780F52266D4A93000D0DD9 /* SummaryListCoordinator.swift */,
-				80780F5A266D4E58000D0DD9 /* SummaryListView.swift */,
-				D99FD91D26A9F4A500A66A85 /* ViewModels */,
-				80780F59266D4D92000D0DD9 /* CardsDetail */,
+				80780F52266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift */,
+				80780F5A266D4E58000D0DD9 /* SummaryCardsListView.swift */,
+				D979FA8626F8C3C000928EF2 /* Cards */,
 			);
-			path = SummaryList;
+			path = SummaryCardsList;
 			sourceTree = "<group>";
 		};
-		80780F59266D4D92000D0DD9 /* CardsDetail */ = {
+		80780F59266D4D92000D0DD9 /* CardsDetails */ = {
 			isa = PBXGroup;
 			children = (
-				80780F5E266D4F42000D0DD9 /* CardDetailViewCoordinator.swift */,
-				801505AD267140F5007574B9 /* CardDetailView.swift */,
-				D9B1722826B0146D002C3B0D /* DetailViews */,
+				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
+				801505AD267140F5007574B9 /* CardDetailsView.swift */,
+				D9B1722826B0146D002C3B0D /* Views */,
 			);
-			path = CardsDetail;
+			path = CardsDetails;
 			sourceTree = "<group>";
 		};
 		80780F63266D5BC8000D0DD9 /* Extensions */ = {
@@ -426,14 +416,14 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
-		80A765F126C85E9F00A66554 /* SoundCoordinator */ = {
+		80A765F126C85E9F00A66554 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
 				80A765F626C85F4B00A66554 /* Subviews */,
 				80A765F226C85EB300A66554 /* SoundsCoordinator.swift */,
 				80A765E426C7F44000A66554 /* SoundsCoordinatorView.swift */,
 			);
-			path = SoundCoordinator;
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		80A765F626C85F4B00A66554 /* Subviews */ = {
@@ -558,6 +548,48 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D979FA8626F8C3C000928EF2 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				D979FA8726F8C3CE00928EF2 /* CardsViews */,
+				D99FD91D26A9F4A500A66A85 /* CardsViewModels */,
+				80780F59266D4D92000D0DD9 /* CardsDetails */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		D979FA8726F8C3CE00928EF2 /* CardsViews */ = {
+			isa = PBXGroup;
+			children = (
+				8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */,
+			);
+			path = CardsViews;
+			sourceTree = "<group>";
+		};
+		D979FA8826F8C48E00928EF2 /* GeneralCard */ = {
+			isa = PBXGroup;
+			children = (
+				D99F446426B0136D00998590 /* GeneralCardDetailView.swift */,
+			);
+			path = GeneralCard;
+			sourceTree = "<group>";
+		};
+		D979FA8926F8C49700928EF2 /* PhasesCard */ = {
+			isa = PBXGroup;
+			children = (
+				D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */,
+			);
+			path = PhasesCard;
+			sourceTree = "<group>";
+		};
+		D979FA8A26F8C49E00928EF2 /* HeartCard */ = {
+			isa = PBXGroup;
+			children = (
+				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
+			);
+			path = HeartCard;
+			sourceTree = "<group>";
+		};
 		D97C396026BD1530005CCDFB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,38 +598,39 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D99509F326777D4D00694208 /* AlarmCoordinator */ = {
+		D99509F326777D4D00694208 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
 				D99509FB267780D700694208 /* AlarmCoordinatorView.swift */,
 				D99509F9267780C400694208 /* AlarmCoordinator.swift */,
 			);
-			path = AlarmCoordinator;
+			path = Alarm;
 			sourceTree = "<group>";
 		};
-		D99509F426777D5800694208 /* HistoryCoordinator */ = {
+		D99509F426777D5800694208 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				D979FA8A26F8C49E00928EF2 /* HeartCard */,
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
 				8002F3A526A1FA3600A7192A /* HistoryListView.swift */,
 				805D75152692456000C19034 /* Embed Statistics */,
 				80D7F0B2268C71DA0055ECEE /* Calendar */,
 			);
-			path = HistoryCoordinator;
+			path = History;
 			sourceTree = "<group>";
 		};
-		D99509F8267780AD00694208 /* SettingsCoordinator */ = {
+		D99509F8267780AD00694208 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				80A765DA26C7C59300A66554 /* SubViews */,
 				D99509FD267780DE00694208 /* SettingsCoordinator.swift */,
 				D99509FF267780F300694208 /* SettingsCoordinatorView.swift */,
 			);
-			path = SettingsCoordinator;
+			path = Settings;
 			sourceTree = "<group>";
 		};
-		D99FD91D26A9F4A500A66A85 /* ViewModels */ = {
+		D99FD91D26A9F4A500A66A85 /* CardsViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */,
@@ -605,17 +638,16 @@
 				D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */,
 				D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */,
 			);
-			path = ViewModels;
+			path = CardsViewModels;
 			sourceTree = "<group>";
 		};
-		D9B1722826B0146D002C3B0D /* DetailViews */ = {
+		D9B1722826B0146D002C3B0D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D99F446426B0136D00998590 /* GeneralCardDetailView.swift */,
-				D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */,
-				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
+				D979FA8826F8C48E00928EF2 /* GeneralCard */,
+				D979FA8926F8C49700928EF2 /* PhasesCard */,
 			);
-			path = DetailViews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -888,12 +920,12 @@
 				D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */,
 				D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */,
 				80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */,
-				801505AE267140F5007574B9 /* CardDetailView.swift in Sources */,
+				801505AE267140F5007574B9 /* CardDetailsView.swift in Sources */,
 				80A765EC26C7FBF000A66554 /* SoundAnalysisResult.swift in Sources */,
 				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */,
-				80780F5F266D4F42000D0DD9 /* CardDetailViewCoordinator.swift in Sources */,
+				80780F5F266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift in Sources */,
 				D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */,
-				80780F53266D4A93000D0DD9 /* SummaryListCoordinator.swift in Sources */,
+				80780F53266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift in Sources */,
 				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
@@ -906,7 +938,7 @@
 				8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */,
 				D98D925526B0960100C6B7E4 /* BankOfSleepDataViewModel.swift in Sources */,
 				D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */,
-				80780F5B266D4E58000D0DD9 /* SummaryListView.swift in Sources */,
+				80780F5B266D4E58000D0DD9 /* SummaryCardsListView.swift in Sources */,
 				D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */,
 				80A765DF26C7F35C00A66554 /* AudioRecorder.swift in Sources */,
 				80A765F326C85EB300A66554 /* SoundsCoordinator.swift in Sources */,
@@ -919,7 +951,7 @@
 				80A765EA26C7FA1500A66554 /* AnalysisListView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
-				8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */,
+				8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */,
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,

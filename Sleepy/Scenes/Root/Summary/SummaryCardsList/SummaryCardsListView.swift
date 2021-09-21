@@ -2,16 +2,11 @@ import SwiftUI
 import XUI
 import HKVisualKit
 
-struct SummaryListView: View {
+struct SummaryCardsListView: View {
 
-    
-
-    @Store var viewModel: SummaryListCoordinator
+    @Store var viewModel: SummaryCardsListCoordinator
 
     @EnvironmentObject var cardService: CardService
-
-    
-
     @State private var generalViewModel: SummaryGeneralDataViewModel?
     @State private var phasesViewModel: SummaryPhasesDataViewModel?
     @State private var heartViewModel: SummaryHeartDataViewModel?
@@ -38,7 +33,7 @@ struct SummaryListView: View {
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
-                            SummaryInfoCardView(viewModel: generalViewModel,
+                            GeneralSleepInfoCardView(viewModel: generalViewModel,
                                                 colorProvider: viewModel.colorProvider)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .onNavigation {

@@ -5,15 +5,12 @@ import HKCoreSleep
 import XUI
 
 struct GeneralCardDetailView: View {
-
     
     @EnvironmentObject var cardService: CardService
-    @Store var viewModel: CardDetailViewCoordinator
-
-    
-    
+    @Store var viewModel: CardDetailsViewCoordinator
 
     var body: some View {
+        // NavigationView
         GeometryReader { geometry in
             ZStack {
 
@@ -92,7 +89,6 @@ struct GeneralCardDetailView: View {
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }
                 }
-
             }
             .navigationTitle("\(Date().getFormattedDate(format: "E, MMMM d"))")
         }
@@ -101,10 +97,11 @@ struct GeneralCardDetailView: View {
     // MARK: Addittional methods
 
     private func getAnalysisString() -> String {
+        return ""
         let provider = viewModel.statisticsProvider
         guard let sleepGoal = provider.getTodayFallingAsleepDuration(),
               let sleepDuration = viewModel.statisticsProvider.getData(for: .asleep) else { return "" }
-        let sleepGoalPercentage =  Int((Double(sleepDuration) / Double(sleepGoal)) * 100)
+        let sleepGoalPercentage = Int((Double(sleepDuration) / Double(sleepGoal)) * 100)
         if sleepGoalPercentage < 80 {
             return "Pay more attention to your sleep to be more healthy and productive every day!".localized
         } else if sleepGoalPercentage >= 80 && sleepGoalPercentage < 100 {
