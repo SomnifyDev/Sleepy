@@ -8,6 +8,7 @@ struct GeneralCardDetailView: View {
     
     @EnvironmentObject var cardService: CardService
     @Store var viewModel: CardDetailsViewCoordinator
+    @State var shouldShow = false
 
     var body: some View {
         // NavigationView
@@ -80,7 +81,9 @@ struct GeneralCardDetailView: View {
                         }
 
                         CardNameTextView(text: "What else?".localized,
-                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))).onTapGesture {
+                            shouldShow.toggle()
+                        }
 
                         UsefulInfoCardView(imageName: "sleep1", title: "title", description: "description")
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
@@ -88,7 +91,9 @@ struct GeneralCardDetailView: View {
                         UsefulInfoCardView(imageName: "sleep2", title: "title", description: "description")
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }
-                }
+                }.sheet(isPresented: $shouldShow, onDismiss: nil, content: {
+                    EmptyView()
+                })
             }
             .navigationTitle("\(Date().getFormattedDate(format: "E, MMMM d"))")
         }
