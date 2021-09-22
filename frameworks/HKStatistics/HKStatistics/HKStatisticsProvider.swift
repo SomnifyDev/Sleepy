@@ -41,8 +41,6 @@ public final class HKStatisticsProvider: HKStatistics {
     private var sleepStatisticsProvider: HKSleepStatisticsProvider = HKSleepStatisticsProvider()
     private var generalStatisticsProvider: HKGeneralStatisticsProvider = HKGeneralStatisticsProvider()
     
-    
-    
     public init(sleep: Sleep?, healthService: HKService) {
         self.sleep = sleep
         self.healthService = healthService

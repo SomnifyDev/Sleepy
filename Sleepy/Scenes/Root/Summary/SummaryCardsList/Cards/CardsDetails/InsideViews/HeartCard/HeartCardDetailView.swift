@@ -9,7 +9,7 @@ struct HeartCardDetailView: View {
     @Store var viewModel: CardDetailsViewCoordinator
     @EnvironmentObject var cardService: CardService
     @State private var showAdvice = false
-    @State private var activeSheet: AdviceType?
+    @State private var activeSheet: AdviceType!
 
     var body: some View {
         GeometryReader { geometry in
@@ -46,18 +46,15 @@ struct HeartCardDetailView: View {
                         CardNameTextView(text: "What else?".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-                        UsefulInfoCardView(imageName: "heart1", title: "Heart and sleep".localized, description: "Learn more about the importance of sleep for heart health".localized)
+                        UsefulInfoCardView(
+                            imageName: AdviceType.heartAdvice.rawValue,
+                            title: "Heart and sleep".localized,
+                            description: "Learn more about the importance of sleep for heart health.".localized,
+                            destinationView: AdviceView(sheetType: .heartAdvice, showAdvice: $showAdvice),
+                            showModalView: $showAdvice
+                        )
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                            .onTapGesture {
-                                showAdvice = true
-                                activeSheet = .heartAdvice
-                            }
 
-                    }
-                    .sheet(isPresented: $showAdvice, onDismiss: nil) {
-                        if let activeSheet = activeSheet {
-                            AdviceView(sheetType: activeSheet)
-                        }
                     }
                 }
                 .navigationTitle("Heart")

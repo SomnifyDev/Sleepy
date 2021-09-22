@@ -13,8 +13,6 @@ struct AlarmCoordinatorView: View {
     
     @Store var viewModel: AlarmCoordinator
     
-    
-    
     var body: some View {
         Text("This is alarm view")
     }

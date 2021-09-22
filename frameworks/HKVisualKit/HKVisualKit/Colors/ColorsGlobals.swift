@@ -4,10 +4,10 @@ import Foundation
 
 public enum HealthData: String, CaseIterable {
     
-    case heart = "heart"
-    case energy = "energy"
-    case sleep = "sleep"
-    case inbed = "inbed"
+    case heart
+    case energy
+    case sleep
+    case inbed
 }
 
 // MARK: Colors

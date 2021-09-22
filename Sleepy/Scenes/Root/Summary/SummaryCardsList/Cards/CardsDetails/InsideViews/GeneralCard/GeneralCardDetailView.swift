@@ -10,7 +10,7 @@ struct GeneralCardDetailView: View {
     @EnvironmentObject var cardService: CardService
     @Store var viewModel: CardDetailsViewCoordinator
     @State private var showAdvice = false
-    @State private var activeSheet: AdviceType?
+    @State private var activeSheet: AdviceType!
 
     var body: some View {
         GeometryReader { geometry in
@@ -87,25 +87,25 @@ struct GeneralCardDetailView: View {
 
                         // MARK: Advices
 
-                        UsefulInfoCardView(imageName: "sleep1", title: "Why sleep is so important?".localized, description: "Learn more about the role of sleep in your life.".localized)
+                        UsefulInfoCardView(
+                            imageName: AdviceType.sleepImportanceAdvice.rawValue,
+                            title: "Why sleep is so important?".localized,
+                            description: "Learn more about the role of sleep in your life.".localized,
+                            destinationView: AdviceView(sheetType: .sleepImportanceAdvice, showAdvice: $showAdvice),
+                            showModalView: $showAdvice
+                        )
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                            .onTapGesture {
-                                showAdvice = true
-                                activeSheet = .sleepImportance
-                            }
 
-                        UsefulInfoCardView(imageName: "sleep2", title: "How to improve your sleep?".localized, description: "Learn about the factors that affect the quality of your sleep.".localized)
+                        UsefulInfoCardView(
+                            imageName: AdviceType.sleepImprovementAdvice.rawValue,
+                            title: "How to improve your sleep?".localized,
+                            description: "Learn about the factors that affect the quality of your sleep.".localized,
+                            destinationView: AdviceView(sheetType: .sleepImprovementAdvice, showAdvice: $showAdvice),
+                            showModalView: $showAdvice
+                        )
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                            .onTapGesture {
-                                showAdvice = true
-                                activeSheet = .sleepImprovement
-                            }
                     }
-                }.sheet(isPresented: $showAdvice, onDismiss: nil, content: {
-                    if let activeSheet = activeSheet {
-                        AdviceView(sheetType: activeSheet)
-                    }
-                })
+                }
             }
             .navigationTitle("\(Date().getFormattedDate(format: "E, MMMM d"))")
         }

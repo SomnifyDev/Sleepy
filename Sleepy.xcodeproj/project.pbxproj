@@ -68,6 +68,7 @@
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; platformFilter = ios; };
 		D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D984A91526FB7B2500F800B3 /* AdviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */; };
 		D98D925526B0960100C6B7E4 /* BankOfSleepDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */; };
 		D99509F126777D4200694208 /* HistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509EF26777D4200694208 /* HistoryCoordinator.swift */; };
 		D99509F226777D4200694208 /* HistoryCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509F026777D4200694208 /* HistoryCoordinatorView.swift */; };
@@ -241,6 +242,7 @@
 		D9441A1B266CD4C70019902F /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
 		D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = frameworks/SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
+		D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewModel.swift; sourceTree = "<group>"; };
 		D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfSleepDataViewModel.swift; sourceTree = "<group>"; };
 		D99509EF26777D4200694208 /* HistoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinator.swift; sourceTree = "<group>"; };
 		D99509F026777D4200694208 /* HistoryCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCoordinatorView.swift; sourceTree = "<group>"; };
@@ -375,7 +377,7 @@
 				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailsView.swift */,
 				D9B1722826B0146D002C3B0D /* InsideViews */,
-				D9B727DC26FB0F2C00B41683 /* AdviceView */,
+				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
 			path = CardsDetails;
 			sourceTree = "<group>";
@@ -661,12 +663,13 @@
 			path = InsideViews;
 			sourceTree = "<group>";
 		};
-		D9B727DC26FB0F2C00B41683 /* AdviceView */ = {
+		D9B727DC26FB0F2C00B41683 /* Advices */ = {
 			isa = PBXGroup;
 			children = (
 				D9B727DD26FB0F4900B41683 /* AdviceView.swift */,
+				D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */,
 			);
-			path = AdviceView;
+			path = Advices;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -964,6 +967,7 @@
 				80A765F526C85EBF00A66554 /* AudioRecordingsListView.swift in Sources */,
 				D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */,
 				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
+				D984A91526FB7B2500F800B3 /* AdviceViewModel.swift in Sources */,
 				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,
 				80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */,
 				D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */,

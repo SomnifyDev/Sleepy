@@ -8,16 +8,12 @@
 import Foundation
 import XUI
 
-
-
 class AlarmCoordinator: ObservableObject, ViewModel {
     
     @Published var openedURL: URL?
     @Published private(set) var viewModel: AlarmCoordinatorView!
     private unowned let parent: RootCoordinator
-    
-    
-    
+
     init(title: String,
          parent: RootCoordinator) {
         self.parent = parent
