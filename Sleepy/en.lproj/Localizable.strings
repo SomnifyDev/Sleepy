@@ -1,10 +1,4 @@
-/* 
-  Localizable.strings
-  Sleepy
-
-  Created by Никита Казанцев on 27.08.2021.
-  
-*/
+// MARK: Common strings
 
 "Summary" = "Summary";
 "Sleep history" = "Sleep history";
@@ -16,7 +10,6 @@
 "What else?" = "What else?";
 "Loading" = "Loading";
 "Done" = "Done";
-
 "summary" = "summary";
 "history" = "history";
 "alarm" = "alarm";
@@ -24,9 +17,9 @@
 "settings" = "settings";
 
 
-// MARK: GENERAL TAB
 
-// main card
+// MARK: Summary tab, general card
+
 "Sleep information" = "Sleep information";
 "Here is some info about your last sleep session" = "Here is some info about your last sleep session";
 "Drop off" = "Drop off";
@@ -35,7 +28,8 @@
 "In bed duration" = "In bed duration";
 "Falling asleep" = "Falling asleep";
 
-// ... main card details
+// Inside the card
+
 "Sleep session" = "Sleep session";
 "Sleep start" = "Sleep start";
 "Wake up" = "Wake up";
@@ -45,31 +39,66 @@
 "Sleep: goal" = "Sleep: goal";
 "Your sleep goal" = "Your sleep goal";
 "Sleep duration today" = "Sleep duration today";
-"Your sleep duration was %@, it is %d of your goal" = "Your sleep duration was %@, it is %d of your goal";
+"Your sleep duration was %@, it is %u%% of your goal" = "Your sleep duration was %@, it is %u%% of your goal";
 "Pay more attention to your sleep to be more healthy and productive every day!" = "Pay more attention to your sleep to be more healthy and productive every day!";
 "You can do better! For a reminder, sleep is the key to longevity and youth!" = "You can do better! For a reminder, sleep is the key to longevity and youth!";
 "Amazing result for today. Keep it up and stay healthy!" = "Amazing result for today. Keep it up and stay healthy!";
 
-// phases card
+// Bank
+
+"Sleep: bank" = "Sleep: bank";
+"Total backlog from your goal during last 2 weeks is %@" = "Total backlog from your goal during last 2 weeks is %@";
+"Sleep for " = "Sleep for ";
+" every day to pay off the debt." = " every day to pay off the debt.";
+
+// Advices
+
+"Why sleep is so important?" = "Why sleep is so important?";
+"Learn more about the role of sleep in your life." = "Learn more about the role of sleep in your life.";
+"How to improve your sleep?" = "How to improve your sleep?";
+"Learn about the factors that affect the quality of your sleep." = "Learn about the factors that affect the quality of your sleep.";
+
+
+
+// MARK: Summary tab, phases
+
 "Here is some info about phases of your last sleep" = "Here is some info about phases of your last sleep";
 "Duration of light phase was %@, while the duration of deep sleep was %@" = "Duration of light phase was %@, while the duration of deep sleep was %@";
 
-// ... phases details
+// Inside the card
+
 "Total NREM sleep duration" = "Total NREM sleep duration";
 "Max NREM sleep interval" = "Max NREM sleep interval";
 "Total REM sleep duration" = "Total REM sleep duration";
 "Max REM sleep interval" = "Max REM sleep interval";
 
-// heart card
+// Advices
+
+"Sleep phases and stages" = "Sleep phases and stages";
+"Learn more about sleep phases and stages" = "Learn more about sleep phases and stages";
+
+
+
+// MARK: Summary tab, heart card
+
 "Here is some info about heart rate of your last sleep" = "Here is some info about heart rate of your last sleep";
 "The maximal heartbeat was %@ bpm while the minimal was %@" = "The maximal heartbeat was %@ bpm while the minimal was %@";
 
-// ... heart details
+// Inside the card
+
 "Average pulse" = "Average pulse";
 "Min pulse" = "Min pulse";
 "Max pulse" = "Max pulse";
 
+// Advices
+
+"Heart and sleep" = "Heart and sleep";
+"Learn more about the importance of sleep for heart health" = "Learn more about the importance of sleep for heart health";
+
+
+
 // MARK: History tab
+
 "Heart rate" = "Heart rate";
 "Energy waste" = "Energy waste";
 "Month sleep duration" = "Month sleep duration";
@@ -83,14 +112,20 @@
 "Your %@ time is equal compared to 2 weeks before" = "Your %@ time is equal compared to 2 weeks before";
 "Compared to 2 weeks before, you %@ %@ by %@ in time" = "Compared to 2 weeks before, you %@ %@ by %@ in time";
 
+
+
 // MARK: Sound reognition tab
+
 "Sound recognition" = "Sound recognition";
 "Recognized sounds" = "Recognized sounds";
 "%.2f confidence" = "%.2f confidence";
 "Record" = "Record";
 "STOP" = "STOP";
 
+
+
 // MARK: Settings tab
+
 "Health" = "Health";
 "Feedback" = "Feedback";
 "Sound recording" = "Sound recording";

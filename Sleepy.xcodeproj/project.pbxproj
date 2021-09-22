@@ -78,6 +78,7 @@
 		D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F446426B0136D00998590 /* GeneralCardDetailView.swift */; };
 		D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */; };
 		D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */; };
+		D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B727DD26FB0F4900B41683 /* AdviceView.swift */; };
 		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */; };
 		D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */; };
 		D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */; };
@@ -250,6 +251,7 @@
 		D99F446426B0136D00998590 /* GeneralCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardDetailView.swift; sourceTree = "<group>"; };
+		D9B727DD26FB0F4900B41683 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
 		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataViewModel.swift; sourceTree = "<group>"; };
@@ -337,7 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				80A765DD26C7F33E00A66554 /* Audio */,
-				80780F57266D4C2E000D0DD9 /* CardService.swift */,
+				D9A8729E26FB20B90072BD77 /* Cards */,
 				80A765F726C8F9E300A66554 /* FileHelper.swift */,
 			);
 			path = Services;
@@ -372,7 +374,8 @@
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailsView.swift */,
-				D9B1722826B0146D002C3B0D /* Views */,
+				D9B1722826B0146D002C3B0D /* InsideViews */,
+				D9B727DC26FB0F2C00B41683 /* AdviceView */,
 			);
 			path = CardsDetails;
 			sourceTree = "<group>";
@@ -552,7 +555,6 @@
 			isa = PBXGroup;
 			children = (
 				D979FA8726F8C3CE00928EF2 /* CardsViews */,
-				D99FD91D26A9F4A500A66A85 /* CardsViewModels */,
 				80780F59266D4D92000D0DD9 /* CardsDetails */,
 			);
 			path = Cards;
@@ -610,7 +612,6 @@
 		D99509F426777D5800694208 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				D979FA8A26F8C49E00928EF2 /* HeartCard */,
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
 				8002F3A526A1FA3600A7192A /* HistoryListView.swift */,
@@ -641,13 +642,31 @@
 			path = CardsViewModels;
 			sourceTree = "<group>";
 		};
-		D9B1722826B0146D002C3B0D /* Views */ = {
+		D9A8729E26FB20B90072BD77 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				80780F57266D4C2E000D0DD9 /* CardService.swift */,
+				D99FD91D26A9F4A500A66A85 /* CardsViewModels */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		D9B1722826B0146D002C3B0D /* InsideViews */ = {
 			isa = PBXGroup;
 			children = (
 				D979FA8826F8C48E00928EF2 /* GeneralCard */,
 				D979FA8926F8C49700928EF2 /* PhasesCard */,
+				D979FA8A26F8C49E00928EF2 /* HeartCard */,
 			);
-			path = Views;
+			path = InsideViews;
+			sourceTree = "<group>";
+		};
+		D9B727DC26FB0F2C00B41683 /* AdviceView */ = {
+			isa = PBXGroup;
+			children = (
+				D9B727DD26FB0F4900B41683 /* AdviceView.swift */,
+			);
+			path = AdviceView;
 			sourceTree = "<group>";
 		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
@@ -943,6 +962,7 @@
 				80A765DF26C7F35C00A66554 /* AudioRecorder.swift in Sources */,
 				80A765F326C85EB300A66554 /* SoundsCoordinator.swift in Sources */,
 				80A765F526C85EBF00A66554 /* AudioRecordingsListView.swift in Sources */,
+				D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */,
 				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
 				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,
 				80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */,

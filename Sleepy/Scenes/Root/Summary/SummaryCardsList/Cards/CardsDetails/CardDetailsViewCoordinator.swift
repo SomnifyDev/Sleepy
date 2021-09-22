@@ -11,8 +11,6 @@ class CardDetailsViewCoordinator: ViewModel, ObservableObject, Identifiable {
 
     private unowned let coordinator: SummaryNavigationCoordinator
 
-    // MARK: Properties
-
     var colorProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
 

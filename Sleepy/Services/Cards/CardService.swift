@@ -59,11 +59,11 @@ class CardService: ObservableObject {
 
     private func getbankOfSleepInfo() {
         guard
-            let sleepGoal = statisticsProvider.getTodayFallingAsleepDuration(),
             let twoWeeksBackDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
         else {
             return
         }
+        let sleepGoal = getSleepGoal()
         self.statisticsProvider.getDataByInterval(healthType: .asleep, for: DateInterval(start: twoWeeksBackDate, end: Date()), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
             if data.count == 14 {
 
@@ -88,7 +88,7 @@ class CardService: ObservableObject {
 
         self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
                                                             inbedInterval: inBedInterval,
-                                                            sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
+                                                            sleepGoal: getSleepGoal())
     }
 
     private func getPhasesData() {
@@ -144,6 +144,10 @@ class CardService: ObservableObject {
         }
 
         return shortData
+    }
+
+    private func getSleepGoal() -> Int {
+        return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
     }
 
 }

@@ -9,8 +9,6 @@ import XUI
 import SettingsKit
 import HKVisualKit
 
-
-
 class SoundsCoordinator: ObservableObject, ViewModel {
 
     @Published var openedURL: URL?
@@ -19,8 +17,6 @@ class SoundsCoordinator: ObservableObject, ViewModel {
     let colorProvider: ColorSchemeProvider
 
     private unowned let parent: RootCoordinator
-
-    
 
     init(title: String,
          colorSchemeProvider: ColorSchemeProvider,
