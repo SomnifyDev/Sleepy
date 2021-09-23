@@ -377,7 +377,6 @@
 				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
 				801505AD267140F5007574B9 /* CardDetailsView.swift */,
 				D9B1722826B0146D002C3B0D /* InsideViews */,
-				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
 			path = CardsDetails;
 			sourceTree = "<group>";
@@ -659,6 +658,7 @@
 				D979FA8826F8C48E00928EF2 /* GeneralCard */,
 				D979FA8926F8C49700928EF2 /* PhasesCard */,
 				D979FA8A26F8C49E00928EF2 /* HeartCard */,
+				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
 			path = InsideViews;
 			sourceTree = "<group>";

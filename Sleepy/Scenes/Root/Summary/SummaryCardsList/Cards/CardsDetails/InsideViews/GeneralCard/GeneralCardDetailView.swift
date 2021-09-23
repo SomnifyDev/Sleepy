@@ -9,7 +9,8 @@ struct GeneralCardDetailView: View {
     
     @EnvironmentObject var cardService: CardService
     @Store var viewModel: CardDetailsViewCoordinator
-    @State private var showAdvice = false
+    @State private var showSleepImportance = false
+    @State private var showSleepImprovement = false
     @State private var activeSheet: AdviceType!
 
     var body: some View {
@@ -89,10 +90,10 @@ struct GeneralCardDetailView: View {
 
                         UsefulInfoCardView(
                             imageName: AdviceType.sleepImportanceAdvice.rawValue,
-                            title: "Why sleep is so important?".localized,
+                            title: "Why is sleep so important?".localized,
                             description: "Learn more about the role of sleep in your life.".localized,
-                            destinationView: AdviceView(sheetType: .sleepImportanceAdvice, showAdvice: $showAdvice),
-                            showModalView: $showAdvice
+                            destinationView: AdviceView(sheetType: .sleepImportanceAdvice, showAdvice: $showSleepImprovement),
+                            showModalView: $showSleepImprovement
                         )
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
@@ -100,8 +101,8 @@ struct GeneralCardDetailView: View {
                             imageName: AdviceType.sleepImprovementAdvice.rawValue,
                             title: "How to improve your sleep?".localized,
                             description: "Learn about the factors that affect the quality of your sleep.".localized,
-                            destinationView: AdviceView(sheetType: .sleepImprovementAdvice, showAdvice: $showAdvice),
-                            showModalView: $showAdvice
+                            destinationView: AdviceView(sheetType: .sleepImprovementAdvice, showAdvice: $showSleepImportance),
+                            showModalView: $showSleepImportance
                         )
                             .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }

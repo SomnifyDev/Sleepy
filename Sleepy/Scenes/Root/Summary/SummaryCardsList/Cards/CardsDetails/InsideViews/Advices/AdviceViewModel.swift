@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct AdviceViewModel {
 
     var navigationTitle: String
-    var imageName: String
+    var image: Image
     var mainTitle: String
     var firstText: String
     var secondaryTitle: String
