@@ -90,6 +90,7 @@ public final class HKStatisticsProvider: HKStatistics {
     /// Возвращает время засыпания в минутах
     public func getTodayFallingAsleepDuration() -> Int? {
         guard let sleep = sleep else { return nil }
+        print(sleepStatisticsProvider.getFallingAsleepDuration(sleep: sleep))
         return sleepStatisticsProvider.getFallingAsleepDuration(sleep: sleep)
     }
 

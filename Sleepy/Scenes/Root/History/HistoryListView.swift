@@ -223,10 +223,10 @@ struct HistoryListView: View {
                     monthSleepPoints: monthSleepPoints,
                     monthBeforeDateInterval: monthBeforeDateInterval,
                     currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean1))),
-                                                       text: current2weeksInterval.stringFromDateInterval(),
+                                                       text: current2weeksInterval.stringFromDateInterval(type: .days),
                                                        value: Int(mean1))
                     , beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
-                                                        text: last2weeksInterval.stringFromDateInterval(),
+                                                        text: last2weeksInterval.stringFromDateInterval(type: .days),
                                                         value: Int(mean2)),
                     analysisString: mean1 == mean2
                     ? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")

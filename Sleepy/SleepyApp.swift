@@ -31,8 +31,14 @@ struct SleepyApp: App {
                     .environmentObject(cardService)
                     .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        UIApplication.shared.applicationIconBadgeNumber = 0
+
                         let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
-                        self.hkService?.readData(type: .asleep, interval: interval, ascending: false, bundlePrefixes: ["com.apple"], completionHandler: { _, samples, error in
+                        self.hkService?.readData(type: .asleep,
+                                                 interval: interval,
+                                                 ascending: false,
+                                                 bundlePrefixes: ["com.apple"],
+                                                 completionHandler: { _, samples, error in
                             guard error == nil,
                                   let sample = samples?.first,
                                   let sleep = self.sleep  else { return }
@@ -48,39 +54,14 @@ struct SleepyApp: App {
                     .onAppear {
                         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
                             UserDefaults.standard.set(true, forKey: "launchedBefore")
-                            setAllUserDefaults()
+                            self.setAllUserDefaults()
                         }
+
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
                         self.colorSchemeProvider = ColorSchemeProvider()
-                        sleepDetectionProvider?.retrieveData { sleep in
-                            if let sleep = sleep {
-                                self.sleep = sleep
-                                self.showDebugSleepDuration(sleep)
 
-                                self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
-
-                                self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-
-                                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
-                                                                 statisticsProvider: statisticsProvider!,
-                                                                 hkStoreService: hkService!)
-
-                                // сон получен, сервисы, зависящие от ассинхронно-приходящего сна инициализированы, можно показывать прилу
-                                self.canShowApp = true
-
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
-                                    Armchair.userDidSignificantEvent(true)
-                                }
-                            } else {
-                                // сон не был прочитан успешно
-                                self.statisticsProvider = HKStatisticsProvider(sleep: nil,
-                                                                               healthService: hkService!)
-                                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
-
-                                self.canShowApp = true
-                            }
-                        }
+                        self.retrieveSleep()
                     }
             }
         }
@@ -88,6 +69,34 @@ struct SleepyApp: App {
 
     // MARK: Private methods
 
+    private func retrieveSleep() {
+            self.sleepDetectionProvider?.retrieveData { sleep in
+                guard let sleep = sleep else {
+                    // сон не был прочитан
+                    self.statisticsProvider = HKStatisticsProvider(sleep: nil,
+                                                                   healthService: hkService!)
+                    self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
+
+                    self.canShowApp = true
+                    return
+                }
+                // сон прочитался
+                self.showDebugSleepDuration(sleep)
+
+                self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+                self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
+                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
+                                                 statisticsProvider: statisticsProvider!,
+                                                 hkStoreService: hkService!)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                    Armchair.userDidSignificantEvent(true)
+                }
+                self.canShowApp = true
+            }
+    }
+
+    /// Установка дефолтных значений настроек
     private func setAllUserDefaults() {
         SleepySettingsKeys.allCases.forEach {
             switch $0 {
@@ -130,7 +139,7 @@ struct SleepyApp: App {
 #endif
     }
 
-    fileprivate func showDebugSleepDuration(_ sleep: Sleep) {
+    private func showDebugSleepDuration(_ sleep: Sleep) {
         print(sleep.sleepInterval.duration)
         print(sleep.inBedInterval.duration)
     }
