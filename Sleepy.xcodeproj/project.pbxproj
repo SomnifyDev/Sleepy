@@ -12,6 +12,9 @@
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
 		8008E59B26E3A8E80076DA7E /* SummaryInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailView.swift */; };
+		8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
+		8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
+		8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		80647AF326D9163B0054C03F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80647AF526D9163B0054C03F /* Localizable.strings */; };
@@ -182,6 +185,7 @@
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
 		8008E59426E3A8D30076DA7E /* SummaryInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInfoCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
+		8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		80647AF426D9163B0054C03F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -497,6 +501,7 @@
 				808FDF4926861EFD00B38B78 /* Sleepy.entitlements */,
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
 				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
+				8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */,
 				80780F34266D3CFD000D0DD9 /* Scenes */,
 				80780F3E266D42D4000D0DD9 /* Services */,
 				80780F63266D5BC8000D0DD9 /* Extensions */,
@@ -797,6 +802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */,
+				8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 				80647AF326D9163B0054C03F /* Localizable.strings in Resources */,
 				D94419D5266CD3C50019902F /* Assets.xcassets in Resources */,
 			);
@@ -807,6 +813,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9441A00266CD4C60019902F /* Assets.xcassets in Resources */,
+				8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +823,7 @@
 			files = (
 				D9441A19266CD4C70019902F /* Preview Assets.xcassets in Resources */,
 				D9441A16266CD4C70019902F /* Assets.xcassets in Resources */,
+				8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1114,6 +1122,45 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Armchair\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstallations\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleAppMeasurement\"",
+					"-framework",
+					"\"GoogleDataTransport\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"nanopb\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1139,6 +1186,45 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Armchair\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstallations\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleAppMeasurement\"",
+					"-framework",
+					"\"GoogleDataTransport\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"nanopb\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

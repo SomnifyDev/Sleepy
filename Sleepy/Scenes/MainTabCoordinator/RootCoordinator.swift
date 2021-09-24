@@ -29,7 +29,6 @@ extension RootCoordinator {
     
 }
 
-
 class RootCoordinator: ObservableObject, ViewModel {
     
     @Published var tab = TabBarTab.summary
@@ -141,7 +140,7 @@ class RootCoordinator: ObservableObject, ViewModel {
         case .settings:
             tab = .settings
         case .summary:
-            break
+            tab = .summary
         case .soundRecognision:
             tab = .soundRecognision
         }

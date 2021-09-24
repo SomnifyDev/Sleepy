@@ -4,6 +4,7 @@ import HKStatistics
 import HKVisualKit
 import SettingsKit
 import Armchair
+import Firebase
 
 @main
 struct SleepyApp: App {
@@ -22,7 +23,9 @@ struct SleepyApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    // MARK: Body
+    init() {
+        FirebaseApp.configure()
+    }
 
     var body: some Scene {
         WindowGroup {
