@@ -81,7 +81,7 @@ public struct StandardChartView: View {
 
                 if needTimeLine,
                    let startTime = dateInterval?.start,
-                   let endTime = dateInterval?.start {
+                   let endTime = dateInterval?.end {
                     TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
                 }
             }
