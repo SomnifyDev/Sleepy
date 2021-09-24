@@ -85,10 +85,10 @@ public struct SummaryInfoCardView: View {
                                                       size: 27.5, width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(self.viewModel.sleepInterval.start.hoursMinutes(from: viewModel.inbedInterval.start))
+                                    Text(self.viewModel.sleepInterval.end.hoursMinutes(from: viewModel.inbedInterval.start))
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)))
 
-                                    Text("Falling asleep")
+                                    Text("Falling asleep".localized)
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
                                                           size: 14)
                                 }

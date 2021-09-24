@@ -99,7 +99,6 @@ class CardService: ObservableObject {
                     return samplesLeft == 0
                 }
                 if isComplete {
-                    print(resultData)
                     completion(resultData.reversed())
                 }
             }
