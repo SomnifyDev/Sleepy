@@ -17,8 +17,6 @@ public protocol HKApplicationColorScheme {
 
 }
 
-
-
 public final class SleepyColorScheme: HKApplicationColorScheme {
 
     // general
