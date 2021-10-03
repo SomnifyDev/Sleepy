@@ -18,6 +18,8 @@ struct HistoryCoordinatorView: View {
     var body: some View {
         NavigationView {
             HistoryListView(viewModel: viewModel, calendarType: $calendarType)
-        }.navigationTitle("History")
+        }
+        .navigationTitle("History")
+
     }
 }

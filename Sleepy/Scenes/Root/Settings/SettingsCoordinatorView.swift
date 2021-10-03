@@ -11,6 +11,7 @@ import XUI
 import SettingsKit
 import HKVisualKit
 import Armchair
+import FirebaseAnalytics
 
 struct SettingsCoordinatorView: View {
 
@@ -32,7 +33,7 @@ struct SettingsCoordinatorView: View {
                     Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
                             value: $sleepGoalValue,
                             in: 360...720,
-                            step: 15) { _ in
+                            step: 30) { _ in
                         saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
                 }
@@ -78,6 +79,10 @@ struct SettingsCoordinatorView: View {
     // MARK: Private methods
 
     private func saveSetting(with value: Int, forKey key: String) {
+        FirebaseAnalytics.Analytics.logEvent("Settings_saved", parameters: [
+            "key": key,
+            "value": value
+        ])
         UserDefaults.standard.set(value, forKey: key)
     }
 

@@ -10,6 +10,7 @@ import SwiftUI
 import AVFoundation
 import Combine
 import SettingsKit
+import FirebaseAnalytics
 
 class AudioRecorder: NSObject, ObservableObject {
 
@@ -31,10 +32,15 @@ class AudioRecorder: NSObject, ObservableObject {
     }
 
     func startRecording() {
+        FirebaseAnalytics.Analytics.logEvent("Sounds_recordingDidStart", parameters: nil)
+
         let recordingSession = AVAudioSession.sharedInstance()
 
         if recordingSession.recordPermission != .granted {
             recordingSession.requestRecordPermission { (isGranted) in
+                FirebaseAnalytics.Analytics.logEvent("Sounds_permission", parameters: [
+                    "granded": isGranted
+                ])
                 if !isGranted {
                     //fatalError("You must allow audio recording for this demo to work")
                     return
@@ -47,6 +53,9 @@ class AudioRecorder: NSObject, ObservableObject {
             try recordingSession.setActive(true)
         } catch {
             print("Failed to set up recording session")
+            FirebaseAnalytics.Analytics.logEvent("Sounds_sessionError", parameters: [
+                "error": "Failed to set up recording session"
+            ])
         }
 
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -67,10 +76,14 @@ class AudioRecorder: NSObject, ObservableObject {
             recording = true
         } catch {
             print("Could not start recording")
+            FirebaseAnalytics.Analytics.logEvent("Sounds_sessionError", parameters: [
+                "error": "Could not start recording"
+            ])
         }
     }
 
     func stopRecording() {
+        FirebaseAnalytics.Analytics.logEvent("Sounds_recordingDidEnd", parameters: nil)
         audioRecorder.stop()
         recording = false
 

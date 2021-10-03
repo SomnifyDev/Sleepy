@@ -8,6 +8,7 @@
 import SwiftUI
 import HKVisualKit
 import XUI
+import FirebaseAnalytics
 
 struct SoundsCoordinatorView: View {
 
@@ -35,6 +36,11 @@ struct SoundsCoordinatorView: View {
                 }
             }
             .navigationBarTitle("Sound recognition".localized)
+            .onAppear(perform: self.sendAnalytics)
         }
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("Sounds_viewed", parameters: nil)
     }
 }
