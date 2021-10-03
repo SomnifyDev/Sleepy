@@ -17,24 +17,6 @@ struct IntroCoordinatorView: View {
     @Binding var shouldShowIntro: Bool
     var body: some View {
         MainIntroView(colorScheme: viewModel.colorSchemeProvider.sleepyColorScheme, shouldShowIntro: self.$shouldShowIntro)
-//        TabView(selection: $viewModel.tab) {
-//            MainIntroView().tag(PageTab.first)
-//            FeaturesIntroView().tag(PageTab.features)
-//                    }
-//        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-//        .indexViewStyle(.page(backgroundDisplayMode: PageIndexViewStyle.BackgroundDisplayMode.always))
-//        TabView {
-//            EmptyView()
-//                .background(Color.green)
-//
-//            EmptyView()
-//                .background(Color.yellow)
-//
-//            EmptyView()
-//                .background(Color.red)
-//        }
-//        .tabViewStyle(PageTabViewStyle())
-//        .onAppear(perform: self.sendAnalytics)
     }
 
     private func sendAnalytics() {
