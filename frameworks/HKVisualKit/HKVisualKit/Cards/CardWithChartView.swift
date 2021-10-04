@@ -37,7 +37,6 @@ public struct CardWithChartView<T: View, U: View>: View {
                                            chartType: chartType,
                                            chartHeight: 75,
                                            points: [13, 23, 10, 15, 30, 23, 25, 26, 30, 13, 23, 10, 15, 30, 23, 25, 26, 30,13, 23, 10, 15, 30, 23, 25, 26, 30],
-                                           chartColor: color,
                                            dateInterval: DateInterval(start: Date(), end: Date()),
                                            dragGestureEnabled: false) as! T
         self.bottomView = EmptyView() as! U

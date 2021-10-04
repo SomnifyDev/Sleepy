@@ -9,7 +9,6 @@ struct SummaryCardsListView: View {
 
     @EnvironmentObject var cardService: CardService
     @State private var somethingBroken = false
-    
 
     var body: some View {
         GeometryReader { geometry in
@@ -61,7 +60,6 @@ struct SummaryCardsListView: View {
                                                                            chartType: .phasesChart,
                                                                            chartHeight: 75,
                                                                            points: phasesViewModel.phasesData,
-                                                                           chartColor: nil,
                                                                            dateInterval: generalViewModel.sleepInterval),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text(String(format: "Duration of light phase was %@, while the duration of deep sleep was %@".localized, phasesViewModel.timeInLightPhase, phasesViewModel.timeInDeepPhase)), colorProvider: viewModel.colorProvider))
@@ -95,10 +93,10 @@ struct SummaryCardsListView: View {
                                               mainTitleText: "Here is some info about heart rate of your last sleep".localized,
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                               showChevron: true,
-                                              chartView: CirclesChartView(colorProvider: viewModel.colorProvider,
+                                              chartView: StandardChartView(colorProvider: viewModel.colorProvider,
+                                                                           chartType: .defaultChart(barType: .circle(color: Color.red)),
+                                                                           chartHeight: 75,
                                                                           points: heartViewModel.heartRateData,
-                                                                          chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                                                          chartHeight: 100,
                                                                           dateInterval: generalViewModel.sleepInterval),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text(String(format: "The maximal heartbeat was %@ bpm while the minimal was %@".localized, heartViewModel.minHeartRate, heartViewModel.maxHeartRate)), colorProvider: viewModel.colorProvider))
@@ -115,7 +113,7 @@ struct SummaryCardsListView: View {
 
                             CardWithChartView<StandardChartView, EmptyView>(colorProvider: viewModel.colorProvider,
                                                                             color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-                                                                            chartType: .defaultChart)
+                                                                            chartType: .defaultChart(barType: .circle(color: Color.red)))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .blur(radius: 4)
                         }
@@ -123,7 +121,7 @@ struct SummaryCardsListView: View {
                 }
             }
         }
-        .navigationTitle("\("Summary".localized), \(Date().getFormattedDate(format: "MMM d"))")
+        .navigationTitle("\("Summary".localized), \((self.cardService.generalViewModel?.sleepInterval.end ?? Date()).getFormattedDate(format: "MMM d"))")
         .onAppear(perform: self.sendAnalytics)
     }
 

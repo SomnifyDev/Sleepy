@@ -44,10 +44,9 @@ struct SleepHistoryStatsView: View {
                                   titleColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                   showChevron: false,
                                   chartView: StandardChartView(colorProvider: colorProvider,
-                                                               chartType: .defaultChart,
+                                                               chartType: .defaultChart(barType: .rectangle(color: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)))),
                                                                chartHeight: 75,
                                                                points: monthSleepPoints,
-                                                               chartColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                                                dateInterval: monthBeforeDateInterval),
                                   bottomView: EmptyView())
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))

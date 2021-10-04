@@ -10,19 +10,41 @@ struct StandardChartElementView: View {
     private let cornerRadius: Double = 50
     private let width: CGFloat
     private let height: CGFloat
-    private let color: Color
+    private let type: BarType
 
-    init(width: CGFloat, height: CGFloat, color: Color) {
+    init(width: CGFloat, height: CGFloat, type: BarType) {
         self.width = width
         self.height = height
-        self.color = color
+        self.type = type
     }
 
     var body: some View {
-        Rectangle()
-            .foregroundColor(color)
-            .frame(width: width, height: height)
-            .cornerRadius(cornerRadius)
+        VStack {
+
+            switch type {
+            case .rectangle(let color):
+                Rectangle()
+                    .foregroundColor(color)
+                    .cornerRadius(cornerRadius)
+                
+            case .circle(let color):
+                Circle()
+                    .foregroundColor(color)
+                Spacer()
+
+            case .filled(let foregroundElementColor, let backgroundElementColor, let percentage):
+                ZStack(alignment: .bottom) {
+                    Rectangle()
+                        .fill(backgroundElementColor)
+                        .cornerRadius(cornerRadius)
+
+                    Rectangle()
+                        .fill(foregroundElementColor)
+                        .frame(height: min(height * percentage, height))
+                        .cornerRadius(cornerRadius)
+                }
+            }
+        }.frame(width: width, height: height)
     }
     
 }

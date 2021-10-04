@@ -25,10 +25,9 @@ struct HeartCardDetailView: View {
                         if let heartViewModel = cardService.heartViewModel,
                            let generalViewModel = cardService.generalViewModel {
                             StandardChartView(colorProvider: viewModel.colorProvider,
-                                              chartType: .defaultChart,
+                                              chartType: .defaultChart(barType: .circle(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))),
                                               chartHeight: 75,
                                               points: heartViewModel.heartRateData,
-                                              chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                               dateInterval: generalViewModel.sleepInterval)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)

@@ -28,7 +28,6 @@ struct PhasesCardDetailView: View {
                                               chartType: .phasesChart,
                                               chartHeight: 75,
                                               points: phasesViewModel.phasesData,
-                                              chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                               dateInterval: generalViewModel.sleepInterval)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)

@@ -1,5 +1,11 @@
 import SwiftUI
 
+private enum Constants {
+    static let descriptionHeight: CGFloat = 13
+    static let standardWidth: CGFloat = 14
+    static let chartSpacing: CGFloat = 3
+}
+
 /// Стандартный график (для фаз, сердца)
 /// - Parameters:
 ///  - colorProvider: ColorProvider
@@ -16,20 +22,15 @@ public struct StandardChartView: View {
     private let colorProvider: ColorSchemeProvider
     private let chartType: StandardChartType
     private let points: [Double]
-    private let chartColor: Color?
     private let dateInterval: DateInterval?
     private let needOXLine: Bool
     private let needTimeLine: Bool
     private let dragGestureEnabled: Bool
 
-    private let standardWidth: CGFloat = 14
-    private let chartSpacing: CGFloat = 3
-
     public init(colorProvider: ColorSchemeProvider,
                 chartType: StandardChartType,
                 chartHeight: CGFloat,
                 points: [Double],
-                chartColor: Color?,
                 dateInterval: DateInterval?,
                 needOXLine: Bool = true,
                 needTimeLine: Bool = true,
@@ -37,7 +38,6 @@ public struct StandardChartView: View {
         self.colorProvider = colorProvider
         self.points = points
         self.chartHeight = chartHeight
-        self.chartColor = chartColor
         self.needOXLine = needOXLine
         self.chartType = chartType
         self.dragGestureEnabled = dragGestureEnabled
@@ -48,7 +48,7 @@ public struct StandardChartView: View {
     public var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
-                HStack(alignment: .bottom, spacing: chartSpacing) {
+                HStack(alignment: .bottom, spacing: Constants.chartSpacing) {
                     ForEach(0 ..< points.count, id: \.self) { index in
                         if let max = points.max() {
                             let height = chartHeight * (points[index] / max)
@@ -69,7 +69,7 @@ public struct StandardChartView: View {
                 }
                 .allowsHitTesting(dragGestureEnabled)
                 .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
-                    let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - chartSpacing)))
+                    let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - Constants.chartSpacing)))
 
                     if selected != selectedIndex && selected < points.count {
                         selectedIndex = selected
@@ -87,9 +87,9 @@ public struct StandardChartView: View {
             }
             .frame(width: geometry.size.width)
             .onAppear {
-                let chartWidth = CGFloat(points.count) * standardWidth + chartSpacing * CGFloat(points.count - 1)
+                let chartWidth = CGFloat(points.count) * Constants.standardWidth + Constants.chartSpacing * CGFloat(points.count - 1)
                 if chartWidth > geometry.size.width {
-                    self.elemWidth = abs((geometry.size.width - chartSpacing * CGFloat(points.count - 1))) / CGFloat(points.count)
+                    self.elemWidth = abs((geometry.size.width - Constants.chartSpacing * CGFloat(points.count - 1))) / CGFloat(points.count)
                 }
             }
         }
@@ -99,9 +99,11 @@ public struct StandardChartView: View {
     private func getChartElement(for chartType: StandardChartType, width: CGFloat, height: CGFloat, value: Double) -> some View {
         switch chartType {
         case .phasesChart:
-            return StandardChartElementView(width: elemWidth, height: height, color: getPhaseColor(for: value))
-        case .defaultChart:
-            return StandardChartElementView(width: elemWidth, height: height, color: chartColor ?? .clear)
+            return StandardChartElementView(width: elemWidth, height: height, type: .rectangle(color: self.getPhaseColor(for: value)))
+        case let .defaultChart(barType):
+            return StandardChartElementView(width: elemWidth, height: height, type: barType)
+        case let .verticalProgress(foregroundElementColor, backgroundElementColor, max):
+            return StandardChartElementView(width: elemWidth, height: height, type: .filled(foregroundElementColor: foregroundElementColor, backgroundElementColor: backgroundElementColor, percentage: value / max))
         }
     }
 

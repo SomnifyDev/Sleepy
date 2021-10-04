@@ -37,12 +37,7 @@ struct GeneralCardDetailView: View {
                                               mainTitleText: String(format: "Total backlog from your goal during last 2 weeks is %@".localized, bankOfSleepViewModel.backlog),
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                               showChevron: false,
-                                              chartView: VerticalProgressChartView(
-                                                foregroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-                                                backgroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .chartColors(.verticalProgressChartElement)),
-                                                chartHeight: 100,
-                                                points: bankOfSleepViewModel.bankOfSleepData,
-                                                dragGestureEnabled: false),
+                                              chartView: StandardChartView(colorProvider: viewModel.colorProvider, chartType: .verticalProgress(foregroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)), backgroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .chartColors(.verticalProgressChartElement)), max: bankOfSleepViewModel.bankOfSleepData.max()!), chartHeight: 100, points: bankOfSleepViewModel.bankOfSleepData, dateInterval: nil, needOXLine: false, needTimeLine: false, dragGestureEnabled: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
                                                                                             Text("Sleep for ".localized)
                                                                                           + Text("\(bankOfSleepViewModel.timeToCloseDebt)")
