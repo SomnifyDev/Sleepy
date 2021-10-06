@@ -9,13 +9,6 @@ enum SummaryViewCardType: String {
     case phases
 }
 
-enum AdvicesViewType: String {
-    case sleepImportance
-    case sleepImprovement
-    case phasesAndStages
-    case heartAndSleep
-}
-
 extension SummaryViewCardType: Identifiable {
     var id: Self { self }
 }
@@ -33,9 +26,9 @@ class CardService: ObservableObject {
     private let phasesCard: SummaryViewCardType = .phases
     private let heartCard: SummaryViewCardType = .heart
 
+    // MARK: Initialization
     init(statisticsProvider: HKStatisticsProvider) {
         self.statisticsProvider = statisticsProvider
-
         getbankOfSleepInfo()
         getSleepData()
         getPhasesData()
@@ -57,37 +50,65 @@ class CardService: ObservableObject {
         )
     }
 
-    private func getbankOfSleepInfo() {
-        guard
-            let twoWeeksBackDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
-        else {
-            return
+    private func getSleepGoal() -> Int {
+        return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
+    }
+
+    // MARK: Bank of sleep
+    private func getBankOfSleepInfo() {
+        getbankOfSleepData { data in
+            let sleepGoal = self.getSleepGoal()
+            let filteredData = data.filter({$0 != 0})
+
+            let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
+
+            let backlogValue = Int(filteredData.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
+            let backlogString = Date.minutesToClearString(minutes: backlogValue)
+
+            let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
+            let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
+
+            self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
+                                                                 backlog: backlogString,
+                                                                 timeToCloseDebt: timeToCloseDebtString)
         }
-        let sleepGoal = getSleepGoal()
-        statisticsProvider.getDataByInterval(healthType: .asleep, for: DateInterval(start: twoWeeksBackDate, end: Date()), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
-            if data.count == 14 {
-                let bankOfSleepData = data.map { $0 / Double(sleepGoal) }
+    }
 
-                let backlogValue = Int(data.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
-                let backlogString = Date.minutesToClearString(minutes: backlogValue)
+    private func getbankOfSleepData(completion: @escaping ([Double]) -> Void) {
+        var resultData: [Double] = Array(repeating: 0, count: 14)
+        var samplesLeft = 14
+        let queue = DispatchQueue(label: "bankOfSleepQueue", qos: .userInitiated)
+        for dateIndex in 0..<14 {
+            guard
+                let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date())
+            else {
+                return
+            }
 
-                let timeToCloseDebtValue = backlogValue / 14 + sleepGoal
-                let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
-
-                self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
-                                                                     backlog: backlogString,
-                                                                     timeToCloseDebt: timeToCloseDebtString)
+            self.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep,
+                                                                                   indicatorType: .sum,
+                                                                   for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
+                let isComplete = queue.sync { () -> Bool in
+                    resultData[dateIndex] = data ?? 0
+                    samplesLeft -= 1
+                    return samplesLeft == 0
+                }
+                if isComplete {
+                    print(resultData)
+                    completion(resultData.reversed())
+                }
             }
         }
     }
 
+    // MARK: Sleep + phases
     private func getSleepData() {
         guard let sleepInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .asleep),
               let inBedInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .inbed) else { return }
 
-        generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
-                                                       inbedInterval: inBedInterval,
-                                                       sleepGoal: getSleepGoal())
+        self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
+                                                            inbedInterval: inBedInterval,
+                                                            sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
     }
 
     private func getPhasesData() {
@@ -100,14 +121,15 @@ class CardService: ObservableObject {
         }
 
         if !phasesData.isEmpty {
-            phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
-                                                         timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
-                                                         timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
-                                                         mostIntervalInLightPhase: "-",
-                                                         mostIntervalInDeepPhase: "-")
+            self.phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
+                                                              timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
+                                                              timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
+                                                              mostIntervalInLightPhase: "-",
+                                                              mostIntervalInDeepPhase: "-")
         }
     }
 
+    // MARK: Heart data
     private func getHeartData() {
         var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
         let heartRateData = getShortHeartRateData(heartRateData: statisticsProvider.getTodayData(of: .heart))
@@ -162,7 +184,4 @@ class CardService: ObservableObject {
         return shortData
     }
 
-    private func getSleepGoal() -> Int {
-        return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
-    }
 }
