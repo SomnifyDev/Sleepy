@@ -5,21 +5,21 @@
 //  Created by Никита Казанцев on 14.08.2021.
 //
 
-import SwiftUI
-import SoundAnalysis
 import HKVisualKit
+import SoundAnalysis
+import SwiftUI
 import XUI
 
 struct AudioRecordingsListView: View {
-
     @Store var viewModel: SoundsCoordinator
     @ObservedObject var audioRecorder = AudioRecorder()
 
     var groupedByDateData: [Date: [Recording]] {
-        Dictionary(grouping: audioRecorder.recordings, by: {$0.createdAt.startOfDay})
+        Dictionary(grouping: audioRecorder.recordings, by: { $0.createdAt.startOfDay })
     }
+
     var headers: [Date] {
-        groupedByDateData.map({ $0.key }).sorted()
+        groupedByDateData.map { $0.key }.sorted()
     }
 
     @State private var showSheetView = false
@@ -35,7 +35,7 @@ struct AudioRecordingsListView: View {
             VStack {
                 if audioRecorder.recordings.isEmpty {
                     BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
-                              colorProvider: viewModel.colorProvider)
+                               colorProvider: viewModel.colorProvider)
                         .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                 } else {
                     List {
@@ -49,7 +49,7 @@ struct AudioRecordingsListView: View {
                                             showProgress = true
                                             runAnalysis(audioFileURL: recording.fileURL)
                                         }
-                                }.onDelete { (indexSet) in
+                                }.onDelete { indexSet in
                                     for index in indexSet {
                                         try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
                                         self.audioRecorder.fetchRecordings()
@@ -92,7 +92,7 @@ struct AudioRecordingsListView: View {
                 request = try SNClassifySoundRequest(mlModel: mlModel.model)
             }
 
-            guard let audioFileAnalyzer = self.createAnalyzer(audioFileURL: audioFileURL)
+            guard let audioFileAnalyzer = createAnalyzer(audioFileURL: audioFileURL)
             else {
                 showProgress = false
                 return
@@ -121,7 +121,6 @@ struct AudioRecordingsListView: View {
 }
 
 private struct RecordingRow: View {
-
     var audioURL: URL
     let colorProvider: ColorSchemeProvider
     var body: some View {

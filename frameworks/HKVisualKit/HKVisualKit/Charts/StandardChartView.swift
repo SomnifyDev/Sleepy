@@ -4,6 +4,7 @@ private enum Constants {
     static let descriptionHeight: CGFloat = 13
     static let standardWidth: CGFloat = 14
     static let chartSpacing: CGFloat = 3
+    static let stackSpacing: CGFloat = 4
 }
 
 /// Стандартный график (для фаз, сердца)
@@ -15,7 +16,9 @@ private enum Constants {
 ///  - chartType: тип графика
 ///  - needDragGesture: true, если нужен dragGesture
 public struct StandardChartView: View {
-
+    @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
+    // = CGFloat.infinity - variant for VStack
+    
     @State private var selectedIndex = -1
     @State private var elemWidth: CGFloat = 14
     private let chartHeight: CGFloat
@@ -46,18 +49,23 @@ public struct StandardChartView: View {
     }
 
     public var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .center) {
-                HStack(alignment: .bottom, spacing: Constants.chartSpacing) {
-                    ForEach(0 ..< points.count, id: \.self) { index in
-                        if let max = points.max() {
-                            let height = chartHeight * (points[index] / max)
+        VStack {
+            GeometryReader { geometry in
+                VStack(alignment: .center, spacing: Constants.stackSpacing) {
+                    if self.dragGestureEnabled {
+                        Text(self.selectedIndex >= 0 ? self.getTapDescription(for: self.selectedIndex) : "")
+                            .frame(height: 16)
+                    }
+
+                    HStack(alignment: .bottom, spacing: Constants.chartSpacing) {
+                        ForEach(0 ..< self.points.count, id: \.self) { index in
+
                             VStack {
                                 if selectedIndex == index {
-                                    getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
+                                    getChartElement(for: chartType, width: elemWidth, value: points[index])
                                         .colorInvert()
                                 } else {
-                                    getChartElement(for: chartType, width: elemWidth, height: height, value: points[index])
+                                    getChartElement(for: chartType, width: elemWidth, value: points[index])
                                 }
 
                                 if needOXLine {
@@ -66,40 +74,46 @@ public struct StandardChartView: View {
                             }
                         }
                     }
-                }
-                .allowsHitTesting(dragGestureEnabled)
-                .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
-                    let selected = Int(gesture.location.x / ( geometry.size.width / (CGFloat(points.count) - Constants.chartSpacing)))
+                    .frame(height: chartHeight + (needOXLine ? 2 * Constants.stackSpacing : 0))
+                    .allowsHitTesting(dragGestureEnabled)
+                    .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
+                        let selected = Int(gesture.location.x / (geometry.size.width / (CGFloat(points.count) - Constants.chartSpacing)))
 
-                    if selected != selectedIndex && selected < points.count {
-                        selectedIndex = selected
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred(intensity: 0.6)
+                        if selected != selectedIndex, selected < points.count {
+                            selectedIndex = selected
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred(intensity: 0.6)
+                        }
+                    }.onEnded { _ in
+                        selectedIndex = -1
+                    })
+
+                    if needTimeLine,
+                       let startTime = dateInterval?.start,
+                       let endTime = dateInterval?.end {
+                        TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
                     }
-                }.onEnded { _ in
-                    selectedIndex = -1
-                })
-
-                if needTimeLine,
-                   let startTime = dateInterval?.start,
-                   let endTime = dateInterval?.end {
-                    TimeLineView(colorProvider: colorProvider, startTime: startTime, endTime: endTime)
+                }
+                .background(viewHeightReader($totalHeight))
+                .frame(width: geometry.size.width)
+                .onAppear {
+                    let chartWidth = CGFloat(points.count) * Constants.standardWidth + Constants.chartSpacing * CGFloat(points.count - 1)
+                    if chartWidth > geometry.size.width {
+                        self.elemWidth = abs(geometry.size.width - Constants.chartSpacing * CGFloat(points.count - 1)) / CGFloat(points.count)
+                    }
                 }
             }
-            .frame(width: geometry.size.width)
-            .onAppear {
-                let chartWidth = CGFloat(points.count) * Constants.standardWidth + Constants.chartSpacing * CGFloat(points.count - 1)
-                if chartWidth > geometry.size.width {
-                    self.elemWidth = abs((geometry.size.width - Constants.chartSpacing * CGFloat(points.count - 1))) / CGFloat(points.count)
-                }
-            }
-        }
-        .frame(height: chartHeight + (needOXLine ? 15 : 0) + (needTimeLine ? 15 : 0))
+        }.frame(height: totalHeight) // - variant for ScrollView/List
     }
 
-    private func getChartElement(for chartType: StandardChartType, width: CGFloat, height: CGFloat, value: Double) -> some View {
+    private func getChartElement(for chartType: StandardChartType, width _: CGFloat, value: Double) -> some View {
+        let minimum = self.points.min() ?? 0
+        let maximum = self.points.max() ?? 0
+
+        let height = max(chartHeight * 0.2, chartHeight * ((value - minimum) / (maximum - minimum)))
+
         switch chartType {
         case .phasesChart:
-            return StandardChartElementView(width: elemWidth, height: height, type: .rectangle(color: self.getPhaseColor(for: value)))
+            return StandardChartElementView(width: elemWidth, height: height, type: .rectangle(color: getPhaseColor(for: value)))
         case let .defaultChart(barType):
             return StandardChartElementView(width: elemWidth, height: height, type: barType)
         case let .verticalProgress(foregroundElementColor, backgroundElementColor, max):
@@ -115,6 +129,21 @@ public struct StandardChartView: View {
         : colorProvider.sleepyColorScheme.getColor(of: .phases(.lightSleepColor))
     }
 
+    private func getTapDescription(for index: Int) -> String {
+        let value = self.points[index]
+
+        switch self.chartType {
+        case .phasesChart:
+            return value < 0.55
+            ? "Deep sleep phase"
+            : (value >= 1
+               ? "Probably woke up"
+               : "Light sleep phase")
+        default:
+            return String(format: "%.0f", points[selectedIndex])
+        }
+    }
+
     private func getOXLineElement() -> some View {
         let width: CGFloat = 2,
             height: CGFloat = 3,
@@ -125,5 +154,15 @@ public struct StandardChartView: View {
             .frame(width: width, height: height, alignment: .center)
             .opacity(opacity)
             .padding(.top, topPadding)
+    }
+
+    private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
+        return GeometryReader { geometry -> Color in
+            let rect = geometry.frame(in: .local)
+            DispatchQueue.main.async {
+                binding.wrappedValue = rect.size.height
+            }
+            return .clear
+        }
     }
 }

@@ -24,7 +24,6 @@ struct RoundedGradientCard: ViewModifier {
                                        endPoint: .topTrailing).opacity(0.3))
             .cornerRadius(12)
             .padding([.leading, .trailing, .bottom])
-
     }
 }
 
@@ -38,7 +37,7 @@ struct ButtonModifier: ViewModifier {
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
-                            .fill(color))
+                .fill(color))
             .padding([.leading, .trailing, .bottom])
     }
 }
@@ -53,7 +52,7 @@ struct SkipButtonModifier: ViewModifier {
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
-                            .fill(Color.gray))
+                .fill(Color.gray))
             .padding(.bottom)
     }
 }
@@ -71,22 +70,22 @@ struct UsefulInfoCardBackground: ViewModifier {
 
 public extension View {
     func roundedCardBackground(color: Color) -> some View {
-        self.modifier(CardBackground(color: color))
+        modifier(CardBackground(color: color))
     }
 
     func roundedGradientCard(color1: Color, color2: Color) -> some View {
-        self.modifier(RoundedGradientCard(color1: color1, color2: color2))
+        modifier(RoundedGradientCard(color1: color1, color2: color2))
     }
 
     func usefulInfoCardBackground(color: Color) -> some View {
-        self.modifier(UsefulInfoCardBackground(color: color))
+        modifier(UsefulInfoCardBackground(color: color))
     }
 
     func customButton(color: Color) -> some View {
-        self.modifier(ButtonModifier(color: color))
+        modifier(ButtonModifier(color: color))
     }
 
     func skipCustomButton(color: Color) -> some View {
-        self.modifier(SkipButtonModifier(color: color))
+        modifier(SkipButtonModifier(color: color))
     }
 }

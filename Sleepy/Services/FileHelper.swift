@@ -11,7 +11,7 @@ class FileHelper {
     class func sizeForLocalFilePath(filePath: String) -> UInt64 {
         do {
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: filePath)
-            if let fileSize = fileAttributes[FileAttributeKey.size]  {
+            if let fileSize = fileAttributes[FileAttributeKey.size] {
                 return (fileSize as! NSNumber).uint64Value
             } else {
                 print("Failed to get a size attribute from path: \(filePath)")
@@ -34,7 +34,8 @@ class FileHelper {
 
     class func creationDateForLocalFilePath(for file: URL) -> Date {
         if let attributes = try? FileManager.default.attributesOfItem(atPath: file.path) as [FileAttributeKey: Any],
-           let creationDate = attributes[FileAttributeKey.creationDate] as? Date {
+           let creationDate = attributes[FileAttributeKey.creationDate] as? Date
+        {
             return creationDate
         } else {
             return Date()
@@ -42,9 +43,9 @@ class FileHelper {
     }
 
     class func covertToFileString(with size: UInt64) -> String {
-        var convertedValue: Double = Double(size)
+        var convertedValue = Double(size)
         var multiplyFactor = 0
-        let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
+        let tokens = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
         while convertedValue > 1024 {
             convertedValue /= 1024
             multiplyFactor += 1

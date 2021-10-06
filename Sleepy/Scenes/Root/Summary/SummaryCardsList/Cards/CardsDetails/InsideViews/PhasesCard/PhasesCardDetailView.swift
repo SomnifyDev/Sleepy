@@ -1,29 +1,27 @@
-import SwiftUI
+import FirebaseAnalytics
+import HKCoreSleep
 import HKStatistics
 import HKVisualKit
-import HKCoreSleep
+import SwiftUI
 import XUI
-import FirebaseAnalytics
 
 struct PhasesCardDetailView: View {
-
     @Store var viewModel: CardDetailsViewCoordinator
     @EnvironmentObject var cardService: CardService
     @State private var showAdvice = false
     @State private var activeSheet: AdviceType!
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ZStack {
-
                 viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center) {
-
                         if let phasesViewModel = cardService.phasesViewModel,
-                           let generalViewModel = cardService.generalViewModel {
+                           let generalViewModel = cardService.generalViewModel
+                        {
                             StandardChartView(colorProvider: viewModel.colorProvider,
                                               chartType: .phasesChart,
                                               chartHeight: 75,
@@ -43,9 +41,9 @@ struct PhasesCardDetailView: View {
                                 StatisticsCellData(title: "Total REM sleep duration".localized,
                                                    value: phasesViewModel.timeInLightPhase),
                                 StatisticsCellData(title: "Max REM sleep interval".localized,
-                                                   value: phasesViewModel.mostIntervalInLightPhase)
+                                                   value: phasesViewModel.mostIntervalInLightPhase),
                             ],
-                                                        colorScheme: viewModel.colorProvider.sleepyColorScheme)
+                            colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
 
                         CardNameTextView(text: "What else?".localized,
@@ -58,7 +56,7 @@ struct PhasesCardDetailView: View {
                             destinationView: AdviceView(sheetType: .phasesAdvice, showAdvice: $showAdvice),
                             showModalView: $showAdvice
                         )
-                            .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                        .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }
                 }
                 .navigationTitle("Sleep phases")
@@ -69,8 +67,7 @@ struct PhasesCardDetailView: View {
 
     private func sendAnalytics() {
         FirebaseAnalytics.Analytics.logEvent("PhasesCard_viewed", parameters: [
-            "contentShown": self.cardService.generalViewModel != nil && self.cardService.phasesViewModel != nil
+            "contentShown": cardService.generalViewModel != nil && cardService.phasesViewModel != nil,
         ])
     }
-
 }

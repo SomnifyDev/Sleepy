@@ -1,9 +1,8 @@
 import Foundation
-import HKCoreSleep
 import HealthKit
+import HKCoreSleep
 
 final class HKSleepStatisticsProvider {
-
     func handleSleepStatistics(for sleepStatType: SleepStatType, sleep: Sleep) -> Int {
         switch sleepStatType {
         case .asleep:
@@ -16,5 +15,4 @@ final class HKSleepStatisticsProvider {
     func getFallingAsleepDuration(sleep: Sleep) -> Int {
         return sleep.sleepInterval.start.minutes(from: sleep.inBedInterval.start)
     }
-
 }

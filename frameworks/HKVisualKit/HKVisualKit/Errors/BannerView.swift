@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct BannerView: View {
-
     // MARK: Enums
 
     public enum AdviceType: String {
@@ -9,14 +8,14 @@ public struct BannerView: View {
         case soundRecording
         case some
     }
-    
+
     public enum BannerViewType: Equatable {
         case emptyData(type: HealthData)
         case brokenData(type: HealthData)
         case restrictedData(type: HealthData)
         case advice(type: AdviceType, imageSystemName: String? = nil)
 
-        public static func ==(lhs: BannerViewType, rhs: BannerViewType) -> Bool {
+        public static func == (lhs: BannerViewType, rhs: BannerViewType) -> Bool {
             switch (lhs, rhs) {
             case (.brokenData, .brokenData):
                 return true
@@ -37,10 +36,10 @@ public struct BannerView: View {
     @State private var viewDidClose = false
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
-    
+
     private let bannerViewType: BannerViewType
     private let colorProvider: ColorSchemeProvider
-    
+
     private var iconName: String = ""
     private var titleText: String = ""
     private var dataText: String = ""
@@ -50,13 +49,13 @@ public struct BannerView: View {
     public init(bannerViewType: BannerViewType, colorProvider: ColorSchemeProvider) {
         self.bannerViewType = bannerViewType
         self.colorProvider = colorProvider
-        
+
         titleText = getTitleText()
         dataText = getDataText()
         iconName = getIconName()
 
         switch bannerViewType {
-        case .advice(let type, _):
+        case let .advice(type, _):
             let typeString = type.rawValue
             if keyExists(key: typeString) {
                 _viewDidClose = State(initialValue: true)
@@ -67,29 +66,30 @@ public struct BannerView: View {
     }
 
     // MARK: Body
-    
+
     public var body: some View {
         if !viewDidClose {
-        VStack {
-            GeometryReader { geometry in
-                VStack(spacing: 8) {
+            VStack {
+                GeometryReader { geometry in
+                    VStack(spacing: 8) {
                         CardTitleView(titleText: self.titleText,
                                       mainText: self.dataText,
                                       leftIcon: Image(systemName: self.iconName),
                                       rightIcon: Image(systemName: "xmark.circle"),
                                       titleColor: bannerViewType == .advice(type: .some, imageSystemName: "")
-                                      ? self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.adviceText))
-                                      : self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
+                                          ? self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.adviceText))
+                                          : self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                       mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
                                       showSeparator: bannerViewType == .advice(type: .some, imageSystemName: ""),
                                       colorProvider: self.colorProvider,
                                       onCloseTapAction: {
-                            viewDidClose = true
-                            UserDefaults.standard.set(true, forKey: getBannerUserDefaultsKey())
-                        })
+                                          viewDidClose = true
+                                          UserDefaults.standard.set(true, forKey: getBannerUserDefaultsKey())
+                                      })
 
                         if bannerViewType == .advice(type: .some, imageSystemName: ""),
-                           let imageSystemName = self.getImageSystemName() {
+                           let imageSystemName = self.getImageSystemName()
+                        {
                             Image(imageSystemName)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -100,17 +100,16 @@ public struct BannerView: View {
                         }
 
                         CardBottomSimpleDescriptionView(descriptionText: Text("Read more"), colorProvider: colorProvider, showChevron: true)
-
+                    }
+                    .frame(width: geometry.size.width)
+                    .background(viewHeightReader($totalHeight))
                 }
-                .frame(width: geometry.size.width)
-                .background(viewHeightReader($totalHeight))
             }
-        }
-        .frame(height: totalHeight) // - variant for ScrollView/List
-            //.frame(maxHeight: totalHeight) - variant for VStack
+            .frame(height: totalHeight) // - variant for ScrollView/List
+            // .frame(maxHeight: totalHeight) - variant for VStack
         }
     }
-    
+
     // MARK: Private Methods
 
     private func keyExists(key: String) -> Bool {
@@ -119,7 +118,7 @@ public struct BannerView: View {
 
     private func getBannerUserDefaultsKey() -> String {
         switch bannerViewType {
-        case .advice(let type, _):
+        case let .advice(type, _):
             return type.rawValue
         default:
             return ""
@@ -135,12 +134,12 @@ public struct BannerView: View {
             return .clear
         }
     }
-    
+
     private func getTitleText() -> String {
-        switch self.bannerViewType {
+        switch bannerViewType {
         case .emptyData(type: _),
-                .brokenData(type: _),
-                .restrictedData(type: _):
+             .brokenData(type: _),
+             .restrictedData(type: _):
             return "Data empty or restricted"
         case .advice(type: _, let imageSystemName):
             return "Advice"
@@ -148,25 +147,25 @@ public struct BannerView: View {
     }
 
     private func getImageSystemName() -> String? {
-        switch self.bannerViewType {
+        switch bannerViewType {
         case .emptyData(type: _),
-                .brokenData(type: _),
-                .restrictedData(type: _):
+             .brokenData(type: _),
+             .restrictedData(type: _):
             return ""
         case .advice(type: _, let imageSystemName):
             return imageSystemName
         }
     }
-    
+
     private func getDataText() -> String {
-        switch self.bannerViewType {
-        case .emptyData(type: let type):
+        switch bannerViewType {
+        case let .emptyData(type: type):
             return String(format: "No data of type %@ was recieved".localized, type.rawValue)
-        case .brokenData(type: let type):
+        case let .brokenData(type: type):
             return String(format: "There was not enought data to display your %@ charts. Try to sleep with Apple Watch More".localized, type.rawValue)
-        case .restrictedData(type: let type):
+        case let .restrictedData(type: type):
             return "Sleepy was restricted from reading your \(type.rawValue) data. Fix that in your settings"
-        case .advice(type: let type, _):
+        case let .advice(type: type, _):
             switch type {
             case .wearMore:
                 return "Try to sleep with your watch on your wrist to get phase, heart, and energy analysis"
@@ -177,9 +176,9 @@ public struct BannerView: View {
             }
         }
     }
-    
+
     private func getIconName() -> String {
-        switch self.bannerViewType {
+        switch bannerViewType {
         case .emptyData(type: _), .brokenData(type: _):
             return "exclamationmark.square.fill"
         case .restrictedData(type: _):
@@ -188,12 +187,11 @@ public struct BannerView: View {
             return "questionmark.square.dashed"
         }
     }
-    
 }
 
 public struct ErrorView_Previews: PreviewProvider {
     public static var previews: some View {
         BannerView(bannerViewType: .brokenData(type: .heart),
-                  colorProvider: ColorSchemeProvider())
+                   colorProvider: ColorSchemeProvider())
     }
 }

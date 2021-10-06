@@ -5,7 +5,6 @@
 //  Created by Никита Казанцев on 17.09.2021.
 //
 
-
 import Foundation
 
 extension DateInterval {
@@ -15,7 +14,6 @@ extension DateInterval {
     }
 
     func stringFromDateInterval(type: StringFormatType) -> String {
-
-        return "\(self.start.getFormattedDate(format: type.rawValue)) - \(self.end.getFormattedDate(format: type.rawValue))"
+        return "\(start.getFormattedDate(format: type.rawValue)) - \(end.getFormattedDate(format: type.rawValue))"
     }
 }

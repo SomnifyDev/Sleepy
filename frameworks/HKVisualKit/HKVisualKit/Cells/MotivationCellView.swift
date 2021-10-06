@@ -8,13 +8,12 @@
 import SwiftUI
 
 public struct MotivationCellView: View {
-
     @Environment(\.openURL) var openURL
 
     private var type: HealthData
     private var colorProvider: ColorSchemeProvider
 
-    //TODO: перенести это в отдельный файл когда надо будет нагенерить больше мотивации
+    // TODO: перенести это в отдельный файл когда надо будет нагенерить больше мотивации
     private let array = [MotivationAdvice(title: "Quality of sleep",
                                           description: "Research shows that poor sleep has immediate negative effects on your hormones, exercise performance, and brain function.",
                                           link: "https://www.healthline.com/nutrition/17-tips-to-sleep-better#_noHeaderPrefixedContent",
@@ -37,7 +36,7 @@ public struct MotivationCellView: View {
 
     public var body: some View {
         ZStack {
-            let motivation = array.filter {$0.type == type }.randomElement()
+            let motivation = array.filter { $0.type == type }.randomElement()
             if let motivation = motivation {
                 VStack {
                     CardTitleView(titleText: motivation.title,
@@ -79,7 +78,6 @@ public struct MotivationCellView: View {
             return colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
         }
     }
-
 }
 
 struct MotivationAdvice {

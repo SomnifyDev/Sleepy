@@ -5,10 +5,10 @@
 //  Created by Никита Казанцев on 26.09.2021.
 //
 
-import SwiftUI
-import HKVisualKit
 import FirebaseAnalytics
+import HKVisualKit
 import SettingsKit
+import SwiftUI
 
 struct GoalIntroView: View {
     let colorScheme: SleepyColorScheme
@@ -23,13 +23,11 @@ struct GoalIntroView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
-
                     VStack(alignment: .leading) {
-
                         WelcomeScreenLineView(title: "Задайте желаемую цель сна.",
                                               subTitle: "Установите цель сна, чтобы приложение помогло вам с оздоровлением.",
                                               imageName: "sleep",
-                                              color: colorScheme.getColor(of: .general(.mainSleepyColor)))          
+                                              color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                     }.padding(.top, 16)
 
                     VStack {
@@ -38,7 +36,7 @@ struct GoalIntroView: View {
                             .foregroundColor(.primary)
                             .padding([.leading, .trailing])
 
-                        Slider(value: $sleepGoal, in: 360...720, step: 30)
+                        Slider(value: $sleepGoal, in: 360 ... 720, step: 30)
                             .padding([.leading, .trailing])
                     }
                     .roundedCardBackground(color: colorScheme.getColor(of: .card(.cardBackgroundColor)).opacity(0.5))
@@ -52,16 +50,16 @@ struct GoalIntroView: View {
                         .onTapGesture {
                             self.saveSetting(with: Int(sleepGoal), forKey: SleepySettingsKeys.sleepGoal.rawValue)
                             self.showShownNext = true
-
                         }
                 }
 
                 if self.showShownNext {
                     NavigationLink(
-                        destination: HowToUseIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext) {
-                            Text("Продолжить")
-                                .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
-                        }
+                        destination: HowToUseIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext
+                    ) {
+                        Text("Продолжить")
+                            .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+                    }
                 }
             }
         }
@@ -72,7 +70,7 @@ struct GoalIntroView: View {
     private func saveSetting(with value: Int, forKey key: String) {
         FirebaseAnalytics.Analytics.logEvent("Settings_saved", parameters: [
             "key": key,
-            "value": value
+            "value": value,
         ])
         UserDefaults.standard.set(value, forKey: key)
     }

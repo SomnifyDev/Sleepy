@@ -1,14 +1,13 @@
 import Foundation
-import SwiftUI
-import XUI
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
 import SettingsKit
+import SwiftUI
+import XUI
 
 // all types of main tab bar windows
 enum TabBarTab: String {
-
     case summary
     case history
     case alarm
@@ -17,7 +16,6 @@ enum TabBarTab: String {
 }
 
 extension RootCoordinator {
-    
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
         summaryCoordinator
@@ -26,14 +24,12 @@ extension RootCoordinator {
         soundsCoordinator
         settingsCoordinator
     }
-    
 }
 
 class RootCoordinator: ObservableObject, ViewModel {
-    
     @Published var tab = TabBarTab.summary
     @Published var openedURL: URL?
-    
+
     @Published private(set) var summaryCoordinator: SummaryNavigationCoordinator!
     @Published private(set) var historyCoordinator: HistoryCoordinator!
     @Published private(set) var alarmCoordinator: AlarmCoordinator!
@@ -43,61 +39,65 @@ class RootCoordinator: ObservableObject, ViewModel {
     var colorSchemeProvider: ColorSchemeProvider
     var statisticsProvider: HKStatisticsProvider
     var hkStoreService: HKService
-    
+
     init(colorSchemeProvider: ColorSchemeProvider,
          statisticsProvider: HKStatisticsProvider,
-         hkStoreService: HKService) {
+         hkStoreService: HKService)
+    {
         // наш главный координатор таббара получил сервисы
         self.colorSchemeProvider = colorSchemeProvider
         self.statisticsProvider = statisticsProvider
         self.hkStoreService = hkStoreService
-        
+
         // думаем, а какие сервисы понадобятся для экрана 1 страницы таббара (со списком карточек)
         // пока давай передадим и сервис здоровья, и сервис карточек (хотя насчет надобности второго я думаю)
-        self.summaryCoordinator = SummaryNavigationCoordinator(
+        summaryCoordinator = SummaryNavigationCoordinator(
             colorProvider: colorSchemeProvider,
             statisticsProvider: statisticsProvider,
             title: "main list",
             hkStoreService: hkStoreService,
             parent: self
         )
-        
-        self.historyCoordinator = HistoryCoordinator(
+
+        historyCoordinator = HistoryCoordinator(
             title: "history",
             colorSchemeProvider: colorSchemeProvider,
             statisticsProvider: statisticsProvider,
-            parent: self)
-        
-        self.alarmCoordinator = AlarmCoordinator(
-            title: "alarm",
-            parent: self)
+            parent: self
+        )
 
-        self.soundsCoordinator = SoundsCoordinator(
+        alarmCoordinator = AlarmCoordinator(
+            title: "alarm",
+            parent: self
+        )
+
+        soundsCoordinator = SoundsCoordinator(
             title: "sounds",
             colorSchemeProvider: colorSchemeProvider,
-            parent: self)
-        
-        self.settingsCoordinator = SettingsCoordinator(
-            title: "settings",
-            parent: self)
+            parent: self
+        )
 
+        settingsCoordinator = SettingsCoordinator(
+            title: "settings",
+            parent: self
+        )
     }
-    
+
     func open(_ url: URL) {
-        self.openedURL = url
+        openedURL = url
     }
-    
+
     func startDeepLink(from url: URL) {
         if let scheme = url.scheme {
             switch scheme {
-                
             case "summary":
                 guard url.host == "card",
                       let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                      let cardTypeRaw = components.queryItems?.first(where: { $0.name == "type" })?.value else {
-                          assertionFailure("Trying to open app with illegal url \(url).")
-                          return
-                      }
+                      let cardTypeRaw = components.queryItems?.first(where: { $0.name == "type" })?.value
+                else {
+                    assertionFailure("Trying to open app with illegal url \(url).")
+                    return
+                }
 //                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
 //                openCard(for: cardType, with: <#AdvicesViewType#>)
 
@@ -115,22 +115,21 @@ class RootCoordinator: ObservableObject, ViewModel {
 
             default:
                 assertionFailure("Trying to open app with illegal url \(url).")
-
             }
         } else {
             assertionFailure("Trying to open app with illegal url \(url).")
         }
     }
-    
+
     func openCard(for cardType: SummaryViewCardType) {
         // этот момент (строчку 111) я пока детально не зашарил, но давай просто осознаем общую логику:
         // тут мы делегируем открытие карточки дальше по цепочке
         // теперь это задача для роутера экрана со списком карточек
-        
+
         let feedListCoordinator = firstReceiver(as: SummaryNavigationCoordinator.self)
         feedListCoordinator!.open(cardType)
     }
-    
+
     func openTabView(of type: TabBarTab) {
         switch type {
         case .history:
@@ -145,5 +144,4 @@ class RootCoordinator: ObservableObject, ViewModel {
             tab = .soundRecognision
         }
     }
-    
 }

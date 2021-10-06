@@ -9,22 +9,21 @@ import Foundation
 import XUI
 
 class AlarmCoordinator: ObservableObject, ViewModel {
-    
     @Published var openedURL: URL?
     @Published private(set) var viewModel: AlarmCoordinatorView!
     private unowned let parent: RootCoordinator
 
-    init(title: String,
-         parent: RootCoordinator) {
+    init(title _: String,
+         parent: RootCoordinator)
+    {
         self.parent = parent
-        
-        self.viewModel = AlarmCoordinatorView(
+
+        viewModel = AlarmCoordinatorView(
             viewModel: self
         )
     }
-    
+
     func open(_ url: URL) {
-        self.openedURL = url
+        openedURL = url
     }
-    
 }

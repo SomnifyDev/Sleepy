@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct CardTitleView: View {
-
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
@@ -25,7 +24,8 @@ public struct CardTitleView: View {
                 mainTextColor: Color? = nil,
                 showSeparator: Bool = true,
                 colorProvider: ColorSchemeProvider,
-                onCloseTapAction: (() -> Void)? = nil) {
+                onCloseTapAction: (() -> Void)? = nil)
+    {
         self.titleText = titleText
         self.mainText = mainText
         self.leftIcon = leftIcon
@@ -40,8 +40,8 @@ public struct CardTitleView: View {
 
     public var body: some View {
         VStack {
-            GeometryReader { geometry in
-                VStack(alignment: .leading,spacing: 4) {
+            GeometryReader { _ in
+                VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         leftIcon
                             .foregroundColor(titleColor)
@@ -69,7 +69,8 @@ public struct CardTitleView: View {
                     }
 
                     if let mainText = mainText,
-                       let mainTextColor = mainTextColor {
+                       let mainTextColor = mainTextColor
+                    {
                         Text(mainText)
                             .cardDescriptionTextModifier(color: mainTextColor)
                     }
@@ -81,7 +82,7 @@ public struct CardTitleView: View {
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+        // .frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {

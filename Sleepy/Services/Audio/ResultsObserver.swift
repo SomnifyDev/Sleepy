@@ -6,18 +6,17 @@
 //
 
 import Foundation
-import UIKit
-import SoundAnalysis
 import SettingsKit
+import SoundAnalysis
+import UIKit
 
 /// An observer that receives results from a classify sound request.
 class ResultsObserver: NSObject, SNResultsObserving {
-
     var fileName = ""
     var date: Date?
     var array: [SoundAnalysisResult] = []
     /// Notifies the observer when a request generates a prediction.
-    func request(_ request: SNRequest, didProduce result: SNResult) {
+    func request(_: SNRequest, didProduce result: SNResult) {
         // Downcast the result to a classification result.
         guard let result = result as? SNClassificationResult else { return }
 
@@ -43,12 +42,12 @@ class ResultsObserver: NSObject, SNResultsObserving {
     }
 
     /// Notifies the observer when a request generates an error.
-    func request(_ request: SNRequest, didFailWithError error: Error) {
+    func request(_: SNRequest, didFailWithError error: Error) {
         print("The the analysis failed: \(error.localizedDescription)")
     }
 
     /// Notifies the observer when a request is complete.
-    func requestDidComplete(_ request: SNRequest) {
+    func requestDidComplete(_: SNRequest) {
         print("The request completed successfully!")
     }
 }

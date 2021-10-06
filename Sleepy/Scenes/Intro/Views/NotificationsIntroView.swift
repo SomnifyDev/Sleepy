@@ -5,25 +5,23 @@
 //  Created by Никита Казанцев on 26.09.2021.
 //
 
-import SwiftUI
-import HKVisualKit
 import FirebaseAnalytics
+import HKVisualKit
+import SwiftUI
 
 struct NotificationsIntroView: View {
     let colorScheme: SleepyColorScheme
     @Binding var shouldShowIntro: Bool
-    
+
     @State private var showShownNext = false
-    
+
     var body: some View {
         ZStack {
             colorScheme.getColor(of: .general(.appBackgroundColor))
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
-                    
                     VStack(alignment: .leading) {
-                        
                         WelcomeScreenLineView(title: "Разрешите Sleepy присылать уведомления.",
                                               subTitle: "Это нужно для того, чтобы Sleepy мог присылать вам сводку за прошедший сон.",
                                               imageName: "sleep",
@@ -35,19 +33,19 @@ struct NotificationsIntroView: View {
                     Text("Разрешить".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {
-                            self.registerForPushNotifications { result, error in
+                            self.registerForPushNotifications { _, _ in
                                 showShownNext = true
                             }
-
                         }
                 }
 
                 if showShownNext {
                     NavigationLink(
-                        destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext) {
-                            Text("Продолжить")
-                                .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
-                        }
+                        destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext
+                    ) {
+                        Text("Продолжить")
+                            .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+                    }
                 }
             }
         }

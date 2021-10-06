@@ -1,23 +1,20 @@
 import Foundation
-import XUI
 import HKCoreSleep
-import HKVisualKit
 import HKStatistics
+import HKVisualKit
 import SettingsKit
 import SwiftUI
+import XUI
 
 extension SummaryNavigationCoordinator {
-
     @DeepLinkableBuilder
     var children: [DeepLinkable] {
         summaryListCoordinator
         cardDetailViewCoordinator
     }
-
 }
 
 class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
-
     private unowned let parent: RootCoordinator
 
     @Published private(set) var summaryListCoordinator: SummaryCardsListCoordinator!
@@ -31,8 +28,8 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
          statisticsProvider: HKStatisticsProvider,
          title: String,
          hkStoreService: HKService,
-         parent: RootCoordinator) {
-
+         parent: RootCoordinator)
+    {
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
         self.parent = parent
@@ -42,7 +39,7 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
         self.hkStoreService = hkStoreService
 
         // создаем дочерний координатор списка карточек
-        self.summaryListCoordinator = SummaryCardsListCoordinator(colorProvider: colorProvider,
+        summaryListCoordinator = SummaryCardsListCoordinator(colorProvider: colorProvider,
                                                              statisticsProvider: statisticsProvider,
                                                              title: title,
                                                              coordinator: self)
@@ -58,5 +55,4 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
         // модификатор .navigation(model: у своего view
         cardDetailViewCoordinator = CardDetailsViewCoordinator(card: card, coordinator: self)
     }
-
 }

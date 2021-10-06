@@ -8,9 +8,7 @@ public enum BarType {
 }
 
 public enum StandardChartType {
-
     case phasesChart
     case defaultChart(barType: BarType)
     case verticalProgress(foregroundElementColor: Color, backgroundElementColor: Color, max: Double)
-
 }

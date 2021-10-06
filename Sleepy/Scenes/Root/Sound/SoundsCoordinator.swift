@@ -5,12 +5,11 @@
 //  Created by Никита Казанцев on 14.08.2021.
 //
 import Foundation
-import XUI
-import SettingsKit
 import HKVisualKit
+import SettingsKit
+import XUI
 
 class SoundsCoordinator: ObservableObject, ViewModel {
-
     @Published var openedURL: URL?
     @Published private(set) var viewModel: SoundsCoordinatorView!
 
@@ -18,19 +17,19 @@ class SoundsCoordinator: ObservableObject, ViewModel {
 
     private unowned let parent: RootCoordinator
 
-    init(title: String,
+    init(title _: String,
          colorSchemeProvider: ColorSchemeProvider,
-         parent: RootCoordinator) {
+         parent: RootCoordinator)
+    {
         self.parent = parent
-        self.colorProvider = colorSchemeProvider
+        colorProvider = colorSchemeProvider
 
-        self.viewModel = SoundsCoordinatorView(
+        viewModel = SoundsCoordinatorView(
             viewModel: self
         )
     }
 
     func open(_ url: URL) {
-        self.openedURL = url
+        openedURL = url
     }
-
 }

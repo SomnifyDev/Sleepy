@@ -6,7 +6,6 @@ import SwiftUI
 ///  - height: высота элементе
 ///  - color: цвет отображения
 struct StandardChartElementView: View {
-
     private let cornerRadius: Double = 50
     private let width: CGFloat
     private let height: CGFloat
@@ -20,19 +19,18 @@ struct StandardChartElementView: View {
 
     var body: some View {
         VStack {
-
             switch type {
-            case .rectangle(let color):
+            case let .rectangle(color):
                 Rectangle()
                     .foregroundColor(color)
                     .cornerRadius(cornerRadius)
-                
-            case .circle(let color):
+
+            case let .circle(color):
                 Circle()
                     .foregroundColor(color)
-                Spacer()
+                    .frame(width: width, height: width)
 
-            case .filled(let foregroundElementColor, let backgroundElementColor, let percentage):
+            case let .filled(foregroundElementColor, backgroundElementColor, percentage):
                 ZStack(alignment: .bottom) {
                     Rectangle()
                         .fill(backgroundElementColor)
@@ -46,5 +44,4 @@ struct StandardChartElementView: View {
             }
         }.frame(width: width, height: height)
     }
-    
 }

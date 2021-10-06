@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct UsefulInfoCardDetailView: View {
-
     @Binding var showSleepImportanceView: Bool
     private let navigationBarTitle: String
     private let mainImageName: String
@@ -9,7 +8,7 @@ public struct UsefulInfoCardDetailView: View {
     private let mainTextParagraphs: [String]
 
     init(showSleepImportanceView: Binding<Bool>, navigationBarTitle: String, mainImageName: String, mainTextTitle: String, mainTextParagraphs: [String]) {
-        self._showSleepImportanceView = showSleepImportanceView
+        _showSleepImportanceView = showSleepImportanceView
         self.navigationBarTitle = navigationBarTitle
         self.mainImageName = mainImageName
         self.mainTextTitle = mainTextTitle
@@ -20,7 +19,7 @@ public struct UsefulInfoCardDetailView: View {
         GeometryReader { g in
             NavigationView {
                 ScrollView {
-                    VStack (alignment: .leading) {
+                    VStack(alignment: .leading) {
                         Image(mainImageName)
                             .resizable()
                             .frame(width: g.size.width, height: 250)
@@ -40,12 +39,12 @@ public struct UsefulInfoCardDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle(navigationBarTitle)
                 .navigationBarItems(trailing:
-                                        Button(action: {
-                                            self.showSleepImportanceView = false
-                                        }, label: {
-                                            Text("Done")
-                                                .fontWeight(.regular)
-                                        }))
+                    Button(action: {
+                        self.showSleepImportanceView = false
+                    }, label: {
+                        Text("Done")
+                            .fontWeight(.regular)
+                    }))
             }
         }
     }

@@ -17,6 +17,8 @@
 "settings" = "settings";
 
 
+"%u bpm"  = "%u bpm";
+"%u count/min"  = "%u count/min";
 
 // MARK: Summary tab, general card
 

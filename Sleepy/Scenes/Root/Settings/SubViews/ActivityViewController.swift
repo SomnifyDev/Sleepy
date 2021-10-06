@@ -1,27 +1,25 @@
 //
- //  ActivityViewController.swift
- //  Sleepy
- //
- //  Created by Никита Казанцев on 08.08.2021.
- //
+//  ActivityViewController.swift
+//  Sleepy
+//
+//  Created by Никита Казанцев on 08.08.2021.
+//
 
- import UIKit
- import SwiftUI
+import SwiftUI
+import UIKit
 
- struct ActivityViewController: UIViewControllerRepresentable {
+struct ActivityViewController: UIViewControllerRepresentable {
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+    @Environment(\.presentationMode) var presentationMode
 
-     var activityItems: [Any]
-     var applicationActivities: [UIActivity]? = nil
-     @Environment(\.presentationMode) var presentationMode
+    func makeUIViewController(context _: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        controller.completionWithItemsHandler = { _, _, _, _ in
+            self.presentationMode.wrappedValue.dismiss()
+        }
+        return controller
+    }
 
-     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
-         let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
-         controller.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
-             self.presentationMode.wrappedValue.dismiss()
-         }
-         return controller
-     }
-
-     func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
-
- }
+    func updateUIViewController(_: UIActivityViewController, context _: UIViewControllerRepresentableContext<ActivityViewController>) {}
+}

@@ -5,9 +5,9 @@
 //  Created by Никита Казанцев on 02.10.2021.
 //
 
-import SwiftUI
-import HKVisualKit
 import FirebaseAnalytics
+import HKVisualKit
+import SwiftUI
 
 struct HowToUseIntroView: View {
     let colorScheme: SleepyColorScheme
@@ -16,7 +16,7 @@ struct HowToUseIntroView: View {
     var images = ["tutorial1", "tutorial2"]
     @State private var index = 0
     @State private var showShownNext = false
-    
+
     var body: some View {
         ZStack {
             colorScheme.getColor(of: .general(.appBackgroundColor))
@@ -24,7 +24,6 @@ struct HowToUseIntroView: View {
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
-
                         PagingView(index: $index.animation(), maxIndex: images.count - 1) {
                             ForEach(self.images, id: \.self) { imageName in
                                 Image(imageName)
@@ -32,7 +31,7 @@ struct HowToUseIntroView: View {
                                     .scaledToFill()
                             }
                         }
-                        .aspectRatio(4/3, contentMode: .fit)
+                        .aspectRatio(4 / 3, contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
 
                         WelcomeScreenLineView(title: "1. Необходимо включить функцию 'Сон' для часов.",

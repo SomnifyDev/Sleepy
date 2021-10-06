@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct CardWithChartView<T: View, U: View>: View {
-
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
@@ -28,23 +27,23 @@ public struct CardWithChartView<T: View, U: View>: View {
     /// Use for shimmers only
     public init(colorProvider: ColorSchemeProvider, color: Color, chartType: StandardChartType) {
         self.colorProvider = colorProvider
-        self.systemImageName = "person"
-        self.titleText = "tfklw"
-        self.mainTitleText = "some long description in order to fill blur card with"
-        self.titleColor = color
-        self.showChevron = false
-        self.chartView = StandardChartView(colorProvider: colorProvider,
-                                           chartType: chartType,
-                                           chartHeight: 75,
-                                           points: [13, 23, 10, 15, 30, 23, 25, 26, 30, 13, 23, 10, 15, 30, 23, 25, 26, 30,13, 23, 10, 15, 30, 23, 25, 26, 30],
-                                           dateInterval: DateInterval(start: Date(), end: Date()),
-                                           dragGestureEnabled: false) as! T
-        self.bottomView = EmptyView() as! U
+        systemImageName = "person"
+        titleText = "tfklw"
+        mainTitleText = "some long description in order to fill blur card with"
+        titleColor = color
+        showChevron = false
+        chartView = StandardChartView(colorProvider: colorProvider,
+                                      chartType: chartType,
+                                      chartHeight: 75,
+                                      points: [13, 23, 10, 15, 30, 23, 25, 26, 30, 13, 23, 10, 15, 30, 23, 25, 26, 30, 13, 23, 10, 15, 30, 23, 25, 26, 30],
+                                      dateInterval: DateInterval(start: Date(), end: Date()),
+                                      dragGestureEnabled: false) as! T
+        bottomView = EmptyView() as! U
     }
 
     public var body: some View {
         VStack {
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 VStack(alignment: .leading) {
                     CardTitleView(titleText: self.titleText,
                                   mainText: self.mainTitleText,
@@ -62,7 +61,7 @@ public struct CardWithChartView<T: View, U: View>: View {
                 .background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+        // .frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {

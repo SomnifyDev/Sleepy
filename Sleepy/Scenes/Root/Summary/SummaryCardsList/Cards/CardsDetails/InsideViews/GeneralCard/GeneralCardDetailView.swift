@@ -1,13 +1,12 @@
-import SwiftUI
+import FirebaseAnalytics
+import HKCoreSleep
 import HKStatistics
 import HKVisualKit
-import HKCoreSleep
-import XUI
 import SettingsKit
-import FirebaseAnalytics
+import SwiftUI
+import XUI
 
 struct GeneralCardDetailView: View {
-    
     @EnvironmentObject var cardService: CardService
     @Store var viewModel: CardDetailsViewCoordinator
     @State private var showSleepImportance = false
@@ -15,15 +14,13 @@ struct GeneralCardDetailView: View {
     @State private var activeSheet: AdviceType!
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ZStack {
-
                 viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center) {
-
                         // MARK: Bank of sleep
 
                         if let bankOfSleepViewModel = cardService.bankOfSleepViewModel {
@@ -37,14 +34,20 @@ struct GeneralCardDetailView: View {
                                               mainTitleText: String(format: "Total backlog from your goal during last 2 weeks is %@".localized, bankOfSleepViewModel.backlog),
                                               titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
                                               showChevron: false,
-                                              chartView: StandardChartView(colorProvider: viewModel.colorProvider, chartType: .verticalProgress(foregroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)), backgroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .chartColors(.verticalProgressChartElement)), max: bankOfSleepViewModel.bankOfSleepData.max()!), chartHeight: 100, points: bankOfSleepViewModel.bankOfSleepData, dateInterval: nil, needOXLine: false, needTimeLine: false, dragGestureEnabled: false),
+                                              chartView: StandardChartView(colorProvider: viewModel.colorProvider,
+                                                                           chartType: .verticalProgress(foregroundElementColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                                                                                                        backgroundElementColor:
+                                                                                                            viewModel.colorProvider.sleepyColorScheme.getColor(of: .chartColors(.verticalProgressChartElement)),
+                                                                                                        max: bankOfSleepViewModel.bankOfSleepData.max()!),
+                                                                           chartHeight: 100,
+                                                                           points: bankOfSleepViewModel.bankOfSleepData, dateInterval: nil, needOXLine: false, needTimeLine: false, dragGestureEnabled: false),
                                               bottomView: CardBottomSimpleDescriptionView(descriptionText:
-                                                                                            Text("Sleep for ".localized)
-                                                                                          + Text("\(bankOfSleepViewModel.timeToCloseDebt)")
-                                                                                            .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
-                                                                                            .bold()
-                                                                                          + Text(" every day to pay off the debt.".localized),
-                                                                                          colorProvider: viewModel.colorProvider))
+                                                  Text("Sleep for ".localized)
+                                                      + Text("\(bankOfSleepViewModel.timeToCloseDebt)")
+                                                      .foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                                                      .bold()
+                                                      + Text(" every day to pay off the debt.".localized),
+                                                  colorProvider: viewModel.colorProvider))
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
@@ -62,9 +65,9 @@ struct GeneralCardDetailView: View {
 
                             ProgressChartView(titleText: "Sleep: goal".localized,
                                               mainText:
-                                                String(format: "Your sleep duration was %@, it is %u%% of your goal".localized,
-                                                       generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start),
-                                                       getGoalPercentage(viewModel: generalViewModel)),
+                                              String(format: "Your sleep duration was %@, it is %u%% of your goal".localized,
+                                                     generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start),
+                                                     getGoalPercentage(viewModel: generalViewModel)),
                                               systemImage: "zzz",
                                               colorProvider: viewModel.colorProvider,
                                               currentProgress: ProgressItem(title: "Your sleep goal".localized,
@@ -91,7 +94,7 @@ struct GeneralCardDetailView: View {
                             destinationView: AdviceView(sheetType: .sleepImportanceAdvice, showAdvice: $showSleepImprovement),
                             showModalView: $showSleepImprovement
                         )
-                            .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                        .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                         UsefulInfoCardView(
                             imageName: AdviceType.sleepImprovementAdvice.rawValue,
@@ -100,7 +103,7 @@ struct GeneralCardDetailView: View {
                             destinationView: AdviceView(sheetType: .sleepImprovementAdvice, showAdvice: $showSleepImportance),
                             showModalView: $showSleepImportance
                         )
-                            .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                        .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }
                 }
             }
@@ -122,7 +125,7 @@ struct GeneralCardDetailView: View {
             StatisticsCellData(title: "Time asleep".localized,
                                value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)),
             StatisticsCellData(title: "Time in bed".localized,
-                               value: generalViewModel.inbedInterval.end.hoursMinutes(from: generalViewModel.inbedInterval.start))
+                               value: generalViewModel.inbedInterval.end.hoursMinutes(from: generalViewModel.inbedInterval.start)),
         ]
     }
 
@@ -148,9 +151,8 @@ struct GeneralCardDetailView: View {
 
     private func sendAnalytics() {
         FirebaseAnalytics.Analytics.logEvent("GeneralCard_viewed", parameters: [
-            "bankOfSleepShown": self.cardService.bankOfSleepViewModel != nil,
-            "generalShown": self.cardService.generalViewModel != nil
+            "bankOfSleepShown": cardService.bankOfSleepViewModel != nil,
+            "generalShown": cardService.generalViewModel != nil,
         ])
     }
-    
 }

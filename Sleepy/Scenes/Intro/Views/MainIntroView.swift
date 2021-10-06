@@ -5,9 +5,9 @@
 //  Created by Никита Казанцев on 25.09.2021.
 //
 
-import SwiftUI
-import HKVisualKit
 import FirebaseAnalytics
+import HKVisualKit
+import SwiftUI
 
 struct MainIntroView: View {
     let colorScheme: SleepyColorScheme
@@ -21,7 +21,6 @@ struct MainIntroView: View {
                 VStack {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .center) {
-
                             VStack(alignment: .leading) {
                                 WelcomeScreenLineView(title: "Сводка сна",
                                                       subTitle: "Sleepy анализирует сон, агрегируя ваши данные, и предоставляет общую сводку по нему.",
@@ -39,14 +38,13 @@ struct MainIntroView: View {
                                                       color: Color(.systemRed))
                             }.padding(.top, 16)
                         }.padding([.leading, .trailing], 16)
-
                     }
 
                     NavigationLink(
                         destination: HealthKitIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro)) {
                             Text("Продолжить")
                                 .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
-                        }
+                    }
                 }
             }
             .navigationTitle("Что умеет Sleepy")

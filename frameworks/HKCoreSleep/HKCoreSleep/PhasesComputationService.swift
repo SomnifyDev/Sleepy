@@ -2,7 +2,6 @@ import Foundation
 import HealthKit
 
 final class PhasesComputationService {
-
     var phasesData: [Phase] = []
 
     init(sleep: Sleep) {
@@ -28,16 +27,16 @@ final class PhasesComputationService {
         for index in stride(from: 0, to: heartRateTimeData.count, by: 3) {
             guard index + 3 < heartRateTimeData.count else { break }
 
-            let isPotencialAwake = index - 3 >= 0 ? isDifferenceBiggerThan20Percents(measurings: heartRateValuesData[(index - 3)...(index + 3)]) : false
+            let isPotencialAwake = index - 3 >= 0 ? isDifferenceBiggerThan20Percents(measurings: heartRateValuesData[(index - 3) ... (index + 3)]) : false
             let coeff1 = lastEnergyTimeIntervalBeforeLastHeartRate(energyTimeData: energyTimeData, heartRateTime: heartRateTimeData[index + 3])
-            let coeff2 = heartRateJumps(heartRateData: heartRateValuesData[index...(index + 3)])
-            let coeff3 = isPulseIntervalLessThanAverage(heartRateData: heartRateValuesData[index...(index + 3)], meanHeartRate: meanHeartRate)
+            let coeff2 = heartRateJumps(heartRateData: heartRateValuesData[index ... (index + 3)])
+            let coeff3 = isPulseIntervalLessThanAverage(heartRateData: heartRateValuesData[index ... (index + 3)], meanHeartRate: meanHeartRate)
 
             let verdictCoefficient = coeff1 + coeff2 + coeff3
 
             let interval = DateInterval(start: heartRateTimeData[index], end: heartRateTimeData[index + 3])
             let condition: Condition = verdictCoefficient > 0.5 ? .deep : isPotencialAwake ? .awake : .light
-            let meanHeartRate: Double = heartRateValuesData[index...index + 3].reduce(0.0) {$0 + Double($1)} / 4.0
+            let meanHeartRate: Double = heartRateValuesData[index ... index + 3].reduce(0.0) { $0 + Double($1) } / 4.0
 
             phasesData.append(Phase(interval: interval,
                                     condition: condition,
@@ -60,7 +59,7 @@ final class PhasesComputationService {
     private func lastEnergyTimeIntervalBeforeLastHeartRate(energyTimeData: [Date], heartRateTime: Date) -> Double {
         var previousInterval = heartRateTime.timeIntervalSince(energyTimeData[0])
 
-        for i in 1..<energyTimeData.count {
+        for i in 1 ..< energyTimeData.count {
             if heartRateTime.timeIntervalSince(energyTimeData[i]) < 0 {
                 return (previousInterval >= 900) ? 0.35 : 0.0
             }
@@ -99,7 +98,6 @@ final class PhasesComputationService {
     // MARK: Phases chart points
 
     private func getChartPoint(condition: Condition, verdictCoefficient: Double, meanHeartRate: Double) -> Double {
-
         switch condition {
         case .awake:
             return getAwakeChartPoint(verdictCoefficient: verdictCoefficient, meanHeartRate: meanHeartRate)
@@ -110,7 +108,7 @@ final class PhasesComputationService {
         }
     }
 
-    private func getAwakeChartPoint(verdictCoefficient: Double, meanHeartRate: Double) -> Double {
+    private func getAwakeChartPoint(verdictCoefficient _: Double, meanHeartRate _: Double) -> Double {
         return 1.1
     }
 
@@ -148,12 +146,12 @@ final class PhasesComputationService {
         guard
             let heartSamples = heartSamples as? [HKQuantitySample]
         else {
-            return([], [], nil)
+            return ([], [], nil)
         }
 
-        let heartRateData = heartSamples.map({Int($0.quantity.doubleValue(for: HKUnit(from: "count/min")))})
+        let heartRateData = heartSamples.map { Int($0.quantity.doubleValue(for: HKUnit(from: "count/min"))) }
 
-        return (heartSamples.map({$0.startDate}),
+        return (heartSamples.map { $0.startDate },
                 heartRateData,
                 (heartRateData.reduce(0.0) { $0 + Double($1) }) / Double(heartRateData.count))
     }
@@ -162,11 +160,11 @@ final class PhasesComputationService {
         guard
             let energySamples = energySamples as? [HKQuantitySample]
         else {
-            return([], [])
+            return ([], [])
         }
 
-        return (energySamples.map({$0.startDate}),
-                energySamples.map({$0.quantity.doubleValue(for: HKUnit.kilocalorie())}))
+        return (energySamples.map { $0.startDate },
+                energySamples.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) })
     }
 
     // MARK: Auxiliary functions
@@ -174,5 +172,4 @@ final class PhasesComputationService {
     private func doubleEqual(_ a: Double, _ b: Double) -> Bool {
         return fabs(a - b) < Double.ulpOfOne
     }
-
 }
