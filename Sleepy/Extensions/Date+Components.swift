@@ -43,7 +43,6 @@ extension Date {
         inDirection direction: Calendar.SearchDirection = .forward,
         using calendar: Calendar = .current, components: DateComponents
     ) -> Date {
-
         return calendar.nextDate(
             after: self,
             matching: components,
@@ -65,7 +64,6 @@ extension Date {
         dateformat.timeStyle = timeStyle
         dateformat.timeZone = TimeZone.current
         dateformat.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
-
         return dateformat.string(from: self)
     }
 
