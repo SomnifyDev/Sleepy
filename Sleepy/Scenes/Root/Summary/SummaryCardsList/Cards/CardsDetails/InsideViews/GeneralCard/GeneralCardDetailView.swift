@@ -26,7 +26,7 @@ struct GeneralCardDetailView: View {
                         // MARK: Bank of sleep
 
                         if let bankOfSleepViewModel = cardService.bankOfSleepViewModel {
-                            CardNameTextView(text: "Bank",
+                            SectionNameTextView(text: "Bank",
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
@@ -55,13 +55,13 @@ struct GeneralCardDetailView: View {
                         // MARK: Main statistics block
 
                         if let generalViewModel = cardService.generalViewModel {
-                            CardNameTextView(text: "Summary".localized,
+                            SectionNameTextView(text: "Summary".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                             HorizontalStatisticCellView(data: getStatisticCells(generalViewModel: generalViewModel),
                                                         colorScheme: viewModel.colorProvider.sleepyColorScheme)
 
-                            CardNameTextView(text: "Statistics".localized,
+                            SectionNameTextView(text: "Statistics".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                             ProgressChartView(titleText: "Sleep: goal".localized,
@@ -83,7 +83,7 @@ struct GeneralCardDetailView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
-                        CardNameTextView(text: "What else?".localized,
+                        SectionNameTextView(text: "What else?".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         // MARK: Advices

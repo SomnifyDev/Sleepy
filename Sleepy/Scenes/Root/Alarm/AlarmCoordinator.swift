@@ -19,7 +19,7 @@ class AlarmCoordinator: ObservableObject, ViewModel {
         self.parent = parent
         
         self.viewModel = AlarmCoordinatorView(
-            viewModel: self
+//            viewModel: self
         )
     }
     

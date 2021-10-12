@@ -29,7 +29,7 @@ struct SummaryCardsListView: View {
                         }
 
                         if let generalViewModel = cardService.generalViewModel {
-                            CardNameTextView(text: "Sleep information".localized,
+                            SectionNameTextView(text: "Sleep information".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                                 .padding(.top)
 
@@ -47,7 +47,7 @@ struct SummaryCardsListView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
-                        CardNameTextView(text: "Sleep session".localized,
+                        SectionNameTextView(text: "Sleep session".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         if let phasesViewModel = cardService.phasesViewModel,
@@ -85,7 +85,7 @@ struct SummaryCardsListView: View {
                                 .blur(radius: 4)
                         }
 
-                        CardNameTextView(text: "Heart rate".localized,
+                        SectionNameTextView(text: "Heart rate".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         if let heartViewModel = cardService.heartViewModel,

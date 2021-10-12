@@ -133,7 +133,7 @@ extension Text {
 
 }
 
-public struct CardNameTextView: View {
+public struct SectionNameTextView: View {
 
     private let color: Color
     private let text: String

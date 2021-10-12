@@ -604,8 +604,8 @@
 		D99509F326777D4D00694208 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
-				D99509FB267780D700694208 /* AlarmCoordinatorView.swift */,
 				D99509F9267780C400694208 /* AlarmCoordinator.swift */,
+				D99509FB267780D700694208 /* AlarmCoordinatorView.swift */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
