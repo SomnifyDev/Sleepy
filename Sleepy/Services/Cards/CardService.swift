@@ -29,7 +29,7 @@ class CardService: ObservableObject {
     // MARK: Initialization
     init(statisticsProvider: HKStatisticsProvider) {
         self.statisticsProvider = statisticsProvider
-        getbankOfSleepInfo()
+        getBankOfSleepInfo()
         getSleepData()
         getPhasesData()
         getHeartData()
@@ -59,6 +59,7 @@ class CardService: ObservableObject {
         getbankOfSleepData { data in
             let sleepGoal = self.getSleepGoal()
             let filteredData = data.filter({$0 != 0})
+            guard !filteredData.isEmpty else { return }
 
             let bankOfSleepData = data.map({$0 / Double(sleepGoal)})
 
