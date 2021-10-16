@@ -4,6 +4,7 @@ import HKVisualKit
 import HKCoreSleep
 import XUI
 import SettingsKit
+import FirebaseAnalytics
 
 struct GeneralCardDetailView: View {
     
@@ -109,6 +110,7 @@ struct GeneralCardDetailView: View {
                 }
             }
             .navigationTitle("\(Date().getFormattedDate(format: "E, MMMM d"))")
+            .onAppear(perform: self.sendAnalytics)
         }
     }
 
@@ -147,6 +149,13 @@ struct GeneralCardDetailView: View {
         let sleepDuration = viewModel.sleepInterval.duration / 60.0
         let sleepGoal = Double(viewModel.sleepGoal)
         return Int((sleepDuration / sleepGoal) * 100)
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("GeneralCard_viewed", parameters: [
+            "bankOfSleepShown": self.cardService.bankOfSleepViewModel != nil,
+            "generalShown": self.cardService.generalViewModel != nil
+        ])
     }
     
 }

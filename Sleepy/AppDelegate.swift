@@ -27,13 +27,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         print("Application did finished launching with options")
 
         self.notificationCenter.delegate = self
-        self.registerForPushNotifications { [weak self] result, error in
-            guard error == nil else {
-                return
-            }
-            self?.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["Sleepy Notification"])
-        }
-
+        self.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["Sleepy Notification"])
         // настраиваем сесcию, которая будет в дальнейшем реагировать на появление сэмплов от эпла
         self.setupBackground()
 
@@ -49,12 +43,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
             self?.sleepDetectionProvider.observeData()
         }
-    }
-
-    func registerForPushNotifications(completionHandler: @escaping (Bool, Error?) -> Void) {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-
-        self.notificationCenter.requestAuthorization(options: options, completionHandler: completionHandler)
     }
     
 }

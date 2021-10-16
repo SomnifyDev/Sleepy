@@ -9,6 +9,13 @@ target 'Sleepy' do
   pod 'SwiftLint'
 
   pod 'Armchair', '>= 0.3'
+  # add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’
+  # for Analytics without IDFA collection capability
+
+  # add pods for any other desired Firebase products
+  # https://firebase.google.com/docs/ios/setup#available-pods
 
 #Add the following in order to automatically set debug flags for armchair in debug builds
 post_install do |installer|

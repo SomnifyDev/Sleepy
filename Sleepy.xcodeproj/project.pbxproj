@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8001401F26FF26C0001AE152 /* MainIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001401E26FF26C0001AE152 /* MainIntroView.swift */; };
+		8001402126FF273D001AE152 /* HealthKitIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001402026FF273D001AE152 /* HealthKitIntroView.swift */; };
 		8002F3A626A1FA3600A7192A /* HistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A526A1FA3600A7192A /* HistoryListView.swift */; };
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
 		8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailsView.swift */; };
+		8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
+		8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
+		8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
+		8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613726FF1AD600643C8A /* IntroCoordinator.swift */; };
+		8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */; };
 		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
+		8061C84E26FFDE03002BDA28 /* WelcomeScreenLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061C84D26FFDE03002BDA28 /* WelcomeScreenLineView.swift */; };
+		8061C85026FFE460002BDA28 /* NotificationsIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061C84F26FFE460002BDA28 /* NotificationsIntroView.swift */; };
+		8061C85226FFE4D8002BDA28 /* GoalIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061C85126FFE4D8002BDA28 /* GoalIntroView.swift */; };
 		80647AF326D9163B0054C03F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80647AF526D9163B0054C03F /* Localizable.strings */; };
 		80647AF826D917380054C03F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80647AF726D917380054C03F /* String+Localizable.swift */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
@@ -50,6 +60,7 @@
 		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
 		80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */; };
 		80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */; };
+		80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */; };
 		83B5E6B9439FFF42234FC145 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0478F8D634EE6FB7FDA791EB /* Pods_Sleepy.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
 		D94419D5266CD3C50019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D4266CD3C50019902F /* Assets.xcassets */; };
@@ -179,13 +190,21 @@
 /* Begin PBXFileReference section */
 		0478F8D634EE6FB7FDA791EB /* Pods_Sleepy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2659915F4966203C1D04E139 /* Pods-Sleepy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.debug.xcconfig"; sourceTree = "<group>"; };
+		8001401E26FF26C0001AE152 /* MainIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIntroView.swift; sourceTree = "<group>"; };
+		8001402026FF273D001AE152 /* HealthKitIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitIntroView.swift; sourceTree = "<group>"; };
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
 		8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSleepInfoCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
+		8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8052613726FF1AD600643C8A /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
+		8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinatorView.swift; sourceTree = "<group>"; };
 		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
+		8061C84D26FFDE03002BDA28 /* WelcomeScreenLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenLineView.swift; sourceTree = "<group>"; };
+		8061C84F26FFE460002BDA28 /* NotificationsIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsIntroView.swift; sourceTree = "<group>"; };
+		8061C85126FFE4D8002BDA28 /* GoalIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalIntroView.swift; sourceTree = "<group>"; };
 		80647AF426D9163B0054C03F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80647AF626D916770054C03F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80647AF726D917380054C03F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
@@ -221,6 +240,7 @@
 		80D7F0BB268C77050055ECEE /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTypeSwitchView.swift; sourceTree = "<group>"; };
 		80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
+		80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseIntroView.swift; sourceTree = "<group>"; };
 		B479134818F2DCE2C6757D1D /* Pods-Sleepy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.release.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.release.xcconfig"; sourceTree = "<group>"; };
 		D94419CD266CD3C40019902F /* Sleepy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94419D0266CD3C40019902F /* SleepyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyApp.swift; sourceTree = "<group>"; };
@@ -291,6 +311,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8001401826FF26AF001AE152 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8061C84C26FFDDE9002BDA28 /* Elements */,
+				8001401E26FF26C0001AE152 /* MainIntroView.swift */,
+				8001402026FF273D001AE152 /* HealthKitIntroView.swift */,
+				8061C84F26FFE460002BDA28 /* NotificationsIntroView.swift */,
+				8061C85126FFE4D8002BDA28 /* GoalIntroView.swift */,
+				80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8052613626FF1ABD00643C8A /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				8001401826FF26AF001AE152 /* Views */,
+				8052613726FF1AD600643C8A /* IntroCoordinator.swift */,
+				8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
 		805D75152692456000C19034 /* Embed Statistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +342,14 @@
 				8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */,
 			);
 			path = "Embed Statistics";
+			sourceTree = "<group>";
+		};
+		8061C84C26FFDDE9002BDA28 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				8061C84D26FFDE03002BDA28 /* WelcomeScreenLineView.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 		80780F04266CE356000D0DD9 /* HK */ = {
@@ -322,6 +373,7 @@
 		80780F34266D3CFD000D0DD9 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				8052613626FF1ABD00643C8A /* Intro */,
 				80780F48266D451B000D0DD9 /* Root */,
 			);
 			path = Scenes;
@@ -491,6 +543,7 @@
 				808FDF4926861EFD00B38B78 /* Sleepy.entitlements */,
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
 				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
+				8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */,
 				80780F34266D3CFD000D0DD9 /* Scenes */,
 				80780F3E266D42D4000D0DD9 /* Services */,
 				80780F63266D5BC8000D0DD9 /* Extensions */,
@@ -851,6 +904,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */,
+				8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 				80647AF326D9163B0054C03F /* Localizable.strings in Resources */,
 				D94419D5266CD3C50019902F /* Assets.xcassets in Resources */,
 			);
@@ -861,6 +915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9441A00266CD4C60019902F /* Assets.xcassets in Resources */,
+				8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,6 +925,7 @@
 			files = (
 				D9441A19266CD4C70019902F /* Preview Assets.xcassets in Resources */,
 				D9441A16266CD4C70019902F /* Assets.xcassets in Resources */,
+				8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -948,6 +1004,8 @@
 				80780F5F266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift in Sources */,
 				D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift in Sources */,
+				8001402126FF273D001AE152 /* HealthKitIntroView.swift in Sources */,
+				8001401F26FF26C0001AE152 /* MainIntroView.swift in Sources */,
 				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
@@ -972,12 +1030,14 @@
 				80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */,
 				D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */,
 				80780F4E266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift in Sources */,
+				8061C84E26FFDE03002BDA28 /* WelcomeScreenLineView.swift in Sources */,
 				80A765EA26C7FA1500A66554 /* AnalysisListView.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */,
+				8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */,
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
 				80A765F826C8F9E300A66554 /* FileHelper.swift in Sources */,
@@ -986,8 +1046,12 @@
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
 				80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */,
 				80A765E126C7F3A700A66554 /* Recording.swift in Sources */,
+				80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */,
 				80A765F026C843F300A66554 /* TimeInterval+String.swift in Sources */,
+				8061C85026FFE460002BDA28 /* NotificationsIntroView.swift in Sources */,
 				D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */,
+				8061C85226FFE4D8002BDA28 /* GoalIntroView.swift in Sources */,
+				8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
 				80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */,
@@ -1161,7 +1225,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1170,7 +1234,46 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Armchair\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstallations\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleAppMeasurement\"",
+					"-framework",
+					"\"GoogleDataTransport\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"nanopb\"",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1186,7 +1289,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1195,7 +1298,46 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Armchair\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"FBLPromises\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstallations\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleAppMeasurement\"",
+					"-framework",
+					"\"GoogleDataTransport\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"nanopb\"",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1208,7 +1350,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1216,7 +1358,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1232,7 +1374,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1240,7 +1382,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1257,10 +1399,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1277,10 +1419,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;

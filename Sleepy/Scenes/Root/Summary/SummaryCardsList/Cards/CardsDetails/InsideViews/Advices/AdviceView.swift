@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 enum AdviceType: String {
     case sleepImportanceAdvice
@@ -66,7 +67,7 @@ struct AdviceView: View {
                 }
             }
             .onAppear {
-                viewModel = AdviceViewModel(
+                self.viewModel = AdviceViewModel(
                     navigationTitle: getNavigationTitle(),
                     image: Image(sheetType.rawValue),
                     mainTitle: getMainTitle(),
@@ -76,14 +77,21 @@ struct AdviceView: View {
                 )
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(viewModel.navigationTitle)
+            .navigationTitle(self.viewModel.navigationTitle)
             .navigationBarItems(trailing: Button(action: {
                 showAdvice = false
             }, label: {
                 Text("Done".localized)
                     .fontWeight(.bold)
             }))
+            .onAppear(perform: self.sendAnalytics)
         }
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("Advice_viewed", parameters: [
+            "type": self.sheetType.rawValue
+        ])
     }
 
     // MARK: Configuration methods

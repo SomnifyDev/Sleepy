@@ -3,6 +3,7 @@ import HKStatistics
 import HKVisualKit
 import HKCoreSleep
 import XUI
+import FirebaseAnalytics
 
 struct HeartCardDetailView: View {
 
@@ -58,8 +59,15 @@ struct HeartCardDetailView: View {
                     }
                 }
                 .navigationTitle("Heart")
+                .onAppear(perform: self.sendAnalytics)
             }
         }
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("HeartCard_viewed", parameters: [
+            "contentShown": self.cardService.generalViewModel != nil && self.cardService.heartViewModel != nil
+        ])
     }
 
 }

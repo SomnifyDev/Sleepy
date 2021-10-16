@@ -1,5 +1,6 @@
 import SwiftUI
 import XUI
+import FirebaseAnalytics
 
 struct CardDetailsView: View {
     
@@ -14,7 +15,13 @@ struct CardDetailsView: View {
             } else if coordinator.card == .phases {
                 PhasesCardDetailView(viewModel: self.coordinator)
             }
-        }
+        }.onAppear(perform: self.sendAnalytics)
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("CardDetails_viewed", parameters: [
+            "cardType": coordinator.card.rawValue
+        ])
     }
 
 }

@@ -184,7 +184,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             }
 
             // Run the query.
-            self.hkService?.healthStore.execute(query)
+            HKService.healthStore.execute(query)
         }
     }
     

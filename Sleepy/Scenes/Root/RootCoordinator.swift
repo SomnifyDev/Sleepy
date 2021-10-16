@@ -98,7 +98,7 @@ class RootCoordinator: ObservableObject, ViewModel {
                           assertionFailure("Trying to open app with illegal url \(url).")
                           return
                       }
-                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
+//                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
 //                openCard(for: cardType, with: <#AdvicesViewType#>)
 
             case "history":
@@ -140,7 +140,7 @@ class RootCoordinator: ObservableObject, ViewModel {
         case .settings:
             tab = .settings
         case .summary:
-            break
+            tab = .summary
         case .soundRecognision:
             tab = .soundRecognision
         }

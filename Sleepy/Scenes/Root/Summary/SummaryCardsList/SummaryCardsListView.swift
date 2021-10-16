@@ -1,15 +1,13 @@
 import SwiftUI
 import XUI
 import HKVisualKit
+import FirebaseAnalytics
 
 struct SummaryCardsListView: View {
 
     @Store var viewModel: SummaryCardsListCoordinator
 
     @EnvironmentObject var cardService: CardService
-    @State private var generalViewModel: SummaryGeneralDataViewModel?
-    @State private var phasesViewModel: SummaryPhasesDataViewModel?
-    @State private var heartViewModel: SummaryHeartDataViewModel?
     @State private var somethingBroken = false
     
 
@@ -126,5 +124,15 @@ struct SummaryCardsListView: View {
             }
         }
         .navigationTitle("\("Summary".localized), \(Date().getFormattedDate(format: "MMM d"))")
+        .onAppear(perform: self.sendAnalytics)
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("SummaryCardsList_viewed", parameters: [
+            "somethingBroken": somethingBroken,
+            "generalCardShown": self.cardService.generalViewModel != nil,
+            "phasesCardShown": self.cardService.phasesViewModel != nil && cardService.generalViewModel != nil,
+            "heartCardShown": self.cardService.heartViewModel != nil && cardService.generalViewModel != nil
+        ])
     }
 }

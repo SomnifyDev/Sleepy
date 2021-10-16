@@ -3,6 +3,7 @@ import HKStatistics
 import HKVisualKit
 import HKCoreSleep
 import XUI
+import FirebaseAnalytics
 
 struct PhasesCardDetailView: View {
 
@@ -62,8 +63,15 @@ struct PhasesCardDetailView: View {
                     }
                 }
                 .navigationTitle("Sleep phases")
+                .onAppear(perform: self.sendAnalytics)
             }
         }
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("PhasesCard_viewed", parameters: [
+            "contentShown": self.cardService.generalViewModel != nil && self.cardService.phasesViewModel != nil
+        ])
     }
 
 }

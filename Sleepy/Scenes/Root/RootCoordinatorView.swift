@@ -1,5 +1,6 @@
 import SwiftUI
 import XUI
+import FirebaseAnalytics
 
 struct RootCoordinatorView: View {
     
@@ -26,7 +27,13 @@ struct RootCoordinatorView: View {
             SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
                 .tabItem { Label("settings".localized, systemImage: "gear") }
                 .tag(TabBarTab.settings)
-        }
+        }.onAppear(perform: self.sendAnalytics)
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("RootView_viewed", parameters: [
+            "tabOpened": viewModel.tab.rawValue
+        ])
     }
     
 }

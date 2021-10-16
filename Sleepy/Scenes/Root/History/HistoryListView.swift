@@ -9,6 +9,7 @@ import SwiftUI
 import XUI
 import HKVisualKit
 import HKCoreSleep
+import FirebaseAnalytics
 
 struct HistoryListView: View {
 
@@ -101,11 +102,19 @@ struct HistoryListView: View {
             .onChange(of: calendarType) { _ in
                 extractContextStatistics()
             }
-        }.navigationTitle("Sleep history".localized)
+        }
+        .navigationTitle("Sleep history".localized)
+        .onAppear(perform: self.sendAnalytics)
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("History_viewed", parameters: nil)
     }
 
     /// Loads data for each type of calendar phase to fill statistics view below it
     func extractContextStatistics() {
+        FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: [ "type": self.calendarType.rawValue ])
+
         switch calendarType {
         case .heart:
             extractHeartDataIfNeeded()

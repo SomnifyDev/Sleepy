@@ -4,6 +4,7 @@ import HKStatistics
 import HKVisualKit
 import SettingsKit
 import Armchair
+import Firebase
 
 @main
 struct SleepyApp: App {
@@ -12,24 +13,39 @@ struct SleepyApp: App {
 
     @State var hkService: HKService?
     @State var cardService: CardService!
-    @State var colorSchemeProvider: ColorSchemeProvider?
+
+    let colorSchemeProvider: ColorSchemeProvider
     @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
     @State var statisticsProvider: HKStatisticsProvider?
-    @State var viewModel: RootCoordinator?
+
+    @State var rootViewModel: RootCoordinator?
+    @State var introViewModel: IntroCoordinator?
+
     @State var hasOpenedURL = false
-    @State var canShowApp: Bool = false
+    @State var canShowMain: Bool = false
+    @State var shouldShowIntro: Bool = false
     @State var sleep: Sleep?
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    // MARK: Body
+    init() {
+        FirebaseApp.configure()
+
+        self.colorSchemeProvider = ColorSchemeProvider()
+
+        if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+            _shouldShowIntro = State(initialValue: true)
+            _introViewModel = State(initialValue: IntroCoordinator(colorSchemeProvider: self.colorSchemeProvider))
+        }
+
+    }
 
     var body: some Scene {
         WindowGroup {
-            if canShowApp {
-                RootCoordinatorView(viewModel: viewModel!)
+            if canShowMain {
+                RootCoordinatorView(viewModel: rootViewModel!)
                     .environmentObject(cardService)
-                    .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                    .accentColor(colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         UIApplication.shared.applicationIconBadgeNumber = 0
 
@@ -43,12 +59,15 @@ struct SleepyApp: App {
                                   let sample = samples?.first,
                                   let sleep = self.sleep  else { return }
                             if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
-                                self.canShowApp = false
+                                self.canShowMain = false
                             }
                         })
                     }
                 //.onOpenURL { coordinator!.startDeepLink(from: $0) }
                 //.onAppear { simulateURLOpening() }
+            } else if shouldShowIntro {
+                IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
+                    .accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
             } else {
                 Text("Loading".localized)
                     .onAppear {
@@ -59,7 +78,6 @@ struct SleepyApp: App {
 
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
-                        self.colorSchemeProvider = ColorSchemeProvider()
 
                         self.retrieveSleep()
                     }
@@ -75,9 +93,10 @@ struct SleepyApp: App {
                     // сон не был прочитан
                     self.statisticsProvider = HKStatisticsProvider(sleep: nil,
                                                                    healthService: hkService!)
-                    self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
+                    self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
+                    self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
 
-                    self.canShowApp = true
+                    self.canShowMain = true
                     return
                 }
                 // сон прочитался
@@ -85,14 +104,14 @@ struct SleepyApp: App {
 
                 self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
                 self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
+                self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider,
                                                  statisticsProvider: statisticsProvider!,
                                                  hkStoreService: hkService!)
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
                     Armchair.userDidSignificantEvent(true)
                 }
-                self.canShowApp = true
+                self.canShowMain = true
             }
     }
 
@@ -134,7 +153,7 @@ struct SleepyApp: App {
                       return
                   }
 
-            viewModel!.startDeepLink(from: url)
+            rootViewModel!.startDeepLink(from: url)
         }
 #endif
     }
