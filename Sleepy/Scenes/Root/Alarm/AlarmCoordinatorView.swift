@@ -20,6 +20,11 @@ struct AlarmCoordinatorView: View {
 
     // TODO: Localize
     // TODO: ColorProvider
+
+    private enum Constant {
+        static let smallTopPadding: CGFloat = 4
+        static let appleWatchImageheight: CGFloat = 400
+    }
     
     var body: some View {
         GeometryReader { g in
@@ -27,33 +32,58 @@ struct AlarmCoordinatorView: View {
                 ScrollView {
                     VStack (alignment: .leading) {
 
+                        Image("night")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(.top)
+
                         SectionNameTextView(
                             text: "What is a smart alarm?",
                             color: .black
                         )
                             .padding(.top)
 
-                        Image("night")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: g.size.width, height: 250)
-
-                        Text("A smart alarm is a function integrated into the Sleepy that will prompt you to wake up during the REM-sleep phase.")
-                            .padding()
+                        Text("A smart alarm is a function integrated into the Sleepy Apple Watch App that will prompt you to wake up during the REM-sleep phase.")
+                            .padding([.trailing, .leading, .bottom])
+                            .padding(.top, Constant.smallTopPadding)
 
                         SectionNameTextView(
                             text: "Improve your sleep with smart alarm",
                             color: .black
                         )
 
-                        Text("The main goal of a smart alarm is to wake you up in a REM-phase of sleep. Smart alarm feature will monitor when you are in a REM-phase during the indicated time period and will go off at the end of the REM phase. This makes waking up considerably less stressful for your body. ")
+                        Text("The main goal of a smart alarm is to wake you up in a REM-phase of sleep. Smart alarm feature will monitor when you are in a REM-phase during the indicated time period and will go off at the end of the REM phase. This makes waking up considerably less stressful for your body.")
                             .padding([.trailing, .leading, .bottom])
-                            .padding(.top, 4)
+                            .padding(.top, Constant.smallTopPadding)
 
                         SectionNameTextView(
                             text: "How to use smart alarm in Sleepy?",
                             color: .black
                         )
+
+                        Text("To set smart alarm, open your Apple Watch Sleepy App and select the desired wake up time.")
+                            .padding([.trailing, .leading])
+                            .padding(.top, Constant.smallTopPadding)
+
+                        HStack(alignment: .center) {
+                            Image("alarmMain")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(
+                                    width: g.size.width / 2,
+                                    height: Constant.appleWatchImageheight,
+                                    alignment: .center
+                                )
+
+                            Image("alarmInside")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(
+                                    width: g.size.width / 2,
+                                    height: Constant.appleWatchImageheight,
+                                    alignment: .center
+                                )
+                        }
 
                     }
                 }
