@@ -7,6 +7,7 @@
 
 import Foundation
 import XUI
+import HKVisualKit
 
 class AlarmCoordinator: ObservableObject, ViewModel {
     
@@ -14,10 +15,14 @@ class AlarmCoordinator: ObservableObject, ViewModel {
     @Published private(set) var viewModel: AlarmCoordinatorView!
     private unowned let parent: RootCoordinator
 
+    let colorProvider: ColorSchemeProvider
+
     init(title: String,
-         parent: RootCoordinator) {
+         colorSchemeProvider: ColorSchemeProvider,
+         parent: RootCoordinator
+    ) {
         self.parent = parent
-        
+        self.colorProvider = colorSchemeProvider
         self.viewModel = AlarmCoordinatorView(
             viewModel: self
         )
