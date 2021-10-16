@@ -15,8 +15,7 @@ struct RootCoordinatorView: View {
                 .tabItem { Label("history".localized, systemImage: "calendar") }
                 .tag(TabBarTab.history)
             
-//            AlarmCoordinatorView(viewModel: viewModel.alarmCoordinator)
-            AlarmCoordinatorView()
+            AlarmCoordinatorView(viewModel: viewModel.alarmCoordinator)
                 .tabItem { Label("alarm".localized, systemImage: "alarm.fill") }
                 .tag(TabBarTab.alarm)
 

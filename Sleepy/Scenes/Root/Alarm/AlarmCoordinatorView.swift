@@ -10,16 +10,9 @@ import SwiftUI
 import XUI
 import HKVisualKit
 
-// Че такое умный будильник
-// Почему стоит его использовать
-// Как его использовать?
-
 struct AlarmCoordinatorView: View {
     
-    //    @Store var viewModel: AlarmCoordinator
-
-    // TODO: Localize
-    // TODO: ColorProvider
+    @Store var viewModel: AlarmCoordinator
 
     private enum Constant {
         static let smallTopPadding: CGFloat = 4
@@ -31,37 +24,36 @@ struct AlarmCoordinatorView: View {
             NavigationView {
                 ScrollView {
                     VStack (alignment: .leading) {
-
                         Image("night")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(.top)
 
                         SectionNameTextView(
-                            text: "What is a smart alarm?",
-                            color: .black
+                            text: "What is a smart alarm?".localized,
+                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
                         )
                             .padding(.top)
 
-                        Text("A smart alarm is a function integrated into the Sleepy Apple Watch App that will prompt you to wake up during the REM-sleep phase.")
+                        Text("What is a smart alarm description".localized)
                             .padding([.trailing, .leading, .bottom])
                             .padding(.top, Constant.smallTopPadding)
 
                         SectionNameTextView(
-                            text: "Improve your sleep with smart alarm",
-                            color: .black
+                            text: "Improve your sleep with smart alarm".localized,
+                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
                         )
 
-                        Text("The main goal of a smart alarm is to wake you up in a REM-phase of sleep. Smart alarm feature will monitor when you are in a REM-phase during the indicated time period and will go off at the end of the REM phase. This makes waking up considerably less stressful for your body.")
+                        Text("Improve your sleep with smart alarm description".localized)
                             .padding([.trailing, .leading, .bottom])
                             .padding(.top, Constant.smallTopPadding)
 
                         SectionNameTextView(
-                            text: "How to use smart alarm in Sleepy?",
-                            color: .black
+                            text: "How to use smart alarm in Sleepy?".localized,
+                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
                         )
 
-                        Text("To set smart alarm, open your Apple Watch Sleepy App and select the desired wake up time.")
+                        Text("How to use smart alarm in Sleepy description".localized)
                             .padding([.trailing, .leading])
                             .padding(.top, Constant.smallTopPadding)
 
@@ -84,21 +76,14 @@ struct AlarmCoordinatorView: View {
                                     alignment: .center
                                 )
                         }
-
                     }
                 }
                 .navigationBarTitle(
-                    "Smart alarm",
+                    "Smart alarm".localized,
                     displayMode: .large
                 )
             }
         }
     }
-    
-}
 
-struct AlarmCoordinatorView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlarmCoordinatorView()
-    }
 }
