@@ -33,7 +33,7 @@ struct EnergyHistoryStatsView: View {
             }
 
             if !viewModel.cellData.isEmpty {
-                CardNameTextView(text: "Last 30 days",
+                SectionNameTextView(text: "Last 30 days",
                                  color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                 HorizontalStatisticCellView(data: viewModel.cellData,

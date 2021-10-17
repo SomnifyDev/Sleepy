@@ -7,18 +7,22 @@
 
 import Foundation
 import XUI
+import HKVisualKit
 
 class AlarmCoordinator: ObservableObject, ViewModel {
     @Published var openedURL: URL?
     @Published private(set) var viewModel: AlarmCoordinatorView!
     private unowned let parent: RootCoordinator
 
-    init(title _: String,
-         parent: RootCoordinator)
-    {
-        self.parent = parent
+    let colorProvider: ColorSchemeProvider
 
-        viewModel = AlarmCoordinatorView(
+    init(title: String,
+         colorSchemeProvider: ColorSchemeProvider,
+         parent: RootCoordinator
+    ) {
+        self.parent = parent
+        self.colorProvider = colorSchemeProvider
+        self.viewModel = AlarmCoordinatorView(
             viewModel: self
         )
     }
