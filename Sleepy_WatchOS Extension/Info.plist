@@ -29,7 +29,7 @@
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ComplicationController</string>
 	<key>WKExtensionDelegateClassName</key>
-	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<string>$(PRODUCT_MODULE_NAME).SmartAlarmModel</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

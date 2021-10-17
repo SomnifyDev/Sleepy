@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct SleepyApp: App {
     @State var shouldShowNavigationView = false
+    @State var checkedPermission = false
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -15,7 +16,9 @@ struct SleepyApp: App {
             }
             .onAppear {
                 HealthManager.shared.checkReadPermissions(type: .activeBurnedEnergy) { access, error in
-                    guard access else { return }
+                    guard access else {
+                        return
+                    }
                     HealthManager.shared.checkReadPermissions(type: .heart) { access, error in
                         guard access else { return }
                         shouldShowNavigationView = true

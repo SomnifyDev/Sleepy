@@ -86,6 +86,11 @@
 		D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */; };
 		D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */; };
 		D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B727DD26FB0F4900B41683 /* AdviceView.swift */; };
+		D9B8DC3C271CB3A2002BC611 /* HeartRateSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */; };
+		D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC42271CB476002BC611 /* HeartDataManager.swift */; };
+		D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC45271CB931002BC611 /* HealthType.swift */; };
+		D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */; };
+		D9B8DC4D271CBC0A002BC611 /* HeartDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */; };
 		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */; };
 		D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */; };
 		D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */; };
@@ -93,7 +98,7 @@
 		D9E12CA42710DC9000F55BF4 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E12CA32710DC9000F55BF4 /* UserDefaultsWrapper.swift */; };
 		D9E12CAA2712297900F55BF4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9E12CAC2712297900F55BF4 /* Localizable.strings */; };
 		D9E12CAF27122B3000F55BF4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E12CAE27122B3000F55BF4 /* String+Extension.swift */; };
-		D9E12CB5271376F500F55BF4 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E12CB4271376F500F55BF4 /* ExtensionDelegate.swift */; };
+		D9FE832F271CAA5200A9453B /* LoadingAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE832E271CAA5200A9453B /* LoadingAppView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -272,6 +277,11 @@
 		D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardDetailView.swift; sourceTree = "<group>"; };
 		D9B727DD26FB0F4900B41683 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
+		D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateSample.swift; sourceTree = "<group>"; };
+		D9B8DC42271CB476002BC611 /* HeartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManager.swift; sourceTree = "<group>"; };
+		D9B8DC45271CB931002BC611 /* HealthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthType.swift; sourceTree = "<group>"; };
+		D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManagerDelegate.swift; sourceTree = "<group>"; };
+		D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManagerDelegate.swift; sourceTree = "<group>"; };
 		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataViewModel.swift; sourceTree = "<group>"; };
@@ -280,7 +290,7 @@
 		D9E12CAB2712297900F55BF4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D9E12CAD2712297E00F55BF4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D9E12CAE27122B3000F55BF4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		D9E12CB4271376F500F55BF4 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		D9FE832E271CAA5200A9453B /* LoadingAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAppView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,7 +510,9 @@
 		D93B632C270E2B3700B15731 /* Health */ = {
 			isa = PBXGroup;
 			children = (
-				D903F874270E2D12008A7307 /* HealthManager.swift */,
+				D9B8DC48271CBBA0002BC611 /* HealthManager */,
+				D9B8DC44271CB47D002BC611 /* Heart */,
+				D9B8DC47271CB937002BC611 /* Enums */,
 			);
 			path = Health;
 			sourceTree = "<group>";
@@ -570,6 +582,7 @@
 				D93B632C270E2B3700B15731 /* Health */,
 				D955D4CA2701B12200C44B8D /* SmartAlarm */,
 				D955D4C12701A7E000C44B8D /* Views */,
+				D9E12CA52710DCF000F55BF4 /* UserData */,
 				D955D4C02701A7D700C44B8D /* Notifications */,
 				D955D4CB2701B75200C44B8D /* Controls */,
 				D91668AC2701FD9500BD7745 /* Extensions */,
@@ -605,6 +618,7 @@
 				D9441A0D266CD4C60019902F /* MainNavigationView.swift */,
 				D955D4C32701A97100C44B8D /* NavItemView.swift */,
 				D9E12CA1270E382C00F55BF4 /* NeedHealthAccessView.swift */,
+				D9FE832E271CAA5200A9453B /* LoadingAppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -613,7 +627,6 @@
 			isa = PBXGroup;
 			children = (
 				D9441A0B266CD4C60019902F /* SleepyApp.swift */,
-				D9E12CB4271376F500F55BF4 /* ExtensionDelegate.swift */,
 			);
 			path = LifeCycle;
 			sourceTree = "<group>";
@@ -623,7 +636,6 @@
 			children = (
 				D955D4C82701B11C00C44B8D /* SmartAlarmModel.swift */,
 				D955D4B92701A7C500C44B8D /* SmartAlarmView.swift */,
-				D9E12CA52710DCF000F55BF4 /* UserData */,
 			);
 			path = SmartAlarm;
 			sourceTree = "<group>";
@@ -763,6 +775,41 @@
 				D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */,
 			);
 			path = Advices;
+			sourceTree = "<group>";
+		};
+		D9B8DC44271CB47D002BC611 /* Heart */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC42271CB476002BC611 /* HeartDataManager.swift */,
+				D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */,
+				D9B8DC4B271CBBF6002BC611 /* HeartRateSample */,
+			);
+			path = Heart;
+			sourceTree = "<group>";
+		};
+		D9B8DC47271CB937002BC611 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC45271CB931002BC611 /* HealthType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		D9B8DC48271CBBA0002BC611 /* HealthManager */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */,
+				D903F874270E2D12008A7307 /* HealthManager.swift */,
+			);
+			path = HealthManager;
+			sourceTree = "<group>";
+		};
+		D9B8DC4B271CBBF6002BC611 /* HeartRateSample */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */,
+			);
+			path = HeartRateSample;
 			sourceTree = "<group>";
 		};
 		D9E12CA52710DCF000F55BF4 /* UserData */ = {
@@ -1101,14 +1148,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9441A10266CD4C60019902F /* NotificationController.swift in Sources */,
+				D9FE832F271CAA5200A9453B /* LoadingAppView.swift in Sources */,
 				D955D4C92701B11C00C44B8D /* SmartAlarmModel.swift in Sources */,
 				D9441A0E266CD4C60019902F /* MainNavigationView.swift in Sources */,
 				D9441A14266CD4C60019902F /* ComplicationController.swift in Sources */,
 				D9441A0C266CD4C60019902F /* SleepyApp.swift in Sources */,
 				D955D4BA2701A7C500C44B8D /* SmartAlarmView.swift in Sources */,
+				D9B8DC4D271CBC0A002BC611 /* HeartDataManagerDelegate.swift in Sources */,
 				D9E12CAF27122B3000F55BF4 /* String+Extension.swift in Sources */,
+				D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */,
+				D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */,
 				D955D4C42701A97100C44B8D /* NavItemView.swift in Sources */,
-				D9E12CB5271376F500F55BF4 /* ExtensionDelegate.swift in Sources */,
+				D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */,
+				D9B8DC3C271CB3A2002BC611 /* HeartRateSample.swift in Sources */,
 				D9441A12266CD4C60019902F /* NotificationView.swift in Sources */,
 				D9E12CA42710DC9000F55BF4 /* UserDefaultsWrapper.swift in Sources */,
 				D91668AB2701FD9200BD7745 /* Date+Extension.swift in Sources */,
