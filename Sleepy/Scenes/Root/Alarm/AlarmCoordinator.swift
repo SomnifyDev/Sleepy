@@ -10,7 +10,6 @@ import XUI
 import HKVisualKit
 
 class AlarmCoordinator: ObservableObject, ViewModel {
-    
     @Published var openedURL: URL?
     @Published private(set) var viewModel: AlarmCoordinatorView!
     private unowned let parent: RootCoordinator
@@ -27,9 +26,8 @@ class AlarmCoordinator: ObservableObject, ViewModel {
             viewModel: self
         )
     }
-    
+
     func open(_ url: URL) {
-        self.openedURL = url
+        openedURL = url
     }
-    
 }

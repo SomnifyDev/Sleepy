@@ -1,9 +1,8 @@
 import Foundation
-import HKCoreSleep
 import HealthKit
+import HKCoreSleep
 
 final class HKGeneralStatisticsProvider {
-
     func getData(for healthType: HKService.HealthType, sleepData: [HKSample]?) -> [Double] {
         switch healthType {
         case .energy:
@@ -12,9 +11,9 @@ final class HKGeneralStatisticsProvider {
                 return data
             }
 
-        case .heart:
-            if let heartData = sleepData as? [HKQuantitySample] {
-                let data = heartData.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
+        case .heart, .respiratory:
+            if let data = sleepData as? [HKQuantitySample] {
+                let data = data.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
                 return data
             }
 
@@ -24,7 +23,6 @@ final class HKGeneralStatisticsProvider {
                 return data
             }
         }
-
         print("sleepData is probably nil")
         return []
     }
@@ -32,13 +30,13 @@ final class HKGeneralStatisticsProvider {
     func getDataWithIndicator(for healthType: HKService.HealthType, for indicatorType: IndicatorType, sleepData: [HKSample]?) -> Double? {
         switch healthType {
         case .energy:
-            return self.handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit.kilocalorie())
+            return handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit.kilocalorie())
 
-        case .heart:
-            return self.handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit(from: "count/min"))
+        case .heart, .respiratory:
+            return handleForQuantitySample(for: indicatorType, arr: sleepData, for: HKUnit(from: "count/min"))
 
         case .asleep, .inbed:
-            return self.handleForCategorySample(for: indicatorType, arr: sleepData)
+            return handleForCategorySample(for: indicatorType, arr: sleepData)
         }
     }
 
@@ -87,5 +85,4 @@ final class HKGeneralStatisticsProvider {
             return nil
         }
     }
-
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct HFView: View {
-
     private var imageName: String?
     private var text: String
 
@@ -25,5 +24,4 @@ public struct HFView: View {
             Text(text)
         }
     }
-
 }

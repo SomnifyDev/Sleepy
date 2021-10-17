@@ -1,7 +1,7 @@
+import Armchair
+import HKCoreSleep
 import UIKit
 import UserNotifications
-import HKCoreSleep
-import Armchair
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     let appID = "361309726" // Pages iOS for armchair. TODO: replace with ours
@@ -11,32 +11,33 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     var sleepDetectionProvider: HKSleepAppleDetectionProvider
 
     override init() {
-        self.hkService = HKService()
-        self.sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
+        hkService = HKService()
+        sleepDetectionProvider = HKSleepAppleDetectionProvider(hkService: hkService)
 
         super.init()
     }
 
-    func application(_ application: UIApplication,
-                     willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        self.setupArmchair()
+    func application(_: UIApplication,
+                     willFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
+    {
+        setupArmchair()
         return true
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         print("Application did finished launching with options")
 
-        self.notificationCenter.delegate = self
-        self.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["Sleepy Notification"])
+        notificationCenter.delegate = self
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: ["Sleepy Notification"])
         // настраиваем сесcию, которая будет в дальнейшем реагировать на появление сэмплов от эпла
-        self.setupBackground()
+        setupBackground()
 
         return true
     }
 
     func setupBackground() {
         // Setup HK observers to monitor changes
-        self.hkService.enableBackgroundDelivery { [weak self] result, error in
+        hkService.enableBackgroundDelivery { [weak self] _, error in
             guard error == nil else {
                 return
             }
@@ -44,20 +45,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             self?.sleepDetectionProvider.observeData()
         }
     }
-    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_: UNUserNotificationCenter,
+                                willPresent _: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
         completionHandler([.alert, .sound])
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
+    func userNotificationCenter(_: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-
+                                withCompletionHandler completionHandler: @escaping () -> Void)
+    {
         if response.notification.request.identifier == "Sleepy Notification" {
             print("Handling notifications with the Sleepy Notification Identifier")
         }

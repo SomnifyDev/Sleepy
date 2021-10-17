@@ -5,18 +5,17 @@
 //  Created by Анас Бен Мустафа on 6/14/21.
 //
 
-import Foundation
-import SwiftUI
-import XUI
-import SettingsKit
-import HKVisualKit
 import Armchair
 import FirebaseAnalytics
+import Foundation
+import HKVisualKit
+import SettingsKit
+import SwiftUI
+import XUI
 
 struct SettingsCoordinatorView: View {
-
     // MARK: Properties
-    
+
     @Store var viewModel: SettingsCoordinator
 
     @State private var sleepGoalValue = 480
@@ -25,19 +24,19 @@ struct SettingsCoordinatorView: View {
     @State private var isSharePresented: Bool = false
 
     // MARK: Body
-    
+
     var body: some View {
         NavigationView {
             List {
                 Section(header: HFView(text: "Health".localized, imageName: "heart.circle")) {
                     Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
                             value: $sleepGoalValue,
-                            in: 360...720,
+                            in: 360 ... 720,
                             step: 30) { _ in
                         saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
                 }
-                
+
                 Section(header: HFView(text: "Feedback".localized, imageName: "person.2")) {
                     LabeledButton(text: "Rate us".localized,
                                   showChevron: true,
@@ -47,22 +46,22 @@ struct SettingsCoordinatorView: View {
                                   action: { isSharePresented = true })
                         .sheet(isPresented: $isSharePresented,
                                content: {
-                            // TODO: replace with ours website
-                            ActivityViewController(activityItems: [URL(string: "https://www.apple.com")!])
-                        })
+                                   // TODO: replace with ours website
+                                   ActivityViewController(activityItems: [URL(string: "https://www.apple.com")!])
+                               })
                 }
 
                 Section(header: HFView(text: "Sound Recording".localized, imageName: "mic.circle")) {
                     Stepper(String(format: "Bitrate – %d".localized, bitrateValue),
                             value: $bitrateValue,
-                            in: 1000...44000,
+                            in: 1000 ... 44000,
                             step: 1000) { _ in
                         saveSetting(with: bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
                     }
 
                     Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
                             value: $recognisionConfidenceValue,
-                            in: 10...100,
+                            in: 10 ... 100,
                             step: 5) { _ in
                         saveSetting(with: recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
                     }
@@ -81,15 +80,15 @@ struct SettingsCoordinatorView: View {
     private func saveSetting(with value: Int, forKey key: String) {
         FirebaseAnalytics.Analytics.logEvent("Settings_saved", parameters: [
             "key": key,
-            "value": value
+            "value": value,
         ])
         UserDefaults.standard.set(value, forKey: key)
     }
 
     private func getAllValuesFromUserDefaults() {
-        self.sleepGoalValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
-        self.bitrateValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
-        self.recognisionConfidenceValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+        sleepGoalValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
+        bitrateValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
+        recognisionConfidenceValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
     }
 }
 

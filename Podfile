@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'Sleepy' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -7,8 +8,10 @@ target 'Sleepy' do
 
   # Pods for Sleepy
   pod 'SwiftLint'
+  pod 'SwiftFormat/CLI'
 
   pod 'Armchair', '>= 0.3'
+
   # add the Firebase pod for Google Analytics
   pod 'Firebase/Analytics'
   # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’

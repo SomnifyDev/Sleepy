@@ -1,34 +1,31 @@
-import SwiftUI
+import FirebaseAnalytics
+import HKCoreSleep
 import HKStatistics
 import HKVisualKit
-import HKCoreSleep
+import SwiftUI
 import XUI
-import FirebaseAnalytics
 
 struct HeartCardDetailView: View {
-
     @Store var viewModel: CardDetailsViewCoordinator
     @EnvironmentObject var cardService: CardService
     @State private var showAdvice = false
     @State private var activeSheet: AdviceType!
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ZStack {
-
                 viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center) {
-
                         if let heartViewModel = cardService.heartViewModel,
-                           let generalViewModel = cardService.generalViewModel {
+                           let generalViewModel = cardService.generalViewModel
+                        {
                             StandardChartView(colorProvider: viewModel.colorProvider,
-                                              chartType: .defaultChart,
+                                              chartType: .defaultChart(barType: .circle(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))),
                                               chartHeight: 75,
                                               points: heartViewModel.heartRateData,
-                                              chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
                                               dateInterval: generalViewModel.sleepInterval)
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
@@ -39,9 +36,9 @@ struct HeartCardDetailView: View {
                             HorizontalStatisticCellView(data: [
                                 StatisticsCellData(title: "Average pulse".localized, value: heartViewModel.averageHeartRate),
                                 StatisticsCellData(title: "Max pulse".localized, value: heartViewModel.maxHeartRate),
-                                StatisticsCellData(title: "Min pulse".localized, value: heartViewModel.minHeartRate)
+                                StatisticsCellData(title: "Min pulse".localized, value: heartViewModel.minHeartRate),
                             ],
-                                                        colorScheme: viewModel.colorProvider.sleepyColorScheme)
+                            colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
 
                         SectionNameTextView(text: "What else?".localized,
@@ -54,8 +51,7 @@ struct HeartCardDetailView: View {
                             destinationView: AdviceView(sheetType: .heartAdvice, showAdvice: $showAdvice),
                             showModalView: $showAdvice
                         )
-                            .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-
+                        .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                     }
                 }
                 .navigationTitle("Heart")
@@ -66,8 +62,7 @@ struct HeartCardDetailView: View {
 
     private func sendAnalytics() {
         FirebaseAnalytics.Analytics.logEvent("HeartCard_viewed", parameters: [
-            "contentShown": self.cardService.generalViewModel != nil && self.cardService.heartViewModel != nil
+            "contentShown": cardService.generalViewModel != nil && cardService.heartViewModel != nil,
         ])
     }
-
 }

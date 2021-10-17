@@ -8,7 +8,6 @@
 import Foundation
 
 extension Date {
-
     /// Returns the amount of minutes from another date
     func minutes(from date: Date) -> Int {
         return abs(Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0)
@@ -20,5 +19,4 @@ extension Date {
         dateformat.dateFormat = format
         return dateformat.string(from: self)
     }
-
 }

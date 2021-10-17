@@ -5,10 +5,10 @@
 //  Created by Никита Казанцев on 25.09.2021.
 //
 
-import SwiftUI
-import HKVisualKit
-import HKCoreSleep
 import FirebaseAnalytics
+import HKCoreSleep
+import HKVisualKit
+import SwiftUI
 
 struct HealthKitIntroView: View {
     let colorScheme: SleepyColorScheme
@@ -24,9 +24,7 @@ struct HealthKitIntroView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
-
                     VStack(alignment: .leading) {
-
                         PagingView(index: $index.animation(), maxIndex: images.count - 1) {
                             ForEach(self.images, id: \.self) { imageName in
                                 Image(imageName)
@@ -34,7 +32,7 @@ struct HealthKitIntroView: View {
                                     .scaledToFill()
                             }
                         }
-                        .aspectRatio(4/3, contentMode: .fit)
+                        .aspectRatio(4 / 3, contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
 
                         WelcomeScreenLineView(title: "Необходим доступ.",
@@ -46,7 +44,7 @@ struct HealthKitIntroView: View {
                                               subTitle: "Информация обрабатывается локально и не загружается на сервера.",
                                               imageName: "wifi.slash",
                                               color: colorScheme.getColor(of: .general(.mainSleepyColor)))
-                        
+
                     }.padding(.top, 16)
                 }.padding([.leading, .trailing], 16)
 
@@ -60,16 +58,16 @@ struct HealthKitIntroView: View {
                                 }
                                 showShownNext = true
                             }
-                            
                         }
                 }
 
                 if showShownNext {
                     NavigationLink(
-                        destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext) {
-                            Text("Продолжить")
-                                .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
-                        }
+                        destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext
+                    ) {
+                        Text("Продолжить")
+                            .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+                    }
                 }
             }
         }

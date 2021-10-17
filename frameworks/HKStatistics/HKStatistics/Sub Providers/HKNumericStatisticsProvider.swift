@@ -1,13 +1,12 @@
 import Foundation
-import HKCoreSleep
 import HealthKit
+import HKCoreSleep
 
 // Здесь обрабатываются сразу двое - сердце и энергия (потенциально еще звук)
 final class HKNumericTypesStatisticsProvider {
-
     func handleNumericStatistic(for dataType: NumericDataType, of indicatorType: IndicatorType, sleep: Sleep) -> Double? {
         switch dataType {
-        case .heart:
+        case .heart, .respiratory:
             return switchType(for: indicatorType, for: sleep.heartSamples, with: HKUnit(from: "count/min"))
         case .energy:
             return switchType(for: indicatorType, for: sleep.energySamples, with: HKUnit.kilocalorie())

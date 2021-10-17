@@ -6,19 +6,17 @@
 //
 
 import Foundation
+import HKVisualKit
 import SwiftUI
 import XUI
-import HKVisualKit
 
 enum PageTab: String {
-
     case first
     case features
     case settings
 }
 
 class IntroCoordinator: ObservableObject, ViewModel {
-
     @Published var tab = PageTab.first
 
     var colorSchemeProvider: ColorSchemeProvider
@@ -26,5 +24,4 @@ class IntroCoordinator: ObservableObject, ViewModel {
     init(colorSchemeProvider: ColorSchemeProvider) {
         self.colorSchemeProvider = colorSchemeProvider
     }
-
 }

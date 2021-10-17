@@ -5,8 +5,8 @@
 //  Created by Никита Казанцев on 26.09.2021.
 //
 
-import SwiftUI
 import HKVisualKit
+import SwiftUI
 
 struct WelcomeScreenLineView: View {
     var title: String
@@ -15,7 +15,6 @@ struct WelcomeScreenLineView: View {
     var color: Color
 
     var body: some View {
-
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: self.imageName)

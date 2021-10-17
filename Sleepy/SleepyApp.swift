@@ -1,14 +1,13 @@
-import SwiftUI
+import Armchair
+import Firebase
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
 import SettingsKit
-import Armchair
-import Firebase
+import SwiftUI
 
 @main
 struct SleepyApp: App {
-
     // MARK: Properties
 
     @State var hkService: HKService?
@@ -31,13 +30,12 @@ struct SleepyApp: App {
     init() {
         FirebaseApp.configure()
 
-        self.colorSchemeProvider = ColorSchemeProvider()
+        colorSchemeProvider = ColorSchemeProvider()
 
         if !UserDefaults.standard.bool(forKey: "launchedBefore") {
             _shouldShowIntro = State(initialValue: true)
-            _introViewModel = State(initialValue: IntroCoordinator(colorSchemeProvider: self.colorSchemeProvider))
+            _introViewModel = State(initialValue: IntroCoordinator(colorSchemeProvider: colorSchemeProvider))
         }
-
     }
 
     var body: some Scene {
@@ -55,16 +53,16 @@ struct SleepyApp: App {
                                                  ascending: false,
                                                  bundlePrefixes: ["com.apple"],
                                                  completionHandler: { _, samples, error in
-                            guard error == nil,
-                                  let sample = samples?.first,
-                                  let sleep = self.sleep  else { return }
-                            if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
-                                self.canShowMain = false
-                            }
-                        })
+                                                     guard error == nil,
+                                                           let sample = samples?.first,
+                                                           let sleep = self.sleep else { return }
+                                                     if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
+                                                         self.canShowMain = false
+                                                     }
+                                                 })
                     }
-                //.onOpenURL { coordinator!.startDeepLink(from: $0) }
-                //.onAppear { simulateURLOpening() }
+                // .onOpenURL { coordinator!.startDeepLink(from: $0) }
+                // .onAppear { simulateURLOpening() }
             } else if shouldShowIntro {
                 IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
                     .accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
@@ -88,31 +86,31 @@ struct SleepyApp: App {
     // MARK: Private methods
 
     private func retrieveSleep() {
-            self.sleepDetectionProvider?.retrieveData { sleep in
-                guard let sleep = sleep else {
-                    // сон не был прочитан
-                    self.statisticsProvider = HKStatisticsProvider(sleep: nil,
-                                                                   healthService: hkService!)
-                    self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-                    self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
-
-                    self.canShowMain = true
-                    return
-                }
-                // сон прочитался
-                self.showDebugSleepDuration(sleep)
-
-                self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+        sleepDetectionProvider?.retrieveData { sleep in
+            guard let sleep = sleep else {
+                // сон не был прочитан
+                self.statisticsProvider = HKStatisticsProvider(sleep: nil,
+                                                               healthService: hkService!)
                 self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-                self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider,
+                self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
+
+                self.canShowMain = true
+                return
+            }
+            // сон прочитался
+            self.showDebugSleepDuration(sleep)
+
+            self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+            self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
+            self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider,
                                                  statisticsProvider: statisticsProvider!,
                                                  hkStoreService: hkService!)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
-                    Armchair.userDidSignificantEvent(true)
-                }
-                self.canShowMain = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                Armchair.userDidSignificantEvent(true)
             }
+            self.canShowMain = true
+        }
     }
 
     /// Установка дефолтных значений настроек
@@ -133,34 +131,34 @@ struct SleepyApp: App {
     }
 
     private func simulateURLOpening() {
-#if DEBUG
-        guard !hasOpenedURL else {
-            return
-        }
-        hasOpenedURL = true
+        #if DEBUG
+            guard !hasOpenedURL else {
+                return
+            }
+            hasOpenedURL = true
 
-        self.cardService?.fetchCards { cards in
-            // summary:// - открывает экран карточек
-            // summary://card?type=heart - открывает детальную карточку сердца
-            // summary://card?type=phases - открывает детальную карточку фаз
-            // calendar:// - открывает календарь
-            // alarm:// - открывает будильник
-            // alarm://creation
-            guard let cardType = cards.randomElement(),
-                  // [tab name]://[element inside name]?[parameter]=value
-                  let url = URL(string: "summary://card?type=" + cardType.rawValue) else {
-                      assertionFailure("Could not find card or illegal url format.")
-                      return
-                  }
+            cardService?.fetchCards { cards in
+                // summary:// - открывает экран карточек
+                // summary://card?type=heart - открывает детальную карточку сердца
+                // summary://card?type=phases - открывает детальную карточку фаз
+                // calendar:// - открывает календарь
+                // alarm:// - открывает будильник
+                // alarm://creation
+                guard let cardType = cards.randomElement(),
+                      // [tab name]://[element inside name]?[parameter]=value
+                      let url = URL(string: "summary://card?type=" + cardType.rawValue)
+                else {
+                    assertionFailure("Could not find card or illegal url format.")
+                    return
+                }
 
-            rootViewModel!.startDeepLink(from: url)
-        }
-#endif
+                rootViewModel!.startDeepLink(from: url)
+            }
+        #endif
     }
 
     private func showDebugSleepDuration(_ sleep: Sleep) {
         print(sleep.sleepInterval.duration)
         print(sleep.inBedInterval.duration)
     }
-    
 }

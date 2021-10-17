@@ -5,8 +5,8 @@
 //  Created by Никита Казанцев on 14.08.2021.
 //
 
-import SwiftUI
 import HKVisualKit
+import SwiftUI
 
 struct AnalysisListView: View {
     let result: [SoundAnalysisResult]
@@ -22,7 +22,6 @@ struct AnalysisListView: View {
                 colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical, showsIndicators: false) {
-
                     VStack(alignment: .center, spacing: 2) {
                         SectionNameTextView(text: "Recognized sounds".localized,
                                          color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
@@ -30,8 +29,8 @@ struct AnalysisListView: View {
 
                         ForEach(result, id: \.self) { item in
                             VStack {
-                                        CardTitleView(titleText: item.soundType,
-                                              mainText: "\(String(format: "%.2f",item.confidence))% confidence",
+                                CardTitleView(titleText: item.soundType,
+                                              mainText: "\(String(format: "%.2f", item.confidence))% confidence",
                                               leftIcon: Image(systemName: "waveform"),
                                               navigationText: self.getDescription(item: item, date: endDate),
                                               titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
@@ -55,7 +54,8 @@ struct AnalysisListView: View {
 
     private func getDescription(item: SoundAnalysisResult, date: Date?) -> String? {
         if let startDate = date,
-            let startDate = Calendar.current.date(byAdding: .second, value: -Int(item.end - item.start), to: startDate) {
+           let startDate = Calendar.current.date(byAdding: .second, value: -Int(item.end - item.start), to: startDate)
+        {
             return startDate.getFormattedDate(format: "HH:mm")
         }
         return nil

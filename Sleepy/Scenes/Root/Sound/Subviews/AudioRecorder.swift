@@ -5,15 +5,14 @@
 //  Created by Никита Казанцев on 14.08.2021.
 //
 
-import Foundation
-import SwiftUI
 import AVFoundation
 import Combine
-import SettingsKit
 import FirebaseAnalytics
+import Foundation
+import SettingsKit
+import SwiftUI
 
 class AudioRecorder: NSObject, ObservableObject {
-
     override init() {
         super.init()
         fetchRecordings()
@@ -37,12 +36,12 @@ class AudioRecorder: NSObject, ObservableObject {
         let recordingSession = AVAudioSession.sharedInstance()
 
         if recordingSession.recordPermission != .granted {
-            recordingSession.requestRecordPermission { (isGranted) in
+            recordingSession.requestRecordPermission { isGranted in
                 FirebaseAnalytics.Analytics.logEvent("Sounds_permission", parameters: [
-                    "granded": isGranted
+                    "granded": isGranted,
                 ])
                 if !isGranted {
-                    //fatalError("You must allow audio recording for this demo to work")
+                    // fatalError("You must allow audio recording for this demo to work")
                     return
                 }
             }
@@ -54,7 +53,7 @@ class AudioRecorder: NSObject, ObservableObject {
         } catch {
             print("Failed to set up recording session")
             FirebaseAnalytics.Analytics.logEvent("Sounds_sessionError", parameters: [
-                "error": "Failed to set up recording session"
+                "error": "Failed to set up recording session",
             ])
         }
 
@@ -77,7 +76,7 @@ class AudioRecorder: NSObject, ObservableObject {
         } catch {
             print("Could not start recording")
             FirebaseAnalytics.Analytics.logEvent("Sounds_sessionError", parameters: [
-                "error": "Could not start recording"
+                "error": "Could not start recording",
             ])
         }
     }
@@ -101,7 +100,7 @@ class AudioRecorder: NSObject, ObservableObject {
             recordings.append(recording)
         }
 
-        recordings.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedAscending})
+        recordings.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedAscending })
 
         objectWillChange.send(self)
     }

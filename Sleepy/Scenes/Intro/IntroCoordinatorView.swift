@@ -7,12 +7,11 @@
 
 import SwiftUI
 
+import FirebaseAnalytics
 import SwiftUI
 import XUI
-import FirebaseAnalytics
 
 struct IntroCoordinatorView: View {
-
     @Store var viewModel: IntroCoordinator
     @Binding var shouldShowIntro: Bool
     var body: some View {
@@ -22,5 +21,4 @@ struct IntroCoordinatorView: View {
     private func sendAnalytics() {
         FirebaseAnalytics.Analytics.logEvent("IntroView_viewed", parameters: nil)
     }
-
 }

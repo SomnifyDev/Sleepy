@@ -55,6 +55,7 @@
 		80A765F326C85EB300A66554 /* SoundsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765F226C85EB300A66554 /* SoundsCoordinator.swift */; };
 		80A765F526C85EBF00A66554 /* AudioRecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765F426C85EBF00A66554 /* AudioRecordingsListView.swift */; };
 		80A765F826C8F9E300A66554 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765F726C8F9E300A66554 /* FileHelper.swift */; };
+		80C19298270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C19297270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift */; };
 		80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B7268C71EE0055ECEE /* CalendarView.swift */; };
 		80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B9268C75D80055ECEE /* Date+Components.swift */; };
 		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
@@ -235,6 +236,7 @@
 		80A765F226C85EB300A66554 /* SoundsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsCoordinator.swift; sourceTree = "<group>"; };
 		80A765F426C85EBF00A66554 /* AudioRecordingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordingsListView.swift; sourceTree = "<group>"; };
 		80A765F726C8F9E300A66554 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		80C19297270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRespiratoryDataViewModel.swift; sourceTree = "<group>"; };
 		80D7F0B7268C71EE0055ECEE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		80D7F0B9268C75D80055ECEE /* Date+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
 		80D7F0BB268C77050055ECEE /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 				D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */,
 				D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */,
 				D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */,
+				80C19297270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift */,
 			);
 			path = CardsViewModels;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				80780F22266CE43A000D0DD9 /* Embed Frameworks */,
 				80780F2D266CF63E000D0DD9 /* ShellScript */,
 				4640021EFC47A5853B419C20 /* [CP] Embed Pods Frameworks */,
+				80BA9C54270B7C5B0001E57F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -988,6 +992,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		80BA9C54270B7C5B0001E57F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swift-format >/dev/null; then\n    swift-format -m format -i -r ${PROJECT_DIR}\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1008,6 +1029,7 @@
 				8001401F26FF26C0001AE152 /* MainIntroView.swift in Sources */,
 				80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */,
 				80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */,
+				80C19298270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift in Sources */,
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
 				80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */,
 				80647AF826D917380054C03F /* String+Localizable.swift in Sources */,

@@ -8,10 +8,9 @@
 import SwiftUI
 
 public struct CardBottomSimpleDescriptionView: View {
-
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
-    
+
     private let descriptionText: Text
     private let colorProvider: ColorSchemeProvider
     private let showChevron: Bool
@@ -24,7 +23,7 @@ public struct CardBottomSimpleDescriptionView: View {
 
     public var body: some View {
         VStack {
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 VStack(alignment: .leading) {
                     HStack {
                         descriptionText
@@ -41,7 +40,7 @@ public struct CardBottomSimpleDescriptionView: View {
             }
         }
         .frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+        // .frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -55,8 +54,8 @@ public struct CardBottomSimpleDescriptionView: View {
     }
 }
 
-//struct CardBottomSimpleDescriptionView_Previews: PreviewProvider {
+// struct CardBottomSimpleDescriptionView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CardBottomSimpleDescriptionView(colorProvider: ColorSchemeProvider(), descriptionText: "testtestest testtestest testtestest testtestest testtestest testtestest ")
 //    }
-//}
+// }

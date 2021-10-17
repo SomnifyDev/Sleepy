@@ -1,8 +1,7 @@
-import SwiftUI
 import HKVisualKit
+import SwiftUI
 
 public struct GeneralSleepInfoCardView: View {
-
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
@@ -16,7 +15,7 @@ public struct GeneralSleepInfoCardView: View {
 
     public var body: some View {
         VStack {
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 VStack {
                     CardTitleView(titleText: "Sleep: general".localized,
                                   mainText: "Here is some info about your last sleep session".localized,
@@ -85,7 +84,7 @@ public struct GeneralSleepInfoCardView: View {
                                                       size: 27.5, width: 30)
 
                                 VStack(alignment: .leading) {
-                                    Text(self.viewModel.sleepInterval.end.hoursMinutes(from: viewModel.inbedInterval.start))
+                                    Text(self.viewModel.sleepInterval.start.hoursMinutes(from: viewModel.inbedInterval.start))
                                         .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)))
 
                                     Text("Falling asleep".localized)
@@ -100,7 +99,7 @@ public struct GeneralSleepInfoCardView: View {
                 .background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+        // .frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {

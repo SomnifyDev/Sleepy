@@ -5,14 +5,14 @@
 //  Created by Никита Казанцев on 14.08.2021.
 //
 
-import SwiftUI
 import AVKit
 import HKVisualKit
+import SwiftUI
 
 struct AudioPlayerView: View {
     private var audioPlayer: AVAudioPlayer!
     @State private var isPlaying: Bool = false
-    @State private var currentTime: TimeInterval = TimeInterval()
+    @State private var currentTime = TimeInterval()
     @State private var progress = 0.0
 
     let colorProvider: ColorSchemeProvider
@@ -24,7 +24,8 @@ struct AudioPlayerView: View {
     init(colorProvider: ColorSchemeProvider,
          playAtTime: TimeInterval,
          endAtTime: TimeInterval,
-         audioName: String) {
+         audioName: String)
+    {
         self.colorProvider = colorProvider
         self.playAtTime = playAtTime
         self.endAtTime = endAtTime
@@ -33,23 +34,21 @@ struct AudioPlayerView: View {
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioFilename = documentPath.appendingPathComponent(audioName)
 
-        self.audioPlayer = try! AVAudioPlayer(contentsOf: audioFilename)
+        audioPlayer = try! AVAudioPlayer(contentsOf: audioFilename)
 
         do {
             try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.none)
-        } catch _ {
-        }
+        } catch _ {}
     }
 
     var body: some View {
         VStack {
             HStack {
-
                 if !isPlaying {
                     Image(systemName: "play.circle.fill")
                         .resizable()
                         .frame(width: 25, height: 25)
-                        .foregroundColor((colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))))
+                        .foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                         .aspectRatio(contentMode: .fit)
                         .onTapGesture {
                             self.audioPlayer.currentTime = playAtTime
@@ -61,7 +60,7 @@ struct AudioPlayerView: View {
                     Image(systemName: "pause.circle.fill")
                         .resizable()
                         .frame(width: 25, height: 25)
-                        .foregroundColor((colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))))
+                        .foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                         .aspectRatio(contentMode: .fit)
                         .onTapGesture {
                             self.audioPlayer.pause()

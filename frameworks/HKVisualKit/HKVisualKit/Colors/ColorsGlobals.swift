@@ -3,7 +3,6 @@ import Foundation
 // MARK: Health
 
 public enum HealthData: String, CaseIterable {
-    
     case heart
     case energy
     case sleep
@@ -13,7 +12,6 @@ public enum HealthData: String, CaseIterable {
 // MARK: Colors
 
 public enum ColorType {
-
     case general(GeneralColors)
     case card(CardColors)
     case phases(PhasesColors)
@@ -72,5 +70,4 @@ public enum ColorType {
     public enum ChartColors {
         case verticalProgressChartElement
     }
-
 }

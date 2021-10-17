@@ -1,10 +1,9 @@
-import SwiftUI
-import HKVisualKit
 import Armchair
+import HKVisualKit
 import SettingsKit
+import SwiftUI
 
 struct HealthTypeSwitchView: View {
-
     @State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
     //    = CGFloat.infinity   // << variant for VStack
     @Binding var selectedType: HealthData
@@ -12,7 +11,7 @@ struct HealthTypeSwitchView: View {
     private var colorScheme: SleepyColorScheme
 
     init(selectedType: Binding<HealthData>, colorScheme: SleepyColorScheme) {
-        self._selectedType = selectedType
+        _selectedType = selectedType
         self.colorScheme = colorScheme
     }
 
@@ -22,8 +21,8 @@ struct HealthTypeSwitchView: View {
                 self.generateContent(in: geometry)
             }
         }
-        .frame(height: totalHeight)// << variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) // << variant for VStack
+        .frame(height: totalHeight) // << variant for ScrollView/List
+        // .frame(maxHeight: totalHeight) // << variant for VStack
     }
 
     private func generateContent(in g: GeometryProxy) -> some View {
@@ -49,7 +48,7 @@ struct HealthTypeSwitchView: View {
                         }
                         return result
                     })
-                    .alignmentGuide(.top, computeValue: {d in
+                    .alignmentGuide(.top, computeValue: { _ in
                         let result = height
                         if tag == HealthData.allCases.last! {
                             height = 0
@@ -64,8 +63,8 @@ struct HealthTypeSwitchView: View {
         Text(getItemDescription(for: type))
             .healthTypeSwitchTextModifier()
             .background(type == selectedType
-                        ? getSelectedItemColor(for: type)
-                        : colorScheme.getColor(of: .calendar(.emptyDayColor)))
+                ? getSelectedItemColor(for: type)
+                : colorScheme.getColor(of: .calendar(.emptyDayColor)))
             .cornerRadius(12)
             .onTapGesture {
                 selectedType = type

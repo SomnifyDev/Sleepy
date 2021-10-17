@@ -11,7 +11,6 @@ import XUI
 import HKVisualKit
 
 struct AlarmCoordinatorView: View {
-    
     @Store var viewModel: AlarmCoordinator
 
     private enum Constant {

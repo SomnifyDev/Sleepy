@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TimeLineView: View {
-
     private let colorProvider: ColorSchemeProvider
     private let startTime: Date
     private let endTime: Date
@@ -23,7 +22,7 @@ struct TimeLineView: View {
         HStack {
             Text(startTime.getFormattedDate(format: "HH:mm"))
                 .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)), size: 10, opacity: 0.4)
-            
+
             Spacer()
 
             Text(endTime.getFormattedDate(format: "HH:mm"))
