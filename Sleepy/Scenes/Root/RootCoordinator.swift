@@ -68,8 +68,8 @@ class RootCoordinator: ObservableObject, ViewModel {
 
         alarmCoordinator = AlarmCoordinator(
             title: "alarm",
-            parent: self
-        )
+            colorSchemeProvider: colorSchemeProvider,
+            parent: self)
 
         soundsCoordinator = SoundsCoordinator(
             title: "sounds",

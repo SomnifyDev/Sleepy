@@ -23,7 +23,7 @@ struct AnalysisListView: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center, spacing: 2) {
-                        CardNameTextView(text: "Recognized sounds".localized,
+                        SectionNameTextView(text: "Recognized sounds".localized,
                                          color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
                             .padding([.top, .bottom])
 

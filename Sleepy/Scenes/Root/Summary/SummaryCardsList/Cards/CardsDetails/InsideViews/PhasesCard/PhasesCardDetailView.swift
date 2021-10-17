@@ -30,7 +30,7 @@ struct PhasesCardDetailView: View {
                                 .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                                 .padding(.top)
 
-                            CardNameTextView(text: "Summary".localized,
+                            SectionNameTextView(text: "Summary".localized,
                                              color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                             HorizontalStatisticCellView(data: [
@@ -46,7 +46,7 @@ struct PhasesCardDetailView: View {
                             colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
 
-                        CardNameTextView(text: "What else?".localized,
+                        SectionNameTextView(text: "What else?".localized,
                                          color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
                         UsefulInfoCardView(
