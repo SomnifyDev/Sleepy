@@ -10,15 +10,7 @@ import HKVisualKit
 import SwiftUI
 import XUI
 
-enum PageTab: String {
-    case first
-    case features
-    case settings
-}
-
 class IntroCoordinator: ObservableObject, ViewModel {
-    @Published var tab = PageTab.first
-
     var colorSchemeProvider: ColorSchemeProvider
 
     init(colorSchemeProvider: ColorSchemeProvider) {

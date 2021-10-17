@@ -26,6 +26,11 @@
 		8061C85226FFE4D8002BDA28 /* GoalIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061C85126FFE4D8002BDA28 /* GoalIntroView.swift */; };
 		80647AF326D9163B0054C03F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80647AF526D9163B0054C03F /* Localizable.strings */; };
 		80647AF826D917380054C03F /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80647AF726D917380054C03F /* String+Localizable.swift */; };
+		806E3C58271B73C700AA15BB /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C57271B73C700AA15BB /* Launch Screen.storyboard */; };
+		806E3C61271C11CD00AA15BB /* whiteIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C60271C11CD00AA15BB /* whiteIcon@3x.png */; };
+		806E3C63271C11D300AA15BB /* whiteIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C62271C11D300AA15BB /* whiteIcon@2x.png */; };
+		806E3C65271C123F00AA15BB /* darkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C64271C123E00AA15BB /* darkIcon@2x.png */; };
+		806E3C67271C124600AA15BB /* darkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C66271C124600AA15BB /* darkIcon@3x.png */; };
 		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
 		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
@@ -209,6 +214,11 @@
 		80647AF426D9163B0054C03F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80647AF626D916770054C03F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80647AF726D917380054C03F /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		806E3C57271B73C700AA15BB /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		806E3C60271C11CD00AA15BB /* whiteIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteIcon@3x.png"; sourceTree = "<group>"; };
+		806E3C62271C11D300AA15BB /* whiteIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteIcon@2x.png"; sourceTree = "<group>"; };
+		806E3C64271C123E00AA15BB /* darkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkIcon@2x.png"; sourceTree = "<group>"; };
+		806E3C66271C124600AA15BB /* darkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkIcon@3x.png"; sourceTree = "<group>"; };
 		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -354,6 +364,26 @@
 			path = Elements;
 			sourceTree = "<group>";
 		};
+		806E3C5E271C117900AA15BB /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				806E3C5F271C118A00AA15BB /* Icons */,
+				D94419D4266CD3C50019902F /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		806E3C5F271C118A00AA15BB /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				806E3C66271C124600AA15BB /* darkIcon@3x.png */,
+				806E3C64271C123E00AA15BB /* darkIcon@2x.png */,
+				806E3C62271C11D300AA15BB /* whiteIcon@2x.png */,
+				806E3C60271C11CD00AA15BB /* whiteIcon@3x.png */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
 		80780F04266CE356000D0DD9 /* HK */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +507,7 @@
 		80A765F126C85E9F00A66554 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				80A765DE26C7F35C00A66554 /* AudioRecorder.swift */,
 				80A765F626C85F4B00A66554 /* Subviews */,
 				80A765F226C85EB300A66554 /* SoundsCoordinator.swift */,
 				80A765E426C7F44000A66554 /* SoundsCoordinatorView.swift */,
@@ -488,7 +519,6 @@
 			isa = PBXGroup;
 			children = (
 				80A765F426C85EBF00A66554 /* AudioRecordingsListView.swift */,
-				80A765DE26C7F35C00A66554 /* AudioRecorder.swift */,
 				80A765ED26C83B3700A66554 /* AudioPlayer.swift */,
 				80A765E926C7FA1500A66554 /* AnalysisListView.swift */,
 			);
@@ -545,11 +575,12 @@
 				808FDF4926861EFD00B38B78 /* Sleepy.entitlements */,
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
 				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
+				806E3C57271B73C700AA15BB /* Launch Screen.storyboard */,
 				8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */,
 				80780F34266D3CFD000D0DD9 /* Scenes */,
 				80780F3E266D42D4000D0DD9 /* Services */,
 				80780F63266D5BC8000D0DD9 /* Extensions */,
-				D94419D4266CD3C50019902F /* Assets.xcassets */,
+				806E3C5E271C117900AA15BB /* Assets */,
 				D94419D9266CD3C50019902F /* Info.plist */,
 				D94419D6266CD3C50019902F /* Preview Content */,
 				80647AF526D9163B0054C03F /* Localizable.strings */,
@@ -910,6 +941,11 @@
 				D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */,
 				8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 				80647AF326D9163B0054C03F /* Localizable.strings in Resources */,
+				806E3C67271C124600AA15BB /* darkIcon@3x.png in Resources */,
+				806E3C61271C11CD00AA15BB /* whiteIcon@3x.png in Resources */,
+				806E3C63271C11D300AA15BB /* whiteIcon@2x.png in Resources */,
+				806E3C65271C123F00AA15BB /* darkIcon@2x.png in Resources */,
+				806E3C58271B73C700AA15BB /* Launch Screen.storyboard in Resources */,
 				D94419D5266CD3C50019902F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

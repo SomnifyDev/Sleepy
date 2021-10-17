@@ -130,18 +130,22 @@ public struct StandardChartView: View {
     }
 
     private func getTapDescription(for index: Int) -> String {
+        guard let dateIntervalSeconds = self.dateInterval?.duration,
+              let sampleDate = self.dateInterval?.start.addingTimeInterval(TimeInterval(Int(dateIntervalSeconds) / self.points.count * index)) else { return "" }
         let value = self.points[index]
 
+        var finalString = ""
         switch self.chartType {
         case .phasesChart:
-            return value < 0.55
+            finalString = (value < 0.55
             ? "Deep sleep phase"
             : (value >= 1
                ? "Probably woke up"
-               : "Light sleep phase")
+               : "Light sleep phase"))
         default:
-            return String(format: "%.0f", points[selectedIndex])
+            finalString = String(format: "%.0f", points[selectedIndex])
         }
+        return finalString + ", \(sampleDate.getFormattedDate(format: "HH:mm"))"
     }
 
     private func getOXLineElement() -> some View {

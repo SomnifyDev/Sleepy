@@ -126,10 +126,7 @@ struct HistoryListView: View {
 
     func extractSleepDataIfNeeded(type: HKService.HealthType) {
         if (type == .inbed ? inbedHistoryStatsViewModel != nil : asleepHistoryStatsViewModel != nil) ||
-            (type != .inbed && type != .asleep)
-        {
-            return
-        }
+            (type != .inbed && type != .asleep) { return }
 
         var last30daysCellData: [StatisticsCellData] = []
 

@@ -9,10 +9,17 @@ import HKVisualKit
 import SwiftUI
 
 struct WelcomeScreenLineView: View {
-    var title: String
-    var subTitle: String
-    var imageName: String
-    var color: Color
+    private var title: String
+    private var subTitle: String
+    private var imageName: String
+    private var color: Color
+
+    init(title: String, subTitle: String, imageName: String, color: Color) {
+        self.title = title
+        self.subTitle = subTitle
+        self.imageName = imageName
+        self.color = color
+    }
 
     var body: some View {
         VStack(alignment: .leading) {

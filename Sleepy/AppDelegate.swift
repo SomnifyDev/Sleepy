@@ -21,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      willFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
     {
         setupArmchair()
+
         return true
     }
 

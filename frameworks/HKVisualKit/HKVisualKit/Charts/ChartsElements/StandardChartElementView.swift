@@ -26,9 +26,13 @@ struct StandardChartElementView: View {
                     .cornerRadius(cornerRadius)
 
             case let .circle(color):
-                Circle()
-                    .foregroundColor(color)
-                    .frame(width: width, height: width)
+                ZStack(alignment: .top) {
+                    Rectangle()
+                        .foregroundColor(Color.clear)
+                    Circle()
+                        .foregroundColor(color)
+                        .frame(width: width, height: width)
+                }
 
             case let .filled(foregroundElementColor, backgroundElementColor, percentage):
                 ZStack(alignment: .bottom) {

@@ -32,7 +32,7 @@ struct SettingsCoordinatorView: View {
                     Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
                             value: $sleepGoalValue,
                             in: 360 ... 720,
-                            step: 30) { _ in
+                            step: 15) { _ in
                         saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
                 }

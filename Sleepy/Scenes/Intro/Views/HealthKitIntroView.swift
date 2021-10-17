@@ -14,9 +14,9 @@ struct HealthKitIntroView: View {
     let colorScheme: SleepyColorScheme
     @Binding var shouldShowIntro: Bool
 
-    var images = ["tutorial3", "tutorial4"]
+    private let images = ["tutorial3", "tutorial4"]
     @State private var index = 0
-    @State private var showShownNext = false
+    @State private var shouldShowNextTab = false
 
     var body: some View {
         ZStack {
@@ -48,7 +48,7 @@ struct HealthKitIntroView: View {
                     }.padding(.top, 16)
                 }.padding([.leading, .trailing], 16)
 
-                if !showShownNext {
+                if !shouldShowNextTab {
                     Text("Разрешить".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {
@@ -56,14 +56,14 @@ struct HealthKitIntroView: View {
                                 guard error == nil, result else {
                                     return
                                 }
-                                showShownNext = true
+                                shouldShowNextTab = true
                             }
                         }
                 }
 
-                if showShownNext {
+                if shouldShowNextTab {
                     NavigationLink(
-                        destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext
+                        destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab
                     ) {
                         Text("Продолжить")
                             .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))

@@ -14,7 +14,7 @@ struct AudioRecordingsListView: View {
     @Store var viewModel: SoundsCoordinator
     @ObservedObject var audioRecorder = AudioRecorder()
 
-    var groupedByDateData: [Date: [Recording]] {
+    private var groupedByDateData: [Date: [Recording]] {
         Dictionary(grouping: audioRecorder.recordings, by: { $0.createdAt.startOfDay })
     }
 
