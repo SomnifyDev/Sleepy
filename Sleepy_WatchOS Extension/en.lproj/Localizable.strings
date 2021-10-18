@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  Sleepy
+
+  Created by Анас Бен Мустафа on 10/9/21.
+  
+*/
+
+
+"Smart alarm" = "Smart alarm";
+"Smart alarm requires at least 30 minutes interval to be activated." = "Smart alarm requires at least 30 minutes interval to be activated.";
+"Inactive" = "Inactive";
+"Active" = "Active";
+"Sleepy requires an access for your health data to make smart alarm usable." = "Sleepy requires an access for your health data to make smart alarm usable.";
+"Also make sure you have turned on heart and energy tracking on your Apple Watch." = "Also make sure you have turned on health and energy tracking on your Apple Watch.";
+"Hours" = "Hours";
+"Minutes" = "Minutes";
+"Cancel" = "Cancel";
+"Setup" = "Setup";
+"Smart alarm requires at least 30 minutes interval to be activated." = "Smart alarm requires at least 30 minutes interval to be activated.";

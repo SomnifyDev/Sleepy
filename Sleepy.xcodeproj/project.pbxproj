@@ -62,20 +62,26 @@
 		80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */; };
 		80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */; };
 		80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */; };
-		83B5E6B9439FFF42234FC145 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0478F8D634EE6FB7FDA791EB /* Pods_Sleepy.framework */; };
+		BAAF340CC29C3B933BF501F8 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */; };
+		D903F875270E2D12008A7307 /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903F874270E2D12008A7307 /* HealthManager.swift */; };
+		D91668AB2701FD9200BD7745 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91668AA2701FD9200BD7745 /* Date+Extension.swift */; };
+		D91668AF2702307900BD7745 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D91668AE2702307900BD7745 /* HealthKit.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
 		D94419D5266CD3C50019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D4266CD3C50019902F /* Assets.xcassets */; };
 		D94419D8266CD3C50019902F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419D7266CD3C50019902F /* Preview Assets.xcassets */; };
 		D9441A00266CD4C60019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94419FF266CD4C60019902F /* Assets.xcassets */; };
 		D9441A07266CD4C60019902F /* Sleepy_WatchOS Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D9441A06266CD4C60019902F /* Sleepy_WatchOS Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D9441A0C266CD4C60019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A0B266CD4C60019902F /* SleepyApp.swift */; };
-		D9441A0E266CD4C60019902F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A0D266CD4C60019902F /* ContentView.swift */; };
+		D9441A0E266CD4C60019902F /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A0D266CD4C60019902F /* MainNavigationView.swift */; };
 		D9441A10266CD4C60019902F /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A0F266CD4C60019902F /* NotificationController.swift */; };
 		D9441A12266CD4C60019902F /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A11266CD4C60019902F /* NotificationView.swift */; };
 		D9441A14266CD4C60019902F /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9441A13266CD4C60019902F /* ComplicationController.swift */; };
 		D9441A16266CD4C70019902F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9441A15266CD4C70019902F /* Assets.xcassets */; };
 		D9441A19266CD4C70019902F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9441A18266CD4C70019902F /* Preview Assets.xcassets */; };
 		D9441A34266CD4C70019902F /* Sleepy_WatchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D94419FD266CD4C50019902F /* Sleepy_WatchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D955D4BA2701A7C500C44B8D /* SmartAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955D4B92701A7C500C44B8D /* SmartAlarmView.swift */; };
+		D955D4C42701A97100C44B8D /* NavItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955D4C32701A97100C44B8D /* NavItemView.swift */; };
+		D955D4C92701B11C00C44B8D /* SmartAlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955D4C82701B11C00C44B8D /* SmartAlarmModel.swift */; };
 		D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; };
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; platformFilter = ios; };
@@ -92,9 +98,19 @@
 		D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */; };
 		D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */; };
 		D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B727DD26FB0F4900B41683 /* AdviceView.swift */; };
+		D9B8DC3C271CB3A2002BC611 /* HeartRateSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */; };
+		D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC42271CB476002BC611 /* HeartDataManager.swift */; };
+		D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC45271CB931002BC611 /* HealthType.swift */; };
+		D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */; };
+		D9B8DC4D271CBC0A002BC611 /* HeartDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */; };
 		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */; };
 		D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */; };
 		D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */; };
+		D9E12CA2270E382C00F55BF4 /* NeedHealthAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E12CA1270E382C00F55BF4 /* NeedHealthAccessView.swift */; };
+		D9E12CA42710DC9000F55BF4 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E12CA32710DC9000F55BF4 /* UserDefaultsWrapper.swift */; };
+		D9E12CAA2712297900F55BF4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9E12CAC2712297900F55BF4 /* Localizable.strings */; };
+		D9E12CAF27122B3000F55BF4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E12CAE27122B3000F55BF4 /* String+Extension.swift */; };
+		D9FE832F271CAA5200A9453B /* LoadingAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FE832E271CAA5200A9453B /* LoadingAppView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,8 +205,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0478F8D634EE6FB7FDA791EB /* Pods_Sleepy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2659915F4966203C1D04E139 /* Pods-Sleepy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.debug.xcconfig"; sourceTree = "<group>"; };
+		0733EA6A3C4FB57B724ACD34 /* Pods-Sleepy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.release.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.release.xcconfig"; sourceTree = "<group>"; };
 		8001401E26FF26C0001AE152 /* MainIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIntroView.swift; sourceTree = "<group>"; };
 		8001402026FF273D001AE152 /* HealthKitIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitIntroView.swift; sourceTree = "<group>"; };
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
@@ -243,7 +258,10 @@
 		80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTypeSwitchView.swift; sourceTree = "<group>"; };
 		80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseIntroView.swift; sourceTree = "<group>"; };
-		B479134818F2DCE2C6757D1D /* Pods-Sleepy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.release.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.release.xcconfig"; sourceTree = "<group>"; };
+		D903F874270E2D12008A7307 /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
+		D91668AA2701FD9200BD7745 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		D91668AD2702307900BD7745 /* Sleepy_WatchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sleepy_WatchOS Extension.entitlements"; sourceTree = "<group>"; };
+		D91668AE2702307900BD7745 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		D94419CD266CD3C40019902F /* Sleepy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94419D0266CD3C40019902F /* SleepyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyApp.swift; sourceTree = "<group>"; };
 		D94419D4266CD3C50019902F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -254,7 +272,7 @@
 		D9441A01266CD4C60019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9441A06266CD4C60019902F /* Sleepy_WatchOS Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Sleepy_WatchOS Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9441A0B266CD4C60019902F /* SleepyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyApp.swift; sourceTree = "<group>"; };
-		D9441A0D266CD4C60019902F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D9441A0D266CD4C60019902F /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationView.swift; sourceTree = "<group>"; };
 		D9441A0F266CD4C60019902F /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		D9441A11266CD4C60019902F /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		D9441A13266CD4C60019902F /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -262,6 +280,9 @@
 		D9441A18266CD4C70019902F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D9441A1A266CD4C70019902F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9441A1B266CD4C70019902F /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		D955D4B92701A7C500C44B8D /* SmartAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlarmView.swift; sourceTree = "<group>"; };
+		D955D4C32701A97100C44B8D /* NavItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavItemView.swift; sourceTree = "<group>"; };
+		D955D4C82701B11C00C44B8D /* SmartAlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlarmModel.swift; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
 		D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = frameworks/SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
 		D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewModel.swift; sourceTree = "<group>"; };
@@ -276,9 +297,22 @@
 		D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardDetailView.swift; sourceTree = "<group>"; };
 		D9B727DD26FB0F4900B41683 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
+		D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateSample.swift; sourceTree = "<group>"; };
+		D9B8DC42271CB476002BC611 /* HeartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManager.swift; sourceTree = "<group>"; };
+		D9B8DC45271CB931002BC611 /* HealthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthType.swift; sourceTree = "<group>"; };
+		D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManagerDelegate.swift; sourceTree = "<group>"; };
+		D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManagerDelegate.swift; sourceTree = "<group>"; };
 		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataViewModel.swift; sourceTree = "<group>"; };
+		D9E12CA1270E382C00F55BF4 /* NeedHealthAccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedHealthAccessView.swift; sourceTree = "<group>"; };
+		D9E12CA32710DC9000F55BF4 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		D9E12CAB2712297900F55BF4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D9E12CAD2712297E00F55BF4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D9E12CAE27122B3000F55BF4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		D9FE832E271CAA5200A9453B /* LoadingAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAppView.swift; sourceTree = "<group>"; };
+		EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F07D7AEDC184141545C503A0 /* Pods-Sleepy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,7 +326,7 @@
 				D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */,
 				808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */,
 				808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */,
-				83B5E6B9439FFF42234FC145 /* Pods_Sleepy.framework in Frameworks */,
+				BAAF340CC29C3B933BF501F8 /* Pods_Sleepy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91668AF2702307900BD7745 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,12 +543,32 @@
 		882574914EFE6785A847CA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D91668AE2702307900BD7745 /* HealthKit.framework */,
 				D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */,
 				80780F04266CE356000D0DD9 /* HK */,
 				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
-				0478F8D634EE6FB7FDA791EB /* Pods_Sleepy.framework */,
+				EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D91668AC2701FD9500BD7745 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D91668AA2701FD9200BD7745 /* Date+Extension.swift */,
+				D9E12CAE27122B3000F55BF4 /* String+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D93B632C270E2B3700B15731 /* Health */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC48271CBBA0002BC611 /* HealthManager */,
+				D9B8DC44271CB47D002BC611 /* Heart */,
+				D9B8DC47271CB937002BC611 /* Enums */,
+			);
+			path = Health;
 			sourceTree = "<group>";
 		};
 		D94419C4266CD3C40019902F = {
@@ -577,15 +632,20 @@
 		D9441A0A266CD4C60019902F /* Sleepy_WatchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D9441A0B266CD4C60019902F /* SleepyApp.swift */,
-				D9441A0D266CD4C60019902F /* ContentView.swift */,
-				D9441A0F266CD4C60019902F /* NotificationController.swift */,
-				D9441A11266CD4C60019902F /* NotificationView.swift */,
-				D9441A13266CD4C60019902F /* ComplicationController.swift */,
+				D91668AD2702307900BD7745 /* Sleepy_WatchOS Extension.entitlements */,
+				D955D4C22701A7E700C44B8D /* LifeCycle */,
+				D93B632C270E2B3700B15731 /* Health */,
+				D955D4CA2701B12200C44B8D /* SmartAlarm */,
+				D955D4C12701A7E000C44B8D /* Views */,
+				D9E12CA52710DCF000F55BF4 /* UserData */,
+				D955D4C02701A7D700C44B8D /* Notifications */,
+				D955D4CB2701B75200C44B8D /* Controls */,
+				D91668AC2701FD9500BD7745 /* Extensions */,
 				D9441A15266CD4C70019902F /* Assets.xcassets */,
 				D9441A1A266CD4C70019902F /* Info.plist */,
 				D9441A1B266CD4C70019902F /* PushNotificationPayload.apns */,
 				D9441A17266CD4C70019902F /* Preview Content */,
+				D9E12CAC2712297900F55BF4 /* Localizable.strings */,
 			);
 			path = "Sleepy_WatchOS Extension";
 			sourceTree = "<group>";
@@ -596,6 +656,51 @@
 				D9441A18266CD4C70019902F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D955D4C02701A7D700C44B8D /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				D9441A0F266CD4C60019902F /* NotificationController.swift */,
+				D9441A11266CD4C60019902F /* NotificationView.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		D955D4C12701A7E000C44B8D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9441A0D266CD4C60019902F /* MainNavigationView.swift */,
+				D955D4C32701A97100C44B8D /* NavItemView.swift */,
+				D9E12CA1270E382C00F55BF4 /* NeedHealthAccessView.swift */,
+				D9FE832E271CAA5200A9453B /* LoadingAppView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D955D4C22701A7E700C44B8D /* LifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				D9441A0B266CD4C60019902F /* SleepyApp.swift */,
+			);
+			path = LifeCycle;
+			sourceTree = "<group>";
+		};
+		D955D4CA2701B12200C44B8D /* SmartAlarm */ = {
+			isa = PBXGroup;
+			children = (
+				D955D4C82701B11C00C44B8D /* SmartAlarmModel.swift */,
+				D955D4B92701A7C500C44B8D /* SmartAlarmView.swift */,
+			);
+			path = SmartAlarm;
+			sourceTree = "<group>";
+		};
+		D955D4CB2701B75200C44B8D /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				D9441A13266CD4C60019902F /* ComplicationController.swift */,
+			);
+			path = Controls;
 			sourceTree = "<group>";
 		};
 		D96DBC3E2687126000A0E018 /* Products */ = {
@@ -728,11 +833,54 @@
 			path = Advices;
 			sourceTree = "<group>";
 		};
+		D9B8DC44271CB47D002BC611 /* Heart */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC42271CB476002BC611 /* HeartDataManager.swift */,
+				D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */,
+				D9B8DC4B271CBBF6002BC611 /* HeartRateSample */,
+			);
+			path = Heart;
+			sourceTree = "<group>";
+		};
+		D9B8DC47271CB937002BC611 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC45271CB931002BC611 /* HealthType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		D9B8DC48271CBBA0002BC611 /* HealthManager */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */,
+				D903F874270E2D12008A7307 /* HealthManager.swift */,
+			);
+			path = HealthManager;
+			sourceTree = "<group>";
+		};
+		D9B8DC4B271CBBF6002BC611 /* HeartRateSample */ = {
+			isa = PBXGroup;
+			children = (
+				D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */,
+			);
+			path = HeartRateSample;
+			sourceTree = "<group>";
+		};
+		D9E12CA52710DCF000F55BF4 /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				D9E12CA32710DC9000F55BF4 /* UserDefaultsWrapper.swift */,
+			);
+			path = UserData;
+			sourceTree = "<group>";
+		};
 		E2E51B75C4408BE321656654 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2659915F4966203C1D04E139 /* Pods-Sleepy.debug.xcconfig */,
-				B479134818F2DCE2C6757D1D /* Pods-Sleepy.release.xcconfig */,
+				F07D7AEDC184141545C503A0 /* Pods-Sleepy.debug.xcconfig */,
+				0733EA6A3C4FB57B724ACD34 /* Pods-Sleepy.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -744,15 +892,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D94419F2266CD3C50019902F /* Build configuration list for PBXNativeTarget "Sleepy" */;
 			buildPhases = (
-				5D09ECE1C341F88B019CFF01 /* [CP] Check Pods Manifest.lock */,
+				E448DD795795FD8EFDDF300F /* [CP] Check Pods Manifest.lock */,
 				D94419C9266CD3C40019902F /* Sources */,
 				D94419CA266CD3C40019902F /* Frameworks */,
 				D94419CB266CD3C40019902F /* Resources */,
 				D9441A3C266CD4C70019902F /* Embed Watch Content */,
 				80780F22266CE43A000D0DD9 /* Embed Frameworks */,
 				80780F2D266CF63E000D0DD9 /* ShellScript */,
-				4640021EFC47A5853B419C20 /* [CP] Embed Pods Frameworks */,
 				80BA9C54270B7C5B0001E57F /* ShellScript */,
+				DCE5DF5466ADFFF69EC6DDC3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -833,7 +981,7 @@
 			);
 			mainGroup = D94419C4266CD3C40019902F;
 			packageReferences = (
-				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */,
+				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */,
 			);
 			productRefGroup = D94419CE266CD3C40019902F /* Products */;
 			projectDirPath = "";
@@ -928,6 +1076,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9441A19266CD4C70019902F /* Preview Assets.xcassets in Resources */,
+				D9E12CAA2712297900F55BF4 /* Localizable.strings in Resources */,
 				D9441A16266CD4C70019902F /* Assets.xcassets in Resources */,
 				8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */,
 			);
@@ -936,45 +1085,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4640021EFC47A5853B419C20 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5D09ECE1C341F88B019CFF01 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sleepy-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		80780F2D266CF63E000D0DD9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1008,6 +1118,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swift-format >/dev/null; then\n    swift-format -m format -i -r ${PROJECT_DIR}\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+		};
+		DCE5DF5466ADFFF69EC6DDC3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E448DD795795FD8EFDDF300F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sleepy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1085,10 +1234,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9441A10266CD4C60019902F /* NotificationController.swift in Sources */,
-				D9441A0E266CD4C60019902F /* ContentView.swift in Sources */,
+				D9FE832F271CAA5200A9453B /* LoadingAppView.swift in Sources */,
+				D955D4C92701B11C00C44B8D /* SmartAlarmModel.swift in Sources */,
+				D9441A0E266CD4C60019902F /* MainNavigationView.swift in Sources */,
 				D9441A14266CD4C60019902F /* ComplicationController.swift in Sources */,
 				D9441A0C266CD4C60019902F /* SleepyApp.swift in Sources */,
+				D955D4BA2701A7C500C44B8D /* SmartAlarmView.swift in Sources */,
+				D9B8DC4D271CBC0A002BC611 /* HeartDataManagerDelegate.swift in Sources */,
+				D9E12CAF27122B3000F55BF4 /* String+Extension.swift in Sources */,
+				D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */,
+				D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */,
+				D955D4C42701A97100C44B8D /* NavItemView.swift in Sources */,
+				D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */,
+				D9B8DC3C271CB3A2002BC611 /* HeartRateSample.swift in Sources */,
 				D9441A12266CD4C60019902F /* NotificationView.swift in Sources */,
+				D9E12CA42710DC9000F55BF4 /* UserDefaultsWrapper.swift in Sources */,
+				D91668AB2701FD9200BD7745 /* Date+Extension.swift in Sources */,
+				D9E12CA2270E382C00F55BF4 /* NeedHealthAccessView.swift in Sources */,
+				D903F875270E2D12008A7307 /* HealthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1113,6 +1276,15 @@
 			children = (
 				80647AF426D9163B0054C03F /* en */,
 				80647AF626D916770054C03F /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		D9E12CAC2712297900F55BF4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9E12CAB2712297900F55BF4 /* en */,
+				D9E12CAD2712297E00F55BF4 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1240,14 +1412,14 @@
 		};
 		D94419F3266CD3C50019902F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2659915F4966203C1D04E139 /* Pods-Sleepy.debug.xcconfig */;
+			baseConfigurationReference = F07D7AEDC184141545C503A0 /* Pods-Sleepy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1295,7 +1467,7 @@
 					"\"nanopb\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1304,14 +1476,14 @@
 		};
 		D94419F4266CD3C50019902F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B479134818F2DCE2C6757D1D /* Pods-Sleepy.release.xcconfig */;
+			baseConfigurationReference = 0733EA6A3C4FB57B724ACD34 /* Pods-Sleepy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1359,7 +1531,7 @@
 					"\"nanopb\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1370,9 +1542,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "Sleepy_WatchOS Extension/Sleepy_WatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1380,7 +1553,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1394,9 +1567,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "Sleepy_WatchOS Extension/Sleepy_WatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Sleepy_WatchOS Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1404,7 +1578,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1421,10 +1595,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1441,10 +1619,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1496,7 +1678,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */ = {
+		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/quickbirdstudios/XUI.git";
 			requirement = {
@@ -1509,7 +1691,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		80780F31266D3B94000D0DD9 /* XUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */;
+			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */;
 			productName = XUI;
 		};
 /* End XCSwiftPackageProductDependency section */

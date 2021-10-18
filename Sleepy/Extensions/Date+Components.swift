@@ -61,8 +61,7 @@ extension Date {
         dateformat.dateStyle = dateStyle
         dateformat.timeStyle = timeStyle
         dateformat.timeZone = TimeZone.current
-        dateformat.locale = Locale(identifier: Locale.preferredLanguages.first!)
-
+        dateformat.locale = Locale.init(identifier: Locale.preferredLanguages.first!)
         return dateformat.string(from: self)
     }
 

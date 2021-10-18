@@ -91,15 +91,15 @@ class RootCoordinator: ObservableObject, ViewModel {
         if let scheme = url.scheme {
             switch scheme {
             case "summary":
-                guard url.host == "card",
-                      let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                      let cardTypeRaw = components.queryItems?.first(where: { $0.name == "type" })?.value
-                else {
-                    assertionFailure("Trying to open app with illegal url \(url).")
-                    return
-                }
+                break
+//                guard url.host == "card",
+//                      let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+//                      let cardTypeRaw = components.queryItems?.first(where: { $0.name == "type" })?.value else {
+//                          assertionFailure("Trying to open app with illegal url \(url).")
+//                          return
+//                      }
 //                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
-//                openCard(for: cardType, with: <#AdvicesViewType#>)
+//                openCard(for: cardType, with: AdviceView)
 
             case "history":
                 openTabView(of: .history)
