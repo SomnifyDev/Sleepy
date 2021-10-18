@@ -5,6 +5,7 @@
 //  Created by Анас Бен Мустафа on 9/22/21.
 //
 
+import FirebaseAnalytics
 import SwiftUI
 
 enum AdviceType: String {
@@ -15,7 +16,6 @@ enum AdviceType: String {
 }
 
 struct AdviceView: View {
-
     @Binding private var showAdvice: Bool
     @State private var viewModel: AdviceViewModel
     private let sheetType: AdviceType
@@ -37,7 +37,7 @@ struct AdviceView: View {
         NavigationView {
             GeometryReader { g in
                 ScrollView {
-                    VStack (alignment: .leading) {
+                    VStack(alignment: .leading) {
                         viewModel.image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -66,7 +66,7 @@ struct AdviceView: View {
                 }
             }
             .onAppear {
-                viewModel = AdviceViewModel(
+                self.viewModel = AdviceViewModel(
                     navigationTitle: getNavigationTitle(),
                     image: Image(sheetType.rawValue),
                     mainTitle: getMainTitle(),
@@ -76,14 +76,21 @@ struct AdviceView: View {
                 )
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(viewModel.navigationTitle)
+            .navigationTitle(self.viewModel.navigationTitle)
             .navigationBarItems(trailing: Button(action: {
                 showAdvice = false
             }, label: {
                 Text("Done".localized)
                     .fontWeight(.bold)
             }))
+            .onAppear(perform: self.sendAnalytics)
         }
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("Advice_viewed", parameters: [
+            "type": sheetType.rawValue,
+        ])
     }
 
     // MARK: Configuration methods
@@ -152,5 +159,4 @@ struct AdviceView: View {
             return "SecondTextHeartAdvice".localized
         }
     }
-
 }

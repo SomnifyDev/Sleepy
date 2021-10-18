@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct UsefulInfoCardView<Content>: View where Content: View {
-
     @State private var totalHeight = CGFloat.zero
     @Binding var showModalView: Bool
     private let destinationView: Content
@@ -14,7 +13,7 @@ public struct UsefulInfoCardView<Content>: View where Content: View {
         self.title = title
         self.description = description
         self.destinationView = destinationView
-        self._showModalView = showModalView
+        _showModalView = showModalView
     }
 
     public var body: some View {
@@ -28,7 +27,7 @@ public struct UsefulInfoCardView<Content>: View where Content: View {
                             .resizable()
                             .frame(width: geometry.size.width, height: 235)
 
-                        VStack (spacing: 16) {
+                        VStack(spacing: 16) {
                             HStack {
                                 Text(title)
                                     .fontWeight(.bold)
@@ -57,7 +56,6 @@ public struct UsefulInfoCardView<Content>: View where Content: View {
         .sheet(isPresented: $showModalView, content: {
             destinationView
         })
-
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {

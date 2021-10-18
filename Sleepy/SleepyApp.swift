@@ -1,35 +1,49 @@
-import SwiftUI
+import Armchair
+import Firebase
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
 import SettingsKit
-import Armchair
+import SwiftUI
 
 @main
 struct SleepyApp: App {
-
     // MARK: Properties
 
     @State var hkService: HKService?
     @State var cardService: CardService!
-    @State var colorSchemeProvider: ColorSchemeProvider?
+
+    let colorSchemeProvider: ColorSchemeProvider
     @State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
     @State var statisticsProvider: HKStatisticsProvider?
-    @State var viewModel: RootCoordinator?
+
+    @State var rootViewModel: RootCoordinator?
+    @State var introViewModel: IntroCoordinator?
+
     @State var hasOpenedURL = false
-    @State var canShowApp: Bool = false
+    @State var canShowMain: Bool = false
+    @State var shouldShowIntro: Bool = false
     @State var sleep: Sleep?
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    // MARK: Body
+    init() {
+        FirebaseApp.configure()
+
+        colorSchemeProvider = ColorSchemeProvider()
+
+        if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+            _shouldShowIntro = State(initialValue: true)
+            _introViewModel = State(initialValue: IntroCoordinator(colorSchemeProvider: colorSchemeProvider))
+        }
+    }
 
     var body: some Scene {
         WindowGroup {
-            if canShowApp {
-                RootCoordinatorView(viewModel: viewModel!)
+            if canShowMain {
+                RootCoordinatorView(viewModel: rootViewModel!)
                     .environmentObject(cardService)
-                    .accentColor(colorSchemeProvider?.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                    .accentColor(colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         UIApplication.shared.applicationIconBadgeNumber = 0
 
@@ -39,16 +53,19 @@ struct SleepyApp: App {
                                                  ascending: false,
                                                  bundlePrefixes: ["com.apple"],
                                                  completionHandler: { _, samples, error in
-                            guard error == nil,
-                                  let sample = samples?.first,
-                                  let sleep = self.sleep  else { return }
-                            if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
-                                self.canShowApp = false
-                            }
-                        })
+                                                     guard error == nil,
+                                                           let sample = samples?.first,
+                                                           let sleep = self.sleep else { return }
+                                                     if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
+                                                         self.canShowMain = false
+                                                     }
+                                                 })
                     }
-                //.onOpenURL { coordinator!.startDeepLink(from: $0) }
-                //.onAppear { simulateURLOpening() }
+                // .onOpenURL { coordinator!.startDeepLink(from: $0) }
+                // .onAppear { simulateURLOpening() }
+            } else if shouldShowIntro {
+                IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
+                    .accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
             } else {
                 Text("Loading".localized)
                     .onAppear {
@@ -59,7 +76,6 @@ struct SleepyApp: App {
 
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
-                        self.colorSchemeProvider = ColorSchemeProvider()
 
                         self.retrieveSleep()
                     }
@@ -70,30 +86,31 @@ struct SleepyApp: App {
     // MARK: Private methods
 
     private func retrieveSleep() {
-            self.sleepDetectionProvider?.retrieveData { sleep in
-                guard let sleep = sleep else {
-                    // сон не был прочитан
-                    self.statisticsProvider = HKStatisticsProvider(sleep: nil,
-                                                                   healthService: hkService!)
-                    self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
-
-                    self.canShowApp = true
-                    return
-                }
-                // сон прочитался
-                self.showDebugSleepDuration(sleep)
-
-                self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+        sleepDetectionProvider?.retrieveData { sleep in
+            guard let sleep = sleep else {
+                // сон не был прочитан
+                self.statisticsProvider = HKStatisticsProvider(sleep: nil,
+                                                               healthService: hkService!)
                 self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-                self.viewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider!,
+                self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
+
+                self.canShowMain = true
+                return
+            }
+            // сон прочитался
+            self.showDebugSleepDuration(sleep)
+
+            self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
+            self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
+            self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider,
                                                  statisticsProvider: statisticsProvider!,
                                                  hkStoreService: hkService!)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
-                    Armchair.userDidSignificantEvent(true)
-                }
-                self.canShowApp = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {
+                Armchair.userDidSignificantEvent(true)
             }
+            self.canShowMain = true
+        }
     }
 
     /// Установка дефолтных значений настроек
@@ -114,34 +131,34 @@ struct SleepyApp: App {
     }
 
     private func simulateURLOpening() {
-#if DEBUG
-        guard !hasOpenedURL else {
-            return
-        }
-        hasOpenedURL = true
+        #if DEBUG
+            guard !hasOpenedURL else {
+                return
+            }
+            hasOpenedURL = true
 
-        self.cardService?.fetchCards { cards in
-            // summary:// - открывает экран карточек
-            // summary://card?type=heart - открывает детальную карточку сердца
-            // summary://card?type=phases - открывает детальную карточку фаз
-            // calendar:// - открывает календарь
-            // alarm:// - открывает будильник
-            // alarm://creation
-            guard let cardType = cards.randomElement(),
-                  // [tab name]://[element inside name]?[parameter]=value
-                  let url = URL(string: "summary://card?type=" + cardType.rawValue) else {
-                      assertionFailure("Could not find card or illegal url format.")
-                      return
-                  }
+            cardService?.fetchCards { cards in
+                // summary:// - открывает экран карточек
+                // summary://card?type=heart - открывает детальную карточку сердца
+                // summary://card?type=phases - открывает детальную карточку фаз
+                // calendar:// - открывает календарь
+                // alarm:// - открывает будильник
+                // alarm://creation
+                guard let cardType = cards.randomElement(),
+                      // [tab name]://[element inside name]?[parameter]=value
+                      let url = URL(string: "summary://card?type=" + cardType.rawValue)
+                else {
+                    assertionFailure("Could not find card or illegal url format.")
+                    return
+                }
 
-            viewModel!.startDeepLink(from: url)
-        }
-#endif
+                rootViewModel!.startDeepLink(from: url)
+            }
+        #endif
     }
 
     private func showDebugSleepDuration(_ sleep: Sleep) {
         print(sleep.sleepInterval.duration)
         print(sleep.inBedInterval.duration)
     }
-    
 }

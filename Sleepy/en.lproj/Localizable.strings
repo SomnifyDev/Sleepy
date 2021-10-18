@@ -17,6 +17,8 @@
 "settings" = "settings";
 
 
+"%u bpm"  = "%u bpm";
+"%u count/min"  = "%u count/min";
 
 // MARK: Summary tab, general card
 
@@ -209,3 +211,17 @@ Scientists conducted an experiment on mice that had been switched to a high-fat 
 Such a chain dependence. Even the researchers themselves were surprised to see hypocretins play such a large role in fatal heart disease. For the sake of interest, they gave mice supplements with hypocretins, and their health improved markedly. Of course, this may not work in the case of humans, but the scientists intend to do some more studies and give an accurate answer.
 
 Shall we wait? But one thing is already clear: you need to sleep tight, you need to get enough sleep. Insomnia, sleep disturbance is always excruciating. And so... good night.";
+
+
+// MARK: AlarmView
+
+"Smart alarm" = "Smart alarm";
+
+"What is a smart alarm?" = "What is a smart alarm?";
+"What is a smart alarm description" = "Smart alarm is a function integrated into the Sleepy Apple Watch App that will prompt you to wake up during the REM-sleep phase.";
+
+"Improve your sleep with smart alarm" = "Improve your sleep with smart alarm";
+"Improve your sleep with smart alarm description" = "The main goal of a smart alarm is to wake you up in a REM-phase of sleep. Smart alarm feature will monitor when you are in a REM-phase during the indicated time period and will go off at the end of the REM phase. This makes waking up considerably less stressful for your body.";
+
+"How to use smart alarm in Sleepy?" = "How to use smart alarm in Sleepy?";
+"How to use smart alarm in Sleepy description" = "To set smart alarm, open your Apple Watch Sleepy App and select the desired wake up time.";

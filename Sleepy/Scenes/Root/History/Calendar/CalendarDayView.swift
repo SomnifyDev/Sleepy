@@ -1,13 +1,12 @@
-import SwiftUI
-import HKVisualKit
 import HealthKit
 import HKStatistics
+import HKVisualKit
+import SwiftUI
 
 struct CalendarDayView: View {
-
     @Binding var type: HealthData
     @Binding var monthDate: Date
-    
+
     @State private var description = ""
     @State private var value: Double?
     @State private var circleColor: Color?
@@ -22,9 +21,10 @@ struct CalendarDayView: View {
          colorScheme: SleepyColorScheme,
          statsProvider: HKStatisticsProvider,
          currentDate: Date,
-         dateIndex: Int) {
-        self._type = type
-        self._monthDate = monthDate
+         dateIndex: Int)
+    {
+        _type = type
+        _monthDate = monthDate
         self.colorScheme = colorScheme
         self.statsProvider = statsProvider
         self.currentDate = currentDate
@@ -38,7 +38,8 @@ struct CalendarDayView: View {
                     .foregroundColor(circleColor ?? colorScheme.getColor(of: .calendar(.emptyDayColor)))
 
                 if currentDate.getMonthInt() == monthDate.getMonthInt() &&
-                    currentDate.getDayInt() == dateIndex {
+                    currentDate.getDayInt() == dateIndex
+                {
                     Circle()
                         .strokeBorder(colorScheme.getColor(of: .calendar(.calendarCurrentDateColor)), lineWidth: 3)
                 }
@@ -65,14 +66,13 @@ struct CalendarDayView: View {
             case .sleep, .inbed:
                 // TODO: remove constants and use users desired sleep duration value instead
                 circleColor = value > 480
-                ? colorScheme.getColor(of: .calendar(.positiveDayColor))
-                : (value > 360
-                   ? colorScheme.getColor(of: .calendar(.neutralDayColor))
-                   : colorScheme.getColor(of: .calendar(.negativeDayColor)))
+                    ? colorScheme.getColor(of: .calendar(.positiveDayColor))
+                    : (value > 360
+                        ? colorScheme.getColor(of: .calendar(.neutralDayColor))
+                        : colorScheme.getColor(of: .calendar(.negativeDayColor)))
 
             case .energy:
                 circleColor = colorScheme.getColor(of: .energy(.energyColor))
-
             }
         } else {
             circleColor = colorScheme.getColor(of: .calendar(.emptyDayColor))
@@ -129,7 +129,7 @@ struct CalendarDayView: View {
                     description = "-"
                 }
             }
-            
+
         case .inbed:
             statsProvider.getDataByIntervalWithIndicator(healthType: .inbed,
                                                          indicatorType: .sum,
@@ -146,5 +146,4 @@ struct CalendarDayView: View {
             }
         }
     }
-
 }

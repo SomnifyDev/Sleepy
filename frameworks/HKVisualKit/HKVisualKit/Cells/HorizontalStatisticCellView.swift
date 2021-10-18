@@ -8,7 +8,6 @@
 import SwiftUI
 
 public struct HorizontalStatisticCellView: View {
-
     private var data: [StatisticsCellData]
     private var colorScheme: SleepyColorScheme
 
@@ -18,7 +17,7 @@ public struct HorizontalStatisticCellView: View {
     }
 
     public var body: some View {
-        VStack (spacing: -8) {
+        VStack(spacing: -8) {
             ForEach(data, id: \.self) { cellInfo in
                 HStack {
                     Text(cellInfo.title)
@@ -33,7 +32,6 @@ public struct HorizontalStatisticCellView: View {
             .roundedCardBackground(color: colorScheme.getColor(of: .card(.cardBackgroundColor)))
         }
     }
-    
 }
 
 public struct StatisticsCellData: Hashable {

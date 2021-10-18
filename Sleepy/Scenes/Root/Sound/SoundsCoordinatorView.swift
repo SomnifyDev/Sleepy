@@ -5,14 +5,14 @@
 //  Created by Никита Казанцев on 14.08.2021.
 //
 
-import SwiftUI
+import FirebaseAnalytics
 import HKVisualKit
+import SwiftUI
 import XUI
 
 struct SoundsCoordinatorView: View {
-
     @Store var viewModel: SoundsCoordinator
-    @ObservedObject private var audioRecorder: AudioRecorder = AudioRecorder()
+    @ObservedObject private var audioRecorder = AudioRecorder()
 
     var body: some View {
         NavigationView {
@@ -23,7 +23,6 @@ struct SoundsCoordinatorView: View {
                     AudioRecordingsListView(viewModel: viewModel, audioRecorder: audioRecorder)
 
                     if audioRecorder.recording == false {
-
                         Text("Record".localized)
                             .customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                             .onTapGesture { audioRecorder.startRecording() }
@@ -35,6 +34,11 @@ struct SoundsCoordinatorView: View {
                 }
             }
             .navigationBarTitle("Sound recognition".localized)
+            .onAppear(perform: self.sendAnalytics)
         }
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("Sounds_viewed", parameters: nil)
     }
 }

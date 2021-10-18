@@ -1,24 +1,23 @@
+import HKStatistics
+import HKVisualKit
+import SettingsKit
 import SwiftUI
 import XUI
-import HKVisualKit
-import HKStatistics
-import SettingsKit
 
 class SummaryCardsListCoordinator: ObservableObject, ViewModel {
-
     @Published private(set) var title: String
     @Published private(set) var cards: [SummaryViewCardType]?
 
     private unowned let coordinator: SummaryNavigationCoordinator
-    
+
     let colorProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
 
     init(colorProvider: ColorSchemeProvider,
          statisticsProvider: HKStatisticsProvider,
          title: String,
-         coordinator: SummaryNavigationCoordinator) {
-
+         coordinator: SummaryNavigationCoordinator)
+    {
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
         self.title = title
@@ -28,5 +27,4 @@ class SummaryCardsListCoordinator: ObservableObject, ViewModel {
     func open(_ card: SummaryViewCardType) {
         coordinator.open(card)
     }
-
 }

@@ -12,13 +12,10 @@ import SwiftUI
 // MARK: - Protocol
 
 public protocol HKApplicationColorScheme {
-
     func getColor(of type: ColorType) -> Color
-
 }
 
 public final class SleepyColorScheme: HKApplicationColorScheme {
-
     // general
     private let appBackgroundColor: Color
     private let mainSleepyColor: Color
@@ -58,8 +55,6 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
     // charts
     private let verticalProgressChartElementColor: Color
 
-    
-    
     init() {
         appBackgroundColor = Color("backgroundColor")
         mainSleepyColor = Color("mainColor")
@@ -89,7 +84,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
 
     public func getColor(of type: ColorType) -> Color {
         switch type {
-            // general
+        // general
         case .general(.appBackgroundColor):
             return appBackgroundColor
         case .general(.healthColor):
@@ -97,11 +92,11 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         case .general(.mainSleepyColor):
             return mainSleepyColor
 
-            // card
+        // card
         case .card(.cardBackgroundColor):
             return cardBackgroundColor
 
-            // phases
+        // phases
         case .phases(.deepSleepColor):
             return deepSleepColor
         case .phases(.lightSleepColor):
@@ -109,15 +104,15 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         case .phases(.wakeUpColor):
             return wakeUpColor
 
-            // heart
+        // heart
         case .heart(.heartColor):
             return heartColor
 
-            // energy
+        // energy
         case .energy(.energyColor):
             return energyColor
 
-            // calendar
+        // calendar
         case .calendar(.emptyDayColor):
             return emptyDayColor
         case .calendar(.negativeDayColor):
@@ -129,7 +124,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         case .calendar(.calendarCurrentDateColor):
             return calendarCurrentDateColor
 
-            // general info card
+        // general info card
         case .summaryCardColors(.awakeColor):
             return awakeColor
         case .summaryCardColors(.moonColor):
@@ -139,7 +134,7 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
         case .summaryCardColors(.fallAsleepDurationColor):
             return fallAsleepDurationColor
 
-            // texts
+        // texts
         case .textsColors(.standartText):
             return standartText
         case .textsColors(.secondaryText):
@@ -150,5 +145,4 @@ public final class SleepyColorScheme: HKApplicationColorScheme {
             return adviceText
         }
     }
-
 }

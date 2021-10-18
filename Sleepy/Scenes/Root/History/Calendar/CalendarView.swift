@@ -1,9 +1,8 @@
-import SwiftUI
-import HKVisualKit
 import HKStatistics
+import HKVisualKit
+import SwiftUI
 
 struct CalendarView: View {
-
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
@@ -15,7 +14,7 @@ struct CalendarView: View {
     private let statsProvider: HKStatisticsProvider
 
     init(calendarType: Binding<HealthData>, colorSchemeProvider: ColorSchemeProvider, statsProvider: HKStatisticsProvider) {
-        self._calendarType = calendarType
+        _calendarType = calendarType
         self.colorSchemeProvider = colorSchemeProvider
         self.statsProvider = statsProvider
     }
@@ -34,9 +33,9 @@ struct CalendarView: View {
                                          colorScheme: colorSchemeProvider.sleepyColorScheme)
 
                     LazyVGrid(columns: calendarGridLayout, spacing: 4) {
-                        ForEach(1...monthDate.getDaysInMonth(), id: \.self) { index in
+                        ForEach(1 ... monthDate.getDaysInMonth(), id: \.self) { index in
                             VStack(spacing: 2) {
-                                if index >= 1 && index <= 7 {
+                                if index >= 1, index <= 7 {
                                     let tmpWeekDay = Calendar.current.date(byAdding: .day,
                                                                            value: index - 1,
                                                                            to: monthDate.startOfMonth)!
@@ -59,20 +58,20 @@ struct CalendarView: View {
                         }
                     }
                     .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .global)
-                                .onEnded { value in
-                        let horizontalAmount = value.translation.width as CGFloat
-                        let verticalAmount = value.translation.height as CGFloat
+                        .onEnded { value in
+                            let horizontalAmount = value.translation.width as CGFloat
+                            let verticalAmount = value.translation.height as CGFloat
 
-                        if abs(horizontalAmount) > abs(verticalAmount) {
-                            monthDate = Calendar.current.date(byAdding: .month,
-                                                              value: horizontalAmount < 0 ? 1 : -1,
-                                                              to: monthDate)!
-                        }
-                    })
+                            if abs(horizontalAmount) > abs(verticalAmount) {
+                                monthDate = Calendar.current.date(byAdding: .month,
+                                                                  value: horizontalAmount < 0 ? 1 : -1,
+                                                                  to: monthDate)!
+                            }
+                        })
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+        // .frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -87,7 +86,6 @@ struct CalendarView: View {
 }
 
 private struct CalendarTitleView: View {
-
     @Binding var calendarType: HealthData
     @Binding var monthDate: Date
 
@@ -137,5 +135,4 @@ private struct CalendarTitleView: View {
             return colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
         }
     }
-    
 }

@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct ProgressChartView: View {
-
     @State private var totalHeight = CGFloat.zero // variant for ScrollView/List
     // = CGFloat.infinity - variant for VStack
 
@@ -23,7 +22,8 @@ public struct ProgressChartView: View {
                 beforeProgress: ProgressItem,
                 analysisString: String,
                 mainColor: Color,
-                mainTextColor: Color) {
+                mainTextColor: Color)
+    {
         self.titleText = titleText
         self.mainText = mainText
         self.systemImage = systemImage
@@ -37,7 +37,7 @@ public struct ProgressChartView: View {
 
     public var body: some View {
         VStack {
-            GeometryReader { geometry in
+            GeometryReader { _ in
 
                 VStack(alignment: .leading) {
                     CardTitleView(titleText: self.titleText,
@@ -61,7 +61,7 @@ public struct ProgressChartView: View {
                 }.background(viewHeightReader($totalHeight))
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
-        //.frame(maxHeight: totalHeight) - variant for VStack
+        // .frame(maxHeight: totalHeight) - variant for VStack
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
@@ -88,12 +88,10 @@ public struct ProgressItem {
 }
 
 public struct ProgressItemView: View {
-
     let progressItem: ProgressItem
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-
             Text(progressItem.title)
                 .fontWeight(.semibold)
 

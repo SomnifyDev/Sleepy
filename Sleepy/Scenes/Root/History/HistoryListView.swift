@@ -5,13 +5,13 @@
 //  Created by Никита Казанцев on 16.07.2021.
 //
 
+import FirebaseAnalytics
+import HKCoreSleep
+import HKVisualKit
 import SwiftUI
 import XUI
-import HKVisualKit
-import HKCoreSleep
 
 struct HistoryListView: View {
-
     @Store var viewModel: HistoryCoordinator
     @Binding var calendarType: HealthData
 
@@ -23,13 +23,12 @@ struct HistoryListView: View {
     private let monthBeforeDateInterval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date().endOfDay)!.startOfDay, end: Date().endOfDay)
 
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ZStack {
                 viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical, showsIndicators: false) {
-
                     CalendarView(calendarType: $calendarType,
                                  colorSchemeProvider: viewModel.colorSchemeProvider,
                                  statsProvider: viewModel.statisticsProvider)
@@ -43,7 +42,7 @@ struct HistoryListView: View {
                             MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
 
                             BannerView(bannerViewType: .brokenData(type: .sleep),
-                                      colorProvider: viewModel.colorSchemeProvider)
+                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                             SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
@@ -57,7 +56,7 @@ struct HistoryListView: View {
                             MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
 
                             BannerView(bannerViewType: .brokenData(type: .inbed),
-                                      colorProvider: viewModel.colorSchemeProvider)
+                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                             SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
@@ -71,7 +70,7 @@ struct HistoryListView: View {
                             MotivationCellView(type: .heart, colorProvider: self.viewModel.colorSchemeProvider)
 
                             BannerView(bannerViewType: .brokenData(type: .heart),
-                                      colorProvider: viewModel.colorSchemeProvider)
+                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                             HeartHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
@@ -85,7 +84,7 @@ struct HistoryListView: View {
                             MotivationCellView(type: .energy, colorProvider: self.viewModel.colorSchemeProvider)
 
                             BannerView(bannerViewType: .brokenData(type: .energy),
-                                      colorProvider: viewModel.colorSchemeProvider)
+                                       colorProvider: viewModel.colorSchemeProvider)
                                 .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                             EnergyHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
@@ -94,18 +93,25 @@ struct HistoryListView: View {
                     } else {
                         Text("Loading".localized)
                     }
-
                 }
             }
             .onAppear(perform: extractContextStatistics)
             .onChange(of: calendarType) { _ in
                 extractContextStatistics()
             }
-        }.navigationTitle("Sleep history".localized)
+        }
+        .navigationTitle("Sleep history".localized)
+        .onAppear(perform: self.sendAnalytics)
+    }
+
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("History_viewed", parameters: nil)
     }
 
     /// Loads data for each type of calendar phase to fill statistics view below it
     func extractContextStatistics() {
+        FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": calendarType.rawValue])
+
         switch calendarType {
         case .heart:
             extractHeartDataIfNeeded()
@@ -120,7 +126,8 @@ struct HistoryListView: View {
 
     func extractSleepDataIfNeeded(type: HKService.HealthType) {
         if (type == .inbed ? inbedHistoryStatsViewModel != nil : asleepHistoryStatsViewModel != nil) ||
-            (type != .inbed && type != .asleep) {
+            (type != .inbed && type != .asleep)
+        {
             return
         }
 
@@ -216,7 +223,6 @@ struct HistoryListView: View {
         }
 
         group.notify(queue: .global(qos: .default)) {
-
             if let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
                 let tmp = SleepHistoryStatsViewModel(
                     cellData: last30daysCellData,
@@ -224,13 +230,14 @@ struct HistoryListView: View {
                     monthBeforeDateInterval: monthBeforeDateInterval,
                     currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean1))),
                                                        text: current2weeksInterval.stringFromDateInterval(type: .days),
-                                                       value: Int(mean1))
-                    , beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
-                                                        text: last2weeksInterval.stringFromDateInterval(type: .days),
-                                                        value: Int(mean2)),
-                    analysisString: mean1 == mean2
-                    ? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")
-                    : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time".localized, type == .inbed ? "were in bed" : "slept",mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
+                                                       value: Int(mean1)),
+                    beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
+                                                      text: last2weeksInterval.stringFromDateInterval(type: .days),
+                                                      value: Int(mean2)),
+                    analysisString: Int(mean1) == Int(mean2)
+                        ? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")
+                        : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time".localized, type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2))))
+                )
 
                 if type == .inbed {
                     inbedHistoryStatsViewModel = tmp
@@ -291,7 +298,6 @@ struct HistoryListView: View {
                 heartHistoryStatsViewModel = HeartHistoryStatsViewModel(cellData: last30daysCellData)
             }
         }
-
     }
 
     func extractEnergyDataIfNeeded() {
@@ -344,6 +350,5 @@ struct HistoryListView: View {
                 energyHistoryStatsViewModel = EnergyHistoryStatsViewModel(cellData: last30daysCellData)
             }
         }
-
     }
 }
