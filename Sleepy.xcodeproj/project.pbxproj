@@ -62,6 +62,7 @@
 		80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */; };
 		80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */; };
 		80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */; };
+		BAAF340CC29C3B933BF501F8 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */; };
 		D903F875270E2D12008A7307 /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903F874270E2D12008A7307 /* HealthManager.swift */; };
 		D91668AB2701FD9200BD7745 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91668AA2701FD9200BD7745 /* Date+Extension.swift */; };
 		D91668AF2702307900BD7745 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D91668AE2702307900BD7745 /* HealthKit.framework */; };
@@ -204,6 +205,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0733EA6A3C4FB57B724ACD34 /* Pods-Sleepy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.release.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.release.xcconfig"; sourceTree = "<group>"; };
 		8001401E26FF26C0001AE152 /* MainIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIntroView.swift; sourceTree = "<group>"; };
 		8001402026FF273D001AE152 /* HealthKitIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitIntroView.swift; sourceTree = "<group>"; };
 		8002F3A526A1FA3600A7192A /* HistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListView.swift; sourceTree = "<group>"; };
@@ -309,6 +311,8 @@
 		D9E12CAD2712297E00F55BF4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D9E12CAE27122B3000F55BF4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D9FE832E271CAA5200A9453B /* LoadingAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAppView.swift; sourceTree = "<group>"; };
+		EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sleepy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F07D7AEDC184141545C503A0 /* Pods-Sleepy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sleepy.debug.xcconfig"; path = "Target Support Files/Pods-Sleepy/Pods-Sleepy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +326,7 @@
 				D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */,
 				808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */,
 				808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */,
+				BAAF340CC29C3B933BF501F8 /* Pods_Sleepy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +547,7 @@
 				D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */,
 				80780F04266CE356000D0DD9 /* HK */,
 				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
+				EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -873,6 +879,8 @@
 		E2E51B75C4408BE321656654 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				F07D7AEDC184141545C503A0 /* Pods-Sleepy.debug.xcconfig */,
+				0733EA6A3C4FB57B724ACD34 /* Pods-Sleepy.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -884,6 +892,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D94419F2266CD3C50019902F /* Build configuration list for PBXNativeTarget "Sleepy" */;
 			buildPhases = (
+				E448DD795795FD8EFDDF300F /* [CP] Check Pods Manifest.lock */,
 				D94419C9266CD3C40019902F /* Sources */,
 				D94419CA266CD3C40019902F /* Frameworks */,
 				D94419CB266CD3C40019902F /* Resources */,
@@ -891,6 +900,7 @@
 				80780F22266CE43A000D0DD9 /* Embed Frameworks */,
 				80780F2D266CF63E000D0DD9 /* ShellScript */,
 				80BA9C54270B7C5B0001E57F /* ShellScript */,
+				DCE5DF5466ADFFF69EC6DDC3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1108,6 +1118,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swift-format >/dev/null; then\n    swift-format -m format -i -r ${PROJECT_DIR}\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+		};
+		DCE5DF5466ADFFF69EC6DDC3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sleepy/Pods-Sleepy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E448DD795795FD8EFDDF300F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sleepy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1363,6 +1412,7 @@
 		};
 		D94419F3266CD3C50019902F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F07D7AEDC184141545C503A0 /* Pods-Sleepy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1426,6 +1476,7 @@
 		};
 		D94419F4266CD3C50019902F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0733EA6A3C4FB57B724ACD34 /* Pods-Sleepy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
