@@ -32,15 +32,14 @@ final class SmartAlarmModel: NSObject {
     }
 
     func activateAlarm(alarmEnd: Date) {
-        if session.state == .running || session.state == .scheduled {
-            session.invalidate()
-        }
         guard
-            alarmEnd.minutes(from: Date()) >= 28,
+            alarmEnd.minutes(from: Date()) >= 29,
             let scheduledTime = Calendar.current.date(byAdding: .minute, value: -25, to: alarmEnd)
         else {
             return
         }
+        session = WKExtendedRuntimeSession()
+        session.delegate = self
         setSessionStartDate(at: scheduledTime)
         print("session was set")
     }
@@ -48,11 +47,9 @@ final class SmartAlarmModel: NSObject {
     // MARK: Private methods
 
     private func setSessionStartDate(at date: Date) {
-        session = WKExtendedRuntimeSession()
         guard session.state == .notStarted else {
             return
         }
-        session.delegate = self
         session.start(at: date)
     }
 

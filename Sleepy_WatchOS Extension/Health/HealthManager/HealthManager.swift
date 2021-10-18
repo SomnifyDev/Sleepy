@@ -113,9 +113,9 @@ extension HealthManager {
                     let timestamp = s.endDate
 
                     // Log heart rate to my internal structure for processing
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
                         print(heartRate)
-                        self.heartDataManager.append(
+                        self?.heartDataManager.append(
                             sample: HeartRateSample(
                                 heartRate: heartRate,
                                 timestamp: timestamp

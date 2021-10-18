@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct NavItemView: View {
-    var imageName: String
-    var title: String
-    var titleColor: Color
-    var mainInfo: String
-    var bottomTitle: String
+    private let imageName: String
+    private let title: String
+    private let titleColor: Color
+    private let mainInfo: String
+    private let bottomTitle: String
+
+    init(
+        imageName: String,
+        title: String,
+        titleColor: Color,
+        mainInfo: String,
+        bottomTitle: String
+    ) {
+        self.imageName = imageName
+        self.title = title
+        self.titleColor = titleColor
+        self.mainInfo = mainInfo
+        self.bottomTitle = bottomTitle
+    }
 
     var body: some View {
         HStack {
