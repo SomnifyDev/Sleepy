@@ -31,6 +31,7 @@ final class HealthManager {
 extension HealthManager: HeartDataManagerDelegate {
 
     func lightPhaseDetected() {
+        print("HeartDataManagerDelegate detected light phase")
         delegate?.lightPhaseDetected()
     }
 
@@ -113,6 +114,7 @@ extension HealthManager {
 
                     // Log heart rate to my internal structure for processing
                     DispatchQueue.main.async {
+                        print(heartRate)
                         self.heartDataManager.append(
                             sample: HeartRateSample(
                                 heartRate: heartRate,

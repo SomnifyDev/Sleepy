@@ -14,8 +14,9 @@ final class SmartAlarmModel: NSObject {
     private var session: WKExtendedRuntimeSession = WKExtendedRuntimeSession()
     private var healthStore: HKHealthStore = HKHealthStore()
     private let healthManager: HealthManager = HealthManager()
+    private var didDetectedLightPhase: Bool = false
 
-    override init() {
+    override required init() {
         super.init()
         healthManager.delegate = self
     }
@@ -27,24 +28,31 @@ final class SmartAlarmModel: NSObject {
             return
         }
         session.invalidate()
+        print("session was deactivated")
     }
 
     func activateAlarm(alarmEnd: Date) {
+        if session.state == .running || session.state == .scheduled {
+            session.invalidate()
+        }
         guard
-            alarmEnd.minutes(from: Date()) >= 0,
-            let scheduledTime = Calendar.current.date(byAdding: .minute, value: -1, to: alarmEnd)
+            alarmEnd.minutes(from: Date()) >= 28,
+            let scheduledTime = Calendar.current.date(byAdding: .minute, value: 25, to: alarmEnd)
         else {
             return
         }
         setSessionStartDate(at: scheduledTime)
+        print("session was set")
     }
 
     // MARK: Private methods
 
     private func setSessionStartDate(at date: Date) {
+        session = WKExtendedRuntimeSession()
         guard session.state == .notStarted else {
             return
         }
+        session.delegate = self
         session.start(at: date)
     }
 
@@ -55,12 +63,8 @@ final class SmartAlarmModel: NSObject {
         session.notifyUser(hapticType: .notification) { (_) -> TimeInterval in
             return 3.5
         }
-
-        // Пока не уверен, должно ли это действие располагаться здесь
         UserSettings.isAlarmSet = false
-        session.invalidate()
     }
-    
 }
 
 // MARK: HealthManagerDelegate
@@ -68,6 +72,8 @@ final class SmartAlarmModel: NSObject {
 extension SmartAlarmModel: HealthManagerDelegate {
 
     func lightPhaseDetected() {
+        print("HealthManagerDelegate detected light phase")
+        didDetectedLightPhase = true
         self.runVibration()
     }
 
@@ -79,11 +85,12 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
 
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         print("RuntimeSession did start")
-        // Вот здесь в теории надо запустить таймер на 25 минут и начать тречить сердце.
-        // Если время таймера закончилось или отловилась лёгкая фаза - вызов runVibration()
+        healthManager.subscribeToHeartBeatChanges()
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
+        print("extendedRuntimeSession will expire")
+        guard !didDetectedLightPhase else { return }
         UserSettings.isAlarmSet = false
         self.runVibration()
     }
@@ -104,7 +111,9 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
 extension SmartAlarmModel: WKExtensionDelegate {
 
     func handle(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        extendedRuntimeSession.delegate = self
+        print("handled extendedRuntimeSession")
+        session = extendedRuntimeSession
+        session.delegate = self
     }
 
     func applicationDidFinishLaunching() {

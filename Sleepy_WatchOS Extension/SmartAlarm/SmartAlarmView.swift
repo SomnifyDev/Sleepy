@@ -45,7 +45,6 @@ struct AlarmView: View {
                     .font(.system(size: 10))
                     .foregroundColor(.gray)
                     .padding(.top, 4)
-
             }
         }
         .onAppear {

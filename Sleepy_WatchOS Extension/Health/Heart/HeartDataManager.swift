@@ -16,6 +16,7 @@ final class HeartDataManager {
 
     func append(sample: HeartRateSample) {
         self.heartRates.append(sample)
+        isLightPhase(currentSample: sample)
     }
 
     func isLightPhase(currentSample: HeartRateSample) {
