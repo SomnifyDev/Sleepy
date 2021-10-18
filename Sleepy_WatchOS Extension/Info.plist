@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
-	<string>Sleepy records your heartrate to find the optimal moment to wake you from your sleep.</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Sleepy needs information about your heart rate to find the optimal moment to wake you from your sleep.</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -28,23 +22,29 @@
 	<string>1</string>
 	<key>CLKComplicationPrincipalClass</key>
 	<string>$(PRODUCT_MODULE_NAME).ComplicationController</string>
-	<key>WKExtensionDelegateClassName</key>
-	<string>$(PRODUCT_MODULE_NAME).SmartAlarmModel</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>com.sinapsis.sleepy.watchkitapp</string>
+			<string>com.benmustafa.sleepy.watchkitapp</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Sleepy records your heartrate to find the optimal moment to wake you from your sleep.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Sleepy needs information about your heart rate to find the optimal moment to wake you from your sleep.</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>WKBackgroundModes</key>
 	<array>
 		<string>alarm</string>
 	</array>
+	<key>WKExtensionDelegateClassName</key>
+	<string>$(PRODUCT_MODULE_NAME).SmartAlarmModel</string>
 </dict>
 </plist>
