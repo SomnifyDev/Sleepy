@@ -117,7 +117,6 @@ public extension Text {
 }
 
 public struct SectionNameTextView: View {
-
     private let color: Color
     private let text: String
 

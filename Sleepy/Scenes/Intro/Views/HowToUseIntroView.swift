@@ -13,9 +13,9 @@ struct HowToUseIntroView: View {
     let colorScheme: SleepyColorScheme
     @Binding var shouldShowIntro: Bool
 
-    var images = ["tutorial1", "tutorial2"]
+    private let images = ["tutorial1", "tutorial2"]
     @State private var index = 0
-    @State private var showShownNext = false
+    @State private var shouldShownNextTab = false
 
     var body: some View {
         ZStack {
@@ -47,16 +47,16 @@ struct HowToUseIntroView: View {
                     }.padding(.top, 16)
                 }.padding([.leading, .trailing], 16)
 
-                if !self.showShownNext {
+                if !self.shouldShownNextTab {
                     Text("Перейти в настройки".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {
                             self.openUrl(urlString: "x-apple-Health://SleepHealthAppPlugin.healthplugin/manageSchedule")
-                            self.showShownNext = true
+                            self.shouldShownNextTab = true
                         }
                 }
 
-                if self.showShownNext {
+                if self.shouldShownNextTab {
                     Text("Понял!".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {

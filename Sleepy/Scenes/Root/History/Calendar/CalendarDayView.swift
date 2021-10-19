@@ -2,6 +2,7 @@ import HealthKit
 import HKStatistics
 import HKVisualKit
 import SwiftUI
+import SettingsKit
 
 struct CalendarDayView: View {
     @Binding var type: HealthData
@@ -16,19 +17,21 @@ struct CalendarDayView: View {
     private let currentDate: Date
     private let dateIndex: Int
 
+    private let sleepGoal: Int
+
     init(type: Binding<HealthData>,
          monthDate: Binding<Date>,
          colorScheme: SleepyColorScheme,
          statsProvider: HKStatisticsProvider,
          currentDate: Date,
-         dateIndex: Int)
-    {
+         dateIndex: Int) {
         _type = type
         _monthDate = monthDate
         self.colorScheme = colorScheme
         self.statsProvider = statsProvider
         self.currentDate = currentDate
         self.dateIndex = dateIndex
+        self.sleepGoal = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
     }
 
     var body: some View {
@@ -65,9 +68,9 @@ struct CalendarDayView: View {
 
             case .sleep, .inbed:
                 // TODO: remove constants and use users desired sleep duration value instead
-                circleColor = value > 480
+                circleColor = Int(value) > sleepGoal
                     ? colorScheme.getColor(of: .calendar(.positiveDayColor))
-                    : (value > 360
+                : (value > Double(sleepGoal) * 0.9
                         ? colorScheme.getColor(of: .calendar(.neutralDayColor))
                         : colorScheme.getColor(of: .calendar(.negativeDayColor)))
 

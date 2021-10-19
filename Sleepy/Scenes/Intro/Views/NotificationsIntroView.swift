@@ -13,7 +13,7 @@ struct NotificationsIntroView: View {
     let colorScheme: SleepyColorScheme
     @Binding var shouldShowIntro: Bool
 
-    @State private var showShownNext = false
+    @State private var shouldShowNextTab = false
 
     var body: some View {
         ZStack {
@@ -29,19 +29,19 @@ struct NotificationsIntroView: View {
                     }.padding(.top, 16)
                 }.padding([.leading, .trailing], 16)
 
-                if !showShownNext {
+                if !shouldShowNextTab {
                     Text("Разрешить".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {
                             self.registerForPushNotifications { _, _ in
-                                showShownNext = true
+                                shouldShowNextTab = true
                             }
                         }
                 }
 
-                if showShownNext {
+                if shouldShowNextTab {
                     NavigationLink(
-                        destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext
+                        destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab
                     ) {
                         Text("Продолжить")
                             .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))

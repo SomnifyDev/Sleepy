@@ -46,7 +46,9 @@ struct SleepHistoryStatsView: View {
                                                                chartType: .defaultChart(barType: .rectangle(color: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)))),
                                                                chartHeight: 75,
                                                                points: monthSleepPoints,
-                                                               dateInterval: monthBeforeDateInterval),
+                                                               dateInterval: monthBeforeDateInterval,
+                                                               needTimeLine: false,
+                                                               dragGestureEnabled: false),
                                   bottomView: EmptyView())
                     .roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
             }
@@ -68,13 +70,13 @@ struct SleepHistoryStatsView: View {
                               systemImage: "timer",
                               colorProvider: colorProvider,
                               currentProgress:
-                              ProgressItem(title: viewModel.currentWeeksProgress.title,
-                                           text: viewModel.currentWeeksProgress.text,
-                                           value: viewModel.currentWeeksProgress.value),
+                                ProgressItem(title: viewModel.currentWeeksProgress.title,
+                                             text: viewModel.currentWeeksProgress.text,
+                                             value: viewModel.currentWeeksProgress.value),
                               beforeProgress:
-                              ProgressItem(title: viewModel.beforeWeeksProgress.title,
-                                           text: viewModel.beforeWeeksProgress.text,
-                                           value: viewModel.beforeWeeksProgress.value),
+                                ProgressItem(title: viewModel.beforeWeeksProgress.title,
+                                             text: viewModel.beforeWeeksProgress.text,
+                                             value: viewModel.beforeWeeksProgress.value),
                               analysisString: viewModel.analysisString,
                               mainColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
                               mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))

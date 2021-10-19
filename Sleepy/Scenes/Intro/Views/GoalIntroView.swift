@@ -15,7 +15,7 @@ struct GoalIntroView: View {
     @Binding var shouldShowIntro: Bool
 
     @State private var sleepGoal: Float = 420
-    @State private var showShownNext = false
+    @State private var shouldShownNextTab = false
 
     var body: some View {
         ZStack {
@@ -36,7 +36,7 @@ struct GoalIntroView: View {
                             .foregroundColor(.primary)
                             .padding([.leading, .trailing])
 
-                        Slider(value: $sleepGoal, in: 360 ... 720, step: 30)
+                        Slider(value: $sleepGoal, in: 360 ... 720, step: 15)
                             .padding([.leading, .trailing])
                     }
                     .roundedCardBackground(color: colorScheme.getColor(of: .card(.cardBackgroundColor)).opacity(0.5))
@@ -44,18 +44,18 @@ struct GoalIntroView: View {
 
                 }.padding([.leading, .trailing], 16)
 
-                if !self.showShownNext {
+                if !self.shouldShownNextTab {
                     Text("Сохранить цель".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {
                             self.saveSetting(with: Int(sleepGoal), forKey: SleepySettingsKeys.sleepGoal.rawValue)
-                            self.showShownNext = true
+                            self.shouldShownNextTab = true
                         }
                 }
 
-                if self.showShownNext {
+                if self.shouldShownNextTab {
                     NavigationLink(
-                        destination: HowToUseIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $showShownNext
+                        destination: HowToUseIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShownNextTab
                     ) {
                         Text("Продолжить")
                             .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))

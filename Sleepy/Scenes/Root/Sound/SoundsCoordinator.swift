@@ -19,8 +19,7 @@ class SoundsCoordinator: ObservableObject, ViewModel {
 
     init(title _: String,
          colorSchemeProvider: ColorSchemeProvider,
-         parent: RootCoordinator)
-    {
+         parent: RootCoordinator) {
         self.parent = parent
         colorProvider = colorSchemeProvider
 

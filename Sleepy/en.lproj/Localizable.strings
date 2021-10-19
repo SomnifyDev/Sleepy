@@ -123,7 +123,8 @@
 "%.2f confidence" = "%.2f confidence";
 "Record" = "Record";
 "STOP" = "STOP";
-
+"Error" = "Error";
+"Recording Failed. Check microphone permissions" = "Recording Failed. Check microphone permissions";
 
 
 // MARK: Settings tab

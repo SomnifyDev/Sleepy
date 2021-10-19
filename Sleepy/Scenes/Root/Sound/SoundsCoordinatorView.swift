@@ -7,12 +7,17 @@
 
 import FirebaseAnalytics
 import HKVisualKit
+import AVFoundation
 import SwiftUI
 import XUI
 
 struct SoundsCoordinatorView: View {
     @Store var viewModel: SoundsCoordinator
     @ObservedObject private var audioRecorder = AudioRecorder()
+
+    @State private var showingErrorAlert = false
+    @State private var shouldGrantPermissions = false
+    private let avAudioSession = AVAudioSession.sharedInstance()
 
     var body: some View {
         NavigationView {
@@ -23,9 +28,17 @@ struct SoundsCoordinatorView: View {
                     AudioRecordingsListView(viewModel: viewModel, audioRecorder: audioRecorder)
 
                     if audioRecorder.recording == false {
-                        Text("Record".localized)
+                        Text(shouldGrantPermissions ? "Allow mic access" : "Record".localized)
                             .customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
-                            .onTapGesture { audioRecorder.startRecording() }
+                            .onTapGesture {
+                                if shouldGrantPermissions {
+                                    self.audioRecorder.requestPermissions(self.avAudioSession, completion: { _ in
+                                        self.shouldGrantPermissions = self.avAudioSession.recordPermission != .granted
+                                    })
+                                } else {
+                                    showingErrorAlert = !audioRecorder.startRecording()
+                                }
+                            }
                     } else {
                         Text("STOP".localized)
                             .customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
@@ -34,7 +47,13 @@ struct SoundsCoordinatorView: View {
                 }
             }
             .navigationBarTitle("Sound recognition".localized)
-            .onAppear(perform: self.sendAnalytics)
+            .onAppear {
+                self.sendAnalytics()
+                self.shouldGrantPermissions = self.avAudioSession.recordPermission != .granted
+            }
+            .alert(isPresented: self.$showingErrorAlert) {
+                Alert(title: Text("Error".localized), message: Text("Recording Failed. Check microphone permissions".localized))
+            }
         }
     }
 

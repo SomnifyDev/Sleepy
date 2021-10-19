@@ -46,6 +46,7 @@ struct SleepyApp: App {
                     .accentColor(colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         UIApplication.shared.applicationIconBadgeNumber = 0
+                        guard let sleep = self.sleep else { return }
 
                         let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
                         self.hkService?.readData(type: .asleep,
@@ -53,26 +54,28 @@ struct SleepyApp: App {
                                                  ascending: false,
                                                  bundlePrefixes: ["com.apple"],
                                                  completionHandler: { _, samples, error in
-                                                     guard error == nil,
-                                                           let sample = samples?.first,
-                                                           let sleep = self.sleep else { return }
-                                                     if abs(sample.endDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
-                                                         self.canShowMain = false
-                                                     }
-                                                 })
+                            guard error == nil,
+                                  let sample = samples?.first else { return }
+                            if abs(sample.startDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
+                                // сбрасываем до экрана loading чтоб пересчитался сон
+                                self.canShowMain = false
+                            }
+                        })
                     }
                 // .onOpenURL { coordinator!.startDeepLink(from: $0) }
-                // .onAppear { simulateURLOpening() }
+                 .onAppear {
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                         setupAppIcon()
+                     }
+//                     simulateURLOpening()
+                 }
             } else if shouldShowIntro {
                 IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
                     .accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
             } else {
                 Text("Loading".localized)
                     .onAppear {
-                        if !UserDefaults.standard.bool(forKey: "launchedBefore") {
-                            UserDefaults.standard.set(true, forKey: "launchedBefore")
-                            self.setAllUserDefaults()
-                        }
+                        self.setAllUserDefaultsIfNeeded()
 
                         self.hkService = self.appDelegate.hkService
                         self.sleepDetectionProvider = self.appDelegate.sleepDetectionProvider
@@ -114,7 +117,10 @@ struct SleepyApp: App {
     }
 
     /// Установка дефолтных значений настроек
-    private func setAllUserDefaults() {
+    private func setAllUserDefaultsIfNeeded() {
+        guard !UserDefaults.standard.bool(forKey: "launchedBefore") else { return }
+
+        UserDefaults.standard.set(true, forKey: "launchedBefore")
         SleepySettingsKeys.allCases.forEach {
             switch $0 {
             case .sleepGoal:
@@ -130,31 +136,44 @@ struct SleepyApp: App {
         }
     }
 
+    private func setupAppIcon() {
+        let application = UIApplication.shared
+        let currentSystemScheme = UITraitCollection.current.userInterfaceStyle
+
+        if application.supportsAlternateIcons {
+            if application.alternateIconName == nil && currentSystemScheme == .dark {
+                application.setAlternateIconName("darkIcon")
+            } else if application.alternateIconName == "darkIcon" && currentSystemScheme == .light {
+                application.setAlternateIconName(nil)
+            }
+        }
+    }
+
     private func simulateURLOpening() {
-        #if DEBUG
-            guard !hasOpenedURL else {
+#if DEBUG
+        guard !hasOpenedURL else {
+            return
+        }
+        hasOpenedURL = true
+
+        cardService?.fetchCards { cards in
+            // summary:// - открывает экран карточек
+            // summary://card?type=heart - открывает детальную карточку сердца
+            // summary://card?type=phases - открывает детальную карточку фаз
+            // calendar:// - открывает календарь
+            // alarm:// - открывает будильник
+            // alarm://creation
+            guard let cardType = cards.randomElement(),
+                  // [tab name]://[element inside name]?[parameter]=value
+                  let url = URL(string: "summary://card?type=" + cardType.rawValue)
+            else {
+                assertionFailure("Could not find card or illegal url format.")
                 return
             }
-            hasOpenedURL = true
 
-            cardService?.fetchCards { cards in
-                // summary:// - открывает экран карточек
-                // summary://card?type=heart - открывает детальную карточку сердца
-                // summary://card?type=phases - открывает детальную карточку фаз
-                // calendar:// - открывает календарь
-                // alarm:// - открывает будильник
-                // alarm://creation
-                guard let cardType = cards.randomElement(),
-                      // [tab name]://[element inside name]?[parameter]=value
-                      let url = URL(string: "summary://card?type=" + cardType.rawValue)
-                else {
-                    assertionFailure("Could not find card or illegal url format.")
-                    return
-                }
-
-                rootViewModel!.startDeepLink(from: url)
-            }
-        #endif
+            rootViewModel!.startDeepLink(from: url)
+        }
+#endif
     }
 
     private func showDebugSleepDuration(_ sleep: Sleep) {

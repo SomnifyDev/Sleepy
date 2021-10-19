@@ -8,9 +8,9 @@
 import SwiftUI
 
 public struct PagingView<Content>: View where Content: View {
-    @Binding var index: Int
-    let maxIndex: Int
-    let content: () -> Content
+    @Binding private var index: Int
+    private let maxIndex: Int
+    private let content: () -> Content
 
     @State private var offset = CGFloat.zero
     @State private var dragging = false
