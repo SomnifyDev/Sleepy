@@ -61,7 +61,8 @@ struct AudioRecordingsListView: View {
                 }
                 Spacer()
             }.sheet(isPresented: $showSheetView) {
-                AnalysisListView(result: resultsObserver.array,
+                AnalysisListView(viewModel: self.viewModel,
+                                 result: resultsObserver.array,
                                  fileName: resultsObserver.fileName,
                                  endDate: resultsObserver.date,
                                  colorProvider: viewModel.colorProvider,
@@ -78,19 +79,13 @@ struct AudioRecordingsListView: View {
     }
 
     private func runAnalysis(audioFileURL: URL) {
-        // TODO: лучше обучить модель
         do {
             let request: SNClassifySoundRequest
 
-            if #available(iOS 15.0, *) { // apple's sound classifier
-                let version1 = SNClassifierIdentifier.version1
-                request = try SNClassifySoundRequest(classifierIdentifier: version1)
-            } else { // sleepy ones
-                let config = MLModelConfiguration()
-                let mlModel = try soundClassifier(configuration: config)
+            let config = MLModelConfiguration()
+            let mlModel = try soundClassifier(configuration: config)
 
-                request = try SNClassifySoundRequest(mlModel: mlModel.model)
-            }
+            request = try SNClassifySoundRequest(mlModel: mlModel.model)
 
             guard let audioFileAnalyzer = createAnalyzer(audioFileURL: audioFileURL)
             else {

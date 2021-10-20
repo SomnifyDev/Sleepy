@@ -19,7 +19,7 @@ public enum SleepySettingsKeys: String, CaseIterable {
         case .soundBitrate:
             return 10000
         case .soundRecognisionConfidence:
-            return 850
+            return 85
         }
     }
 }

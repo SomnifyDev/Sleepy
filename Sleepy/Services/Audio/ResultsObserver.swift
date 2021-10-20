@@ -15,30 +15,28 @@ class ResultsObserver: NSObject, SNResultsObserving {
     var fileName = ""
     var date: Date?
     var array: [SoundAnalysisResult] = []
+
     /// Notifies the observer when a request generates a prediction.
     func request(_: SNRequest, didProduce result: SNResult) {
         // Downcast the result to a classification result.
-        guard let result = result as? SNClassificationResult else { return }
-
-        // Get the prediction with the highest confidence.
-        guard let classification = result.classifications.first else { return }
-
-        // Get the starting time.
-        let timeInSeconds = result.timeRange.start.seconds
-        // Convert the time to a human-readable string.
-        let formattedTime = String(format: "%.2f", timeInSeconds)
-        print("Analysis result for audio at time: \(formattedTime)")
+        guard let result = result as? SNClassificationResult,
+              let classification = result.classifications.first else { return }
 
         // Convert the confidence to a percentage string.
         let percent = classification.confidence * 100.0
         let confidence = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+
         guard percent >= Double(confidence) else { return }
-        let resultItem = SoundAnalysisResult(start: TimeInterval(timeInSeconds),
+        let resultItem = SoundAnalysisResult(start: TimeInterval(result.timeRange.start.seconds),
                                              end: TimeInterval(result.timeRange.end.seconds),
                                              soundType: classification.identifier.replacingOccurrences(of: "_", with: " "),
                                              confidence: percent)
+        if resultItem.soundType == "coughing" { return }
         // Print the classification's name (label) with its confidence.
-        array.append(resultItem)
+        let soundRange: Range = resultItem.start..<resultItem.end
+        if !array.contains(where: { soundRange.overlaps($0.start..<$0.end) }) {
+            self.array.append(resultItem)
+        }
     }
 
     /// Notifies the observer when a request generates an error.

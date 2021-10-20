@@ -14,12 +14,12 @@
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
 		8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */; };
 		801505AE267140F5007574B9 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailsView.swift */; };
+		80260614271F577200D737AF /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 80260613271F577200D737AF /* soundClassifier.mlmodel */; };
 		8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613726FF1AD600643C8A /* IntroCoordinator.swift */; };
 		8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */; };
-		805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
 		8061C84E26FFDE03002BDA28 /* WelcomeScreenLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061C84D26FFDE03002BDA28 /* WelcomeScreenLineView.swift */; };
 		8061C85026FFE460002BDA28 /* NotificationsIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061C84F26FFE460002BDA28 /* NotificationsIntroView.swift */; };
@@ -154,13 +154,6 @@
 			remoteGlobalIDString = D96DBC252687126000A0E018;
 			remoteInfo = HKStatistics;
 		};
-		D96DBC452687126100A0E018 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D96DBC2D2687126000A0E018;
-			remoteInfo = HKStatisticsTests;
-		};
 		D97C396326BD1531005CCDFB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */;
@@ -218,10 +211,10 @@
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
 		8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSleepInfoCardView.swift; sourceTree = "<group>"; };
 		801505AD267140F5007574B9 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
+		80260613271F577200D737AF /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8052613726FF1AD600643C8A /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
 		8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinatorView.swift; sourceTree = "<group>"; };
-		805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
 		8061C84D26FFDE03002BDA28 /* WelcomeScreenLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenLineView.swift; sourceTree = "<group>"; };
 		8061C84F26FFE460002BDA28 /* NotificationsIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsIntroView.swift; sourceTree = "<group>"; };
@@ -369,6 +362,15 @@
 				80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8026061927202E2A00D737AF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				80A765EB26C7FBF000A66554 /* SoundAnalysisResult.swift */,
+				80A765E026C7F3A700A66554 /* Recording.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		8052613626FF1ABD00643C8A /* Intro */ = {
@@ -532,9 +534,8 @@
 		80A765DD26C7F33E00A66554 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				80A765EB26C7FBF000A66554 /* SoundAnalysisResult.swift */,
+				8026061927202E2A00D737AF /* Model */,
 				80A765E726C7F5F800A66554 /* ResultsObserver.swift */,
-				80A765E026C7F3A700A66554 /* Recording.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -542,6 +543,7 @@
 		80A765F126C85E9F00A66554 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				80A765ED26C83B3700A66554 /* AudioPlayer.swift */,
 				80A765DE26C7F35C00A66554 /* AudioRecorder.swift */,
 				80A765F626C85F4B00A66554 /* Subviews */,
 				80A765F226C85EB300A66554 /* SoundsCoordinator.swift */,
@@ -554,7 +556,6 @@
 			isa = PBXGroup;
 			children = (
 				80A765F426C85EBF00A66554 /* AudioRecordingsListView.swift */,
-				80A765ED26C83B3700A66554 /* AudioPlayer.swift */,
 				80A765E926C7FA1500A66554 /* AnalysisListView.swift */,
 			);
 			path = Subviews;
@@ -626,7 +627,7 @@
 		D94419CF266CD3C40019902F /* Sleepy */ = {
 			isa = PBXGroup;
 			children = (
-				805CDA7026D11C91005786B9 /* soundClassifier.mlmodel */,
+				80260613271F577200D737AF /* soundClassifier.mlmodel */,
 				808FDF4926861EFD00B38B78 /* Sleepy.entitlements */,
 				D94419D0266CD3C40019902F /* SleepyApp.swift */,
 				80780F26266CE7C3000D0DD9 /* AppDelegate.swift */,
@@ -738,7 +739,6 @@
 			isa = PBXGroup;
 			children = (
 				D96DBC442687126100A0E018 /* HKStatistics.framework */,
-				D96DBC462687126100A0E018 /* HKStatisticsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1012,7 +1012,7 @@
 			);
 			mainGroup = D94419C4266CD3C40019902F;
 			packageReferences = (
-				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */,
+				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */,
 			);
 			productRefGroup = D94419CE266CD3C40019902F /* Products */;
 			projectDirPath = "";
@@ -1063,13 +1063,6 @@
 			fileType = wrapper.framework;
 			path = HKStatistics.framework;
 			remoteRef = D96DBC432687126100A0E018 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D96DBC462687126100A0E018 /* HKStatisticsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = HKStatisticsTests.xctest;
-			remoteRef = D96DBC452687126100A0E018 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D97C396426BD1531005CCDFB /* SettingsKit.framework */ = {
@@ -1218,7 +1211,6 @@
 				80780F58266D4C2E000D0DD9 /* CardService.swift in Sources */,
 				80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */,
 				80647AF826D917380054C03F /* String+Localizable.swift in Sources */,
-				805CDA7626D11C91005786B9 /* soundClassifier.mlmodel in Sources */,
 				8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */,
 				D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */,
 				8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */,
@@ -1261,6 +1253,7 @@
 				8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
+				80260614271F577200D737AF /* soundClassifier.mlmodel in Sources */,
 				80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1455,7 +1448,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1503,7 +1496,7 @@
 					"\"nanopb\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1519,7 +1512,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1567,7 +1560,7 @@
 					"\"nanopb\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1581,7 +1574,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Sleepy_WatchOS Extension/Sleepy_WatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1589,7 +1582,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1606,7 +1599,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Sleepy_WatchOS Extension/Sleepy_WatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1614,7 +1607,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1631,14 +1624,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1655,14 +1648,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1714,7 +1707,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */ = {
+		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/quickbirdstudios/XUI.git";
 			requirement = {
@@ -1727,7 +1720,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		80780F31266D3B94000D0DD9 /* XUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI.git" */;
+			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */;
 			productName = XUI;
 		};
 /* End XCSwiftPackageProductDependency section */

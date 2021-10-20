@@ -125,7 +125,7 @@
 "STOP" = "STOP";
 "Error" = "Error";
 "Recording Failed. Check microphone permissions" = "Recording Failed. Check microphone permissions";
-
+"No sound recognized. You can try to lower recognisition confidence coefficient in your settings" = "No sound recognized. You can try to lower recognisition confidence coefficient in your settings";
 
 // MARK: Settings tab
 

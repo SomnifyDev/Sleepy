@@ -38,7 +38,8 @@ class AudioRecorder: NSObject, ObservableObject {
         self.requestPermissions(recordingSession)
 
         do {
-            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
+
             try recordingSession.setActive(true)
         } catch {
             FirebaseAnalytics.Analytics.logEvent("Sounds_sessionError", parameters: [
