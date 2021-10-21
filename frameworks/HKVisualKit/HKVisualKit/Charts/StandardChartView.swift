@@ -3,8 +3,14 @@ import SwiftUI
 private enum Constants {
     static let descriptionHeight: CGFloat = 13
     static let standardWidth: CGFloat = 14
-    static let chartSpacing: CGFloat = 3
+    static let tapDescriptionHeight: CGFloat = 16
     static let stackSpacing: CGFloat = 4
+}
+
+public enum StandardChartType {
+    case phasesChart
+    case defaultChart(barType: BarType)
+    case verticalProgress(foregroundElementColor: Color, backgroundElementColor: Color, max: Double)
 }
 
 /// Стандартный график (для фаз, сердца)
@@ -21,6 +27,7 @@ public struct StandardChartView: View {
     
     @State private var selectedIndex = -1
     @State private var elemWidth: CGFloat = 14
+    @State private var chartSpacing: CGFloat = 3
     private let chartHeight: CGFloat
     private let colorProvider: ColorSchemeProvider
     private let chartType: StandardChartType
@@ -54,10 +61,10 @@ public struct StandardChartView: View {
                 VStack(alignment: .center, spacing: Constants.stackSpacing) {
                     if self.dragGestureEnabled {
                         Text(self.selectedIndex >= 0 ? self.getTapDescription(for: self.selectedIndex) : "")
-                            .frame(height: 16)
+                            .frame(height: Constants.tapDescriptionHeight)
                     }
 
-                    HStack(alignment: .bottom, spacing: Constants.chartSpacing) {
+                    HStack(alignment: .bottom, spacing: self.chartSpacing) {
                         ForEach(0 ..< self.points.count, id: \.self) { index in
 
                             VStack {
@@ -72,12 +79,21 @@ public struct StandardChartView: View {
                                     getOXLineElement()
                                 }
                             }
+
+                            switch self.chartType {
+                            case .verticalProgress:
+                                if index != self.points.count - 1 {
+                                    Spacer()
+                                }
+                            default:
+                                EmptyView()
+                            }
                         }
                     }
-                    .frame(height: chartHeight + (needOXLine ? 2 * Constants.stackSpacing : 0))
+                    .frame(height: chartHeight + Constants.tapDescriptionHeight + (needOXLine ? 2 * Constants.stackSpacing : 0))
                     .allowsHitTesting(dragGestureEnabled)
                     .gesture(DragGesture(minimumDistance: 5, coordinateSpace: .global).onChanged { gesture in
-                        let selected = Int(gesture.location.x / (geometry.size.width / (CGFloat(points.count) - Constants.chartSpacing)))
+                        let selected = Int(gesture.location.x / (geometry.size.width / (CGFloat(points.count) - self.chartSpacing)))
 
                         if selected != selectedIndex, selected < points.count {
                             selectedIndex = selected
@@ -96,10 +112,18 @@ public struct StandardChartView: View {
                 .background(viewHeightReader($totalHeight))
                 .frame(width: geometry.size.width)
                 .onAppear {
-                    let chartWidth = CGFloat(points.count) * Constants.standardWidth + Constants.chartSpacing * CGFloat(points.count - 1)
+                    let chartWidth = CGFloat(points.count) * Constants.standardWidth + self.chartSpacing * CGFloat(points.count - 1)
                     if chartWidth > geometry.size.width {
-                        self.elemWidth = abs(geometry.size.width - Constants.chartSpacing * CGFloat(points.count - 1)) / CGFloat(points.count)
+                        self.elemWidth = abs(geometry.size.width - self.chartSpacing * CGFloat(points.count - 1)) / CGFloat(points.count)
                     }
+
+                    switch self.chartType {
+                    case .verticalProgress:
+                        self.chartSpacing = 0
+                    default:
+                        self.chartSpacing = 3
+                    }
+
                 }
             }
         }.frame(height: totalHeight) // - variant for ScrollView/List
@@ -117,7 +141,7 @@ public struct StandardChartView: View {
         case let .defaultChart(barType):
             return StandardChartElementView(width: elemWidth, height: height, type: barType)
         case let .verticalProgress(foregroundElementColor, backgroundElementColor, max):
-            return StandardChartElementView(width: elemWidth, height: height, type: .filled(foregroundElementColor: foregroundElementColor, backgroundElementColor: backgroundElementColor, percentage: value / max))
+            return StandardChartElementView(width: elemWidth, height: chartHeight, type: .filled(foregroundElementColor: foregroundElementColor, backgroundElementColor: backgroundElementColor, percentage: value / max))
         }
     }
 

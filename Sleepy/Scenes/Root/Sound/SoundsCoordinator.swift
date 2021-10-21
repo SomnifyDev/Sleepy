@@ -28,6 +28,10 @@ class SoundsCoordinator: ObservableObject, ViewModel {
         )
     }
 
+    func openSettings() {
+        self.parent.openTabView(of: .settings)
+    }
+
     func open(_ url: URL) {
         openedURL = url
     }
