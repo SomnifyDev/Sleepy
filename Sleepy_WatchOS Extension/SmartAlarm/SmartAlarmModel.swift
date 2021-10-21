@@ -35,8 +35,8 @@ final class SmartAlarmModel: NSObject {
 
     func activateAlarm(alarmEnd: Date) {
         guard
-            alarmEnd.minutes(from: Date()) >= 0,
-            let scheduledTime = Calendar.current.date(byAdding: .minute, value: -0, to: alarmEnd)
+            alarmEnd.minutes(from: Date()) >= 26,
+            let scheduledTime = Calendar.current.date(byAdding: .minute, value: -25, to: alarmEnd)
         else {
             return
         }
