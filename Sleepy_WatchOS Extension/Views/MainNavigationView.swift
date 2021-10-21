@@ -33,6 +33,13 @@ struct MainNavigationView: View {
         }
     }
 
+    // MARK: Private methods
+
+    private func integerToString(_ integer: Int) -> String {
+        let minutesStr = integer > 9 ? String(integer) : "0" + String(integer)
+        return minutesStr
+    }
+
     private func setUpView() {
         guard
             UserSettings.isAlarmSet,
@@ -44,9 +51,10 @@ struct MainNavigationView: View {
             return
         }
 
-        mainInfo = "\(UserSettings.settedAlarmHours):\(UserSettings.settedAlarmMinutes)"
+        mainInfo = "\(integerToString(UserSettings.settedAlarmHours)):\(integerToString(UserSettings.settedAlarmMinutes))"
         bottomTitle = "Active".localized
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {

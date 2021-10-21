@@ -21,13 +21,13 @@ struct AlarmView: View {
             HStack {
                 Picker("Hours".localized, selection: $selectedHour) {
                     ForEach(hours, id: \.self) {
-                        Text(String($0))
+                        Text(integerToString($0))
                     }
                 }
 
                 Picker("Minutes".localized, selection: $selectedMinute) {
                     ForEach(minutes, id: \.self) {
-                        Text(String($0))
+                        Text(integerToString($0))
                     }
                 }
             }
@@ -95,5 +95,12 @@ struct AlarmView: View {
 
         selectedMinute = UserSettings.settedAlarmMinutes
         selectedHour = UserSettings.settedAlarmHours
+    }
+
+    // MARK: Private methods
+
+    private func integerToString(_ integer: Int) -> String {
+        let minutesStr = integer > 9 ? String(integer) : "0" + String(integer)
+        return minutesStr
     }
 }

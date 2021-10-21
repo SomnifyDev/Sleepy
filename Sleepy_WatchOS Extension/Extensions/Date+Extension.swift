@@ -58,4 +58,5 @@ extension Date {
     func seconds(from date: Date) -> Int {
         return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
     }
+
 }

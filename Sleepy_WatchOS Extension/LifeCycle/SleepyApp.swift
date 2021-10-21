@@ -4,24 +4,32 @@ import SwiftUI
 struct SleepyApp: App {
     @State var shouldShowNavigationView = false
     @State var checkedPermission = false
+    @State var shouldShowLoadingView = true
 
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
-                if shouldShowNavigationView {
-                    MainNavigationView()
+                if shouldShowLoadingView {
+                    LoadingAppView()
                 } else {
-                    NeedHealthAccessView()
+                    if shouldShowNavigationView {
+                        MainNavigationView()
+                    } else {
+                        NeedHealthAccessView()
+                    }
                 }
             }
             .onAppear {
                 HealthManager.shared.checkReadPermissions(type: .activeBurnedEnergy) { access, error in
-                    guard access else {
-                        return
-                    }
-                    HealthManager.shared.checkReadPermissions(type: .heart) { access, error in
-                        guard access else { return }
-                        shouldShowNavigationView = true
+                    if access {
+                        HealthManager.shared.checkReadPermissions(type: .heart) { access, error in
+                            if access {
+                                shouldShowNavigationView = true
+                            }
+                            shouldShowLoadingView = false
+                        }
+                    } else {
+                        shouldShowLoadingView = false
                     }
                 }
             }
