@@ -55,10 +55,11 @@ struct AlarmView: View {
     // MARK: Alarm methods
 
     private func activateAlarm() {
-        setUserSettingsForActivatedAlarm()
-        isAlarmActive = true
         let alarmEnd = Date().nextTimeMatchingComponents(components: DateComponents(hour: selectedHour, minute: selectedMinute))
-        smartAlarmModel.activateAlarm(alarmEnd: alarmEnd)
+        if smartAlarmModel.activateAlarm(alarmEnd: alarmEnd) {
+            setUserSettingsForActivatedAlarm()
+            isAlarmActive = true
+        }
     }
     
     private func deactivateAlarm() {

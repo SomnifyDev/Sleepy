@@ -33,14 +33,15 @@ final class SmartAlarmModel: NSObject {
         print("Session was successfully deactivated")
     }
 
-    func activateAlarm(alarmEnd: Date) {
+    func activateAlarm(alarmEnd: Date) -> Bool {
         guard
             alarmEnd.minutes(from: Date()) >= 26,
             let scheduledTime = Calendar.current.date(byAdding: .minute, value: -25, to: alarmEnd)
         else {
-            return
+            return false
         }
         setSessionStartDate(at: scheduledTime)
+        return true
     }
 
     // MARK: Private methods
@@ -86,6 +87,7 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
         if !didDetectedLightPhase {
             runVibration()
         }
+        UserSettings.isAlarmSet = false
     }
 
     func extendedRuntimeSession(
