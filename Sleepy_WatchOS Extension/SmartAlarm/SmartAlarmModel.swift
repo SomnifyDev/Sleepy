@@ -16,7 +16,7 @@ final class SmartAlarmModel: NSObject {
     private let healthManager: HealthManager = HealthManager()
     private var didDetectedLightPhase: Bool = false
 
-    override required init() {
+    required override init() {
         super.init()
         healthManager.delegate = self
     }
@@ -24,43 +24,39 @@ final class SmartAlarmModel: NSObject {
     // MARK: Methods
 
     func deactivateAlarm() {
-        guard session.state == .running else {
+        guard
+            session.state == .scheduled || session.state == .running
+        else {
             return
         }
         session.invalidate()
-        print("session was deactivated")
+        print("Session was successfully deactivated")
     }
 
     func activateAlarm(alarmEnd: Date) {
         guard
-            alarmEnd.minutes(from: Date()) >= 29,
+            alarmEnd.minutes(from: Date()) >= 26,
             let scheduledTime = Calendar.current.date(byAdding: .minute, value: -25, to: alarmEnd)
         else {
             return
         }
-        session = WKExtendedRuntimeSession()
-        session.delegate = self
         setSessionStartDate(at: scheduledTime)
-        print("session was set")
     }
 
     // MARK: Private methods
 
-    private func setSessionStartDate(at date: Date) {
-        guard session.state == .notStarted else {
-            return
-        }
-        session.start(at: date)
+    private func setSessionStartDate(at scheduledTime: Date) {
+        session = WKExtendedRuntimeSession()
+        session.delegate = self
+        session.start(at: scheduledTime)
+        print("Session was succesfully set to run at \(scheduledTime)")
     }
 
     private func runVibration() {
-        guard session.state == .running else {
-            return
-        }
-        session.notifyUser(hapticType: .notification) { (_) -> TimeInterval in
-            return 3.5
-        }
         UserSettings.isAlarmSet = false
+        session.notifyUser(hapticType: .notification) { (_) -> TimeInterval in
+            return 2.5
+        }
     }
 }
 
@@ -71,7 +67,7 @@ extension SmartAlarmModel: HealthManagerDelegate {
     func lightPhaseDetected() {
         print("HealthManagerDelegate detected light phase")
         didDetectedLightPhase = true
-        self.runVibration()
+        runVibration()
     }
 
 }
@@ -87,9 +83,9 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         print("extendedRuntimeSession will expire")
-        guard !didDetectedLightPhase else { return }
-        UserSettings.isAlarmSet = false
-        self.runVibration()
+        if !didDetectedLightPhase {
+            runVibration()
+        }
     }
 
     func extendedRuntimeSession(
@@ -99,6 +95,9 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
     ) {
         // Track when your session ends.
         // Also handle errors here.
+        print("DidInvalidateWithReason : \(reason.rawValue)")
+        print("DidInvalidateWithReason error : \(String(describing: error))")
+        UserSettings.isAlarmSet = false
     }
 
 }
@@ -107,10 +106,15 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
 
 extension SmartAlarmModel: WKExtensionDelegate {
 
+    // The system calls this method after launching your app in response to a scheduled extended runtime session.
+    // This occurs if your app terminates after scheduling a session but before that session’s start date.
+    // The system may also call this method if your app crashes during an extended runtime session, letting you resume that session.
+    // When implementing this method, set the session’s delegate to resume the session.
+    // If you do not set the session’s delegate, the system ends the session.
     func handle(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         print("handled extendedRuntimeSession")
+        extendedRuntimeSession.delegate = self
         session = extendedRuntimeSession
-        session.delegate = self
     }
 
     func applicationDidFinishLaunching() {
@@ -124,36 +128,6 @@ extension SmartAlarmModel: WKExtensionDelegate {
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
-    }
-
-    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
-        // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
-        for task in backgroundTasks {
-            // Use a switch statement to check the task type
-            switch task {
-            case let backgroundTask as WKApplicationRefreshBackgroundTask:
-                // Be sure to complete the background task once you’re done.
-                backgroundTask.setTaskCompletedWithSnapshot(false)
-            case let snapshotTask as WKSnapshotRefreshBackgroundTask:
-                // Snapshot tasks have a unique completion call, make sure to set your expiration date
-                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
-            case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                // Be sure to complete the connectivity task once you’re done.
-                connectivityTask.setTaskCompletedWithSnapshot(false)
-            case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
-                // Be sure to complete the URL session task once you’re done.
-                urlSessionTask.setTaskCompletedWithSnapshot(false)
-            case let relevantShortcutTask as WKRelevantShortcutRefreshBackgroundTask:
-                // Be sure to complete the relevant-shortcut task once you're done.
-                relevantShortcutTask.setTaskCompletedWithSnapshot(false)
-            case let intentDidRunTask as WKIntentDidRunRefreshBackgroundTask:
-                // Be sure to complete the intent-did-run task once you're done.
-                intentDidRunTask.setTaskCompletedWithSnapshot(false)
-            default:
-                // make sure to complete unhandled task types
-                task.setTaskCompletedWithSnapshot(false)
-            }
-        }
     }
 
 }
