@@ -6,16 +6,18 @@ import HKCoreSleep
 final class HKNumericTypesStatisticsProvider {
     func handleNumericStatistic(for dataType: NumericDataType, of indicatorType: IndicatorType, sleep: Sleep) -> Double? {
         switch dataType {
-        case .heart, .respiratory:
-            return switchType(for: indicatorType, for: sleep.heartSamples, with: HKUnit(from: "count/min"))
+        case .heart:
+            return self.switchType(for: indicatorType, for: sleep.phases?.flatMap { $0.heartData })
+        case .respiratory:
+            return self.switchType(for: indicatorType, for: sleep.phases?.flatMap { $0.breathData })
         case .energy:
-            return switchType(for: indicatorType, for: sleep.energySamples, with: HKUnit.kilocalorie())
+            return self.switchType(for: indicatorType, for: sleep.phases?.flatMap { $0.energyData })
         }
     }
 
-    private func switchType(for indicatorType: IndicatorType, for samples: [HKSample]?, with unit: HKUnit) -> Double? {
-        if let healthData = samples as? [HKQuantitySample] {
-            let data = healthData.map { $0.quantity.doubleValue(for: unit) }
+    private func switchType(for indicatorType: IndicatorType, for samples: [SampleData]?) -> Double? {
+        if let samples = samples {
+            let data = samples.map { $0.value }
 
             switch indicatorType {
             case .min:

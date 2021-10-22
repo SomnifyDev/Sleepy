@@ -69,16 +69,15 @@ public final class HKStatisticsProvider: HKStatistics {
         guard let sleep = sleep else { return [] }
         switch healthtype {
         case .energy:
-            return generalStatisticsProvider.getData(for: .energy, sleepData: sleep.energySamples)
+            return generalStatisticsProvider.getData(for: .energy, sleepData: sleep.phases?.flatMap { $0.energyData })
         case .heart:
-            return generalStatisticsProvider.getData(for: .heart, sleepData: sleep.heartSamples)
-        case .asleep:
-            return generalStatisticsProvider.getData(for: .asleep, sleepData: sleep.asleepSamples)
-        case .inbed:
-            return generalStatisticsProvider.getData(for: .inbed, sleepData: sleep.inBedSamples)
+            return generalStatisticsProvider.getData(for: .heart, sleepData: sleep.phases?.flatMap { $0.heartData })
         case .respiratory:
-            return generalStatisticsProvider.getData(for: .respiratory, sleepData: sleep.respiratorySamples)
+            return generalStatisticsProvider.getData(for: .respiratory, sleepData: sleep.phases?.flatMap { $0.breathData })
+        case .asleep, .inbed:
+            assertionFailure("Do not use this method for that. You can get inbed asleep stat from date intervals in Sleep object")
         }
+        return []
     }
 
     /// Возвращает границы сна (начало, конец)
@@ -124,8 +123,29 @@ public final class HKStatisticsProvider: HKStatistics {
                                   bundlePrefixes: [String] = ["com.apple"],
                                   completion: @escaping ([Double]) -> Void)
     {
-        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, _ in
-            completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: sleepData) ?? [])
+        healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, samples, _ in
+            switch healthType {
+            case .energy:
+                if let healthData = samples as? [HKQuantitySample] {
+                    let data = healthData.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit.kilocalorie())) }
+                    completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: data) ?? [])
+                }
+            case .heart:
+                if let healthData = samples as? [HKQuantitySample] {
+                    let data = healthData.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) }
+                    completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: data) ?? [])
+                }
+            case .respiratory:
+                if let healthData = samples as? [HKQuantitySample] {
+                    let data = healthData.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) }
+                    completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: data) ?? [])
+                }
+            case .asleep, .inbed:
+                if let healthData = samples {
+                    let data = healthData.map { abs(Double($0.startDate.minutes(from: $0.endDate))) }
+                    completion(data)
+                }
+            }
         }
     }
 }

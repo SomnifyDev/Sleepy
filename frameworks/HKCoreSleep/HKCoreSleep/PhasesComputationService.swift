@@ -31,18 +31,38 @@ final class PhasesComputationService {
 
             let interval = DateInterval(start: heartRateTimeData[index], end: heartRateTimeData[index + 3])
             let condition: Condition = verdictCoefficient > 0.5 ? .deep : isPotencialAwake ? .awake : .light
-            let meanHeartRate: Double = heartRateValuesData[index ... index + 3].reduce(0.0) { $0 + Double($1) } / 4.0
+
+            let phaseHeartRate = heartRateValuesData[index ... index + 3]
+            let meanHeartRate: Double = phaseHeartRate.reduce(0.0) { $0 + Double($1) } / 4.0
+
+            // формируем объекты SampleData каждого показателя здоровья на промежутке фазы
+            let heartSampleData: [HKSample] = heartSamples.reversed().filter { $0.startDate >= interval.start && $0.endDate <= interval.end  }
+            let energySampleData: [HKSample] = energySamples.reversed().filter { $0.startDate >= interval.start && $0.endDate <= interval.end  }
+            let breathSampleData: [HKSample] = breathSamples.reversed().filter { $0.startDate >= interval.start && $0.endDate <= interval.end  }
+
+            guard let quantityHeart = heartSampleData as? [HKQuantitySample],
+                  let quantityEnergy = energySampleData as? [HKQuantitySample],
+                  let quantityBreath = breathSampleData as? [HKQuantitySample] else {
+                      continue
+                  }
+
 
             phasesData.append(Phase(interval: interval,
                                     condition: condition,
+                                    heartData: quantityHeart.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) },
+                                    energyData: quantityEnergy.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit.kilocalorie())) },
+                                    breathData: quantityBreath.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) },
                                     verdictCoefficient: verdictCoefficient,
                                     meanHeartRate: meanHeartRate,
-                                    chartPoint: getChartPoint(condition: condition, verdictCoefficient: verdictCoefficient, meanHeartRate: meanHeartRate)))
+                                    chartPoint: self.getChartPoint(condition: condition, verdictCoefficient: verdictCoefficient, meanHeartRate: meanHeartRate)))
         }
 
         if !phasesData.isEmpty {
             phasesData.append(Phase(interval: DateInterval(start: sleepInterval.end, end: sleepInterval.end),
                                     condition: .awake,
+                                    heartData: [],
+                                    energyData: [],
+                                    breathData: [],
                                     verdictCoefficient: 1,
                                     meanHeartRate: nil,
                                     chartPoint: 1.1))

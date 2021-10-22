@@ -9,6 +9,11 @@ public enum Condition {
 public struct SampleData {
     public let date: Date
     public let value: Double
+
+    public init(date: Date, value: Double) {
+        self.date = date
+        self.value = value
+    }
 }
 
 public struct Phase {

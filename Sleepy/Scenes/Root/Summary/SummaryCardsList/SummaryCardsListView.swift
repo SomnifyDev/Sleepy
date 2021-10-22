@@ -17,6 +17,7 @@ struct SummaryCardsListView: View {
 
                 ScrollView {
                     VStack(alignment: .center) {
+                        // TODO: почему something is broken private и не изменяется нигде
                         if somethingBroken {
                             BannerView(bannerViewType: .advice(type: .wearMore, imageSystemName: "wearAdvice"),
                                        colorProvider: viewModel.colorProvider)

@@ -3,25 +3,9 @@ import HealthKit
 import HKCoreSleep
 
 final class HKGeneralStatisticsProvider {
-    func getData(for healthType: HKService.HealthType, sleepData: [HKSample]?) -> [Double] {
-        switch healthType {
-        case .energy:
-            if let energyData = sleepData as? [HKQuantitySample] {
-                let data = energyData.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
-                return data
-            }
-
-        case .heart, .respiratory:
-            if let data = sleepData as? [HKQuantitySample] {
-                let data = data.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
-                return data
-            }
-
-        case .asleep, .inbed:
-            if let categData = sleepData as? [HKCategorySample] {
-                let data = categData.map { Double($0.endDate.minutes(from: $0.startDate)) }
-                return data
-            }
+    func getData(for healthType: HKService.HealthType, sleepData: [SampleData]?) -> [Double] {
+        if let sleepData = sleepData {
+            return sleepData.map { $0.value }
         }
         print("sleepData is probably nil")
         return []
