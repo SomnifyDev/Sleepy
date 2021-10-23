@@ -15,6 +15,8 @@ final class SmartAlarmModel: NSObject {
     private var healthStore: HKHealthStore = HKHealthStore()
     private let healthManager: HealthManager = HealthManager()
     private var didDetectedLightPhase: Bool = false
+    private var seconds: Int = 1560 // Equals to 26 mins
+    private var timer: Timer?
 
     required override init() {
         super.init()
@@ -35,8 +37,8 @@ final class SmartAlarmModel: NSObject {
 
     func activateAlarm(alarmEnd: Date) -> Bool {
         guard
-            alarmEnd.minutes(from: Date()) >= 26,
-            let scheduledTime = Calendar.current.date(byAdding: .minute, value: -25, to: alarmEnd)
+            alarmEnd.minutes(from: Date()) >= 29,
+            let scheduledTime = Calendar.current.date(byAdding: .minute, value: -28, to: alarmEnd)
         else {
             return false
         }
@@ -59,6 +61,33 @@ final class SmartAlarmModel: NSObject {
             return 2.5
         }
     }
+
+    private func startTimer() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.timer = Timer.scheduledTimer(
+                timeInterval: 1,
+                target: self,
+                selector: #selector(self.updateTimer),
+                userInfo: nil,
+                repeats: true
+            )
+            self.timer?.fire()
+        }
+    }
+
+    @objc
+    private func updateTimer() {
+        guard seconds != 0 else {
+            timer?.invalidate()
+            runVibration()
+            return
+        }
+        seconds -= 1
+    }
+
 }
 
 // MARK: HealthManagerDelegate
@@ -80,13 +109,11 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
     func extendedRuntimeSessionDidStart(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         print("RuntimeSession did start")
         healthManager.subscribeToHeartBeatChanges()
+        startTimer()
     }
 
     func extendedRuntimeSessionWillExpire(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
         print("extendedRuntimeSession will expire")
-        if !didDetectedLightPhase {
-            runVibration()
-        }
         UserSettings.isAlarmSet = false
     }
 
@@ -95,10 +122,6 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
         didInvalidateWith reason: WKExtendedRuntimeSessionInvalidationReason,
         error: Error?
     ) {
-        // Track when your session ends.
-        // Also handle errors here.
-        print("DidInvalidateWithReason : \(reason.rawValue)")
-        print("DidInvalidateWithReason error : \(String(describing: error))")
         UserSettings.isAlarmSet = false
     }
 
@@ -114,7 +137,6 @@ extension SmartAlarmModel: WKExtensionDelegate {
     // When implementing this method, set the session’s delegate to resume the session.
     // If you do not set the session’s delegate, the system ends the session.
     func handle(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        print("handled extendedRuntimeSession")
         extendedRuntimeSession.delegate = self
         session = extendedRuntimeSession
     }
