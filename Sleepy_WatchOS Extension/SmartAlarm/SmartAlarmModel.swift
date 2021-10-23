@@ -63,7 +63,10 @@ final class SmartAlarmModel: NSObject {
     }
 
     private func startTimer() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.timer = Timer.scheduledTimer(
                 timeInterval: 1,
                 target: self,
@@ -134,7 +137,6 @@ extension SmartAlarmModel: WKExtensionDelegate {
     // When implementing this method, set the session’s delegate to resume the session.
     // If you do not set the session’s delegate, the system ends the session.
     func handle(_ extendedRuntimeSession: WKExtendedRuntimeSession) {
-        print("handled extendedRuntimeSession")
         extendedRuntimeSession.delegate = self
         session = extendedRuntimeSession
     }
