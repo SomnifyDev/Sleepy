@@ -98,8 +98,7 @@ public final class HKStatisticsProvider: HKStatistics {
                                                indicatorType: IndicatorType,
                                                for timeInterval: DateInterval,
                                                bundlePrefixes: [String] = ["com.apple"],
-                                               completion: @escaping (Double?) -> Void)
-    {
+                                               completion: @escaping (Double?) -> Void) {
         healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, _ in
             completion(self?.generalStatisticsProvider.getDataWithIndicator(for: healthType, for: indicatorType, sleepData: sleepData))
         }
@@ -110,8 +109,7 @@ public final class HKStatisticsProvider: HKStatistics {
                                                    indicatorType _: IndicatorType,
                                                    for timeInterval: DateInterval,
                                                    bundlePrefixes _: [String] = ["com.apple"],
-                                                   completion: @escaping (Double?) -> Void)
-    {
+                                                   completion: @escaping (Double?) -> Void) {
         healthService.readMetaData(key: healthType.metaDataKey, interval: timeInterval, ascending: true) { _, data, _ in
             completion(data)
         }
@@ -121,8 +119,7 @@ public final class HKStatisticsProvider: HKStatistics {
     public func getDataByInterval(healthType: HKService.HealthType,
                                   for timeInterval: DateInterval,
                                   bundlePrefixes: [String] = ["com.apple"],
-                                  completion: @escaping ([Double]) -> Void)
-    {
+                                  completion: @escaping ([Double]) -> Void) {
         healthService.readData(type: healthType, interval: timeInterval, ascending: true, bundlePrefixes: bundlePrefixes) { [weak self] _, samples, _ in
             switch healthType {
             case .energy:
@@ -130,12 +127,7 @@ public final class HKStatisticsProvider: HKStatistics {
                     let data = healthData.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit.kilocalorie())) }
                     completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: data) ?? [])
                 }
-            case .heart:
-                if let healthData = samples as? [HKQuantitySample] {
-                    let data = healthData.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) }
-                    completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: data) ?? [])
-                }
-            case .respiratory:
+            case .heart, .respiratory:
                 if let healthData = samples as? [HKQuantitySample] {
                     let data = healthData.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) }
                     completion(self?.generalStatisticsProvider.getData(for: healthType, sleepData: data) ?? [])

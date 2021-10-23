@@ -49,7 +49,7 @@ struct SettingsCoordinatorView: View {
                                    // TODO: replace with ours website
                                    ActivityViewController(activityItems: [URL(string: "https://www.apple.com")!])
                                })
-                }
+                }.disabled(true)
 
                 Section(header: HFView(text: "Sound Recording".localized, imageName: "mic.circle")) {
                     Stepper(String(format: "Bitrate – %d".localized, bitrateValue),
@@ -61,7 +61,7 @@ struct SettingsCoordinatorView: View {
 
                     Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
                             value: $recognisionConfidenceValue,
-                            in: 10 ... 100,
+                            in: 10 ... 95,
                             step: 5) { _ in
                         saveSetting(with: recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
                     }
