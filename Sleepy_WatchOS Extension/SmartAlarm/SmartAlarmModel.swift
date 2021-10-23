@@ -75,7 +75,8 @@ final class SmartAlarmModel: NSObject {
         }
     }
 
-    @objc private func updateTimer() {
+    @objc
+    private func updateTimer() {
         guard seconds != 0 else {
             timer?.invalidate()
             runVibration()
