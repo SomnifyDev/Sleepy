@@ -23,6 +23,7 @@ public struct Phase {
     public let energyData: [SampleData]
     public let breathData: [SampleData]
 
+    // remove or refactor
     public let verdictCoefficient: Double
     public let meanHeartRate: Double?
     public let chartPoint: Double
