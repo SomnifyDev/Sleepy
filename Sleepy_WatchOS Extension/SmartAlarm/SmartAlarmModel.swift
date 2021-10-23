@@ -15,7 +15,7 @@ final class SmartAlarmModel: NSObject {
     private var healthStore: HKHealthStore = HKHealthStore()
     private let healthManager: HealthManager = HealthManager()
     private var didDetectedLightPhase: Bool = false
-    private var seconds: Int = 1560 // Equals to 23 mins
+    private var seconds: Int = 1560 // Equals to 26 mins
     private var timer: Timer?
 
     required override init() {
