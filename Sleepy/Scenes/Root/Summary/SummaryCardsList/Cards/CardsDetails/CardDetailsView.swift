@@ -14,6 +14,8 @@ struct CardDetailsView: View {
                 GeneralCardDetailView(viewModel: self.coordinator)
             case .phases:
                 PhasesCardDetailView(viewModel: self.coordinator)
+            case .breath:
+                RespiratoryCardDetailView(viewModel: self.coordinator)
             }
         }.onAppear(perform: self.sendAnalytics)
     }

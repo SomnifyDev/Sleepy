@@ -5,11 +5,10 @@ import HKVisualKit
 import SwiftUI
 import XUI
 
-struct HeartCardDetailView: View {
+struct RespiratoryCardDetailView: View {
+
     @Store var viewModel: CardDetailsViewCoordinator
     @EnvironmentObject var cardService: CardService
-    @State private var showAdvice = false
-    @State private var activeSheet: AdviceType!
 
     var body: some View {
         GeometryReader { _ in
@@ -19,20 +18,19 @@ struct HeartCardDetailView: View {
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center) {
-                        if let heartViewModel = cardService.heartViewModel,
+                        if let respiratoryViewModel = cardService.respiratoryViewModel,
                            let generalViewModel = cardService.generalViewModel {
 
                             // MARK: Chart
-
                             StandardChartView(
                                 colorProvider: viewModel.colorProvider,
                                 chartType: .defaultChart(
-                                    barType: .circle(
-                                        color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
+                                    barType: .rectangle(
+                                        color: Color(.systemBlue)
                                     )
                                 ),
                                 chartHeight: 75,
-                                points: heartViewModel.heartRateData,
+                                points: respiratoryViewModel.respiratoryRateData,
                                 dateInterval: generalViewModel.sleepInterval
                             )
                                 .roundedCardBackground(
@@ -50,52 +48,32 @@ struct HeartCardDetailView: View {
                             HorizontalStatisticCellView(
                                 data: [
                                     StatisticsCellData(
-                                        title: "Average pulse".localized,
-                                        value: heartViewModel.averageHeartRate
+                                        title: "Max. respiratory rate".localized,
+                                        value: respiratoryViewModel.maxRespiratoryRate
                                     ),
                                     StatisticsCellData(
-                                        title: "Max pulse".localized,
-                                        value: heartViewModel.maxHeartRate
+                                        title: "Mean. respiratory rate".localized,
+                                        value: respiratoryViewModel.averageRespiratoryRate
                                     ),
                                     StatisticsCellData(
-                                        title: "Min pulse".localized,
-                                        value: heartViewModel.minHeartRate
+                                        title: "Min. respiratory rate".localized,
+                                        value: respiratoryViewModel.minRespiratoryRate
                                     ),
                                 ],
                                 colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
-
-                        // MARK: Advices
-
-                        SectionNameTextView(
-                            text: "What else?".localized,
-                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
-                        )
-
-                        UsefulInfoCardView(
-                            imageName: AdviceType.heartAdvice.rawValue,
-                            title: "Heart and sleep".localized,
-                            description: "Learn more about the importance of sleep for heart health.".localized,
-                            destinationView: AdviceView(
-                                sheetType: .heartAdvice,
-                                showAdvice: $showAdvice
-                            ),
-                            showModalView: $showAdvice
-                        )
-                            .usefulInfoCardBackground(
-                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-                            )
                     }
                 }
-                .navigationTitle("Heart")
-                .onAppear(perform: self.sendAnalytics)
+                .navigationTitle("Respiratory rate".localized)
             }
         }
     }
 
+    // MARK: Private methods
+
     private func sendAnalytics() {
-        FirebaseAnalytics.Analytics.logEvent("HeartCard_viewed", parameters: [
-            "contentShown": cardService.generalViewModel != nil && cardService.heartViewModel != nil,
+        FirebaseAnalytics.Analytics.logEvent("RespiratoryCard_viewed", parameters: [
+            "contentShown": cardService.generalViewModel != nil && cardService.respiratoryViewModel != nil,
         ])
     }
 }

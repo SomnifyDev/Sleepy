@@ -29,32 +29,45 @@ public struct GeneralSleepInfoCardView: View {
                         VStack(alignment: .leading, spacing: 22) {
                             HStack(alignment: .center) {
                                 Image(systemName: "bed.double")
-                                    .summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)),
-                                                      size: 23,
-                                                      width: 30)
+                                    .summaryCardImage(
+                                        color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)),
+                                        size: 23,
+                                        width: 30
+                                    )
 
                                 VStack(alignment: .leading) {
                                     Text(viewModel.sleepInterval.start.getFormattedDate(format: "HH:mm"))
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)))
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor))
+                                        )
 
                                     Text("Drop off".localized)
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                                          size: 14)
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                                            size: 14
+                                        )
                                 }
                             }
 
                             HStack(alignment: .center) {
                                 Image(systemName: "timer")
-                                    .summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)),
-                                                      size: 27.5, width: 30)
+                                    .summaryCardImage(
+                                        color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)),
+                                        size: 27.5,
+                                        width: 30
+                                    )
 
                                 VStack(alignment: .leading) {
                                     Text(viewModel.sleepInterval.end.hoursMinutes(from: viewModel.sleepInterval.start))
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)))
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor))
+                                        )
 
                                     Text("Sleep duration".localized)
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                                          size: 14)
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                                            size: 14
+                                        )
                                 }
                             }
                         }
@@ -64,32 +77,45 @@ public struct GeneralSleepInfoCardView: View {
                         VStack(alignment: .leading, spacing: 22) {
                             HStack(alignment: .center) {
                                 Image(systemName: "sunrise.fill")
-                                    .summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)),
-                                                      size: 25,
-                                                      width: 30)
+                                    .summaryCardImage(
+                                        color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)),
+                                        size: 25,
+                                        width: 30
+                                    )
 
                                 VStack(alignment: .leading) {
                                     Text(self.viewModel.sleepInterval.end.getFormattedDate(format: "HH:mm"))
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)))
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor))
+                                        )
 
                                     Text("Awake".localized)
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                                          size: 14)
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                                            size: 14
+                                        )
                                 }
                             }
 
                             HStack(alignment: .center) {
                                 Image(systemName: "moon")
-                                    .summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)),
-                                                      size: 27.5, width: 30)
+                                    .summaryCardImage(
+                                        color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)),
+                                        size: 27.5,
+                                        width: 30
+                                    )
 
                                 VStack(alignment: .leading) {
                                     Text(self.viewModel.sleepInterval.start.hoursMinutes(from: viewModel.inbedInterval.start))
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)))
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor))
+                                        )
 
                                     Text("Falling asleep".localized)
-                                        .boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                                          size: 14)
+                                        .boldTextModifier(
+                                            color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                                            size: 14
+                                        )
                                 }
                             }
                         }

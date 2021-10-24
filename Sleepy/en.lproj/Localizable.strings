@@ -98,6 +98,15 @@
 "Learn more about the importance of sleep for heart health." = "Learn more about the importance of sleep for heart health.";
 
 
+// MARK: Summary tab, breathing rate card
+
+"Respiratory rate" = "Respiratory rate";
+"Max. respiratory rate" = "Max. respiratory rate";
+"Mean. respiratory rate" = "Mean. respiratory rate";
+"Min. respiratory rate" = "Min. respiratory rate";
+"Here is some info about respiratory rate of your last sleep" = "Here is some info about respiratory rate of your last sleep";
+"The maximal respiratory rate was %@ while the minimal was %@" = "The maximal respiratory rate was %@ while the minimal was %@";
+
 
 // MARK: History tab
 
