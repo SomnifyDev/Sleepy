@@ -62,6 +62,16 @@
                ReferencedContainer = "container:Sleepy.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D970304727257CDB000A347A"
+               BuildableName = "Sleepy WatchOS Extension Tests.xctest"
+               BlueprintName = "Sleepy WatchOS Extension Tests"
+               ReferencedContainer = "container:Sleepy.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

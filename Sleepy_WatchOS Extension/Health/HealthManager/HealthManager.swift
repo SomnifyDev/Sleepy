@@ -52,7 +52,7 @@ extension HealthManager {
         }
 
         // Set up the immutable HKObserverQuery
-        let heartRateQuery = HKObserverQuery.init(
+        let heartRateQuery = HKObserverQuery(
             sampleType: sampleType,
             predicate: nil
         ) { query, completionHandler, error in
@@ -110,16 +110,11 @@ extension HealthManager {
                 // Should only be one sample
                 for s in samples {
                     let heartRate = s.quantity.doubleValue(for: unit)
-                    let timestamp = s.endDate
 
                     // Log heart rate to my internal structure for processing
                     DispatchQueue.main.async { [weak self] in
-                        print(heartRate)
                         self?.heartDataManager.append(
-                            sample: HeartRateSample(
-                                heartRate: heartRate,
-                                timestamp: timestamp
-                            )
+                            sample: heartRate
                         )
                     }
                 }

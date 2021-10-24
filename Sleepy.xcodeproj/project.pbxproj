@@ -103,7 +103,6 @@
 		D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */; };
 		D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */; };
 		D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B727DD26FB0F4900B41683 /* AdviceView.swift */; };
-		D9B8DC3C271CB3A2002BC611 /* HeartRateSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */; };
 		D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC42271CB476002BC611 /* HeartDataManager.swift */; };
 		D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC45271CB931002BC611 /* HealthType.swift */; };
 		D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */; };
@@ -300,7 +299,6 @@
 		D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardDetailView.swift; sourceTree = "<group>"; };
 		D9B727DD26FB0F4900B41683 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
-		D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateSample.swift; sourceTree = "<group>"; };
 		D9B8DC42271CB476002BC611 /* HeartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManager.swift; sourceTree = "<group>"; };
 		D9B8DC45271CB931002BC611 /* HealthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthType.swift; sourceTree = "<group>"; };
 		D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManagerDelegate.swift; sourceTree = "<group>"; };
@@ -869,7 +867,6 @@
 			children = (
 				D9B8DC42271CB476002BC611 /* HeartDataManager.swift */,
 				D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */,
-				D9B8DC4B271CBBF6002BC611 /* HeartRateSample */,
 			);
 			path = Heart;
 			sourceTree = "<group>";
@@ -889,14 +886,6 @@
 				D903F874270E2D12008A7307 /* HealthManager.swift */,
 			);
 			path = HealthManager;
-			sourceTree = "<group>";
-		};
-		D9B8DC4B271CBBF6002BC611 /* HeartRateSample */ = {
-			isa = PBXGroup;
-			children = (
-				D9B8DC3B271CB3A2002BC611 /* HeartRateSample.swift */,
-			);
-			path = HeartRateSample;
 			sourceTree = "<group>";
 		};
 		D9E12CA52710DCF000F55BF4 /* UserData */ = {
@@ -987,7 +976,7 @@
 		D94419C5266CD3C40019902F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					D94419CC266CD3C40019902F = {
@@ -1275,7 +1264,6 @@
 				D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */,
 				D955D4C42701A97100C44B8D /* NavItemView.swift in Sources */,
 				D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */,
-				D9B8DC3C271CB3A2002BC611 /* HeartRateSample.swift in Sources */,
 				D9441A12266CD4C60019902F /* NotificationView.swift in Sources */,
 				D9E12CA42710DC9000F55BF4 /* UserDefaultsWrapper.swift in Sources */,
 				D91668AB2701FD9200BD7745 /* Date+Extension.swift in Sources */,
@@ -1448,7 +1436,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1496,7 +1484,7 @@
 					"\"nanopb\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1512,7 +1500,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sleepy/Sleepy.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Sleepy/Preview Content\"";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sleepy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1560,7 +1548,7 @@
 					"\"nanopb\"",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1573,8 +1561,9 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Sleepy_WatchOS Extension/Sleepy_WatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1582,7 +1571,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1598,16 +1587,18 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Sleepy_WatchOS Extension/Sleepy_WatchOS Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1624,14 +1615,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1648,14 +1639,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
