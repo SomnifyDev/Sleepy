@@ -26,7 +26,9 @@ public class HKService {
                 return "Energy consumption"
             case .heart:
                 return "Heart rate mean"
-            case .asleep, .respiratory, .inbed:
+            case .respiratory:
+                return "Respiratory rate"
+            case .asleep, .inbed:
                 return ""
             }
         }
@@ -144,17 +146,17 @@ public class HKService {
                                               sortDescriptors: sortDescriptors,
                                               resultsHandler: { sampleQuery, samples, error in
 
-                                                  // trying to fiter samples by bundle we need and type if inbed/asleep requested
-                                                  let samplesFiltered = samples?.filter { sample in
-                                                      (!bundlePrefixes.isEmpty
-                                                          ? bundlePrefixes.contains(where: { sample.sourceRevision.source.bundleIdentifier.hasPrefix($0) })
-                                                          : true) &&
-                                                          (sample as? HKCategorySample)?.value == ((type == .asleep)
-                                                              ? HKCategoryValueSleepAnalysis.asleep.rawValue
-                                                              : HKCategoryValueSleepAnalysis.inBed.rawValue)
-                                                  }
-                                                  completionHandler(sampleQuery, samplesFiltered, error)
-                                              })
+                        // trying to fiter samples by bundle we need and type if inbed/asleep requested
+                        let samplesFiltered = samples?.filter { sample in
+                            (!bundlePrefixes.isEmpty
+                             ? bundlePrefixes.contains(where: { sample.sourceRevision.source.bundleIdentifier.hasPrefix($0) })
+                             : true) &&
+                            (sample as? HKCategorySample)?.value == ((type == .asleep)
+                                                                     ? HKCategoryValueSleepAnalysis.asleep.rawValue
+                                                                     : HKCategoryValueSleepAnalysis.inBed.rawValue)
+                        }
+                        completionHandler(sampleQuery, samplesFiltered, error)
+                    })
 
                     HKService.healthStore.execute(query)
                 }
@@ -184,15 +186,15 @@ public class HKService {
                                           sortDescriptors: sortDescriptors,
                                           resultsHandler: { sampleQuery, samples, error in
 
-                                              let samplesFiltered = samples?.filter { sample in
-                                                  (sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.inBed.rawValue
-                                              }
+                    let samplesFiltered = samples?.filter { sample in
+                        (sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+                    }
 
-                                              if let metadata = samplesFiltered?.first?.metadata {
-                                                  completionHandler(sampleQuery, metadata[key] as? Double, error)
-                                                  return
-                                              }
-                                          })
+                    if let metadata = samplesFiltered?.first?.metadata {
+                        completionHandler(sampleQuery, Double(metadata[key] as? String ?? ""), error)
+                        return
+                    }
+                })
 
                 HKService.healthStore.execute(query)
 

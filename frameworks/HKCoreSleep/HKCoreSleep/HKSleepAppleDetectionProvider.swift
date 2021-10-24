@@ -36,17 +36,23 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
             if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
                 var metadata: [String: Any] = [:]
+                if let phases = sleep.phases {
 
-                if let quantityData = sleep.heartSamples as? [HKQuantitySample], !quantityData.isEmpty {
-                    let data = quantityData.map { $0.quantity.doubleValue(for: HKUnit(from: "count/min")) }
-                    let value = (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
-                    metadata["Heart rate mean"] = String(format: "%.3f", value)
-                }
+                    let heartRates = phases.flatMap { $0.heartData }
+                    let energyRates = phases.flatMap { $0.energyData }
+                    let breathRates = phases.flatMap { $0.breathData }
 
-                if let quantityData = sleep.energySamples as? [HKQuantitySample], !quantityData.isEmpty {
-                    let data = quantityData.map { $0.quantity.doubleValue(for: HKUnit.kilocalorie()) }
-                    let value = (data.reduce(0.0) { $0 + Double($1) })
-                    metadata["Energy consumption"] = String(format: "%.3f", value)
+                    let heartValues = heartRates.compactMap { $0.value }
+                    let energyValues = energyRates.compactMap { $0.value }
+                    let breathValues = breathRates.compactMap { $0.value }
+
+                    let meanHeartRate = (heartValues.reduce(0.0, +)) / Double(heartValues.count)
+                    let meanEnergyRate = (energyValues.reduce(0.0, +)) / Double(energyValues.count)
+                    let meanBreathRate = (breathValues.reduce(0.0, +)) / Double(breathValues.count)
+
+                    metadata["Heart rate mean"] = String(format: "%.3f", meanHeartRate)
+                    metadata["Energy consumption"] = String(format: "%.3f", meanEnergyRate)
+                    metadata["Respiratory rate"] = String(format: "%.3f", meanBreathRate)
                 }
 
                 let asleepSample = HKCategorySample(type: sleepType,
@@ -91,32 +97,25 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                                              energySamplesRaw: energyRaw,
                                              respiratoryRaw: respiratoryRaw)
 
-            if sleepData.error {
-                completionHandler(nil)
-                return
-            }
+            guard !sleepData.error,
+                  let asleepInterval = sleepData.asleepInterval,
+                  let inbedInterval = sleepData.inbedInterval,
+                  let energySamples = sleepData.energySamples,
+                  let heartSamples = sleepData.heartSamples,
+                  let respiratorySamples = sleepData.respiratorySamples else {
+                      completionHandler(nil)
+                      return
+                  }
 
-            guard let asleepInterval = sleepData.asleepInterval else {
-                completionHandler(nil)
-                return
-            }
-
-            guard let inbedInterval = sleepData.inbedInterval else {
-                completionHandler(nil)
-                return
-            }
+            // определяем фазы на получившимся отрезке
+            let phases = PhasesComputationService.computatePhases(energySamples: energySamples,
+                                                                  heartSamples: heartSamples,
+                                                                  breathSamples: respiratorySamples,
+                                                                  sleepInterval: asleepInterval)
 
             let sleep = Sleep(sleepInterval: asleepInterval,
                               inBedInterval: inbedInterval,
-                              inBedSamples: sleepData.inBedSamples,
-                              asleepSamples: sleepData.asleepSamples,
-                              heartSamples: sleepData.heartSamples,
-                              energySamples: sleepData.energySamples,
-                              respiratorySamples: sleepData.respiratorySamples,
-                              phases: nil)
-
-            let phasesService = PhasesComputationService(sleep: sleep)
-            sleep.phases = phasesService.phasesData
+                              phases: phases)
 
             self.saveSleep(sleep: sleep, completionHandler: { [weak self] success, error in
                 guard error == nil else {
@@ -225,14 +224,13 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                              heartSamplesRaw: [HKSample]?,
                              energySamplesRaw: [HKSample]?,
                              respiratoryRaw: [HKSample]?) -> (asleepInterval: DateInterval?,
-                                                                inbedInterval: DateInterval?,
-                                                                inBedSamples: [HKSample]?,
-                                                                asleepSamples: [HKSample]?,
-                                                                heartSamples: [HKSample]?,
-                                                                energySamples: [HKSample]?,
-                                                                respiratorySamples: [HKSample]?,
-                                                                error: Bool)
-    {
+                                                              inbedInterval: DateInterval?,
+                                                              inBedSamples: [HKSample]?,
+                                                              asleepSamples: [HKSample]?,
+                                                              heartSamples: [HKSample]?,
+                                                              energySamples: [HKSample]?,
+                                                              respiratorySamples: [HKSample]?,
+                                                              error: Bool) {
         // минимальные требования для определения
         guard let asleepSamplesRaw = asleepSamplesRaw, let inbedSamplesRaw = inbedSamplesRaw else {
             return (nil, nil, nil, nil, nil, nil, nil, true)
@@ -333,7 +331,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                                                                             HKSampleQuery?, [HKSample]?, Error?, // energy
                                                                             HKSampleQuery?, [HKSample]?, Error?, // inbed
                                                                             HKSampleQuery?, [HKSample]?, Error?) // respiratory
-            -> Void))
+                                                                           -> Void))
     {
         var query1: HKSampleQuery?
         var samples1: [HKSample]?

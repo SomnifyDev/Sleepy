@@ -2,17 +2,10 @@ import Foundation
 import HealthKit
 
 final class PhasesComputationService {
-    var phasesData: [Phase] = []
 
-    init(sleep: Sleep) {
-        computatePhases(sleep: sleep)
-    }
-
-    // MARK: Phases computation
-
-    private func computatePhases(sleep: Sleep) {
-        let (heartRateTimeData, heartRateValuesData, meanHeartRate) = getPulseData(heartSamples: sleep.heartSamples?.reversed())
-        let (energyTimeData, energyValuesData) = getEnergyData(energySamples: sleep.energySamples?.reversed())
+    public static func computatePhases(energySamples: [HKSample], heartSamples: [HKSample], breathSamples: [HKSample], sleepInterval: DateInterval) -> [Phase] {
+        let (heartRateTimeData, heartRateValuesData, meanHeartRate) = getPulseData(heartSamples: heartSamples.reversed())
+        let (energyTimeData, energyValuesData) = getEnergyData(energySamples: energySamples.reversed())
 
         guard
             !heartRateTimeData.isEmpty,
@@ -21,8 +14,10 @@ final class PhasesComputationService {
             !energyValuesData.isEmpty,
             let meanHeartRate = meanHeartRate
         else {
-            return
+            return []
         }
+
+        var phasesData: [Phase] = []
 
         for index in stride(from: 0, to: heartRateTimeData.count, by: 3) {
             guard index + 3 < heartRateTimeData.count else { break }
@@ -36,27 +31,48 @@ final class PhasesComputationService {
 
             let interval = DateInterval(start: heartRateTimeData[index], end: heartRateTimeData[index + 3])
             let condition: Condition = verdictCoefficient > 0.5 ? .deep : isPotencialAwake ? .awake : .light
-            let meanHeartRate: Double = heartRateValuesData[index ... index + 3].reduce(0.0) { $0 + Double($1) } / 4.0
+
+            let phaseHeartRate = heartRateValuesData[index ... index + 3]
+            let meanHeartRate: Double = phaseHeartRate.reduce(0.0) { $0 + Double($1) } / 4.0
+
+            // формируем объекты SampleData каждого показателя здоровья на промежутке фазы
+            let heartSampleData: [HKSample] = heartSamples.reversed().filter { $0.startDate >= interval.start && $0.endDate <= interval.end  }
+            let energySampleData: [HKSample] = energySamples.reversed().filter { $0.startDate >= interval.start && $0.endDate <= interval.end  }
+            let breathSampleData: [HKSample] = breathSamples.reversed().filter { $0.startDate >= interval.start && $0.endDate <= interval.end  }
+
+            guard let quantityHeart = heartSampleData as? [HKQuantitySample],
+                  let quantityEnergy = energySampleData as? [HKQuantitySample],
+                  let quantityBreath = breathSampleData as? [HKQuantitySample] else {
+                      continue
+                  }
+
 
             phasesData.append(Phase(interval: interval,
                                     condition: condition,
+                                    heartData: quantityHeart.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) },
+                                    energyData: quantityEnergy.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit.kilocalorie())) },
+                                    breathData: quantityBreath.map { SampleData(date: $0.startDate, value: $0.quantity.doubleValue(for: HKUnit(from: "count/min"))) },
                                     verdictCoefficient: verdictCoefficient,
                                     meanHeartRate: meanHeartRate,
-                                    chartPoint: getChartPoint(condition: condition, verdictCoefficient: verdictCoefficient, meanHeartRate: meanHeartRate)))
+                                    chartPoint: self.getChartPoint(condition: condition, verdictCoefficient: verdictCoefficient, meanHeartRate: meanHeartRate)))
         }
 
         if !phasesData.isEmpty {
-            phasesData.append(Phase(interval: DateInterval(start: sleep.sleepInterval.end, end: sleep.sleepInterval.end),
+            phasesData.append(Phase(interval: DateInterval(start: sleepInterval.end, end: sleepInterval.end),
                                     condition: .awake,
+                                    heartData: [],
+                                    energyData: [],
+                                    breathData: [],
                                     verdictCoefficient: 1,
                                     meanHeartRate: nil,
                                     chartPoint: 1.1))
         }
+        return phasesData
     }
 
     // MARK: Coefficients computation
 
-    private func lastEnergyTimeIntervalBeforeLastHeartRate(energyTimeData: [Date], heartRateTime: Date) -> Double {
+    private static func lastEnergyTimeIntervalBeforeLastHeartRate(energyTimeData: [Date], heartRateTime: Date) -> Double {
         var previousInterval = heartRateTime.timeIntervalSince(energyTimeData[0])
 
         for i in 1 ..< energyTimeData.count {
@@ -69,7 +85,7 @@ final class PhasesComputationService {
         return (previousInterval >= 900) ? 0.35 : 0.0
     }
 
-    private func heartRateJumps(heartRateData: Array<Int>.SubSequence) -> Double {
+    private static func heartRateJumps(heartRateData: Array<Int>.SubSequence) -> Double {
         guard
             let max = heartRateData.max(),
             let min = heartRateData.min()
@@ -80,11 +96,11 @@ final class PhasesComputationService {
         return max - min < 3 ? 0.45 : 0.0
     }
 
-    private func isPulseIntervalLessThanAverage(heartRateData: Array<Int>.SubSequence, meanHeartRate: Double) -> Double {
+    private static func isPulseIntervalLessThanAverage(heartRateData: Array<Int>.SubSequence, meanHeartRate: Double) -> Double {
         return (heartRateData.reduce(0.0) { $0 + Double($1) } / 4.0) < meanHeartRate ? 0.2 : 0.0
     }
 
-    private func isDifferenceBiggerThan20Percents(measurings: Array<Int>.SubSequence) -> Bool {
+    private static func isDifferenceBiggerThan20Percents(measurings: Array<Int>.SubSequence) -> Bool {
         let stack1 = measurings[...(measurings.startIndex + 3)], stack2 = measurings[(measurings.startIndex + 3)...]
         guard
             let min = stack1.min(),
@@ -97,7 +113,7 @@ final class PhasesComputationService {
 
     // MARK: Phases chart points
 
-    private func getChartPoint(condition: Condition, verdictCoefficient: Double, meanHeartRate: Double) -> Double {
+    private static func getChartPoint(condition: Condition, verdictCoefficient: Double, meanHeartRate: Double) -> Double {
         switch condition {
         case .awake:
             return getAwakeChartPoint(verdictCoefficient: verdictCoefficient, meanHeartRate: meanHeartRate)
@@ -108,11 +124,11 @@ final class PhasesComputationService {
         }
     }
 
-    private func getAwakeChartPoint(verdictCoefficient _: Double, meanHeartRate _: Double) -> Double {
+    private static func getAwakeChartPoint(verdictCoefficient _: Double, meanHeartRate _: Double) -> Double {
         return 1.1
     }
 
-    private func getLightChartPoint(verdictCoefficient: Double, meanHeartRate: Double) -> Double {
+    private static func getLightChartPoint(verdictCoefficient: Double, meanHeartRate: Double) -> Double {
         let tmp = 1 - verdictCoefficient
         if doubleEqual(tmp, 1) {
             return 0.75 + (meanHeartRate.truncatingRemainder(dividingBy: 10) / 100)
@@ -126,7 +142,7 @@ final class PhasesComputationService {
         return 0.0
     }
 
-    private func getDeepChartPoint(verdictCoefficient: Double, meanHeartRate: Double) -> Double {
+    private static func getDeepChartPoint(verdictCoefficient: Double, meanHeartRate: Double) -> Double {
         let tmp = 1 - verdictCoefficient
         if doubleEqual(tmp, 0) {
             return 0.15 + (meanHeartRate.truncatingRemainder(dividingBy: 10) / 100)
@@ -142,7 +158,7 @@ final class PhasesComputationService {
 
     // MARK: Data handlers
 
-    private func getPulseData(heartSamples: [HKSample]?) -> ([Date], [Int], Double?) {
+    private static func getPulseData(heartSamples: [HKSample]?) -> ([Date], [Int], Double?) {
         guard
             let heartSamples = heartSamples as? [HKQuantitySample]
         else {
@@ -156,7 +172,7 @@ final class PhasesComputationService {
                 (heartRateData.reduce(0.0) { $0 + Double($1) }) / Double(heartRateData.count))
     }
 
-    private func getEnergyData(energySamples: [HKSample]?) -> ([Date], [Double]) {
+    private static func getEnergyData(energySamples: [HKSample]?) -> ([Date], [Double]) {
         guard
             let energySamples = energySamples as? [HKQuantitySample]
         else {
@@ -169,7 +185,7 @@ final class PhasesComputationService {
 
     // MARK: Auxiliary functions
 
-    private func doubleEqual(_ a: Double, _ b: Double) -> Bool {
+    private static func doubleEqual(_ a: Double, _ b: Double) -> Bool {
         return fabs(a - b) < Double.ulpOfOne
     }
 }
