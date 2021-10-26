@@ -15,13 +15,13 @@ struct RootCoordinatorView: View {
                 .tabItem { Label("history".localized, systemImage: "calendar") }
                 .tag(TabBarTab.history)
 
+            SoundsCoordinatorView(viewModel: viewModel.soundsCoordinator)
+                .tabItem { Label("sounds".localized, systemImage: "waveform.and.mic") }
+                .tag(TabBarTab.soundRecognision)
+
             AlarmCoordinatorView(viewModel: viewModel.alarmCoordinator)
                 .tabItem { Label("alarm".localized, systemImage: "alarm.fill") }
                 .tag(TabBarTab.alarm)
-
-            SoundsCoordinatorView(viewModel: viewModel.soundsCoordinator)
-                .tabItem { Label("sounds".localized, systemImage: "mic") }
-                .tag(TabBarTab.soundRecognision)
 
             SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
                 .tabItem { Label("settings".localized, systemImage: "gear") }

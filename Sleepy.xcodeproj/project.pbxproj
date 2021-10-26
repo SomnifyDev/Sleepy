@@ -89,6 +89,7 @@
 		D955D4C92701B11C00C44B8D /* SmartAlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955D4C82701B11C00C44B8D /* SmartAlarmModel.swift */; };
 		D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; };
 		D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC442687126100A0E018 /* HKStatistics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D97030672725DDAE000A347A /* RespiratoryCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97030662725DDAE000A347A /* RespiratoryCardDetailView.swift */; };
 		D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; platformFilter = ios; };
 		D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D97C396426BD1531005CCDFB /* SettingsKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D984A91526FB7B2500F800B3 /* AdviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */; };
@@ -286,6 +287,7 @@
 		D955D4C32701A97100C44B8D /* NavItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavItemView.swift; sourceTree = "<group>"; };
 		D955D4C82701B11C00C44B8D /* SmartAlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlarmModel.swift; sourceTree = "<group>"; };
 		D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKStatistics.xcodeproj; path = frameworks/HKStatistics/HKStatistics.xcodeproj; sourceTree = "<group>"; };
+		D97030662725DDAE000A347A /* RespiratoryCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespiratoryCardDetailView.swift; sourceTree = "<group>"; };
 		D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SettingsKit.xcodeproj; path = frameworks/SettingsKit/SettingsKit.xcodeproj; sourceTree = "<group>"; };
 		D984A91426FB7B2500F800B3 /* AdviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceViewModel.swift; sourceTree = "<group>"; };
 		D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankOfSleepDataViewModel.swift; sourceTree = "<group>"; };
@@ -741,6 +743,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D97030612725DD72000A347A /* RespiratoryCard */ = {
+			isa = PBXGroup;
+			children = (
+				D97030662725DDAE000A347A /* RespiratoryCardDetailView.swift */,
+			);
+			path = RespiratoryCard;
+			sourceTree = "<group>";
+		};
 		D979FA8626F8C3C000928EF2 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,6 +858,7 @@
 				D979FA8826F8C48E00928EF2 /* GeneralCard */,
 				D979FA8926F8C49700928EF2 /* PhasesCard */,
 				D979FA8A26F8C49E00928EF2 /* HeartCard */,
+				D97030612725DD72000A347A /* RespiratoryCard */,
 				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
 			path = InsideViews;
@@ -1212,6 +1223,7 @@
 				80A765F326C85EB300A66554 /* SoundsCoordinator.swift in Sources */,
 				80A765F526C85EBF00A66554 /* AudioRecordingsListView.swift in Sources */,
 				D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */,
+				D97030672725DDAE000A347A /* RespiratoryCardDetailView.swift in Sources */,
 				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
 				D984A91526FB7B2500F800B3 /* AdviceViewModel.swift in Sources */,
 				D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */,

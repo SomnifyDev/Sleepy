@@ -20,43 +20,71 @@ struct PhasesCardDetailView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center) {
                         if let phasesViewModel = cardService.phasesViewModel,
-                           let generalViewModel = cardService.generalViewModel
-                        {
-                            StandardChartView(colorProvider: viewModel.colorProvider,
-                                              chartType: .phasesChart,
-                                              chartHeight: 75,
-                                              points: phasesViewModel.phasesData,
-                                              dateInterval: generalViewModel.sleepInterval)
-                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                           let generalViewModel = cardService.generalViewModel {
+
+                            // MARK: Chart
+
+                            StandardChartView(
+                                colorProvider: viewModel.colorProvider,
+                                chartType: .phasesChart,
+                                chartHeight: 75,
+                                points: phasesViewModel.phasesData,
+                                dateInterval: generalViewModel.sleepInterval
+                            )
+                                .roundedCardBackground(
+                                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+                                )
                                 .padding(.top)
 
-                            SectionNameTextView(text: "Summary".localized,
-                                             color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                            // MARK: Statistics
 
-                            HorizontalStatisticCellView(data: [
-                                StatisticsCellData(title: "Total NREM sleep duration".localized,
-                                                   value: phasesViewModel.timeInDeepPhase),
-                                StatisticsCellData(title: "Max NREM sleep interval".localized,
-                                                   value: phasesViewModel.mostIntervalInDeepPhase),
-                                StatisticsCellData(title: "Total REM sleep duration".localized,
-                                                   value: phasesViewModel.timeInLightPhase),
-                                StatisticsCellData(title: "Max REM sleep interval".localized,
-                                                   value: phasesViewModel.mostIntervalInLightPhase),
-                            ],
-                            colorScheme: viewModel.colorProvider.sleepyColorScheme)
+                            SectionNameTextView(
+                                text: "Summary".localized,
+                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
+                            )
+
+                            HorizontalStatisticCellView(
+                                data: [
+                                    StatisticsCellData(
+                                        title: "Total NREM sleep duration".localized,
+                                        value: phasesViewModel.timeInDeepPhase
+                                    ),
+                                    StatisticsCellData(
+                                        title: "Max NREM sleep interval".localized,
+                                        value: phasesViewModel.mostIntervalInDeepPhase
+                                    ),
+                                    StatisticsCellData(
+                                        title: "Total REM sleep duration".localized,
+                                        value: phasesViewModel.timeInLightPhase
+                                    ),
+                                    StatisticsCellData(
+                                        title: "Max REM sleep interval".localized,
+                                        value: phasesViewModel.mostIntervalInLightPhase
+                                    ),
+                                ],
+                                colorScheme: viewModel.colorProvider.sleepyColorScheme)
                         }
 
-                        SectionNameTextView(text: "What else?".localized,
-                                         color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                        // MARK: Advice
+
+                        SectionNameTextView(
+                            text: "What else?".localized,
+                            color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
+                        )
 
                         UsefulInfoCardView(
                             imageName: AdviceType.phasesAdvice.rawValue,
                             title: "Sleep phases and stages".localized,
                             description: "Learn more about sleep phases and stages.".localized,
-                            destinationView: AdviceView(sheetType: .phasesAdvice, showAdvice: $showAdvice),
+                            destinationView: AdviceView(
+                                sheetType: .phasesAdvice,
+                                showAdvice: $showAdvice
+                            ),
                             showModalView: $showAdvice
                         )
-                        .usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            .usefulInfoCardBackground(
+                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+                            )
                     }
                 }
                 .navigationTitle("Sleep phases")

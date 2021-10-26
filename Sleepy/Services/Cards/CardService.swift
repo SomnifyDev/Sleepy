@@ -7,6 +7,7 @@ enum SummaryViewCardType: String {
     case heart
     case general
     case phases
+    case breath
 }
 
 extension SummaryViewCardType: Identifiable {
@@ -14,7 +15,8 @@ extension SummaryViewCardType: Identifiable {
 }
 
 class CardService: ObservableObject {
-    var statisticsProvider: HKStatisticsProvider
+
+    // MARK: Properties
 
     @Published var bankOfSleepViewModel: BankOfSleepDataViewModel?
     @Published var phasesViewModel: SummaryPhasesDataViewModel?
@@ -22,11 +24,14 @@ class CardService: ObservableObject {
     @Published var heartViewModel: SummaryHeartDataViewModel?
     @Published var respiratoryViewModel: SummaryRespiratoryDataViewModel?
 
+    var statisticsProvider: HKStatisticsProvider
+
     private let mainCard: SummaryViewCardType = .general
     private let phasesCard: SummaryViewCardType = .phases
     private let heartCard: SummaryViewCardType = .heart
 
     // MARK: Initialization
+
     init(statisticsProvider: HKStatisticsProvider) {
         self.statisticsProvider = statisticsProvider
         getBankOfSleepInfo()
@@ -35,6 +40,8 @@ class CardService: ObservableObject {
         getHeartData()
         getRespiratoryData()
     }
+
+    // MARK: Internal methods
 
     func fetchCard(id _: String, _ completion: @escaping (SummaryViewCardType?) -> Void) {
         fetchCards { cards in
@@ -50,11 +57,14 @@ class CardService: ObservableObject {
         )
     }
 
+    // MARK: Private methods
+
     private func getSleepGoal() -> Int {
         return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
     }
 
     // MARK: Bank of sleep
+
     private func getBankOfSleepInfo() {
         getbankOfSleepData { data in
             let sleepGoal = self.getSleepGoal()
@@ -102,7 +112,8 @@ class CardService: ObservableObject {
         }
     }
 
-    // MARK: Sleep + phases
+    // MARK: Sleep data
+
     private func getSleepData() {
         guard let sleepInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .asleep),
               let inBedInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .inbed) else { return }
@@ -111,6 +122,8 @@ class CardService: ObservableObject {
                                                             inbedInterval: inBedInterval,
                                                             sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
     }
+
+    // MARK: Phases data
 
     private func getPhasesData() {
         guard
@@ -131,6 +144,7 @@ class CardService: ObservableObject {
     }
 
     // MARK: Heart data
+
     private func getHeartData() {
         var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
         let heartRateData = getShortHeartRateData(heartRateData: statisticsProvider.getTodayData(of: .heart))
@@ -144,22 +158,6 @@ class CardService: ObservableObject {
             minHeartRate = String(format: "%u bpm".localized, Int(minHR))
             averageHeartRate = String(format: "%u bpm".localized, Int(averageHR))
             heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate, averageHeartRate: averageHeartRate)
-        }
-    }
-
-    private func getRespiratoryData() {
-        var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
-        let breatheRateData = statisticsProvider.getTodayData(of: .respiratory)
-
-        if !breatheRateData.isEmpty,
-           let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .max),
-           let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .min),
-           let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .mean)
-        {
-            maxRespiratoryRate = String(format: "%u count/min".localized, Int(maxRespiratory))
-            minRespiratoryRate = String(format: "%u count/min".localized, Int(minRespiratory))
-            averageRespiratoryRate = String(format: "%u count/min".localized, Int(averageRespiratory))
-            respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breatheRateData, maxRespiratoryRate: maxRespiratoryRate, minRespiratoryRate: minRespiratoryRate, averageRespiratoryRate: averageRespiratoryRate)
         }
     }
 
@@ -183,6 +181,24 @@ class CardService: ObservableObject {
         }
 
         return shortData
+    }
+
+    // MARK: Breath
+
+    private func getRespiratoryData() {
+        var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
+        let breathRateData = statisticsProvider.getTodayData(of: .respiratory)
+
+        if !breathRateData.isEmpty,
+           let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .max),
+           let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .min),
+           let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .mean)
+        {
+            maxRespiratoryRate = String(format: "%u count/min".localized, Int(maxRespiratory))
+            minRespiratoryRate = String(format: "%u count/min".localized, Int(minRespiratory))
+            averageRespiratoryRate = String(format: "%u count/min".localized, Int(averageRespiratory))
+            respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData, maxRespiratoryRate: maxRespiratoryRate, minRespiratoryRate: minRespiratoryRate, averageRespiratoryRate: averageRespiratoryRate)
+        }
     }
 
 }
