@@ -25,7 +25,7 @@ struct AudioRecordingsListView: View {
     @State private var showSheetView = false
     @State private var showProgress = false
     // Create a new observer to receive notifications for analysis results.
-    let resultsObserver = ResultsObserver()
+    let resultsObserver = AudioResultsObserver()
 
     var body: some View {
         ZStack(alignment: .center) {
@@ -120,7 +120,7 @@ private struct RecordingRow: View {
     let colorProvider: ColorSchemeProvider
     var body: some View {
         VStack {
-            CardTitleView(titleText: "New_recording\(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "dd.MM_HH:mm") ?? "")",
+            CardTitleView(titleText: "Recording",
                           leftIcon: Image(systemName: "mic.circle.fill"),
                           rightIcon: Image(systemName: "chevron.right"),
                           titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),

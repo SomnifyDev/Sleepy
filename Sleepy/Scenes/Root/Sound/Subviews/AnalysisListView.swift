@@ -32,7 +32,7 @@ struct AnalysisListView: View {
                         ForEach(result, id: \.self) { item in
                             VStack {
                                 CardTitleView(titleText: item.soundType,
-                                              mainText: String(format: "%.2f confidence", item.confidence),
+                                              mainText: String(format: "%.2f%% confidence", item.confidence),
                                               leftIcon: Image(systemName: "waveform"),
                                               navigationText: self.getDescription(item: item, date: endDate),
                                               titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
