@@ -126,7 +126,7 @@
 "Error" = "Error";
 "Recording Failed. Check microphone permissions" = "Recording Failed. Check microphone permissions";
 "No sound recognized. You can try to lower recognisition confidence coefficient in your settings" = "No sound recognized. You can try to lower recognisition confidence coefficient in your settings";
-"Tap anywhere to stop recording" = "Tap anywhere to stop recording"
+"Tap anywhere to stop recording" = "Tap anywhere to stop recording";
 
 // MARK: Settings tab
 

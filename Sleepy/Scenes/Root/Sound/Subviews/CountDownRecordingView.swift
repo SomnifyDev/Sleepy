@@ -36,6 +36,7 @@ struct CountDownRecordingView: View {
                     .opacity(0.4)
             }
         }
+        .statusBar(hidden: true)
     }
 
     private func getTimeLabel() -> String {
