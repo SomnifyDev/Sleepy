@@ -48,11 +48,12 @@
 		808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; };
 		808FDF3F2685EB8000B38B78 /* HKCoreSleep.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF352685E48B00B38B78 /* HKCoreSleep.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		808FDF4B26861EFD00B38B78 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 808FDF4A26861EFD00B38B78 /* HealthKit.framework */; };
+		80904C0B272C36B00053A2F4 /* CountDownRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80904C0A272C36B00053A2F4 /* CountDownRecordingView.swift */; };
 		80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765DB26C7C5A000A66554 /* ActivityViewController.swift */; };
 		80A765DF26C7F35C00A66554 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765DE26C7F35C00A66554 /* AudioRecorder.swift */; };
 		80A765E126C7F3A700A66554 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765E026C7F3A700A66554 /* Recording.swift */; };
 		80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765E426C7F44000A66554 /* SoundsCoordinatorView.swift */; };
-		80A765E826C7F5F800A66554 /* ResultsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765E726C7F5F800A66554 /* ResultsObserver.swift */; };
+		80A765E826C7F5F800A66554 /* AudioResultsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765E726C7F5F800A66554 /* AudioResultsObserver.swift */; };
 		80A765EA26C7FA1500A66554 /* AnalysisListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765E926C7FA1500A66554 /* AnalysisListView.swift */; };
 		80A765EC26C7FBF000A66554 /* SoundAnalysisResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765EB26C7FBF000A66554 /* SoundAnalysisResult.swift */; };
 		80A765EE26C83B3700A66554 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A765ED26C83B3700A66554 /* AudioPlayer.swift */; };
@@ -242,11 +243,12 @@
 		808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKCoreSleep.xcodeproj; path = frameworks/HKCoreSleep/HKCoreSleep.xcodeproj; sourceTree = "<group>"; };
 		808FDF4926861EFD00B38B78 /* Sleepy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sleepy.entitlements; sourceTree = "<group>"; };
 		808FDF4A26861EFD00B38B78 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		80904C0A272C36B00053A2F4 /* CountDownRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownRecordingView.swift; sourceTree = "<group>"; };
 		80A765DB26C7C5A000A66554 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		80A765DE26C7F35C00A66554 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		80A765E026C7F3A700A66554 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		80A765E426C7F44000A66554 /* SoundsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsCoordinatorView.swift; sourceTree = "<group>"; };
-		80A765E726C7F5F800A66554 /* ResultsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsObserver.swift; sourceTree = "<group>"; };
+		80A765E726C7F5F800A66554 /* AudioResultsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioResultsObserver.swift; sourceTree = "<group>"; };
 		80A765E926C7FA1500A66554 /* AnalysisListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisListView.swift; sourceTree = "<group>"; };
 		80A765EB26C7FBF000A66554 /* SoundAnalysisResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundAnalysisResult.swift; sourceTree = "<group>"; };
 		80A765ED26C83B3700A66554 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -535,7 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				8026061927202E2A00D737AF /* Model */,
-				80A765E726C7F5F800A66554 /* ResultsObserver.swift */,
+				80A765E726C7F5F800A66554 /* AudioResultsObserver.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -557,6 +559,7 @@
 			children = (
 				80A765F426C85EBF00A66554 /* AudioRecordingsListView.swift */,
 				80A765E926C7FA1500A66554 /* AnalysisListView.swift */,
+				80904C0A272C36B00053A2F4 /* CountDownRecordingView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1220,6 +1223,7 @@
 				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */,
 				80780F5F266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift in Sources */,
 				D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */,
+				80904C0B272C36B00053A2F4 /* CountDownRecordingView.swift in Sources */,
 				80780F53266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift in Sources */,
 				8001402126FF273D001AE152 /* HealthKitIntroView.swift in Sources */,
 				8001401F26FF26C0001AE152 /* MainIntroView.swift in Sources */,
@@ -1259,7 +1263,7 @@
 				8087D5E9269AD287007AB4C2 /* DateInterval+String.swift in Sources */,
 				80780F65266D5BDE000D0DD9 /* URL+Identifiable.swift in Sources */,
 				80A765F826C8F9E300A66554 /* FileHelper.swift in Sources */,
-				80A765E826C7F5F800A66554 /* ResultsObserver.swift in Sources */,
+				80A765E826C7F5F800A66554 /* AudioResultsObserver.swift in Sources */,
 				80A765EE26C83B3700A66554 /* AudioPlayer.swift in Sources */,
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
 				80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */,

@@ -11,7 +11,10 @@ import SoundAnalysis
 import UIKit
 
 /// An observer that receives results from a classify sound request.
-class ResultsObserver: NSObject, SNResultsObserving {
+class AudioResultsObserver: NSObject, SNResultsObserving {
+    private enum Constants {
+        static let soundIndentSeconds = 10.0
+    }
     var fileName = ""
     var date: Date?
     var array: [SoundAnalysisResult] = []
@@ -25,7 +28,6 @@ class ResultsObserver: NSObject, SNResultsObserving {
         // Convert the confidence to a percentage string.
         let percent = classification.confidence * 100.0
         let confidence = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
-
         guard percent >= Double(confidence) else { return }
         let resultItem = SoundAnalysisResult(start: TimeInterval(result.timeRange.start.seconds),
                                              end: TimeInterval(result.timeRange.end.seconds),
@@ -33,8 +35,8 @@ class ResultsObserver: NSObject, SNResultsObserving {
                                              confidence: percent)
         if resultItem.soundType == "coughing" { return }
         // Print the classification's name (label) with its confidence.
-        let soundRange: Range = resultItem.start..<resultItem.end
-        if !array.contains(where: { soundRange.overlaps($0.start..<$0.end) }) {
+        let soundRange: Range = resultItem.start - Constants.soundIndentSeconds..<resultItem.end + Constants.soundIndentSeconds
+        if !array.contains(where: { soundRange.overlaps(($0.start - Constants.soundIndentSeconds) ..< ($0.end + Constants.soundIndentSeconds)) }) {
             self.array.append(resultItem)
         }
     }

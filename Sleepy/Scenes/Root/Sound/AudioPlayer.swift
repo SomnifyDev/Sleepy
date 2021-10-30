@@ -10,6 +10,10 @@ import HKVisualKit
 import SwiftUI
 
 struct AudioPlayerView: View {
+    private enum Constants {
+        static let soundIndentSeconds = 10.0
+    }
+
     private var audioPlayer: AVAudioPlayer!
     @State private var isPlaying: Bool = false
     @State private var currentTime = TimeInterval()
@@ -24,15 +28,14 @@ struct AudioPlayerView: View {
          playAtTime: TimeInterval,
          endAtTime: TimeInterval,
          audioName: String) {
-        self.colorProvider = colorProvider
-        self.playAtTime = playAtTime
-        self.endAtTime = endAtTime
-        self.audioName = audioName
-
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioFilename = documentPath.appendingPathComponent(audioName)
-
         self.audioPlayer = try! AVAudioPlayer(contentsOf: audioFilename)
+
+        self.colorProvider = colorProvider
+        self.playAtTime = max(0, playAtTime - Constants.soundIndentSeconds)
+        self.endAtTime = min(audioPlayer.duration, endAtTime + Constants.soundIndentSeconds)
+        self.audioName = audioName
 
         // workaround чтоб фиксить отсутствие звука при беззвучном режиме
         do {

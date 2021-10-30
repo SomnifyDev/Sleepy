@@ -90,49 +90,81 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 return
             }
 
-            let sleepData = self.detectSleep(inbedSamplesRaw: ((inBedRaw ?? []).isEmpty && !(asleepRaw ?? []).isEmpty) ? asleepRaw : inBedRaw,
-                                             asleepSamplesRaw: ((asleepRaw ?? []).isEmpty && !(inBedRaw ?? []).isEmpty) ? inBedRaw : asleepRaw,
-                                             heartSamplesRaw: heartRaw,
-                                             energySamplesRaw: energyRaw,
-                                             respiratoryRaw: respiratoryRaw)
+            var lastIntervalStart = endDate
 
-            guard !sleepData.error,
-                  let asleepInterval = sleepData.asleepInterval,
-                  let inbedInterval = sleepData.inbedInterval,
-                  let energySamples = sleepData.energySamples,
-                  let heartSamples = sleepData.heartSamples,
-                  let respiratorySamples = sleepData.respiratorySamples else {
-                      completionHandler(nil)
-                      return
-                  }
+            var inBedRawFiltered = inBedRaw
+            var asleepRawFiltered = asleepRaw
+            var heartRawFiltered = heartRaw
+            var energyRawFiltered = energyRaw
+            var respiratoryRawFiltered = respiratoryRaw
 
-            // определяем фазы на получившимся отрезке
-            let phases = PhasesComputationService.computatePhases(energySamples: energySamples,
-                                                                  heartSamples: heartSamples,
-                                                                  breathSamples: respiratorySamples,
-                                                                  sleepInterval: asleepInterval)
+            var latestSleepWillFetch = true
 
-            let sleep = Sleep(sleepInterval: asleepInterval,
-                              inBedInterval: inbedInterval,
-                              phases: phases)
+            while true {
+                // идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
+                inBedRawFiltered = inBedRawFiltered?.filter {$0.endDate <= lastIntervalStart }
+                asleepRawFiltered = asleepRawFiltered?.filter {$0.endDate <= lastIntervalStart }
+                heartRawFiltered = heartRawFiltered?.filter {$0.endDate <= lastIntervalStart }
+                energyRawFiltered = energyRawFiltered?.filter {$0.endDate <= lastIntervalStart }
+                respiratoryRawFiltered = respiratoryRawFiltered?.filter {$0.endDate <= lastIntervalStart }
 
-            self.saveSleep(sleep: sleep, completionHandler: { [weak self] success, error in
-                guard error == nil else {
-                    print(error.debugDescription)
-                    completionHandler(nil)
-                    return
-                }
+                // запускаем функцию определения сна для отфильтрованных сэмплов
+                let sleepData = self.detectSleep(inbedSamplesRaw: ((inBedRawFiltered ?? []).isEmpty && !(asleepRawFiltered ?? []).isEmpty) ? asleepRawFiltered : inBedRawFiltered,
+                                                 asleepSamplesRaw: ((asleepRawFiltered ?? []).isEmpty && !(inBedRawFiltered ?? []).isEmpty) ? inBedRawFiltered : asleepRawFiltered,
+                                                 heartSamplesRaw: heartRawFiltered,
+                                                 energySamplesRaw: energyRawFiltered,
+                                                 respiratoryRaw: respiratoryRawFiltered)
 
-                DispatchQueue.main.async {
-                    let state = UIApplication.shared.applicationState
-                    if state == .background || state == .inactive, success {
-                        // background sleep analysis push being delivered in 15 minutes
-                        self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+                // если нет ошибок и обнаруженный сон имеет промежуток с другим, обнаруженным ранее, в <= 60 минут, то считаем это одним сном
+                // и идем сохранять его в хранилище
+                guard !sleepData.error,
+                      let asleepInterval = sleepData.asleepInterval,
+                      (abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= 60 || lastIntervalStart == endDate),
+                      let inbedInterval = sleepData.inbedInterval,
+                      let energySamples = sleepData.energySamples,
+                      let heartSamples = sleepData.heartSamples,
+                      let respiratorySamples = sleepData.respiratorySamples else {
+                          return
+                      }
+
+                lastIntervalStart = asleepInterval.start
+
+                // определяем фазы на получившимся отрезке
+                let phases = PhasesComputationService.computatePhases(energySamples: energySamples,
+                                                                      heartSamples: heartSamples,
+                                                                      breathSamples: respiratorySamples,
+                                                                      sleepInterval: asleepInterval)
+
+                let sleep = Sleep(sleepInterval: asleepInterval,
+                                  inBedInterval: inbedInterval,
+                                  phases: phases)
+
+                self.saveSleep(sleep: sleep, completionHandler: { [weak self] success, error in
+                    guard error == nil else {
+                        print(error.debugDescription)
+                        completionHandler(nil)
+                        return
                     }
-                }
 
-                completionHandler(sleep)
-            })
+                    DispatchQueue.main.async {
+                        let state = UIApplication.shared.applicationState
+                        if state == .background || state == .inactive, success,
+                           latestSleepWillFetch {
+                            // чтоб не спамить уведомлениями о каждом найденном отрезке сна, оповестим только о самом свежем
+                            // background sleep analysis push being delivered in 15 minutes
+                            self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+                        }
+                    }
+
+                    // в комплишене возвращаем только самый первый (самый свежий сон), ибо возвращаемое значение передается в UI и используется на экранах
+                    // а остальные сны мы тихо сохраняем в БД
+                    if latestSleepWillFetch {
+                        completionHandler(sleep)
+                    }
+                    latestSleepWillFetch = false
+                })
+
+            }
         }
     }
 
@@ -231,27 +263,21 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                                                               respiratorySamples: [HKSample]?,
                                                               error: Bool) {
         // минимальные требования для определения
-        guard let asleepSamplesRaw = asleepSamplesRaw, let inbedSamplesRaw = inbedSamplesRaw else {
+        guard let asleepSamplesRaw = asleepSamplesRaw,
+              let inbedSamplesRaw = inbedSamplesRaw,
+              let firstAsleep = asleepSamplesRaw.first as? HKCategorySample,
+              let firstInbed = inbedSamplesRaw.first as? HKCategorySample else {
             return (nil, nil, nil, nil, nil, nil, nil, true)
         }
-
-        // Cюда будем складывать сэмплы исключительно последнего сна/времяпрепровождения в кровати.
-        // Будем считать,что две смежные записи считаются сном/временем в кровати если между ними разница <25 мин
-        var asleepSamples: [HKCategorySample] = []
-        var inBedSamples: [HKCategorySample] = []
 
         // время начала предыдущего сэмпла  (должны сравнивать с датой конца след сэмпла (тк идем в прошлое) и следить, чтоб разница < 25 мин
-        guard let firstAsleep = asleepSamplesRaw.first as? HKCategorySample else {
-            return (nil, nil, nil, nil, nil, nil, nil, true)
-        }
-
+        var startDateBeforeInbed: Date = firstInbed.startDate
         var startDateBeforeAsleep: Date = firstAsleep.startDate
 
-        guard let firstInbed = inbedSamplesRaw.first as? HKCategorySample else {
-            return (nil, nil, nil, nil, nil, nil, nil, true)
-        }
-
-        var startDateBeforeInbed: Date = firstInbed.startDate
+        // Cюда будем складывать сэмплы исключительно последнего сна/времяпрепровождения в кровати.
+        // Будем считать,что две смежные записи считаются одним сном/временем в кровати если между ними разница <= 25 мин
+        var asleepSamples: [HKCategorySample] = []
+        var inBedSamples: [HKCategorySample] = []
 
         // идем от самого нового сэмпла к старым (двигаемся в прошлое)
         for item in asleepSamplesRaw {

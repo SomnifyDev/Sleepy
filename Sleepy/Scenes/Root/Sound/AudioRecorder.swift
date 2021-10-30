@@ -15,7 +15,7 @@ import SwiftUI
 class AudioRecorder: NSObject, ObservableObject {
     override init() {
         super.init()
-        fetchRecordings()
+        self.fetchRecordings()
     }
 
     let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
