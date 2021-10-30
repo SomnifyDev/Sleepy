@@ -15,8 +15,10 @@ struct SoundsCoordinatorView: View {
     @Store var viewModel: SoundsCoordinator
     @ObservedObject private var audioRecorder = AudioRecorder()
 
-    @State private var showingErrorAlert = false
+    @State private var shouldShowErrorAlert = false
     @State private var shouldGrantPermissions = false
+    @State private var shouldShowCountDown = false
+    @State private var secondsRecorded = 0
     private let avAudioSession = AVAudioSession.sharedInstance()
 
     var body: some View {
@@ -36,13 +38,10 @@ struct SoundsCoordinatorView: View {
                                         self.shouldGrantPermissions = self.avAudioSession.recordPermission != .granted
                                     })
                                 } else {
-                                    showingErrorAlert = !audioRecorder.startRecording()
+                                    self.shouldShowErrorAlert = !audioRecorder.startRecording()
+                                    self.shouldShowCountDown = !shouldShowErrorAlert
                                 }
                             }
-                    } else {
-                        Text("STOP".localized)
-                            .customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
-                            .onTapGesture { audioRecorder.stopRecording() }
                     }
                 }
             }
@@ -51,8 +50,16 @@ struct SoundsCoordinatorView: View {
                 self.sendAnalytics()
                 self.shouldGrantPermissions = self.avAudioSession.recordPermission != .granted
             }
-            .alert(isPresented: self.$showingErrorAlert) {
+            .alert(isPresented: self.$shouldShowErrorAlert) {
                 Alert(title: Text("Error".localized), message: Text("Recording Failed. Check microphone permissions".localized))
+            }
+            .fullScreenCover(isPresented: self.$shouldShowCountDown) {
+                CountDownRecordingView(secondsRecorded: self.$secondsRecorded)
+                    .disabled(self.secondsRecorded <= 3)
+                    .onTapGesture {
+                        audioRecorder.stopRecording()
+                        self.shouldShowCountDown = false
+                    }
             }
         }
     }
