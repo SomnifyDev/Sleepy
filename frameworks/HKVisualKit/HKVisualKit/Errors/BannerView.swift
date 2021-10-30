@@ -88,8 +88,7 @@ public struct BannerView: View {
                                       })
 
                         if bannerViewType == .advice(type: .some, imageSystemName: ""),
-                           let imageSystemName = self.getImageSystemName()
-                        {
+                           let imageSystemName = self.getImageSystemName() {
                             Image(imageSystemName)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

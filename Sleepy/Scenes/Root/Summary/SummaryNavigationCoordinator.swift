@@ -24,12 +24,13 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
     let hkStoreService: HKService
     let statisticsProvider: HKStatisticsProvider
 
-    init(colorProvider: ColorSchemeProvider,
-         statisticsProvider: HKStatisticsProvider,
-         title: String,
-         hkStoreService: HKService,
-         parent: RootCoordinator)
-    {
+    init(
+        colorProvider: ColorSchemeProvider,
+        statisticsProvider: HKStatisticsProvider,
+        title: String,
+        hkStoreService: HKService,
+        parent: RootCoordinator
+    ) {
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
         self.parent = parent

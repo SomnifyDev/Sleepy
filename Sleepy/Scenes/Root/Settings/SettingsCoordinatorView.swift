@@ -99,9 +99,9 @@ private struct LabeledButton: View {
 
     var body: some View {
         HStack {
-            Button(action: {
+            Button {
                 action()
-            }) {
+            } label: {
                 HStack {
                     Text(text)
 

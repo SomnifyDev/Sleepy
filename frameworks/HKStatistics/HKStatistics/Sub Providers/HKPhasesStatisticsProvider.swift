@@ -20,10 +20,18 @@ final class HKPhasesStatisticsProvider {
                 partialResult + phase.interval.end.minutes(from: phase.interval.start)
             }
         case .mostIntervalInDeepPhase:
-            guard let max = phasesData.filter({ $0.condition == .deep }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max() else { return nil }
+            guard
+                let max = phasesData.filter({ $0.condition == .deep }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max()
+            else {
+                return nil
+            }
             return max
         case .mostIntervalInLightPhase:
-            guard let max = phasesData.filter({ $0.condition == .light }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max() else { return nil }
+            guard
+                let max = phasesData.filter({ $0.condition == .light }).map({ $0.interval.end.minutes(from: $0.interval.start) }).max()
+            else {
+                return nil
+            }
             return max
         case .phasesData:
             return phasesData.map { $0.chartPoint }

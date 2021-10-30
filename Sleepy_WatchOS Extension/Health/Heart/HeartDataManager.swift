@@ -11,12 +11,12 @@ typealias HeartRate = Double
 
 // MARK: Enums
 
-fileprivate enum LightPhaseDetectionStrategy {
+private enum LightPhaseDetectionStrategy {
     case withConfirmation
     case withoutConfirmation
 }
 
-fileprivate enum Constant {
+private enum Constant {
     static let confirmativeLightPhaseFlagValue: Double = 1.05
     static let potentialLightPhaseFlagValue: Double = 1.08
     static let unconditionalLightPhaseDetectionValue: Double = 1.12

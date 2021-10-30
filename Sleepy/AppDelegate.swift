@@ -18,10 +18,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     func application(_: UIApplication,
-                     willFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
-    {
+                     willFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
         setupArmchair()
-
         return true
     }
 
@@ -49,17 +49,23 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_: UNUserNotificationCenter,
-                                willPresent _: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
-    {
-        completionHandler([.alert, .sound])
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        willPresent _: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        if #available(iOS 14.0.0, *) {
+            completionHandler([.sound])
+        } else {
+            completionHandler([.alert, .sound])
+        }
     }
 
-    func userNotificationCenter(_: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void)
-    {
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
         if response.notification.request.identifier == "Sleepy Notification" {
             print("Handling notifications with the Sleepy Notification Identifier")
         }
@@ -81,7 +87,7 @@ extension AppDelegate {
         Armchair.appName("Sleepy")
 
         // Debug means that it will popup on the next available change
-//        Armchair.debugEnabled(true)
+        //        Armchair.debugEnabled(true)
 
         // This overrides the default value of 30, but it doesn't matter here because of Debug mode enabled
         Armchair.daysUntilPrompt(3)

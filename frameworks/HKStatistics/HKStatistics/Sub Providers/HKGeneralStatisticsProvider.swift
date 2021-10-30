@@ -29,17 +29,26 @@ final class HKGeneralStatisticsProvider {
             let data = categData.map { $0.endDate.minutes(from: $0.startDate) }
             switch indicator {
             case .min:
-                guard let min = data.min() else { return nil }
+                guard let min = data.min() else {
+                    return nil
+                }
                 return Double(min)
             case .max:
-                guard let max = data.max() else { return nil }
+                guard let max = data.max() else {
+                    return nil
+                }
                 return Double(max)
             case .mean:
-                if data.isEmpty { return nil }
+                if data.isEmpty {
+                    return nil
+                }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
             case .sum:
                 let sum = data.reduce(0) { $0 + $1 }
-                guard sum > 0 else { print("Couldn't get sum from data in HKNumericTypesStatisticsProvider"); return nil }
+                guard sum > 0 else {
+                    print("Couldn't get sum from data in HKNumericTypesStatisticsProvider")
+                    return nil
+                }
                 return Double(sum)
             }
         } else {
@@ -52,17 +61,26 @@ final class HKGeneralStatisticsProvider {
             let data = quantityData.map { $0.quantity.doubleValue(for: unit) }
             switch indicator {
             case .min:
-                guard let min = data.min() else { return nil }
+                guard let min = data.min() else {
+                    return nil
+                }
                 return Double(min)
             case .max:
-                guard let max = data.max() else { return nil }
+                guard let max = data.max() else {
+                    return nil
+                }
                 return Double(max)
             case .mean:
-                if data.isEmpty { return nil }
+                if data.isEmpty {
+                    return nil
+                }
                 return (data.reduce(0.0) { $0 + Double($1) }) / Double(data.count)
             case .sum:
                 let sum = data.reduce(0.0) { $0 + $1 }
-                guard sum > 0 else { print("Couldn't get sum from data in HKNumericTypesStatisticsProvider"); return nil }
+                guard sum > 0 else {
+                    print("Couldn't get sum from data in HKNumericTypesStatisticsProvider")
+                    return nil
+                }
                 return sum
             }
         } else {

@@ -78,8 +78,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         let interval = DateInterval(start: startDate, end: endDate)
 
-        getRawData(interval: interval) { _, asleepRaw, error1, _, heartRaw, error2, _, energyRaw, error3, _, inBedRaw, error4,
-            _, respiratoryRaw, _ in
+        getRawData(interval: interval) { _, asleepRaw, error1, _, heartRaw, error2, _, energyRaw, error3, _, inBedRaw, error4, _, respiratoryRaw, _ in
             if error1 != nil || error2 != nil || error3 != nil || error4 != nil {
                 completionHandler(nil)
                 return

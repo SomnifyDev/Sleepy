@@ -101,21 +101,21 @@ private struct CalendarTitleView: View {
 
             Spacer()
 
-            Button(action: {
+            Button {
                 monthDate = Calendar.current.date(byAdding: .month,
                                                   value: -1,
                                                   to: monthDate)!
-            }) {
+            } label: {
                 Text(Image(systemName: "chevron.left"))
                     .boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
             }
             .padding(.trailing, 8)
 
-            Button(action: {
+            Button {
                 monthDate = Calendar.current.date(byAdding: .month,
                                                   value: 1,
                                                   to: monthDate)!
-            }) {
+            } label: {
                 Text(Image(systemName: "chevron.right"))
                     .boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
             }

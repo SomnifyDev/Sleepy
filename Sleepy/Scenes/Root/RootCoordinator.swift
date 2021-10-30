@@ -40,10 +40,11 @@ class RootCoordinator: ObservableObject, ViewModel {
     var statisticsProvider: HKStatisticsProvider
     var hkStoreService: HKService
 
-    init(colorSchemeProvider: ColorSchemeProvider,
-         statisticsProvider: HKStatisticsProvider,
-         hkStoreService: HKService)
-    {
+    init(
+        colorSchemeProvider: ColorSchemeProvider,
+        statisticsProvider: HKStatisticsProvider,
+        hkStoreService: HKService
+    ) {
         // наш главный координатор таббара получил сервисы
         self.colorSchemeProvider = colorSchemeProvider
         self.statisticsProvider = statisticsProvider
@@ -92,14 +93,14 @@ class RootCoordinator: ObservableObject, ViewModel {
             switch scheme {
             case "summary":
                 break
-//                guard url.host == "card",
-//                      let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-//                      let cardTypeRaw = components.queryItems?.first(where: { $0.name == "type" })?.value else {
-//                          assertionFailure("Trying to open app with illegal url \(url).")
-//                          return
-//                      }
-//                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
-//                openCard(for: cardType, with: AdviceView)
+                //                guard url.host == "card",
+                //                      let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                //                      let cardTypeRaw = components.queryItems?.first(where: { $0.name == "type" })?.value else {
+                //                          assertionFailure("Trying to open app with illegal url \(url).")
+                //                          return
+                //                      }
+                //                let cardType: SummaryViewCardType = cardTypeRaw == "heart" ? .heart : cardTypeRaw == "phases" ? .phases : .general
+                //                openCard(for: cardType, with: AdviceView)
 
             case "history":
                 openTabView(of: .history)
