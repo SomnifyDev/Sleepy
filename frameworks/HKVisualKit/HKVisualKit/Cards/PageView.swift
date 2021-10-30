@@ -64,8 +64,12 @@ public struct PagingView<Content>: View where Content: View {
 
     func clampedIndex(from predictedIndex: Int) -> Int {
         let newIndex = min(max(predictedIndex, index - 1), index + 1)
-        guard newIndex >= 0 else { return 0 }
-        guard newIndex <= maxIndex else { return maxIndex }
+        guard newIndex >= 0 else {
+            return 0
+        }
+        guard newIndex <= maxIndex else {
+            return maxIndex
+        }
         return newIndex
     }
 }

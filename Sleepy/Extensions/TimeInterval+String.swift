@@ -24,7 +24,7 @@ extension TimeInterval {
         return Int(self) / 3600
     }
 
-    var stringTime: String {
+    public var stringTime: String {
         if hours != 0 {
             return "\(hours)h \(minutes)m \(seconds)s"
         } else if minutes != 0 {

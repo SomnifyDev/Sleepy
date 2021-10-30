@@ -15,9 +15,10 @@ class SettingsCoordinator: ObservableObject, ViewModel {
 
     private unowned let parent: RootCoordinator
 
-    init(title _: String,
-         parent: RootCoordinator)
-    {
+    init(
+        title _: String,
+        parent: RootCoordinator
+    ) {
         self.parent = parent
 
         viewModel = SettingsCoordinatorView(

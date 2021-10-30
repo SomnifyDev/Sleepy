@@ -13,11 +13,12 @@ class SummaryCardsListCoordinator: ObservableObject, ViewModel {
     let colorProvider: ColorSchemeProvider
     let statisticsProvider: HKStatisticsProvider
 
-    init(colorProvider: ColorSchemeProvider,
-         statisticsProvider: HKStatisticsProvider,
-         title: String,
-         coordinator: SummaryNavigationCoordinator)
-    {
+    init(
+        colorProvider: ColorSchemeProvider,
+        statisticsProvider: HKStatisticsProvider,
+        title: String,
+        coordinator: SummaryNavigationCoordinator
+    ) {
         self.colorProvider = colorProvider
         self.statisticsProvider = statisticsProvider
         self.title = title

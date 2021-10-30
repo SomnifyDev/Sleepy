@@ -120,12 +120,13 @@ public class HKService {
     ///   - ascending: boolean value indicating your need in ascending order sorting
     ///   - bundlePrefix: bundle prefix of application that created samples you want to read. Do not pass anything if you want every application samples
     ///   - completionHandler: completion with success or failure of this operation and data
-    public func readData(type: HealthType,
-                         interval: DateInterval,
-                         ascending: Bool = false,
-                         bundlePrefixes: [String] = [],
-                         completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void)
-    {
+    public func readData(
+        type: HealthType,
+        interval: DateInterval,
+        ascending: Bool = false,
+        bundlePrefixes: [String] = [],
+        completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void
+    ) {
         checkReadPermissions(type: type) { _, error in
             if error == nil {
                 let predicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [.strictEndDate])
@@ -167,11 +168,12 @@ public class HKService {
         }
     }
 
-    public func readMetaData(key: String,
-                             interval: DateInterval,
-                             ascending: Bool = false,
-                             completionHandler: @escaping (HKSampleQuery?, Double?, Error?) -> Void)
-    {
+    public func readMetaData(
+        key: String,
+        interval: DateInterval,
+        ascending: Bool = false,
+        completionHandler: @escaping (HKSampleQuery?, Double?, Error?) -> Void
+    ) {
         checkReadPermissions(type: .inbed) { _, error in
 
             if error == nil {
