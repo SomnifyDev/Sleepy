@@ -22,18 +22,18 @@ struct MainIntroView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .center) {
                             VStack(alignment: .leading) {
-                                WelcomeScreenLineView(title: "Сводка сна",
-                                                      subTitle: "Sleepy анализирует сон, агрегируя ваши данные, и предоставляет общую сводку по нему.",
+                                WelcomeScreenLineView(title: "Sleep summary".localized,
+                                                      subTitle: "Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep.".localized,
                                                       imageName: "bed.double",
                                                       color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
-                                WelcomeScreenLineView(title: "Умный будильник",
-                                                      subTitle: "Благодаря алгоритмам, анализирующим фазы сна, Sleepy найдёт наиболее благоприятный момент для вашего пробуждения.",
+                                WelcomeScreenLineView(title: "Smart alarm".localized,
+                                                      subTitle: "Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening.".localized,
                                                       imageName: "alarm",
                                                       color: Color(.systemOrange))
 
-                                WelcomeScreenLineView(title: "Анализ звуков сна",
-                                                      subTitle: "Sleepy позволяет записывать окружающие звуки в течение сна и анализирует их с помощью машинного обучения.",
+                                WelcomeScreenLineView(title: "Sounds of sleep analysis".localized,
+                                                      subTitle: "Sleepy allows you to record ambient sounds during sleep and analyzes them using machine learning.".localized,
                                                       imageName: "waveform",
                                                       color: Color(.systemRed))
                             }.padding(.top, 16)
@@ -42,12 +42,12 @@ struct MainIntroView: View {
 
                     NavigationLink(
                         destination: HealthKitIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro)) {
-                            Text("Продолжить")
+                            Text("Continue".localized)
                                 .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                     }
                 }
             }
-            .navigationTitle("Что умеет Sleepy")
+            .navigationTitle("Features".localized)
             .onAppear(perform: self.sendAnalytics)
         }
     }

@@ -20,6 +20,40 @@
 "%u bpm"  = "%u bpm";
 "%u count/min"  = "%u count/min";
 
+// MARK: Intro
+"Continue" = "Continue";
+"Grant access" = "Grant access";
+"Save goal" = "Save goal";
+"Go to settings" = "Go to settings";
+"Got it!" = "Got it!";
+
+"Features" = "Features";
+"Sleep summary" = "Sleep summary";
+"Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep." = "Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep.";
+"Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening." = "Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening.";
+"Sounds of sleep analysis" = "Sounds of sleep analysis";
+"Sleepy allows you to record ambient sounds during sleep and analyzes them using machine learning." = "Sleepy allows you to record ambient sounds during sleep and analyzes them using machine learning.";
+
+"Access to Health" = "Access to Health";
+"Access required" = "Access required";
+"Health data is used for analysis." = "Health data is used for analysis.";
+"We don't keep your data" = "We don't keep your data";
+"It is processed locally and is not uploaded to servers." = "It is processed locally and is not uploaded to servers.";
+
+"Notifications" = "Notifications";
+"This is so Sleepy can send you a summary of your past sleep." = "This is so Sleepy can send you a summary of your past sleep.";
+
+"Sleep goal"  ="Sleep goal";
+"Set the desired sleep goal" = "Set the desired sleep goal";
+"Set a sleep goal to help you with your wellness." = "Set a sleep goal to help you with your wellness.";
+
+"How to use" = "How to use";
+"1. You need to enable the 'Sleep' for Apple Watch" = "1. You need to enable the 'Sleep' for Apple Watch";
+"Thanks to this Sleepy will be able to receive sleep data and analyze it." = "Thanks to this Sleepy will be able to receive sleep data and analyze it.";
+"2. Wear Apple Watch before going to bed and keep it on while you sleep" = "2. Wear Apple Watch before going to bed and keep it on while you sleep";
+"Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it." = "Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it.";
+
+
 // MARK: Summary tab, general card
 
 "Sleep information" = "Sleep information";

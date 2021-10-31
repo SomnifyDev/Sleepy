@@ -35,13 +35,13 @@ struct HealthKitIntroView: View {
                         .aspectRatio(4 / 3, contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
 
-                        WelcomeScreenLineView(title: "Необходим доступ.",
-                                              subTitle: "Показатели здоровья используются для анализа.",
+                        WelcomeScreenLineView(title: "Access required".localized,
+                                              subTitle: "Health data is used for analysis.".localized,
                                               imageName: "heart.text.square.fill",
                                               color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
-                        WelcomeScreenLineView(title: "Мы не храним ваши данные.",
-                                              subTitle: "Информация обрабатывается локально и не загружается на сервера.",
+                        WelcomeScreenLineView(title: "We don't keep your data".localized,
+                                              subTitle: "It is processed locally and is not uploaded to servers.".localized,
                                               imageName: "wifi.slash",
                                               color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
@@ -49,7 +49,7 @@ struct HealthKitIntroView: View {
                 }.padding([.leading, .trailing], 16)
 
                 if !shouldShowNextTab {
-                    Text("Разрешить".localized)
+                    Text("Grant access".localized)
                         .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                         .onTapGesture {
                             HKService.requestPermissions { result, error in
@@ -65,13 +65,13 @@ struct HealthKitIntroView: View {
                     NavigationLink(
                         destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab
                     ) {
-                        Text("Продолжить")
+                        Text("Continue".localized)
                             .customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
                     }
                 }
             }
         }
-        .navigationTitle("Доступ к Здоровье")
+        .navigationTitle("Access to Health".localized)
         .onAppear(perform: self.sendAnalytics)
     }
 
