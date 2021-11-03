@@ -1,9 +1,4 @@
-//
-//  IntroCoordinator.swift
-//  IntroCoordinator
-//
-//  Created by Никита Казанцев on 25.09.2021.
-//
+// Copyright (c) 2021 Sleepy.
 
 import Foundation
 import HKVisualKit
@@ -11,9 +6,9 @@ import SwiftUI
 import XUI
 
 class IntroCoordinator: ObservableObject, ViewModel {
-    var colorSchemeProvider: ColorSchemeProvider
+	var colorSchemeProvider: ColorSchemeProvider
 
-    init(colorSchemeProvider: ColorSchemeProvider) {
-        self.colorSchemeProvider = colorSchemeProvider
-    }
+	init(colorSchemeProvider: ColorSchemeProvider) {
+		self.colorSchemeProvider = colorSchemeProvider
+	}
 }

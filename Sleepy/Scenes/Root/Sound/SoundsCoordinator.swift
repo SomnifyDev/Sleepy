@@ -1,3 +1,5 @@
+// Copyright (c) 2021 Sleepy.
+
 //
 //  SoundCoordinator.swift
 //  Sleepy
@@ -10,29 +12,30 @@ import SettingsKit
 import XUI
 
 class SoundsCoordinator: ObservableObject, ViewModel {
-    @Published var openedURL: URL?
-    @Published private(set) var viewModel: SoundsCoordinatorView!
+	@Published var openedURL: URL?
+	@Published private(set) var viewModel: SoundsCoordinatorView!
 
-    let colorProvider: ColorSchemeProvider
+	let colorProvider: ColorSchemeProvider
 
-    private unowned let parent: RootCoordinator
+	private unowned let parent: RootCoordinator
 
-    init(title _: String,
-         colorSchemeProvider: ColorSchemeProvider,
-         parent: RootCoordinator) {
-        self.parent = parent
-        colorProvider = colorSchemeProvider
+	init(
+		colorSchemeProvider: ColorSchemeProvider,
+		parent: RootCoordinator
+	) {
+		self.parent = parent
+		self.colorProvider = colorSchemeProvider
 
-        viewModel = SoundsCoordinatorView(
-            viewModel: self
-        )
-    }
+		self.viewModel = SoundsCoordinatorView(
+			viewModel: self
+		)
+	}
 
-    func openSettings() {
-        self.parent.openTabView(of: .settings)
-    }
+	func openSettings() {
+		self.parent.openTabView(of: .settings, components: nil)
+	}
 
-    func open(_ url: URL) {
-        openedURL = url
-    }
+	func open(_ url: URL) {
+		self.openedURL = url
+	}
 }

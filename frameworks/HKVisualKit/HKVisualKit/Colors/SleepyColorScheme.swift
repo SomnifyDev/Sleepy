@@ -1,10 +1,4 @@
-//
-//  SleepyColorsScheme.swift
-//  Sleepy
-//
-//  Created by Анас Бен Мустафа on 6/9/21.
-//
-// TODO: - перенести asset'ы цветов из главной прилы внутрь фреймворма
+// Copyright (c) 2021 Sleepy.
 
 import Foundation
 import SwiftUI
@@ -12,137 +6,137 @@ import SwiftUI
 // MARK: - Protocol
 
 public protocol HKApplicationColorScheme {
-    func getColor(of type: ColorType) -> Color
+	func getColor(of type: ColorType) -> Color
 }
 
 public final class SleepyColorScheme: HKApplicationColorScheme {
-    // general
-    private let appBackgroundColor: Color
-    private let mainSleepyColor: Color
-    private let healthColor: Color
+	// general
+	private let appBackgroundColor: Color
+	private let mainSleepyColor: Color
+	private let healthColor: Color
 
-    // cards
-    private let cardBackgroundColor: Color
+	// cards
+	private let cardBackgroundColor: Color
 
-    // calendar
-    private let emptyDayColor: Color
-    private let negativeDayColor: Color
-    private let neutralDayColor: Color
-    private let positiveDayColor: Color
-    private let calendarCurrentDateColor: Color
+	// calendar
+	private let emptyDayColor: Color
+	private let negativeDayColor: Color
+	private let neutralDayColor: Color
+	private let positiveDayColor: Color
+	private let calendarCurrentDateColor: Color
 
-    // phases
-    private let wakeUpColor: Color
-    private let lightSleepColor: Color
-    private let deepSleepColor: Color
+	// phases
+	private let wakeUpColor: Color
+	private let lightSleepColor: Color
+	private let deepSleepColor: Color
 
-    // heart
-    private let heartColor: Color
+	// heart
+	private let heartColor: Color
 
-    // energy
-    private let energyColor: Color
+	// energy
+	private let energyColor: Color
 
-    // genInfoCard
-    private let awakeColor: Color
-    private let moonColor: Color
-    private let sleepDurationColor: Color
-    private let fallAsleepDurationColor: Color
+	// genInfoCard
+	private let awakeColor: Color
+	private let moonColor: Color
+	private let sleepDurationColor: Color
+	private let fallAsleepDurationColor: Color
 
-    // texts
-    private let standartText: Color
-    private let secondaryText: Color
-    private let adviceText: Color
-    // charts
-    private let verticalProgressChartElementColor: Color
+	// texts
+	private let standartText: Color
+	private let secondaryText: Color
+	private let adviceText: Color
+	// charts
+	private let verticalProgressChartElementColor: Color
 
-    init() {
-        appBackgroundColor = Color("backgroundColor")
-        mainSleepyColor = Color("mainColor")
-        healthColor = Color("healthColor")
-        cardBackgroundColor = Color("cardsBackground")
-        emptyDayColor = Color("calendarEmptyColor")
-        negativeDayColor = Color("calendarNegativityColor")
-        neutralDayColor = Color("calendarNeutralColor")
-        positiveDayColor = Color("calendarPositivityColor")
-        calendarCurrentDateColor = Color("calendarCurrentDateColor")
-        wakeUpColor = Color("wakingColor")
-        lightSleepColor = Color("lightSleepColor")
-        deepSleepColor = Color("deepSleepColor")
-        heartColor = Color("heartColor")
-        awakeColor = Color("awakeColor")
-        moonColor = Color("moonColor")
-        energyColor = Color("energyColor")
-        standartText = Color("SleepyStandartTexts")
-        secondaryText = Color("SecondaryText")
-        adviceText = Color("AdviceText")
-        sleepDurationColor = Color("sleepDurationColor")
-        fallAsleepDurationColor = Color("fallAsleepDurationColor")
-        verticalProgressChartElementColor = Color("VerticalProgressChartElementBackground")
-    }
+	init() {
+		self.appBackgroundColor = Color("backgroundColor")
+		self.mainSleepyColor = Color("mainColor")
+		self.healthColor = Color("healthColor")
+		self.cardBackgroundColor = Color("cardsBackground")
+		self.emptyDayColor = Color("calendarEmptyColor")
+		self.negativeDayColor = Color("calendarNegativityColor")
+		self.neutralDayColor = Color("calendarNeutralColor")
+		self.positiveDayColor = Color("calendarPositivityColor")
+		self.calendarCurrentDateColor = Color("calendarCurrentDateColor")
+		self.wakeUpColor = Color("wakingColor")
+		self.lightSleepColor = Color("lightSleepColor")
+		self.deepSleepColor = Color("deepSleepColor")
+		self.heartColor = Color("heartColor")
+		self.awakeColor = Color("awakeColor")
+		self.moonColor = Color("moonColor")
+		self.energyColor = Color("energyColor")
+		self.standartText = Color("SleepyStandartTexts")
+		self.secondaryText = Color("SecondaryText")
+		self.adviceText = Color("AdviceText")
+		self.sleepDurationColor = Color("sleepDurationColor")
+		self.fallAsleepDurationColor = Color("fallAsleepDurationColor")
+		self.verticalProgressChartElementColor = Color("VerticalProgressChartElementBackground")
+	}
 
-    // MARK: Public methods
+	// MARK: Public methods
 
-    public func getColor(of type: ColorType) -> Color {
-        switch type {
-        // general
-        case .general(.appBackgroundColor):
-            return appBackgroundColor
-        case .general(.healthColor):
-            return healthColor
-        case .general(.mainSleepyColor):
-            return mainSleepyColor
+	public func getColor(of type: ColorType) -> Color {
+		switch type {
+		// general
+		case .general(.appBackgroundColor):
+			return self.appBackgroundColor
+		case .general(.healthColor):
+			return self.healthColor
+		case .general(.mainSleepyColor):
+			return self.mainSleepyColor
 
-        // card
-        case .card(.cardBackgroundColor):
-            return cardBackgroundColor
+		// card
+		case .card(.cardBackgroundColor):
+			return self.cardBackgroundColor
 
-        // phases
-        case .phases(.deepSleepColor):
-            return deepSleepColor
-        case .phases(.lightSleepColor):
-            return lightSleepColor
-        case .phases(.wakeUpColor):
-            return wakeUpColor
+		// phases
+		case .phases(.deepSleepColor):
+			return self.deepSleepColor
+		case .phases(.lightSleepColor):
+			return self.lightSleepColor
+		case .phases(.wakeUpColor):
+			return self.wakeUpColor
 
-        // heart
-        case .heart(.heartColor):
-            return heartColor
+		// heart
+		case .heart(.heartColor):
+			return self.heartColor
 
-        // energy
-        case .energy(.energyColor):
-            return energyColor
+		// energy
+		case .energy(.energyColor):
+			return self.energyColor
 
-        // calendar
-        case .calendar(.emptyDayColor):
-            return emptyDayColor
-        case .calendar(.negativeDayColor):
-            return negativeDayColor
-        case .calendar(.neutralDayColor):
-            return neutralDayColor
-        case .calendar(.positiveDayColor):
-            return positiveDayColor
-        case .calendar(.calendarCurrentDateColor):
-            return calendarCurrentDateColor
+		// calendar
+		case .calendar(.emptyDayColor):
+			return self.emptyDayColor
+		case .calendar(.negativeDayColor):
+			return self.negativeDayColor
+		case .calendar(.neutralDayColor):
+			return self.neutralDayColor
+		case .calendar(.positiveDayColor):
+			return self.positiveDayColor
+		case .calendar(.calendarCurrentDateColor):
+			return self.calendarCurrentDateColor
 
-        // general info card
-        case .summaryCardColors(.awakeColor):
-            return awakeColor
-        case .summaryCardColors(.moonColor):
-            return moonColor
-        case .summaryCardColors(.sleepDurationColor):
-            return sleepDurationColor
-        case .summaryCardColors(.fallAsleepDurationColor):
-            return fallAsleepDurationColor
+		// general info card
+		case .summaryCardColors(.awakeColor):
+			return self.awakeColor
+		case .summaryCardColors(.moonColor):
+			return self.moonColor
+		case .summaryCardColors(.sleepDurationColor):
+			return self.sleepDurationColor
+		case .summaryCardColors(.fallAsleepDurationColor):
+			return self.fallAsleepDurationColor
 
-        // texts
-        case .textsColors(.standartText):
-            return standartText
-        case .textsColors(.secondaryText):
-            return secondaryText
-        case .chartColors(.verticalProgressChartElement):
-            return verticalProgressChartElementColor
-        case .textsColors(.adviceText):
-            return adviceText
-        }
-    }
+		// texts
+		case .textsColors(.standartText):
+			return self.standartText
+		case .textsColors(.secondaryText):
+			return self.secondaryText
+		case .chartColors(.verticalProgressChartElement):
+			return self.verticalProgressChartElementColor
+		case .textsColors(.adviceText):
+			return self.adviceText
+		}
+	}
 }

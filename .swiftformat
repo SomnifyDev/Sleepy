@@ -1,0 +1,32 @@
+# format options
+--allman false
+--enable andOperator
+--enable blankLinesBetweenScopes
+--enable consecutiveBlankLines
+--enable consecutiveSpaces
+--guardelse same-line
+--emptybraces no-space
+--extensionacl on-extension
+--patternlet hoist
+--enable isEmpty
+--enable leadingDelimiters
+--enable modifierOrder
+--enable redundantBreak
+--enable redundantExtensionACL
+--disable organizeDeclarations
+--enable redundantFileprivate
+--enable redundantInit
+--enable redundantNilInit
+--enable redundantParens
+--enable redundantRawValues
+--enable redundantReturn
+--indent tabs
+--enable redundantType
+--enable sortedImports
+--enable spaceAroundBraces
+--elseposition same-line
+--header " Copyright (c) {year} Sleepy."
+--self insert
+
+# file options
+--exclude Pods

@@ -927,13 +927,13 @@
 			buildConfigurationList = D94419F2266CD3C50019902F /* Build configuration list for PBXNativeTarget "Sleepy" */;
 			buildPhases = (
 				E448DD795795FD8EFDDF300F /* [CP] Check Pods Manifest.lock */,
+				80BA9C54270B7C5B0001E57F /* ShellScript */,
 				D94419C9266CD3C40019902F /* Sources */,
 				D94419CA266CD3C40019902F /* Frameworks */,
 				D94419CB266CD3C40019902F /* Resources */,
 				D9441A3C266CD4C70019902F /* Embed Watch Content */,
 				80780F22266CE43A000D0DD9 /* Embed Frameworks */,
 				80780F2D266CF63E000D0DD9 /* ShellScript */,
-				80BA9C54270B7C5B0001E57F /* ShellScript */,
 				D9A080E8272D3F6E00DA8CD6 /* ShellScript */,
 				DCE5DF5466ADFFF69EC6DDC3 /* [CP] Embed Pods Frameworks */,
 			);
@@ -1150,7 +1150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swift-format >/dev/null; then\n    swift-format -m format -i -r ${PROJECT_DIR}\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
 		};
 		D9A080E8272D3F6E00DA8CD6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
