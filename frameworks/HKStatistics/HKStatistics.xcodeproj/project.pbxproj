@@ -65,7 +65,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		80653AA3268C615700E1079A /* SubProviders */ = {
+		80653AA3268C615700E1079A /* Sub Providers */ = {
 			isa = PBXGroup;
 			children = (
 				80653AAA268C61FD00E1079A /* HKGeneralStatisticsProvider.swift */,
@@ -74,7 +74,7 @@
 				80653AA8268C61CF00E1079A /* HKNumericStatisticsProvider.swift */,
 				D943F54C273463B0006EE671 /* HKDailyStatisticsProvider.swift */,
 			);
-			path = SubProviders;
+			path = "Sub Providers";
 			sourceTree = "<group>";
 		};
 		809FFACB26E3C81E008AFE60 /* Extensions */ = {
@@ -108,7 +108,7 @@
 			children = (
 				D96DBC482687127D00A0E018 /* Enums.swift */,
 				D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */,
-				80653AA3268C615700E1079A /* SubProviders */,
+				80653AA3268C615700E1079A /* Sub Providers */,
 				809FFACB26E3C81E008AFE60 /* Extensions */,
 			);
 			path = HKStatistics;
