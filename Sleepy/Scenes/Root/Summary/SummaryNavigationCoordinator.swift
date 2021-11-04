@@ -43,7 +43,7 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
 		// создаем дочерний координатор списка карточек
 		self.summaryListCoordinator = SummaryCardsListCoordinator(colorProvider: colorProvider,
 		                                                          statisticsProvider: statisticsProvider,
-		                                                          coordinator: self)
+                                                                  parent: self)
 	}
 
 	func open(_ url: URL) {

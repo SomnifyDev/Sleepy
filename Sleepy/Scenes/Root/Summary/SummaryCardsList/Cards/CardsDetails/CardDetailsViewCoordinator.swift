@@ -18,11 +18,11 @@ class CardDetailsViewCoordinator: ViewModel, ObservableObject, Identifiable {
 	init(card: SummaryViewCardType, parent: SummaryNavigationCoordinator) {
 		self.parent = parent
 		self.card = card
-		self.colorProvider = coordinator.colorProvider
-		self.statisticsProvider = coordinator.statisticsProvider
+		self.colorProvider = parent.colorProvider
+		self.statisticsProvider = parent.statisticsProvider
 	}
 
 	func open(_ url: URL) {
-		coordinator.open(url)
+        parent.open(url)
 	}
 }
