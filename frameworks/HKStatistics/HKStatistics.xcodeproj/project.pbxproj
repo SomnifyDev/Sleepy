@@ -12,6 +12,7 @@
 		80653AA9268C61CF00E1079A /* HKNumericStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80653AA8268C61CF00E1079A /* HKNumericStatisticsProvider.swift */; };
 		80653AAB268C61FD00E1079A /* HKGeneralStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80653AAA268C61FD00E1079A /* HKGeneralStatisticsProvider.swift */; };
 		809FFACD26E3C82F008AFE60 /* Double+Rounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809FFACC26E3C82F008AFE60 /* Double+Rounding.swift */; };
+		D943F54D273463B0006EE671 /* HKDailyStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D943F54C273463B0006EE671 /* HKDailyStatisticsProvider.swift */; };
 		D96DBC4C2687127D00A0E018 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DBC482687127D00A0E018 /* Enums.swift */; };
 		D96DBC4E2687127D00A0E018 /* HKStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */; };
 		D96DBC542687302D00A0E018 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC532687302D00A0E018 /* HKCoreSleep.framework */; };
@@ -42,6 +43,7 @@
 		80653AA8268C61CF00E1079A /* HKNumericStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKNumericStatisticsProvider.swift; sourceTree = "<group>"; };
 		80653AAA268C61FD00E1079A /* HKGeneralStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKGeneralStatisticsProvider.swift; sourceTree = "<group>"; };
 		809FFACC26E3C82F008AFE60 /* Double+Rounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounding.swift"; sourceTree = "<group>"; };
+		D943F54C273463B0006EE671 /* HKDailyStatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKDailyStatisticsProvider.swift; sourceTree = "<group>"; };
 		D96DBC252687126000A0E018 /* HKStatistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HKStatistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96DBC482687127D00A0E018 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKStatisticsProvider.swift; sourceTree = "<group>"; };
@@ -63,15 +65,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		80653AA3268C615700E1079A /* Sub Providers */ = {
+		80653AA3268C615700E1079A /* SubProviders */ = {
 			isa = PBXGroup;
 			children = (
 				80653AAA268C61FD00E1079A /* HKGeneralStatisticsProvider.swift */,
 				80653AA4268C617D00E1079A /* HKSleepStatisticsProvider.swift */,
 				80653AA6268C61A500E1079A /* HKPhasesStatisticsProvider.swift */,
 				80653AA8268C61CF00E1079A /* HKNumericStatisticsProvider.swift */,
+				D943F54C273463B0006EE671 /* HKDailyStatisticsProvider.swift */,
 			);
-			path = "Sub Providers";
+			path = SubProviders;
 			sourceTree = "<group>";
 		};
 		809FFACB26E3C81E008AFE60 /* Extensions */ = {
@@ -103,9 +106,9 @@
 		D96DBC272687126000A0E018 /* HKStatistics */ = {
 			isa = PBXGroup;
 			children = (
-				D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */,
-				80653AA3268C615700E1079A /* Sub Providers */,
 				D96DBC482687127D00A0E018 /* Enums.swift */,
+				D96DBC4A2687127D00A0E018 /* HKStatisticsProvider.swift */,
+				80653AA3268C615700E1079A /* SubProviders */,
 				809FFACB26E3C81E008AFE60 /* Extensions */,
 			);
 			path = HKStatistics;
@@ -208,6 +211,7 @@
 				809FFACD26E3C82F008AFE60 /* Double+Rounding.swift in Sources */,
 				80653AA9268C61CF00E1079A /* HKNumericStatisticsProvider.swift in Sources */,
 				D96DBC4E2687127D00A0E018 /* HKStatisticsProvider.swift in Sources */,
+				D943F54D273463B0006EE671 /* HKDailyStatisticsProvider.swift in Sources */,
 				80653AA5268C617D00E1079A /* HKSleepStatisticsProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

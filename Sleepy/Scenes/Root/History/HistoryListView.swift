@@ -147,10 +147,7 @@ struct HistoryListView: View {
         // TODO: change bundle prefix to ours when there will be enough data
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-                                                                        indicatorType: .mean,
-                                                                        for: current2weeksInterval,
-                                                                        bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+            viewModel.statisticsProvider.data(type, .mean, current2weeksInterval, bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 meanCurrent2WeeksDuration = result
                 group.leave()
             }
@@ -158,10 +155,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-                                                                        indicatorType: .mean,
-                                                                        for: last2weeksInterval,
-                                                                        bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+            viewModel.statisticsProvider.data(type, .mean, last2weeksInterval, bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 meanLast2WeeksDuration = result
                 group.leave()
             }
@@ -169,10 +163,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-                                                                        indicatorType: .min,
-                                                                        for: monthBeforeDateInterval,
-                                                                        bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+            viewModel.statisticsProvider.data(type, .min, monthBeforeDateInterval, bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Min. duration".localized, value: Date.minutesToDateDescription(minutes: Int(result))))
                 }
@@ -182,10 +173,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-                                                                        indicatorType: .mean,
-                                                                        for: monthBeforeDateInterval,
-                                                                        bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+            viewModel.statisticsProvider.data(type, .mean, monthBeforeDateInterval, bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Avg. duration".localized, value: Date.minutesToDateDescription(minutes: Int(result))))
                 }
@@ -195,10 +183,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-                                                                        indicatorType: .max,
-                                                                        for: monthBeforeDateInterval,
-                                                                        bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+            viewModel.statisticsProvider.data(type, .max, monthBeforeDateInterval, bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Max. duration".localized, value: Date.minutesToDateDescription(minutes: Int(result))))
                 }
@@ -210,9 +195,7 @@ struct HistoryListView: View {
             group.enter()
             DispatchQueue.global(qos: .userInitiated).async {
                 // TODO: сюда может вернуться сразу несколько снов за сутки, тогда нарушится логика вывода в график (где каждый столбик = день). FIX IT
-                viewModel.statisticsProvider.getDataByInterval(healthType: type,
-                                                               for: monthBeforeDateInterval,
-                                                               bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+                viewModel.statisticsProvider.data(type, monthBeforeDateInterval, bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                     monthSleepPoints = result
                     group.leave()
                 }
@@ -256,9 +239,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: .heart,
-                                                                        indicatorType: .min,
-                                                                        for: monthBeforeDateInterval) { result in
+            viewModel.statisticsProvider.data(.heart, .min, monthBeforeDateInterval) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Min. BPM", value: "\(Int(result))"))
                 }
@@ -268,9 +249,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: .heart,
-                                                                        indicatorType: .mean,
-                                                                        for: monthBeforeDateInterval) { result in
+            viewModel.statisticsProvider.data(.heart, .mean, monthBeforeDateInterval) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Avg. BPM", value: "\(Int(result))"))
                 }
@@ -280,9 +259,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: .heart,
-                                                                        indicatorType: .max,
-                                                                        for: monthBeforeDateInterval) { result in
+            viewModel.statisticsProvider.data(.heart, .max, monthBeforeDateInterval) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Max. BPM", value: "\(Int(result))"))
                 }
@@ -308,9 +285,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: .energy,
-                                                                        indicatorType: .min,
-                                                                        for: monthBeforeDateInterval) { result in
+            viewModel.statisticsProvider.data(.energy, .min, monthBeforeDateInterval) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Min. Kcal", value: "\(result)"))
                 }
@@ -320,9 +295,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: .energy,
-                                                                        indicatorType: .mean,
-                                                                        for: monthBeforeDateInterval) { result in
+            viewModel.statisticsProvider.data(.energy, .mean, monthBeforeDateInterval) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Avg. Kcal", value: "\(result)"))
                 }
@@ -332,9 +305,7 @@ struct HistoryListView: View {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: .energy,
-                                                                        indicatorType: .max,
-                                                                        for: monthBeforeDateInterval) { result in
+            viewModel.statisticsProvider.data(.energy, .max, monthBeforeDateInterval) { result in
                 if let result = result {
                     last30daysCellData.append(StatisticsCellData(title: "Max. Kcal", value: "\(result)"))
                 }
