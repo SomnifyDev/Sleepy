@@ -1,14 +1,9 @@
-//
-//  String+Localizable.swift
-//  Sleepy
-//
-//  Created by Никита Казанцев on 28.08.2021.
-//
+// Copyright (c) 2021 Sleepy.
 
 import Foundation
 
 public extension String {
-    var localized: String {
-        return NSLocalizedString(self, comment: "\(self)_comment")
-    }
+	var localized: String {
+		return NSLocalizedString(self, comment: "\(self)_comment")
+	}
 }

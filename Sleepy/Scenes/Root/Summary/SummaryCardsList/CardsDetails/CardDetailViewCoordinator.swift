@@ -1,3 +1,5 @@
+// Copyright (c) 2021 Sleepy.
+
 import Foundation
 import HKCoreSleep
 import HKStatistics
@@ -6,21 +8,21 @@ import SettingsKit
 import XUI
 
 class CardDetailsViewCoordinator: ViewModel, ObservableObject, Identifiable {
-    @Published private(set) var card: SummaryViewCardType
+	@Published private(set) var card: SummaryViewCardType
 
-    private unowned let coordinator: SummaryNavigationCoordinator
+	private unowned let coordinator: SummaryNavigationCoordinator
 
-    var colorProvider: ColorSchemeProvider
-    var statisticsProvider: HKStatisticsProvider
+	var colorProvider: ColorSchemeProvider
+	var statisticsProvider: HKStatisticsProvider
 
-    init(card: SummaryViewCardType, coordinator: SummaryNavigationCoordinator) {
-        self.coordinator = coordinator
-        self.card = card
-        colorProvider = coordinator.colorProvider
-        statisticsProvider = coordinator.statisticsProvider
-    }
+	init(card: SummaryViewCardType, coordinator: SummaryNavigationCoordinator) {
+		self.coordinator = coordinator
+		self.card = card
+		self.colorProvider = coordinator.colorProvider
+		self.statisticsProvider = coordinator.statisticsProvider
+	}
 
-    func open(_ url: URL) {
-        coordinator.open(url)
-    }
+	func open(_ url: URL) {
+		self.coordinator.open(url)
+	}
 }

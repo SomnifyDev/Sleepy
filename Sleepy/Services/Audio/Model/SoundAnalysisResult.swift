@@ -1,15 +1,10 @@
-//
-//  SoundAnalysisResult.swift
-//  Sleepy
-//
-//  Created by Никита Казанцев on 14.08.2021.
-//
+// Copyright (c) 2021 Sleepy.
 
 import Foundation
 
 struct SoundAnalysisResult: Hashable {
-    let start: TimeInterval
-    let end: TimeInterval
-    let soundType: String
-    let confidence: Double
+	let start: TimeInterval
+	let end: TimeInterval
+	let soundType: String
+	let confidence: Double
 }
