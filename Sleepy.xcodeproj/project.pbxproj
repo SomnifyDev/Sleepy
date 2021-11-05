@@ -18,6 +18,7 @@
 		8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
+		803115602733CEB0004CC544 /* RespiratoryHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */; };
 		8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613726FF1AD600643C8A /* IntroCoordinator.swift */; };
 		8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
@@ -214,6 +215,7 @@
 		801505AD267140F5007574B9 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
 		80260613271F577200D737AF /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespiratoryHistoryStatsView.swift; sourceTree = "<group>"; };
 		8052613726FF1AD600643C8A /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
 		8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinatorView.swift; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 			children = (
 				805D751A2692458500C19034 /* SleepHistoryStatsView.swift */,
 				8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */,
+				8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */,
 				8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */,
 			);
 			path = "Embed Statistics";
@@ -1267,6 +1270,7 @@
 				80A765EE26C83B3700A66554 /* AudioPlayer.swift in Sources */,
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
 				80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */,
+				803115602733CEB0004CC544 /* RespiratoryHistoryStatsView.swift in Sources */,
 				80A765E126C7F3A700A66554 /* Recording.swift in Sources */,
 				80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */,
 				80A765F026C843F300A66554 /* TimeInterval+String.swift in Sources */,

@@ -92,7 +92,9 @@ struct HealthTypeSwitchView: View {
 			return self.colorScheme.getColor(of: .general(.mainSleepyColor))
 		case .inbed:
 			return self.colorScheme.getColor(of: .general(.mainSleepyColor))
-		}
+        case .respiratory:
+            return Color(.systemBlue)
+        }
 	}
 
 	private func getItemDescription(for type: HealthData) -> String {
@@ -103,7 +105,9 @@ struct HealthTypeSwitchView: View {
 			return "Energy waste".localized
 		case .sleep:
 			return "Sleep duration".localized
-		case .inbed:
+        case .respiratory:
+            return "Respiratory".localized
+        case .inbed:
 			return "In bed duration".localized
 		}
 	}

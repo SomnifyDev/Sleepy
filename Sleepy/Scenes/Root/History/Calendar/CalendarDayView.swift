@@ -79,6 +79,8 @@ struct CalendarDayView: View {
 
 			case .energy:
 				self.circleColor = self.colorScheme.getColor(of: .energy(.energyColor))
+            case .respiratory:
+                self.circleColor = Color(.systemBlue)
 			}
 		} else {
 			self.circleColor = self.colorScheme.getColor(of: .calendar(.emptyDayColor))
@@ -150,6 +152,20 @@ struct CalendarDayView: View {
 					description = "-"
 				}
 			}
-		}
+        case .respiratory:
+            self.statsProvider.getDataByIntervalWithIndicator(healthType: .respiratory,
+                                                              indicatorType: .mean,
+                                                              for: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                                              bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+                value = val
+                getCircleColor()
+
+                if let value = value {
+                    description = !value.isNaN ? String(Int(value)) : "-"
+                } else {
+                    description = "-"
+                }
+            }
+        }
 	}
 }

@@ -135,6 +135,8 @@ private struct CalendarTitleView: View {
 			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
 		case .inbed:
 			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
-		}
+        case .respiratory:
+            return Color(.systemBlue)
+        }
 	}
 }

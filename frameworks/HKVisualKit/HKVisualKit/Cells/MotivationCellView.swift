@@ -79,7 +79,9 @@ public struct MotivationCellView: View {
 			return self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
 		case .inbed:
 			return self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
-		}
+        case .respiratory:
+            return Color(.systemBlue)
+        }
 	}
 }
 

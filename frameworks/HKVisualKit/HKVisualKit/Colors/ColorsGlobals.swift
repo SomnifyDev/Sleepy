@@ -7,6 +7,7 @@ import Foundation
 public enum HealthData: String, CaseIterable {
 	case heart
 	case energy
+    case respiratory
 	case sleep
 	case inbed
 }
