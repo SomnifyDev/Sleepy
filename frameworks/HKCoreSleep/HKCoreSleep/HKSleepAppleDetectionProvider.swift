@@ -141,7 +141,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				                  inBedInterval: inbedInterval,
 				                  phases: phases)
 
-				self.saveSleep(sleep: sleep, completionHandler: { [weak self] success, error in
+				self.saveSleep(sleep: sleep, completionHandler: { [weak self] _, error in
 					guard error == nil else {
 						print(error.debugDescription)
 						completionHandler(nil)
@@ -183,7 +183,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
 		for type in [HKSampleType.categoryType(forIdentifier: .sleepAnalysis)!] {
 			let query = HKObserverQuery(sampleType: type,
-			                            predicate: queryPredicate) { [weak self] _, completionHandler, errorOrNil in
+			                            predicate: queryPredicate) { [weak self] _, completionHandler, _ in
 				DispatchQueue.main.sync {
 					let state = UIApplication.shared.applicationState
 

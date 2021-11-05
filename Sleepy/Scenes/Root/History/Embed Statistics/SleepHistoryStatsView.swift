@@ -49,7 +49,7 @@ struct SleepHistoryStatsView: View {
 			}
 
 			if shouldShowAdvice {
-				MotivationCellView(type: .sleep, colorProvider: colorProvider)
+				MotivationCellView(type: .asleep, colorProvider: colorProvider)
 			}
 
 			if !viewModel.cellData.isEmpty {

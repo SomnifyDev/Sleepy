@@ -7,12 +7,10 @@ import XUI
 struct HistoryCoordinatorView: View {
 	@Store var viewModel: HistoryCoordinator
 
-	@State private var calendarType: HealthData = .sleep
-
 	var body: some View {
 		NavigationView {
-			HistoryListView(viewModel: viewModel, calendarType: $calendarType)
+			HistoryListView(viewModel: viewModel)
 		}
-		.navigationTitle("History")
+		.navigationTitle("History".localized)
 	}
 }

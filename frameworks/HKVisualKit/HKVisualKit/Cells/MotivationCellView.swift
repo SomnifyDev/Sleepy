@@ -14,7 +14,7 @@ public struct MotivationCellView: View {
 			title: "Quality of sleep",
 			description: "Research shows that poor sleep has immediate negative effects on your hormones, exercise performance, and brain function.",
 			link: "https://www.healthline.com/nutrition/17-tips-to-sleep-better#_noHeaderPrefixedContent",
-			type: .sleep
+			type: .asleep
 		),
 
 		MotivationAdvice(
@@ -75,13 +75,13 @@ public struct MotivationCellView: View {
 			return self.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
 		case .energy:
 			return self.colorProvider.sleepyColorScheme.getColor(of: .energy(.energyColor))
-		case .sleep:
+		case .asleep:
 			return self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
 		case .inbed:
 			return self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
-        case .respiratory:
-            return Color(.systemBlue)
-        }
+		case .respiratory:
+			return Color(.systemBlue)
+		}
 	}
 }
 

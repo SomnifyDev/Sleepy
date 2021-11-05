@@ -7,22 +7,23 @@ import SwiftUI
 import XUI
 
 class SummaryCardsListCoordinator: ObservableObject, ViewModel {
-    @Published private(set) var cards: [SummaryViewCardType]?
+	@Published private(set) var cards: [SummaryViewCardType]?
 
-    private unowned let parent: SummaryNavigationCoordinator
+	private unowned let parent: SummaryNavigationCoordinator
 
-    let colorProvider: ColorSchemeProvider
-    let statisticsProvider: HKStatisticsProvider
+	let colorProvider: ColorSchemeProvider
+	let statisticsProvider: HKStatisticsProvider
 
-    init(colorProvider: ColorSchemeProvider,
-         statisticsProvider: HKStatisticsProvider,
-         parent: SummaryNavigationCoordinator) {
-        self.colorProvider = colorProvider
-        self.statisticsProvider = statisticsProvider
-        self.parent = parent
-    }
+	init(colorProvider: ColorSchemeProvider,
+	     statisticsProvider: HKStatisticsProvider,
+	     parent: SummaryNavigationCoordinator)
+	{
+		self.colorProvider = colorProvider
+		self.statisticsProvider = statisticsProvider
+		self.parent = parent
+	}
 
-    func open(_ card: SummaryViewCardType) {
-        parent.open(card)
-    }
+	func open(_ card: SummaryViewCardType) {
+		self.parent.open(card)
+	}
 }
