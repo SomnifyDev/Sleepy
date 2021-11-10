@@ -51,11 +51,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-	func userNotificationCenter(
-		_: UNUserNotificationCenter,
-		willPresent _: UNNotification,
-		withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-	) {
+	func userNotificationCenter(_: UNUserNotificationCenter,
+	                            willPresent _: UNNotification,
+	                            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+	{
 		if #available(iOS 14.0.0, *) {
 			completionHandler([.sound])
 		} else {
@@ -63,11 +62,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 		}
 	}
 
-	func userNotificationCenter(
-		_: UNUserNotificationCenter,
-		didReceive response: UNNotificationResponse,
-		withCompletionHandler completionHandler: @escaping () -> Void
-	) {
+	func userNotificationCenter(_: UNUserNotificationCenter,
+	                            didReceive response: UNNotificationResponse,
+	                            withCompletionHandler completionHandler: @escaping () -> Void)
+	{
 		if response.notification.request.identifier == "Sleepy Notification" {
 			print("Handling notifications with the Sleepy Notification Identifier")
 		}

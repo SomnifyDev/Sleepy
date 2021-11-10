@@ -24,46 +24,34 @@ struct RespiratoryCardDetailView: View {
 						{
 							// MARK: Chart
 
-							StandardChartView(
-								colorProvider: viewModel.colorProvider,
-								chartType: .defaultChart(
-									barType: .rectangle(
-										color: Color(.systemBlue)
-									)
-								),
-								chartHeight: 75,
-								points: respiratoryViewModel.respiratoryRateData,
-								dateInterval: generalViewModel.sleepInterval
-							)
-							.roundedCardBackground(
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-							)
-							.padding(.top)
+							StandardChartView(colorProvider: viewModel.colorProvider,
+							                  chartType: .defaultChart(
+							                  	barType: .rectangle(
+							                  		color: Color(.systemBlue)
+							                  	)
+							                  ),
+							                  chartHeight: 75,
+							                  points: respiratoryViewModel.respiratoryRateData,
+							                  dateInterval: generalViewModel.sleepInterval)
+								.roundedCardBackground(
+									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+								)
+								.padding(.top)
 
 							// MARK: Statistics
 
-							SectionNameTextView(
-								text: "Summary".localized,
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
-							)
+							SectionNameTextView(text: "Summary".localized,
+							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-							HorizontalStatisticCellView(
-								data: [
-									StatisticsCellData(
-										title: "Max. respiratory rate".localized,
-										value: respiratoryViewModel.maxRespiratoryRate
-									),
-									StatisticsCellData(
-										title: "Mean. respiratory rate".localized,
-										value: respiratoryViewModel.averageRespiratoryRate
-									),
-									StatisticsCellData(
-										title: "Min. respiratory rate".localized,
-										value: respiratoryViewModel.minRespiratoryRate
-									),
-								],
-								colorScheme: viewModel.colorProvider.sleepyColorScheme
-							)
+							HorizontalStatisticCellView(data: [
+								StatisticsCellData(title: "Max. respiratory rate".localized,
+								                   value: respiratoryViewModel.maxRespiratoryRate),
+								StatisticsCellData(title: "Mean. respiratory rate".localized,
+								                   value: respiratoryViewModel.averageRespiratoryRate),
+								StatisticsCellData(title: "Min. respiratory rate".localized,
+								                   value: respiratoryViewModel.minRespiratoryRate),
+							],
+							colorScheme: viewModel.colorProvider.sleepyColorScheme)
 						}
 					}
 				}

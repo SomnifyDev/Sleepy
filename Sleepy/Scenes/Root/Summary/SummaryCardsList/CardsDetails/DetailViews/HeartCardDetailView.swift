@@ -46,14 +46,12 @@ struct HeartCardDetailView: View {
 						CardNameTextView(text: "What else?".localized,
 						                 color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-						UsefulInfoCardView(
-							imageName: AdviceType.heartAdvice.rawValue,
-							title: "Heart and sleep".localized,
-							description: "Learn more about the importance of sleep for heart health.".localized,
-							destinationView: AdviceView(sheetType: .heartAdvice, showAdvice: $showAdvice),
-							showModalView: $showAdvice
-						)
-						.usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+						UsefulInfoCardView(imageName: AdviceType.heartAdvice.rawValue,
+						                   title: "Heart and sleep".localized,
+						                   description: "Learn more about the importance of sleep for heart health.".localized,
+						                   destinationView: AdviceView(sheetType: .heartAdvice, showAdvice: $showAdvice),
+						                   showModalView: $showAdvice)
+							.usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 					}
 				}
 				.navigationTitle("Heart")

@@ -143,20 +143,18 @@ extension HistoryCoordinator {
 			guard let self = self else { return }
 			if let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
 				DispatchQueue.main.async {
-					let tmp = SleepHistoryStatsViewModel(
-						cellData: last30daysCellData,
-						monthSleepPoints: monthSleepPoints,
-						monthBeforeDateInterval: self.monthBeforeDateInterval,
-						currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean1))),
-						                                   text: current2weeksInterval.stringFromDateInterval(type: .days),
-						                                   value: Int(mean1)),
-						beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
-						                                  text: last2weeksInterval.stringFromDateInterval(type: .days),
-						                                  value: Int(mean2)),
-						analysisString: Int(mean1) == Int(mean2)
-							? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")
-							: String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time".localized, type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2))))
-					)
+					let tmp = SleepHistoryStatsViewModel(cellData: last30daysCellData,
+					                                     monthSleepPoints: monthSleepPoints,
+					                                     monthBeforeDateInterval: self.monthBeforeDateInterval,
+					                                     currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean1))),
+					                                                                        text: current2weeksInterval.stringFromDateInterval(type: .days),
+					                                                                        value: Int(mean1)),
+					                                     beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
+					                                                                       text: last2weeksInterval.stringFromDateInterval(type: .days),
+					                                                                       value: Int(mean2)),
+					                                     analysisString: Int(mean1) == Int(mean2)
+					                                     	? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")
+					                                     	: String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time".localized, type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
 
 					if type == .inbed {
 						self.inbedHistoryStatsViewModel = tmp

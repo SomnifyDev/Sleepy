@@ -51,14 +51,12 @@ struct PhasesCardDetailView: View {
 						CardNameTextView(text: "What else?".localized,
 						                 color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-						UsefulInfoCardView(
-							imageName: AdviceType.phasesAdvice.rawValue,
-							title: "Sleep phases and stages".localized,
-							description: "Learn more about sleep phases and stages.".localized,
-							destinationView: AdviceView(sheetType: .phasesAdvice, showAdvice: $showAdvice),
-							showModalView: $showAdvice
-						)
-						.usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+						UsefulInfoCardView(imageName: AdviceType.phasesAdvice.rawValue,
+						                   title: "Sleep phases and stages".localized,
+						                   description: "Learn more about sleep phases and stages.".localized,
+						                   destinationView: AdviceView(sheetType: .phasesAdvice, showAdvice: $showAdvice),
+						                   showModalView: $showAdvice)
+							.usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 					}
 				}
 				.navigationTitle("Sleep phases")

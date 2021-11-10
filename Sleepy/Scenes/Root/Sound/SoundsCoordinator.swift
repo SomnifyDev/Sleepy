@@ -19,10 +19,9 @@ class SoundsCoordinator: ObservableObject, ViewModel {
 
 	private unowned let parent: RootCoordinator
 
-	init(
-		colorSchemeProvider: ColorSchemeProvider,
-		parent: RootCoordinator
-	) {
+	init(colorSchemeProvider: ColorSchemeProvider,
+	     parent: RootCoordinator)
+	{
 		self.parent = parent
 		self.colorProvider = colorSchemeProvider
 

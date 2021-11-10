@@ -26,68 +26,48 @@ struct PhasesCardDetailView: View {
 						{
 							// MARK: Chart
 
-							StandardChartView(
-								colorProvider: viewModel.colorProvider,
-								chartType: .phasesChart,
-								chartHeight: 75,
-								points: phasesViewModel.phasesData,
-								dateInterval: generalViewModel.sleepInterval
-							)
-							.roundedCardBackground(
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-							)
-							.padding(.top)
+							StandardChartView(colorProvider: viewModel.colorProvider,
+							                  chartType: .phasesChart,
+							                  chartHeight: 75,
+							                  points: phasesViewModel.phasesData,
+							                  dateInterval: generalViewModel.sleepInterval)
+								.roundedCardBackground(
+									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+								)
+								.padding(.top)
 
 							// MARK: Statistics
 
-							SectionNameTextView(
-								text: "Summary".localized,
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
-							)
+							SectionNameTextView(text: "Summary".localized,
+							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-							HorizontalStatisticCellView(
-								data: [
-									StatisticsCellData(
-										title: "Total NREM sleep duration".localized,
-										value: phasesViewModel.timeInDeepPhase
-									),
-									StatisticsCellData(
-										title: "Max NREM sleep interval".localized,
-										value: phasesViewModel.mostIntervalInDeepPhase
-									),
-									StatisticsCellData(
-										title: "Total REM sleep duration".localized,
-										value: phasesViewModel.timeInLightPhase
-									),
-									StatisticsCellData(
-										title: "Max REM sleep interval".localized,
-										value: phasesViewModel.mostIntervalInLightPhase
-									),
-								],
-								colorScheme: viewModel.colorProvider.sleepyColorScheme
-							)
+							HorizontalStatisticCellView(data: [
+								StatisticsCellData(title: "Total NREM sleep duration".localized,
+								                   value: phasesViewModel.timeInDeepPhase),
+								StatisticsCellData(title: "Max NREM sleep interval".localized,
+								                   value: phasesViewModel.mostIntervalInDeepPhase),
+								StatisticsCellData(title: "Total REM sleep duration".localized,
+								                   value: phasesViewModel.timeInLightPhase),
+								StatisticsCellData(title: "Max REM sleep interval".localized,
+								                   value: phasesViewModel.mostIntervalInLightPhase),
+							],
+							colorScheme: viewModel.colorProvider.sleepyColorScheme)
 						}
 
 						// MARK: Advice
 
-						SectionNameTextView(
-							text: "What else?".localized,
-							color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
-						)
+						SectionNameTextView(text: "What else?".localized,
+						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-						UsefulInfoCardView(
-							imageName: AdviceType.phasesAdvice.rawValue,
-							title: "Sleep phases and stages".localized,
-							description: "Learn more about sleep phases and stages.".localized,
-							destinationView: AdviceView(
-								sheetType: .phasesAdvice,
-								showAdvice: $showAdvice
-							),
-							showModalView: $showAdvice
-						)
-						.usefulInfoCardBackground(
-							color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-						)
+						UsefulInfoCardView(imageName: AdviceType.phasesAdvice.rawValue,
+						                   title: "Sleep phases and stages".localized,
+						                   description: "Learn more about sleep phases and stages.".localized,
+						                   destinationView: AdviceView(sheetType: .phasesAdvice,
+						                                               showAdvice: $showAdvice),
+						                   showModalView: $showAdvice)
+							.usefulInfoCardBackground(
+								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+							)
 					}
 				}
 				.navigationTitle("Sleep phases")

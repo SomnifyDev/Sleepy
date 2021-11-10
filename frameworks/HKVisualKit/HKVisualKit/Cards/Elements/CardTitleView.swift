@@ -17,18 +17,17 @@ public struct CardTitleView: View {
 	private let colorProvider: ColorSchemeProvider
 	var onCloseTapAction: (() -> Void)?
 
-	public init(
-		titleText: String,
-		mainText: String? = nil,
-		leftIcon: Image,
-		rightIcon: Image? = nil,
-		navigationText: String? = nil,
-		titleColor: Color,
-		mainTextColor: Color? = nil,
-		showSeparator: Bool = true,
-		colorProvider: ColorSchemeProvider,
-		onCloseTapAction: (() -> Void)? = nil
-	) {
+	public init(titleText: String,
+	            mainText: String? = nil,
+	            leftIcon: Image,
+	            rightIcon: Image? = nil,
+	            navigationText: String? = nil,
+	            titleColor: Color,
+	            mainTextColor: Color? = nil,
+	            showSeparator: Bool = true,
+	            colorProvider: ColorSchemeProvider,
+	            onCloseTapAction: (() -> Void)? = nil)
+	{
 		self.titleText = titleText
 		self.mainText = mainText
 		self.leftIcon = leftIcon

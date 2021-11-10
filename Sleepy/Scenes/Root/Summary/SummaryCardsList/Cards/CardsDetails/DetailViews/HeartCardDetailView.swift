@@ -26,68 +26,50 @@ struct HeartCardDetailView: View {
 						{
 							// MARK: Chart
 
-							StandardChartView(
-								colorProvider: viewModel.colorProvider,
-								chartType: .defaultChart(
-									barType: .circle(
-										color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
-									)
-								),
-								chartHeight: 75,
-								points: heartViewModel.heartRateData,
-								dateInterval: generalViewModel.sleepInterval
-							)
-							.roundedCardBackground(
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-							)
-							.padding(.top)
+							StandardChartView(colorProvider: viewModel.colorProvider,
+							                  chartType: .defaultChart(
+							                  	barType: .circle(
+							                  		color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
+							                  	)
+							                  ),
+							                  chartHeight: 75,
+							                  points: heartViewModel.heartRateData,
+							                  dateInterval: generalViewModel.sleepInterval)
+								.roundedCardBackground(
+									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+								)
+								.padding(.top)
 
 							// MARK: Statistics
 
-							SectionNameTextView(
-								text: "Summary".localized,
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
-							)
+							SectionNameTextView(text: "Summary".localized,
+							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-							HorizontalStatisticCellView(
-								data: [
-									StatisticsCellData(
-										title: "Average pulse".localized,
-										value: heartViewModel.averageHeartRate
-									),
-									StatisticsCellData(
-										title: "Max pulse".localized,
-										value: heartViewModel.maxHeartRate
-									),
-									StatisticsCellData(
-										title: "Min pulse".localized,
-										value: heartViewModel.minHeartRate
-									),
-								],
-								colorScheme: viewModel.colorProvider.sleepyColorScheme
-							)
+							HorizontalStatisticCellView(data: [
+								StatisticsCellData(title: "Average pulse".localized,
+								                   value: heartViewModel.averageHeartRate),
+								StatisticsCellData(title: "Max pulse".localized,
+								                   value: heartViewModel.maxHeartRate),
+								StatisticsCellData(title: "Min pulse".localized,
+								                   value: heartViewModel.minHeartRate),
+							],
+							colorScheme: viewModel.colorProvider.sleepyColorScheme)
 						}
 
 						// MARK: Advices
 
-						SectionNameTextView(
-							text: "What else?".localized,
-							color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText))
-						)
+						SectionNameTextView(text: "What else?".localized,
+						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-						UsefulInfoCardView(
-							imageName: AdviceType.heartAdvice.rawValue,
-							title: "Heart and sleep".localized,
-							description: "Learn more about the importance of sleep for heart health.".localized,
-							destinationView: AdviceView(
-								sheetType: .heartAdvice,
-								showAdvice: $showAdvice
-							),
-							showModalView: $showAdvice
-						)
-						.usefulInfoCardBackground(
-							color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-						)
+						UsefulInfoCardView(imageName: AdviceType.heartAdvice.rawValue,
+						                   title: "Heart and sleep".localized,
+						                   description: "Learn more about the importance of sleep for heart health.".localized,
+						                   destinationView: AdviceView(sheetType: .heartAdvice,
+						                                               showAdvice: $showAdvice),
+						                   showModalView: $showAdvice)
+							.usefulInfoCardBackground(
+								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+							)
 					}
 				}
 				.navigationTitle("Heart")

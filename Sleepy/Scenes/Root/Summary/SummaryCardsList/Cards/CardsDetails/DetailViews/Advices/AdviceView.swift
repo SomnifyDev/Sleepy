@@ -18,14 +18,12 @@ struct AdviceView: View {
 	init(sheetType: AdviceType, showAdvice: Binding<Bool>) {
 		self.sheetType = sheetType
 		_showAdvice = showAdvice
-		self.viewModel = AdviceViewModel(
-			navigationTitle: "",
-			image: Image(systemName: "zzz"),
-			mainTitle: "",
-			firstText: "",
-			secondaryTitle: "",
-			secondText: ""
-		)
+		self.viewModel = AdviceViewModel(navigationTitle: "",
+		                                 image: Image(systemName: "zzz"),
+		                                 mainTitle: "",
+		                                 firstText: "",
+		                                 secondaryTitle: "",
+		                                 secondText: "")
 	}
 
 	var body: some View {
@@ -61,14 +59,12 @@ struct AdviceView: View {
 				}
 			}
 			.onAppear {
-				self.viewModel = AdviceViewModel(
-					navigationTitle: getNavigationTitle(),
-					image: Image(sheetType.rawValue),
-					mainTitle: getMainTitle(),
-					firstText: getFirstText(),
-					secondaryTitle: getSecondaryTitle(),
-					secondText: getSecondText()
-				)
+				self.viewModel = AdviceViewModel(navigationTitle: getNavigationTitle(),
+				                                 image: Image(sheetType.rawValue),
+				                                 mainTitle: getMainTitle(),
+				                                 firstText: getFirstText(),
+				                                 secondaryTitle: getSecondaryTitle(),
+				                                 secondText: getSecondText())
 			}
 			.navigationBarTitleDisplayMode(.inline)
 			.navigationTitle(self.viewModel.navigationTitle)

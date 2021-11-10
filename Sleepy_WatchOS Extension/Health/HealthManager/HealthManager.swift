@@ -41,10 +41,8 @@ extension HealthManager {
 		}
 
 		// Set up the immutable HKObserverQuery
-		let heartRateQuery = HKObserverQuery(
-			sampleType: sampleType,
-			predicate: nil
-		) { _, completionHandler, error in
+		let heartRateQuery = HKObserverQuery(sampleType: sampleType,
+		                                     predicate: nil) { _, completionHandler, error in
 
 			// This is fired every time new samples are retrieved
 			// This also seems to turn on active sensing to get heart rates every ~5 seconds
@@ -69,24 +67,18 @@ extension HealthManager {
 		// Set the predicate to get only samples from the last hour
 		// Could be last minute and should be just fine
 		let predicate = HKQuery
-			.predicateForSamples(
-				withStart: Date().addingTimeInterval(-3600),
-				end: Date(),
-				options: []
-			)
+			.predicateForSamples(withStart: Date().addingTimeInterval(-3600),
+			                     end: Date(),
+			                     options: [])
 
 		// Sort most recent
-		let sortDescriptor = NSSortDescriptor(
-			key: HKSampleSortIdentifierStartDate,
-			ascending: false
-		)
+		let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate,
+		                                      ascending: false)
 
-		let query = HKSampleQuery(
-			sampleType: HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!,
-			predicate: predicate,
-			limit: Int(1), // To get only one
-			sortDescriptors: [sortDescriptor]
-		) { _, results, _ in
+		let query = HKSampleQuery(sampleType: HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!,
+		                          predicate: predicate,
+		                          limit: Int(1), // To get only one
+		                          sortDescriptors: [sortDescriptor]) { _, results, _ in
 
 			// Fired when query completes
 			guard
@@ -116,10 +108,9 @@ extension HealthManager {
 // MARK: Permissions
 
 extension HealthManager {
-	func checkReadPermissions(
-		type: HealthType,
-		completionHandler: @escaping (Bool, Error?) -> Void
-	) {
+	func checkReadPermissions(type: HealthType,
+	                          completionHandler: @escaping (Bool, Error?) -> Void)
+	{
 		self.readDataLast(type: type, completionHandler: { _, samples, error in
 			if error != nil || (samples ?? []).isEmpty {
 				self.makeHealthKitRequest()
@@ -130,10 +121,9 @@ extension HealthManager {
 		})
 	}
 
-	private func readDataLast(
-		type: HealthType,
-		completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void
-	) {
+	private func readDataLast(type: HealthType,
+	                          completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void)
+	{
 		guard let healthKitValue = type.HSample else {
 			return
 		}
