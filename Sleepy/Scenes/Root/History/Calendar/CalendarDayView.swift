@@ -10,7 +10,7 @@ import XUI
 
 struct CalendarDayView: View {
 	@Store var viewModel: HistoryCoordinator
-    @Binding var monthDate: Date
+	@Binding var monthDate: Date
 
 	@State private var description = ""
 	@State private var value: Double?

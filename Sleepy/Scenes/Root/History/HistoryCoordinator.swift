@@ -17,10 +17,10 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 	@Published var energyHistoryStatsViewModel: EnergyHistoryStatsViewModel?
 	@Published var respiratoryHistoryStatsViewModel: RespiratoryHistoryStatsViewModel?
 
-    // велечина, являющаяся маркером текущего месяца для календаря (изменяется когда свайпаем месяц)
-    @Published var monthDate = Date()
+	// велечина, являющаяся маркером текущего месяца для календаря (изменяется когда свайпаем месяц)
+	@Published var monthDate = Date()
 
-    private unowned let parent: RootCoordinator
+	private unowned let parent: RootCoordinator
 	let colorSchemeProvider: ColorSchemeProvider
 	let statisticsProvider: HKStatisticsProvider
 
@@ -40,7 +40,9 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 	func open(_ url: URL) {
 		self.openedURL = url
 	}
+}
 
+extension HistoryCoordinator {
 	/// Вызывается для подгрузки всей статистики выбранной вкладки календаря
 	func extractContextStatistics() {
 		FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": self.calendarType.rawValue])
@@ -59,11 +61,11 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 		}
 	}
 
-    /// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов)
+	/// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов)
 	func extractSleepDataIfNeeded(type: HKService.HealthType) {
 		if type != .asleep, type != .inbed { fatalError("Not category type being used") }
-        if type == .inbed, self.inbedHistoryStatsViewModel != nil { return }
-        if type == .asleep, self.asleepHistoryStatsViewModel != nil { return }
+		if type == .inbed, self.inbedHistoryStatsViewModel != nil { return }
+		if type == .asleep, self.asleepHistoryStatsViewModel != nil { return }
 
 		var last30daysCellData: [StatisticsCellData] = []
 
@@ -166,18 +168,17 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 		}
 	}
 
-    /// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
+	/// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
 	func extractBasicNumericDataIfNeeded(type: HKService.HealthType) {
 		if type == .asleep || type == .inbed { fatalError("Not numeric type being used") }
-        if type == .heart, self.heartHistoryStatsViewModel != nil { return }
-        if type == .energy, self.energyHistoryStatsViewModel != nil { return }
-        if type == .respiratory, self.respiratoryHistoryStatsViewModel != nil { return }
+		if type == .heart, self.heartHistoryStatsViewModel != nil { return }
+		if type == .energy, self.energyHistoryStatsViewModel != nil { return }
+		if type == .respiratory, self.respiratoryHistoryStatsViewModel != nil { return }
 
 		var last30daysCellData: [StatisticsCellData] = []
+		let indicators: [IndicatorType] = [.min, .max, .mean]
 
 		let group = DispatchGroup()
-
-		let indicators: [IndicatorType] = [.min, .max, .mean]
 		indicators.forEach { indicator in
 			group.enter()
 			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -212,7 +213,7 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 		}
 	}
 
-    /// Получение строки-индикатора для ячейки базовой статистики под календарем
+	/// Получение строки-индикатора для ячейки базовой статистики под календарем
 	func getStatisticsCellDataLabel(for type: HKService.HealthType, indicator: IndicatorType) -> String {
 		switch type {
 		case .energy:

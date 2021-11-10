@@ -20,26 +20,26 @@ struct CalendarView: View {
 
 				VStack {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
-                                      monthDate: $viewModel.monthDate,
+					                  monthDate: $viewModel.monthDate,
 					                  colorSchemeProvider: viewModel.colorSchemeProvider)
 
 					HealthTypeSwitchView(selectedType: $viewModel.calendarType,
 					                     colorScheme: viewModel.colorSchemeProvider.sleepyColorScheme)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
-                        ForEach(1 ... viewModel.monthDate.getDaysInMonth(), id: \.self) { index in
+						ForEach(1 ... viewModel.monthDate.getDaysInMonth(), id: \.self) { index in
 							VStack(spacing: 2) {
 								if index >= 1, index <= 7 {
 									let tmpWeekDay = Calendar.current.date(byAdding: .day,
 									                                       value: index - 1,
-                                                                           to: viewModel.monthDate.startOfMonth)!
+									                                       to: viewModel.monthDate.startOfMonth)!
 
 									Text(tmpWeekDay.weekday() ?? "")
 										.weekDayTextModifier(width: calendarElementSize)
 								}
 
 								CalendarDayView(viewModel: viewModel,
-                                                monthDate: $viewModel.monthDate,
+								                monthDate: $viewModel.monthDate,
 								                currentDate: Date(),
 								                dateIndex: index, sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
 									.frame(height: calendarElementSize)
@@ -55,9 +55,9 @@ struct CalendarView: View {
 							let verticalAmount = value.translation.height as CGFloat
 
 							if abs(horizontalAmount) > abs(verticalAmount) {
-                                viewModel.monthDate = Calendar.current.date(byAdding: .month,
-								                                  value: horizontalAmount < 0 ? 1 : -1,
-								                                  to: viewModel.monthDate)!
+								viewModel.monthDate = Calendar.current.date(byAdding: .month,
+								                                            value: horizontalAmount < 0 ? 1 : -1,
+								                                            to: viewModel.monthDate)!
 							}
 						})
 				}.background(viewHeightReader($totalHeight))

@@ -13,12 +13,13 @@
 		8002F3A926A2139900A7192A /* HeartHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */; };
 		8002F3AB26A2163B00A7192A /* EnergyHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */; };
 		8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */; };
-		801505AE267140F5007574B9 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801505AD267140F5007574B9 /* CardDetailsView.swift */; };
 		80260614271F577200D737AF /* soundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 80260613271F577200D737AF /* soundClassifier.mlmodel */; };
 		8030CBA026FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		803115602733CEB0004CC544 /* RespiratoryHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */; };
+		803B32F4273C09CF0036D1E3 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */; };
+		803B32FA273C09F20036D1E3 /* GeneralCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */; };
 		8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613726FF1AD600643C8A /* IntroCoordinator.swift */; };
 		8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */; };
 		805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805D751A2692458500C19034 /* SleepHistoryStatsView.swift */; };
@@ -102,7 +103,6 @@
 		D99509FC267780D700694208 /* AlarmCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FB267780D700694208 /* AlarmCoordinatorView.swift */; };
 		D99509FE267780DE00694208 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FD267780DE00694208 /* SettingsCoordinator.swift */; };
 		D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99509FF267780F300694208 /* SettingsCoordinatorView.swift */; };
-		D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F446426B0136D00998590 /* GeneralCardDetailView.swift */; };
 		D9B1722A26B01495002C3B0D /* PhasesCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */; };
 		D9B1722C26B014A8002C3B0D /* HeartCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */; };
 		D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B727DD26FB0F4900B41683 /* AdviceView.swift */; };
@@ -212,10 +212,11 @@
 		8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartHistoryStatsView.swift; sourceTree = "<group>"; };
 		8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnergyHistoryStatsView.swift; sourceTree = "<group>"; };
 		8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSleepInfoCardView.swift; sourceTree = "<group>"; };
-		801505AD267140F5007574B9 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
 		80260613271F577200D737AF /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespiratoryHistoryStatsView.swift; sourceTree = "<group>"; };
+		803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
+		803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardDetailView.swift; sourceTree = "<group>"; };
 		8052613726FF1AD600643C8A /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
 		8052613926FF1B7A00643C8A /* IntroCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinatorView.swift; sourceTree = "<group>"; };
 		805D751A2692458500C19034 /* SleepHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryStatsView.swift; sourceTree = "<group>"; };
@@ -301,7 +302,6 @@
 		D99509FB267780D700694208 /* AlarmCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinatorView.swift; sourceTree = "<group>"; };
 		D99509FD267780DE00694208 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D99509FF267780F300694208 /* SettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorView.swift; sourceTree = "<group>"; };
-		D99F446426B0136D00998590 /* GeneralCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesCardDetailView.swift; sourceTree = "<group>"; };
 		D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartCardDetailView.swift; sourceTree = "<group>"; };
 		D9B727DD26FB0F4900B41683 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
@@ -492,7 +492,8 @@
 			children = (
 				80780F52266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* SummaryCardsListView.swift */,
-				D979FA8626F8C3C000928EF2 /* Cards */,
+				D979FA8726F8C3CE00928EF2 /* CardsViews */,
+				80780F59266D4D92000D0DD9 /* CardsDetails */,
 			);
 			path = SummaryCardsList;
 			sourceTree = "<group>";
@@ -501,10 +502,11 @@
 			isa = PBXGroup;
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
-				801505AD267140F5007574B9 /* CardDetailsView.swift */,
-				D9B1722826B0146D002C3B0D /* InsideViews */,
+				803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */,
+				D9B1722826B0146D002C3B0D /* DetailViews */,
 			);
-			path = CardsDetails;
+			name = CardsDetails;
+			path = Cards/CardsDetails;
 			sourceTree = "<group>";
 		};
 		80780F63266D5BC8000D0DD9 /* Extensions */ = {
@@ -749,53 +751,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D97030612725DD72000A347A /* RespiratoryCard */ = {
-			isa = PBXGroup;
-			children = (
-				D97030662725DDAE000A347A /* RespiratoryCardDetailView.swift */,
-			);
-			path = RespiratoryCard;
-			sourceTree = "<group>";
-		};
-		D979FA8626F8C3C000928EF2 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				D979FA8726F8C3CE00928EF2 /* CardsViews */,
-				80780F59266D4D92000D0DD9 /* CardsDetails */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
 		D979FA8726F8C3CE00928EF2 /* CardsViews */ = {
 			isa = PBXGroup;
 			children = (
 				8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */,
 			);
 			path = CardsViews;
-			sourceTree = "<group>";
-		};
-		D979FA8826F8C48E00928EF2 /* GeneralCard */ = {
-			isa = PBXGroup;
-			children = (
-				D99F446426B0136D00998590 /* GeneralCardDetailView.swift */,
-			);
-			path = GeneralCard;
-			sourceTree = "<group>";
-		};
-		D979FA8926F8C49700928EF2 /* PhasesCard */ = {
-			isa = PBXGroup;
-			children = (
-				D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */,
-			);
-			path = PhasesCard;
-			sourceTree = "<group>";
-		};
-		D979FA8A26F8C49E00928EF2 /* HeartCard */ = {
-			isa = PBXGroup;
-			children = (
-				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
-			);
-			path = HeartCard;
 			sourceTree = "<group>";
 		};
 		D97C396026BD1530005CCDFB /* Products */ = {
@@ -858,16 +819,16 @@
 			path = Cards;
 			sourceTree = "<group>";
 		};
-		D9B1722826B0146D002C3B0D /* InsideViews */ = {
+		D9B1722826B0146D002C3B0D /* DetailViews */ = {
 			isa = PBXGroup;
 			children = (
-				D979FA8826F8C48E00928EF2 /* GeneralCard */,
-				D979FA8926F8C49700928EF2 /* PhasesCard */,
-				D979FA8A26F8C49E00928EF2 /* HeartCard */,
-				D97030612725DD72000A347A /* RespiratoryCard */,
+				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
+				D9B1722926B01495002C3B0D /* PhasesCardDetailView.swift */,
+				D97030662725DDAE000A347A /* RespiratoryCardDetailView.swift */,
+				803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */,
 				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
-			path = InsideViews;
+			path = DetailViews;
 			sourceTree = "<group>";
 		};
 		D9B727DC26FB0F2C00B41683 /* Advices */ = {
@@ -1153,7 +1114,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n # \"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
 		};
 		D9A080E8272D3F6E00DA8CD6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1221,7 +1182,6 @@
 				D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */,
 				D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */,
 				80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */,
-				801505AE267140F5007574B9 /* CardDetailsView.swift in Sources */,
 				80A765EC26C7FBF000A66554 /* SoundAnalysisResult.swift in Sources */,
 				D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */,
 				80780F5F266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift in Sources */,
@@ -1247,6 +1207,7 @@
 				80A765DF26C7F35C00A66554 /* AudioRecorder.swift in Sources */,
 				80A765F326C85EB300A66554 /* SoundsCoordinator.swift in Sources */,
 				80A765F526C85EBF00A66554 /* AudioRecordingsListView.swift in Sources */,
+				803B32FA273C09F20036D1E3 /* GeneralCardDetailView.swift in Sources */,
 				D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */,
 				D97030672725DDAE000A347A /* RespiratoryCardDetailView.swift in Sources */,
 				805D751B2692458500C19034 /* SleepHistoryStatsView.swift in Sources */,
@@ -1271,11 +1232,11 @@
 				80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */,
 				80A765DC26C7C5A000A66554 /* ActivityViewController.swift in Sources */,
 				803115602733CEB0004CC544 /* RespiratoryHistoryStatsView.swift in Sources */,
+				803B32F4273C09CF0036D1E3 /* CardDetailsView.swift in Sources */,
 				80A765E126C7F3A700A66554 /* Recording.swift in Sources */,
 				80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */,
 				80A765F026C843F300A66554 /* TimeInterval+String.swift in Sources */,
 				8061C85026FFE460002BDA28 /* NotificationsIntroView.swift in Sources */,
-				D99F446526B0136D00998590 /* GeneralCardDetailView.swift in Sources */,
 				8061C85226FFE4D8002BDA28 /* GoalIntroView.swift in Sources */,
 				8052613A26FF1B7A00643C8A /* IntroCoordinatorView.swift in Sources */,
 				80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */,
