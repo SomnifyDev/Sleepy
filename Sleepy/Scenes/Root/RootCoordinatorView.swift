@@ -1,6 +1,5 @@
 // Copyright (c) 2021 Sleepy.
 
-import FirebaseAnalytics
 import SwiftUI
 import XUI
 
@@ -28,12 +27,6 @@ struct RootCoordinatorView: View {
 			SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
 				.tabItem { Label("settings".localized, systemImage: "gear") }
 				.tag(TabType.settings)
-		}.onAppear(perform: self.sendAnalytics)
-	}
-
-	private func sendAnalytics() {
-		FirebaseAnalytics.Analytics.logEvent("RootView_viewed", parameters: [
-			"tabOpened": self.viewModel.tab.rawValue,
-		])
+		}.onAppear(perform: self.viewModel.sendAnalytics)
 	}
 }

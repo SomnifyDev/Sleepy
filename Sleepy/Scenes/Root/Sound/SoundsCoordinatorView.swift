@@ -1,7 +1,6 @@
 // Copyright (c) 2021 Sleepy.
 
 import AVFoundation
-import FirebaseAnalytics
 import HKVisualKit
 import SwiftUI
 import XUI
@@ -42,7 +41,7 @@ struct SoundsCoordinatorView: View {
 			}
 			.navigationBarTitle("Sound recognition".localized)
 			.onAppear {
-				self.sendAnalytics()
+				self.viewModel.sendAnalytics()
 				self.shouldGrantPermissions = self.avAudioSession.recordPermission != .granted
 			}
 			.alert(isPresented: self.$shouldShowErrorAlert) {
@@ -52,14 +51,11 @@ struct SoundsCoordinatorView: View {
 				CountDownRecordingView(secondsRecorded: self.$secondsRecorded)
 					.disabled(self.secondsRecorded <= 3)
 					.onTapGesture {
-						audioRecorder.stopRecording()
+						self.audioRecorder.stopRecording()
 						self.shouldShowCountDown = false
+						self.secondsRecorded = 0
 					}
 			}
 		}
-	}
-
-	private func sendAnalytics() {
-		FirebaseAnalytics.Analytics.logEvent("Sounds_viewed", parameters: nil)
 	}
 }

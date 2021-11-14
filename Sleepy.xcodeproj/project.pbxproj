@@ -368,13 +368,26 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		8026061927202E2A00D737AF /* Model */ = {
+		803B3303274104F90036D1E3 /* services */ = {
 			isa = PBXGroup;
 			children = (
-				80A765EB26C7FBF000A66554 /* SoundAnalysisResult.swift */,
+				80A765F726C8F9E300A66554 /* FileHelper.swift */,
+				80A765E726C7F5F800A66554 /* AudioResultsObserver.swift */,
 				80A765E026C7F3A700A66554 /* Recording.swift */,
+				80A765EB26C7FBF000A66554 /* SoundAnalysisResult.swift */,
+				80A765ED26C83B3700A66554 /* AudioPlayer.swift */,
+				80A765DE26C7F35C00A66554 /* AudioRecorder.swift */,
 			);
-			path = Model;
+			path = services;
+			sourceTree = "<group>";
+		};
+		803B33042741056B0036D1E3 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				80780F57266D4C2E000D0DD9 /* CardService.swift */,
+				D99FD91D26A9F4A500A66A85 /* models */,
+			);
+			path = services;
 			sourceTree = "<group>";
 		};
 		8052613626FF1ABD00643C8A /* Intro */ = {
@@ -387,15 +400,16 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
-		805D75152692456000C19034 /* Embed Statistics */ = {
+		805D75152692456000C19034 /* subviews */ = {
 			isa = PBXGroup;
 			children = (
+				80D7F0B2268C71DA0055ECEE /* calendar */,
 				805D751A2692458500C19034 /* SleepHistoryStatsView.swift */,
 				8002F3A826A2139900A7192A /* HeartHistoryStatsView.swift */,
 				8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */,
 				8002F3AA26A2163B00A7192A /* EnergyHistoryStatsView.swift */,
 			);
-			path = "Embed Statistics";
+			path = subviews;
 			sourceTree = "<group>";
 		};
 		8061C84C26FFDDE9002BDA28 /* Elements */ = {
@@ -463,16 +477,6 @@
 			path = Summary;
 			sourceTree = "<group>";
 		};
-		80780F3E266D42D4000D0DD9 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				80A765DD26C7F33E00A66554 /* Audio */,
-				D9A8729E26FB20B90072BD77 /* Cards */,
-				80A765F726C8F9E300A66554 /* FileHelper.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		80780F48266D451B000D0DD9 /* Root */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,7 +496,8 @@
 			children = (
 				80780F52266D4A93000D0DD9 /* SummaryCardsListCoordinator.swift */,
 				80780F5A266D4E58000D0DD9 /* SummaryCardsListView.swift */,
-				D979FA8726F8C3CE00928EF2 /* CardsViews */,
+				D979FA8726F8C3CE00928EF2 /* subviews */,
+				803B33042741056B0036D1E3 /* services */,
 				80780F59266D4D92000D0DD9 /* CardsDetails */,
 			);
 			path = SummaryCardsList;
@@ -503,7 +508,7 @@
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
 				803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */,
-				D9B1722826B0146D002C3B0D /* DetailViews */,
+				D9B1722826B0146D002C3B0D /* subviews */,
 			);
 			name = CardsDetails;
 			path = Cards/CardsDetails;
@@ -530,53 +535,43 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		80A765DA26C7C59300A66554 /* SubViews */ = {
+		80A765DA26C7C59300A66554 /* subviews */ = {
 			isa = PBXGroup;
 			children = (
 				80A765DB26C7C5A000A66554 /* ActivityViewController.swift */,
 			);
-			path = SubViews;
-			sourceTree = "<group>";
-		};
-		80A765DD26C7F33E00A66554 /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				8026061927202E2A00D737AF /* Model */,
-				80A765E726C7F5F800A66554 /* AudioResultsObserver.swift */,
-			);
-			path = Audio;
+			path = subviews;
 			sourceTree = "<group>";
 		};
 		80A765F126C85E9F00A66554 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				80A765ED26C83B3700A66554 /* AudioPlayer.swift */,
-				80A765DE26C7F35C00A66554 /* AudioRecorder.swift */,
-				80A765F626C85F4B00A66554 /* Subviews */,
 				80A765F226C85EB300A66554 /* SoundsCoordinator.swift */,
 				80A765E426C7F44000A66554 /* SoundsCoordinatorView.swift */,
+				80A765F626C85F4B00A66554 /* subviews */,
+				803B3303274104F90036D1E3 /* services */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
 		};
-		80A765F626C85F4B00A66554 /* Subviews */ = {
+		80A765F626C85F4B00A66554 /* subviews */ = {
 			isa = PBXGroup;
 			children = (
 				80A765F426C85EBF00A66554 /* AudioRecordingsListView.swift */,
 				80A765E926C7FA1500A66554 /* AnalysisListView.swift */,
 				80904C0A272C36B00053A2F4 /* CountDownRecordingView.swift */,
 			);
-			path = Subviews;
+			path = subviews;
 			sourceTree = "<group>";
 		};
-		80D7F0B2268C71DA0055ECEE /* Calendar */ = {
+		80D7F0B2268C71DA0055ECEE /* calendar */ = {
 			isa = PBXGroup;
 			children = (
 				80D7F0BB268C77050055ECEE /* CalendarDayView.swift */,
 				80D7F0B7268C71EE0055ECEE /* CalendarView.swift */,
 				80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */,
 			);
-			path = Calendar;
+			path = calendar;
 			sourceTree = "<group>";
 		};
 		882574914EFE6785A847CA1B /* Frameworks */ = {
@@ -642,7 +637,6 @@
 				806E3C57271B73C700AA15BB /* Launch Screen.storyboard */,
 				8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */,
 				80780F34266D3CFD000D0DD9 /* Scenes */,
-				80780F3E266D42D4000D0DD9 /* Services */,
 				80780F63266D5BC8000D0DD9 /* Extensions */,
 				806E3C5E271C117900AA15BB /* Assets */,
 				D94419D9266CD3C50019902F /* Info.plist */,
@@ -751,12 +745,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D979FA8726F8C3CE00928EF2 /* CardsViews */ = {
+		D979FA8726F8C3CE00928EF2 /* subviews */ = {
 			isa = PBXGroup;
 			children = (
 				8008E59426E3A8D30076DA7E /* GeneralSleepInfoCardView.swift */,
 			);
-			path = CardsViews;
+			path = subviews;
 			sourceTree = "<group>";
 		};
 		D97C396026BD1530005CCDFB /* Products */ = {
@@ -782,8 +776,7 @@
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
 				8002F3A526A1FA3600A7192A /* HistoryListView.swift */,
-				805D75152692456000C19034 /* Embed Statistics */,
-				80D7F0B2268C71DA0055ECEE /* Calendar */,
+				805D75152692456000C19034 /* subviews */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -791,14 +784,14 @@
 		D99509F8267780AD00694208 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				80A765DA26C7C59300A66554 /* SubViews */,
 				D99509FD267780DE00694208 /* SettingsCoordinator.swift */,
 				D99509FF267780F300694208 /* SettingsCoordinatorView.swift */,
+				80A765DA26C7C59300A66554 /* subviews */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		D99FD91D26A9F4A500A66A85 /* CardsViewModels */ = {
+		D99FD91D26A9F4A500A66A85 /* models */ = {
 			isa = PBXGroup;
 			children = (
 				D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */,
@@ -807,19 +800,10 @@
 				D98D925426B0960100C6B7E4 /* BankOfSleepDataViewModel.swift */,
 				80C19297270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift */,
 			);
-			path = CardsViewModels;
+			path = models;
 			sourceTree = "<group>";
 		};
-		D9A8729E26FB20B90072BD77 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				80780F57266D4C2E000D0DD9 /* CardService.swift */,
-				D99FD91D26A9F4A500A66A85 /* CardsViewModels */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
-		D9B1722826B0146D002C3B0D /* DetailViews */ = {
+		D9B1722826B0146D002C3B0D /* subviews */ = {
 			isa = PBXGroup;
 			children = (
 				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
@@ -828,7 +812,7 @@
 				803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */,
 				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
-			path = DetailViews;
+			path = subviews;
 			sourceTree = "<group>";
 		};
 		D9B727DC26FB0F2C00B41683 /* Advices */ = {

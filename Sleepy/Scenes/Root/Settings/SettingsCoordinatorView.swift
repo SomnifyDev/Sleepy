@@ -1,7 +1,6 @@
 // Copyright (c) 2021 Sleepy.
 
 import Armchair
-import FirebaseAnalytics
 import Foundation
 import HKVisualKit
 import SettingsKit
@@ -9,26 +8,17 @@ import SwiftUI
 import XUI
 
 struct SettingsCoordinatorView: View {
-	// MARK: Properties
-
 	@Store var viewModel: SettingsCoordinator
-
-	@State private var sleepGoalValue = 480
-	@State private var bitrateValue = 12000
-	@State private var recognisionConfidenceValue: Int = 30
-	@State private var isSharePresented: Bool = false
-
-	// MARK: Body
 
 	var body: some View {
 		NavigationView {
 			List {
 				Section(header: HFView(text: "Health".localized, imageName: "heart.circle")) {
-					Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: sleepGoalValue)),
-					        value: $sleepGoalValue,
+					Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: self.viewModel.sleepGoalValue)),
+					        value: self.$viewModel.sleepGoalValue,
 					        in: 360 ... 720,
 					        step: 15) { _ in
-						saveSetting(with: sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
+						self.viewModel.saveSetting(with: self.viewModel.sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
 					}
 				}
 
@@ -38,8 +28,8 @@ struct SettingsCoordinatorView: View {
 					              action: { Armchair.rateApp() })
 					LabeledButton(text: "Share about us".localized,
 					              showChevron: true,
-					              action: { isSharePresented = true })
-						.sheet(isPresented: $isSharePresented,
+					              action: { self.viewModel.isSharePresented = true })
+						.sheet(isPresented: self.$viewModel.isSharePresented,
 						       content: {
 						       	// TODO: replace with ours website
 						       	ActivityViewController(activityItems: [URL(string: "https://www.apple.com")!])
@@ -47,43 +37,25 @@ struct SettingsCoordinatorView: View {
 				}.disabled(true)
 
 				Section(header: HFView(text: "Sound Recording".localized, imageName: "mic.circle")) {
-					Stepper(String(format: "Bitrate – %d".localized, bitrateValue),
-					        value: $bitrateValue,
+					Stepper(String(format: "Bitrate – %d".localized, self.viewModel.bitrateValue),
+					        value: self.$viewModel.bitrateValue,
 					        in: 1000 ... 44000,
 					        step: 1000) { _ in
-						saveSetting(with: bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
+						self.viewModel.saveSetting(with: self.viewModel.bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
 					}
 
-					Stepper(String(format: "Min. confidence %d".localized, recognisionConfidenceValue),
-					        value: $recognisionConfidenceValue,
+					Stepper(String(format: "Min. confidence %d".localized, self.viewModel.recognisionConfidenceValue),
+					        value: self.$viewModel.recognisionConfidenceValue,
 					        in: 10 ... 95,
 					        step: 5) { _ in
-						saveSetting(with: recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+						self.viewModel.saveSetting(with: self.viewModel.recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
 					}
 				}
 			}
 			.listStyle(.insetGrouped)
 			.navigationBarTitle("Settings".localized, displayMode: .large)
-			.onAppear {
-				getAllValuesFromUserDefaults()
-			}
+			.onAppear { viewModel.getAllValuesFromUserDefaults() }
 		}
-	}
-
-	// MARK: Private methods
-
-	private func saveSetting(with value: Int, forKey key: String) {
-		FirebaseAnalytics.Analytics.logEvent("Settings_saved", parameters: [
-			"key": key,
-			"value": value,
-		])
-		UserDefaults.standard.set(value, forKey: key)
-	}
-
-	private func getAllValuesFromUserDefaults() {
-		self.sleepGoalValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
-		self.bitrateValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
-		self.recognisionConfidenceValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
 	}
 }
 

@@ -1,12 +1,17 @@
 // Copyright (c) 2021 Sleepy.
 
+import FirebaseAnalytics
 import Foundation
 import SettingsKit
 import XUI
 
 class SettingsCoordinator: ObservableObject, ViewModel {
 	@Published var openedURL: URL?
-	@Published private(set) var viewModel: SettingsCoordinatorView!
+
+	@Published var sleepGoalValue = 480
+	@Published var bitrateValue = 12000
+	@Published var recognisionConfidenceValue: Int = 30
+	@Published var isSharePresented: Bool = false
 
 	private unowned let parent: RootCoordinator
 
@@ -14,13 +19,25 @@ class SettingsCoordinator: ObservableObject, ViewModel {
 		parent: RootCoordinator
 	) {
 		self.parent = parent
-
-		self.viewModel = SettingsCoordinatorView(
-			viewModel: self
-		)
 	}
 
 	func open(_ url: URL) {
 		self.openedURL = url
+	}
+}
+
+extension SettingsCoordinator {
+	func saveSetting(with value: Int, forKey key: String) {
+		FirebaseAnalytics.Analytics.logEvent("Settings_saved", parameters: [
+			"key": key,
+			"value": value,
+		])
+		UserDefaults.standard.set(value, forKey: key)
+	}
+
+	func getAllValuesFromUserDefaults() {
+		self.sleepGoalValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
+		self.bitrateValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
+		self.recognisionConfidenceValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
 	}
 }

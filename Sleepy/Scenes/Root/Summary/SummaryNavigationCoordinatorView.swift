@@ -10,7 +10,7 @@ struct SummaryNavigationCoordinatorView: View {
 		NavigationView {
 			SummaryCardsListView(viewModel: viewModel.summaryListCoordinator)
 				.navigation(model: $viewModel.cardDetailViewCoordinator) { viewModel in
-					CardDetailsView(coordinator: viewModel)
+					CardDetailsView(viewModel: viewModel)
 				}
 		}
 	}

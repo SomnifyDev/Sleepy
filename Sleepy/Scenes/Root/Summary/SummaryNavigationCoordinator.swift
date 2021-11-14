@@ -34,12 +34,8 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
 		self.colorProvider = colorProvider
 		self.statisticsProvider = statisticsProvider
 		self.parent = parent
-		// координатор экрана получил сервисы которые мб понадобятся ему или дочерним роутерам
-		// обрати внимание на View данного координатора
-		// Это еще не view со списком карточек 1 таба. Это обертка списка карточек NavigationView'ром
-		self.hkStoreService = hkStoreService
 
-		// создаем дочерний координатор списка карточек
+		self.hkStoreService = hkStoreService
 		self.summaryListCoordinator = SummaryCardsListCoordinator(colorProvider: colorProvider,
 		                                                          statisticsProvider: statisticsProvider,
 		                                                          parent: self)
