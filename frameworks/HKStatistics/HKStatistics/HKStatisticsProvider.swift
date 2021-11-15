@@ -23,7 +23,8 @@ public final class HKStatisticsProvider {
 
     // MARK: - Public methods
 
-    public func data(
+    /// Returns numeric data (heart, energy etc) by data type with indicator (min, max etc)
+    public func getData(
         _ dataType: NumericData,
         _ indicator: Indicator,
         roundPlaces: Int = 2
@@ -34,35 +35,40 @@ public final class HKStatisticsProvider {
         return numericTypesStatisticsProvider.numericData(dataType: dataType, indicator: indicator, sleep: sleep)?.rounded(toPlaces: roundPlaces)
     }
 
-    public func data(_ dataType: PhasesData) -> Any? {
+    /// Returns phases data by data type
+    public func getData(_ dataType: PhasesData) -> Any? {
         guard let sleep = sleep else {
             return nil
         }
         return phasesStatisticsProvider.phasesData(dataType: dataType, data: sleep.phases)
     }
 
-    public func data(_ dataType: SleepData) -> Int? {
+    /// Returns sleep data by data type
+    public func getData(_ dataType: SleepData) -> Int? {
         guard let sleep = sleep else {
             return nil
         }
         return sleepStatisticsProvider.sleepData(dataType: dataType, sleep: sleep)
     }
 
-    public func todaySleepData(_ healthtype: HKService.HealthType) -> [Double] {
+    /// Returns today sleep hata of special health type (energy, heart, asleep, inbed, respiratory)
+    public func getTodaySleepData(_ healthtype: HKService.HealthType) -> [Double] {
         guard let sleep = sleep else {
             return []
         }
         return dailyStatisticsProvider.data(healthtype: healthtype, sleep: sleep)
     }
 
-    public func todaySleepInterval(_ intervalType: SleepInterval) -> DateInterval? {
+    /// Returns today sleep interval with interval type (inbed, asleep)
+    public func getTodaySleepInterval(_ intervalType: SleepInterval) -> DateInterval? {
         guard let sleep = sleep else {
             return nil
         }
         return dailyStatisticsProvider.intervalBoundary(intervalType: intervalType, sleep: sleep)
     }
 
-    public func data(
+    /// Returns data by interval with health type and indicator from CoreSleep
+    public func getData(
         _ healthType: HKService.HealthType,
         _ indicator: Indicator,
         _ interval: DateInterval,
@@ -79,7 +85,8 @@ public final class HKStatisticsProvider {
         }
     }
 
-    public func data(
+    /// Returns meta data by interval with health type from CoreSleep
+    public func getData(
         _ healthType: HKService.HealthType,
         _ interval: DateInterval,
         bundlePrefixes: [String] = ["com.apple"],
@@ -111,7 +118,8 @@ public final class HKStatisticsProvider {
         }
     }
 
-    public func metaData(
+    /// Returns meta data by interval with health type and indicator
+    public func getMetaData(
         _ healthType: HKService.HealthType,
         _ indicatorType: Indicator,
         _ interval: DateInterval,

@@ -91,7 +91,7 @@ struct CalendarDayView: View {
 
         switch type {
         case .heart:
-            statsProvider.metaData(.heart, .mean, DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
+            statsProvider.getMetaData(.heart, .mean, DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
                 value = val
                 getCircleColor()
 
@@ -103,7 +103,7 @@ struct CalendarDayView: View {
             }
 
         case .energy:
-            statsProvider.metaData(.energy, .mean, DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
+            statsProvider.getMetaData(.energy, .mean, DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
                 value = val
                 getCircleColor()
 
@@ -115,7 +115,7 @@ struct CalendarDayView: View {
             }
 
         case .sleep:
-            statsProvider.data(.asleep, .sum, DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+            statsProvider.getData(.asleep, .sum, DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
                 getCircleColor()
 
@@ -127,7 +127,7 @@ struct CalendarDayView: View {
             }
 
         case .inbed:
-            statsProvider.data(.inbed, .sum, DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+            statsProvider.getData(.inbed, .sum, DateInterval(start: date.startOfDay, end: date.endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
                 value = val
                 getCircleColor()
 

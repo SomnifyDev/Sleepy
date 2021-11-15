@@ -96,7 +96,7 @@ class CardService: ObservableObject {
                 return
             }
 
-            self.statisticsProvider.data(.asleep, .sum, DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
+            self.statisticsProvider.getData(.asleep, .sum, DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
                 let isComplete = queue.sync { () -> Bool in
                     resultData[dateIndex] = data ?? 0
                     samplesLeft -= 1
@@ -114,8 +114,8 @@ class CardService: ObservableObject {
 
     private func getSleepData() {
         guard
-            let sleepInterval = statisticsProvider.todaySleepInterval(.asleep),
-            let inBedInterval = statisticsProvider.todaySleepInterval(.inbed)
+            let sleepInterval = statisticsProvider.getTodaySleepInterval(.asleep),
+            let inBedInterval = statisticsProvider.getTodaySleepInterval(.inbed)
         else {
             return
         }
@@ -129,9 +129,9 @@ class CardService: ObservableObject {
 
     private func getPhasesData() {
         guard
-            let deepSleepMinutes = statisticsProvider.data(.deepPhaseDuration) as? Int,
-            let lightSleepMinutes = statisticsProvider.data(.lightPhaseDuration) as? Int,
-            let phasesData = statisticsProvider.data(.chart) as? [Double]
+            let deepSleepMinutes = statisticsProvider.getData(.deepPhaseDuration) as? Int,
+            let lightSleepMinutes = statisticsProvider.getData(.lightPhaseDuration) as? Int,
+            let phasesData = statisticsProvider.getData(.chart) as? [Double]
         else {
             return
         }
@@ -149,12 +149,12 @@ class CardService: ObservableObject {
 
     private func getHeartData() {
         var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-        let heartRateData = getShortHeartRateData(heartRateData: statisticsProvider.todaySleepData(.heart))
+        let heartRateData = getShortHeartRateData(heartRateData: statisticsProvider.getTodaySleepData(.heart))
 
         if !heartRateData.isEmpty,
-           let maxHR = statisticsProvider.data(.heart, .max),
-           let minHR = statisticsProvider.data(.heart, .min),
-           let averageHR = statisticsProvider.data(.heart, .mean) {
+           let maxHR = statisticsProvider.getData(.heart, .max),
+           let minHR = statisticsProvider.getData(.heart, .min),
+           let averageHR = statisticsProvider.getData(.heart, .mean) {
             maxHeartRate = String(format: "%u bpm".localized, Int(maxHR))
             minHeartRate = String(format: "%u bpm".localized, Int(minHR))
             averageHeartRate = String(format: "%u bpm".localized, Int(averageHR))
@@ -193,12 +193,12 @@ class CardService: ObservableObject {
 
     private func getRespiratoryData() {
         var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
-        let breathRateData = statisticsProvider.todaySleepData(.respiratory)
+        let breathRateData = statisticsProvider.getTodaySleepData(.respiratory)
 
         if !breathRateData.isEmpty,
-           let maxRespiratory = statisticsProvider.data(.respiratory, .max),
-           let minRespiratory = statisticsProvider.data(.respiratory, .min),
-           let averageRespiratory = statisticsProvider.data(.heart, .mean) {
+           let maxRespiratory = statisticsProvider.getData(.respiratory, .max),
+           let minRespiratory = statisticsProvider.getData(.respiratory, .min),
+           let averageRespiratory = statisticsProvider.getData(.heart, .mean) {
             maxRespiratoryRate = String(format: "%u count/min".localized, Int(maxRespiratory))
             minRespiratoryRate = String(format: "%u count/min".localized, Int(minRespiratory))
             averageRespiratoryRate = String(format: "%u count/min".localized, Int(averageRespiratory))
