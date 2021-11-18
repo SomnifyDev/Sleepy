@@ -36,9 +36,11 @@ struct HistoryListView: View {
 						} else {
 							MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
 
-							BannerView(bannerViewType: .brokenData(type: .sleep),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            ErrorBanner(
+                                reason: .brokenData(type: .sleep),
+                                viewModel.colorSchemeProvider
+                            )
+                            .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
 							SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
 								.blur(radius: 4)
@@ -50,9 +52,11 @@ struct HistoryListView: View {
 						} else {
 							MotivationCellView(type: .sleep, colorProvider: self.viewModel.colorSchemeProvider)
 
-							BannerView(bannerViewType: .brokenData(type: .inbed),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            ErrorBanner(
+                                reason: .brokenData(type: .inbed),
+                                viewModel.colorSchemeProvider
+                            )
+                            .roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
 							SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
 								.blur(radius: 4)
@@ -64,9 +68,13 @@ struct HistoryListView: View {
 						} else {
 							MotivationCellView(type: .heart, colorProvider: self.viewModel.colorSchemeProvider)
 
-							BannerView(bannerViewType: .brokenData(type: .heart),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            ErrorBanner(
+                                reason: .brokenData(type: .heart),
+                                viewModel.colorSchemeProvider
+                            )
+                            .roundedCardBackground(
+                                color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+                            )
 
 							HeartHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
 								.blur(radius: 4)
@@ -78,9 +86,13 @@ struct HistoryListView: View {
 						} else {
 							MotivationCellView(type: .energy, colorProvider: self.viewModel.colorSchemeProvider)
 
-							BannerView(bannerViewType: .brokenData(type: .energy),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            ErrorBanner(
+                                reason: .brokenData(type: .energy),
+                                viewModel.colorSchemeProvider
+                            )
+                            .roundedCardBackground(
+                                color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+                            )
 
 							EnergyHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
 								.blur(radius: 4)

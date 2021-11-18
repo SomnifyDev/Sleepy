@@ -47,13 +47,20 @@ public struct CardWithChartView<T: View, U: View>: View {
 		VStack {
 			GeometryReader { _ in
 				VStack(alignment: .leading) {
-					CardTitleView(titleText: self.titleText,
-					              mainText: self.mainTitleText,
-					              leftIcon: Image(systemName: self.systemImageName),
-					              rightIcon: showChevron ? Image(systemName: "chevron.right") : nil,
-					              titleColor: self.titleColor,
-					              mainTextColor: self.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-					              colorProvider: self.colorProvider)
+                    CardTitleView(
+                        config: CardTitleConfig(
+                            titleText: titleText,
+                            mainText: mainTitleText,
+                            leftIcon: Image(systemName: self.systemImageName),
+                            rightIcon: showChevron ? Image(systemName: "chevron.right") : nil,
+                            navigationText: nil,
+                            titleColor: titleColor,
+                            mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                            shouldShowSeparator: true,
+                            onCloseTapAction: nil,
+                            colorProvider: colorProvider
+                        )
+                    )
 
 					chartView
 						.padding(.top, 8)

@@ -42,13 +42,21 @@ public struct ProgressChartView: View {
 			GeometryReader { _ in
 
 				VStack(alignment: .leading) {
-					CardTitleView(titleText: self.titleText,
-					              mainText: mainText,
-					              leftIcon: Image(systemName: self.systemImage),
-					              titleColor: self.mainColor,
-					              mainTextColor: self.mainTextColor,
-					              colorProvider: self.colorProvider)
-
+                    CardTitleView(
+                        config: CardTitleConfig(
+                            titleText: titleText,
+                            mainText: mainText,
+                            leftIcon: Image(systemName: self.systemImage),
+                            rightIcon: nil,
+                            navigationText: nil,
+                            titleColor: mainColor,
+                            mainTextColor: mainTextColor,
+                            shouldShowSeparator: true,
+                            onCloseTapAction: nil,
+                            colorProvider: colorProvider
+                        )
+                    )
+                    
 					ProgressItemView(progressItem: currentProgress)
 						.padding(.top, 8)
 						.padding(.trailing, currentProgress.value >= beforeProgress.value ? 0 : 64)

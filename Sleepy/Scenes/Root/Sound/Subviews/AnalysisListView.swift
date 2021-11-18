@@ -26,14 +26,20 @@ struct AnalysisListView: View {
 
 						ForEach(result, id: \.self) { item in
 							VStack {
-								CardTitleView(titleText: item.soundType,
-								              mainText: String(format: "%.2f%% confidence", item.confidence),
-								              leftIcon: Image(systemName: "waveform"),
-								              navigationText: self.getDescription(item: item, date: endDate),
-								              titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-								              mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
-								              showSeparator: false,
-								              colorProvider: self.colorProvider)
+                                CardTitleView(config:
+                                                CardTitleConfig(
+                                                    titleText: item.soundType,
+                                                    mainText: String(format: "%.2f%% confidence", item.confidence),
+                                                    leftIcon: Image(systemName: "waveform"),
+                                                    rightIcon: nil,
+                                                    navigationText: getDescription(item: item, date: endDate),
+                                                    titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                                                    mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
+                                                    shouldShowSeparator: false,
+                                                    onCloseTapAction: nil,
+                                                    colorProvider: colorProvider
+                                                )
+                                )
 
 								AudioPlayerView(colorProvider: colorProvider,
 								                playAtTime: item.start,
