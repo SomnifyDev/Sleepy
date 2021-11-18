@@ -1,10 +1,5 @@
 import SwiftUI
 
-public enum AdviceBannerType: String {
-    case wearMore
-    case soundRecording
-}
-
 public struct AdviceBanner: View {
 
     // MARK: - Properties

@@ -36,7 +36,7 @@ struct AudioRecordingsListView: View {
                             colorProvider: viewModel.colorProvider
                         )
                     )
-                    .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                        .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                 } else {
                     List {
                         ForEach(headers, id: \.self) { header in
@@ -119,19 +119,19 @@ private struct RecordingRow: View {
     let colorProvider: ColorSchemeProvider
     var body: some View {
         VStack {
-            CardTitleView(config:
-                            CardTitleConfig(
-                                titleText: "Recording",
-                                mainText: nil,
-                                leftIcon: Image(systemName: "mic.circle.fill"),
-                                rightIcon: Image(systemName: "chevron.right"),
-                                navigationText: nil,
-                                titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-                                mainTextColor: nil,
-                                shouldShowSeparator: false,
-                                onCloseTapAction: nil,
-                                colorProvider: colorProvider
-                            )
+            CardTitleView(
+                config: CardTitleConfig(
+                    titleText: "Recording",
+                    mainText: nil,
+                    leftIcon: Image(systemName: "mic.circle.fill"),
+                    rightIcon: Image(systemName: "chevron.right"),
+                    navigationText: nil,
+                    titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                    mainTextColor: nil,
+                    shouldShowSeparator: false,
+                    onCloseTapAction: nil,
+                    colorProvider: colorProvider
+                )
             )
 
             HStack {

@@ -19,19 +19,19 @@ public struct GeneralSleepInfoCardView: View {
         VStack {
             GeometryReader { _ in
                 VStack {
-                    CardTitleView(config:
-                                    CardTitleConfig(
-                                        titleText: "Sleep: general".localized,
-                                        mainText: "Here is some info about your last sleep session".localized,
-                                        leftIcon: Image(systemName: "zzz"),
-                                        rightIcon: Image(systemName: "chevron.right"),
-                                        navigationText: nil,
-                                        titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-                                        mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-                                        shouldShowSeparator: true,
-                                        onCloseTapAction: nil,
-                                        colorProvider: colorProvider
-                                    )
+                    CardTitleView(
+                        config: CardTitleConfig(
+                            titleText: "Sleep: general".localized,
+                            mainText: "Here is some info about your last sleep session".localized,
+                            leftIcon: Image(systemName: "zzz"),
+                            rightIcon: Image(systemName: "chevron.right"),
+                            navigationText: nil,
+                            titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+                            mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+                            shouldShowSeparator: true,
+                            onCloseTapAction: nil,
+                            colorProvider: colorProvider
+                        )
                     )
                     
                     HStack {

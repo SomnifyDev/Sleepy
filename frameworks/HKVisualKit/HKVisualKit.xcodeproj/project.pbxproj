@@ -31,6 +31,7 @@
 		D98690C12746CBE800372F3E /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98690C02746CBE800372F3E /* ErrorBanner.swift */; };
 		D98690C42746CDD000372F3E /* CardTitleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98690C32746CDD000372F3E /* CardTitleConfig.swift */; };
 		D98690C72746D47000372F3E /* AdviceBannerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98690C62746D47000372F3E /* AdviceBannerConfig.swift */; };
+		D98690CA2746E28000372F3E /* ErrorBannerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98690C92746E28000372F3E /* ErrorBannerConfig.swift */; };
 		D99F445C26B0083800998590 /* UsefulInfoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F445B26B0083800998590 /* UsefulInfoCardView.swift */; };
 		D99F445F26B00ACF00998590 /* UsefulInfoCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99F445E26B00ACF00998590 /* UsefulInfoCardDetailView.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		D98690C02746CBE800372F3E /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		D98690C32746CDD000372F3E /* CardTitleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTitleConfig.swift; sourceTree = "<group>"; };
 		D98690C62746D47000372F3E /* AdviceBannerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceBannerConfig.swift; sourceTree = "<group>"; };
+		D98690C92746E28000372F3E /* ErrorBannerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBannerConfig.swift; sourceTree = "<group>"; };
 		D99F445B26B0083800998590 /* UsefulInfoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoCardView.swift; sourceTree = "<group>"; };
 		D99F445E26B00ACF00998590 /* UsefulInfoCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsefulInfoCardDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				D98690C52746D3EA00372F3E /* Advice */,
-				D98690C02746CBE800372F3E /* ErrorBanner.swift */,
+				D98690C82746E26F00372F3E /* Error */,
 			);
 			path = Banners;
 			sourceTree = "<group>";
@@ -212,6 +214,15 @@
 				D98690C62746D47000372F3E /* AdviceBannerConfig.swift */,
 			);
 			path = Advice;
+			sourceTree = "<group>";
+		};
+		D98690C82746E26F00372F3E /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				D98690C02746CBE800372F3E /* ErrorBanner.swift */,
+				D98690C92746E28000372F3E /* ErrorBannerConfig.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		D99F445D26B00AB700998590 /* UsefulInfo */ = {
@@ -312,6 +323,7 @@
 				8096A4AC2698CA4800288D1A /* ChartsGlobals.swift in Sources */,
 				D93BF2992698DC3500C0C33D /* View+TextModifiers.swift in Sources */,
 				8096A4AA2698CA4800288D1A /* StandardChartView.swift in Sources */,
+				D98690CA2746E28000372F3E /* ErrorBannerConfig.swift in Sources */,
 				D90BB4C4269DF8E0002E9E5A /* CardWithChartView.swift in Sources */,
 				80A3DC1F26DA535E00692EA4 /* String+Localizable.swift in Sources */,
 				805D750C2692216500C19034 /* CardBottomSimpleDescriptionView.swift in Sources */,

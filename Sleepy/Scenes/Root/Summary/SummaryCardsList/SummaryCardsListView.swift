@@ -21,16 +21,16 @@ struct SummaryCardsListView: View {
                     VStack(alignment: .center) {
                         // TODO: почему something is broken private и не изменяется нигде
                         if somethingBroken {
-                            AdviceBanner(config:
-                                            AdviceBannerConfig(
-                                                adviceType: .wearMore,
-                                                adviceImage: Image("wearAdvice"),
-                                                colorProvider: viewModel.colorProvider
-                                            )
+                            AdviceBanner(
+                                config: AdviceBannerConfig(
+                                    adviceType: .wearMore,
+                                    adviceImage: Image("wearAdvice"),
+                                    colorProvider: viewModel.colorProvider
+                                )
                             )
-                            .roundedCardBackground(
-                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-                            )
+                                .roundedCardBackground(
+                                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+                                )
                         }
 
                         // MARK: General
@@ -55,12 +55,12 @@ struct SummaryCardsListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
                             ErrorBanner(
-                                reason: .brokenData(type: .sleep),
-                                viewModel.colorProvider
+                                config: ErrorBannerConfig(
+                                    reason: .brokenData(type: .sleep),
+                                    colorProvider: viewModel.colorProvider
+                                )
                             )
-                            .roundedCardBackground(
-                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-                            )
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
                         }
 
                         SectionNameTextView(
@@ -102,12 +102,12 @@ struct SummaryCardsListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
                             ErrorBanner(
-                                reason: .emptyData(type: .sleep),
-                                viewModel.colorProvider
+                                config: ErrorBannerConfig(
+                                    reason: .emptyData(type: .sleep),
+                                    colorProvider: viewModel.colorProvider
+                                )
                             )
-                            .roundedCardBackground(
-                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-                            )
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                             CardWithChartView<StandardChartView, EmptyView>(
                                 colorProvider: viewModel.colorProvider,
@@ -159,12 +159,12 @@ struct SummaryCardsListView: View {
                                 .buttonStyle(PlainButtonStyle())
                         } else {
                             ErrorBanner(
-                                reason: .emptyData(type: .heart),
-                                viewModel.colorProvider
+                                config: ErrorBannerConfig(
+                                    reason: .emptyData(type: .heart),
+                                    colorProvider: viewModel.colorProvider
+                                )
                             )
-                            .roundedCardBackground(
-                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-                            )
+                                .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
                             CardWithChartView<StandardChartView, EmptyView>(
                                 colorProvider: viewModel.colorProvider,
@@ -180,8 +180,7 @@ struct SummaryCardsListView: View {
                         // MARK: Respiratory
 
                         if let respiratoryViewModel = cardService.respiratoryViewModel,
-                           let generalViewModel = cardService.generalViewModel
-                        {
+                           let generalViewModel = cardService.generalViewModel {
                             CardWithChartView(colorProvider: viewModel.colorProvider,
                                               systemImageName: "lungs",
                                               titleText: "Respiratory rate".localized,
