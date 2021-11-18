@@ -30,11 +30,10 @@ extension RootCoordinator {
 class RootCoordinator: ObservableObject, ViewModel {
 	// MARK: Lifecycle
 
-	init(
-		colorSchemeProvider: ColorSchemeProvider,
-		statisticsProvider: HKStatisticsProvider,
-		hkStoreService: HKService
-	) {
+	init(colorSchemeProvider: ColorSchemeProvider,
+	     statisticsProvider: HKStatisticsProvider,
+	     hkStoreService: HKService)
+	{
 		self.colorSchemeProvider = colorSchemeProvider
 		self.statisticsProvider = statisticsProvider
 		self.hkStoreService = hkStoreService

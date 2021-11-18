@@ -39,16 +39,13 @@ extension Date {
 		return components.weekday == 2
 	}
 
-	func nextTimeMatchingComponents(
-		inDirection direction: Calendar.SearchDirection = .forward,
-		using calendar: Calendar = .current, components: DateComponents
-	) -> Date {
-		return calendar.nextDate(
-			after: self,
-			matching: components,
-			matchingPolicy: .nextTime,
-			direction: direction
-		)!
+	func nextTimeMatchingComponents(inDirection direction: Calendar.SearchDirection = .forward,
+	                                using calendar: Calendar = .current, components: DateComponents) -> Date
+	{
+		return calendar.nextDate(after: self,
+		                         matching: components,
+		                         matchingPolicy: .nextTime,
+		                         direction: direction)!
 	}
 
 	func getFormattedDate(format: String) -> String {

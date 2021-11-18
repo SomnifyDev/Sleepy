@@ -2,11 +2,11 @@
 
 import Foundation
 
-public enum IndicatorType {
-	case min
-	case max
-	case mean
-	case sum
+public enum IndicatorType: String {
+	case min = "Min."
+	case max = "Max."
+	case mean = "Avg."
+	case sum = "Sum."
 }
 
 public enum NumericDataType {

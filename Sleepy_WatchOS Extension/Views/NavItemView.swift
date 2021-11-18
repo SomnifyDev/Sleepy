@@ -9,13 +9,12 @@ struct NavItemView: View {
 	private let mainInfo: String
 	private let bottomTitle: String
 
-	init(
-		imageName: String,
-		title: String,
-		titleColor: Color,
-		mainInfo: String,
-		bottomTitle: String
-	) {
+	init(imageName: String,
+	     title: String,
+	     titleColor: Color,
+	     mainInfo: String,
+	     bottomTitle: String)
+	{
 		self.imageName = imageName
 		self.title = title
 		self.titleColor = titleColor
@@ -52,12 +51,10 @@ struct NavItemView: View {
 
 struct NavItemView_Previews: PreviewProvider {
 	static var previews: some View {
-		NavItemView(
-			imageName: "zzz",
-			title: "Title",
-			titleColor: .blue,
-			mainInfo: "Main info",
-			bottomTitle: "Bottom title"
-		)
+		NavItemView(imageName: "zzz",
+		            title: "Title",
+		            titleColor: .blue,
+		            mainInfo: "Main info",
+		            bottomTitle: "Bottom title")
 	}
 }

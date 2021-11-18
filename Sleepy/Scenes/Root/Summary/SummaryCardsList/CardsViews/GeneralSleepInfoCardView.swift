@@ -31,11 +31,9 @@ public struct GeneralSleepInfoCardView: View {
 						VStack(alignment: .leading, spacing: 22) {
 							HStack(alignment: .center) {
 								Image(systemName: "bed.double")
-									.summaryCardImage(
-										color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)),
-										size: 23,
-										width: 30
-									)
+									.summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor)),
+									                  size: 23,
+									                  width: 30)
 
 								VStack(alignment: .leading) {
 									Text(viewModel.sleepInterval.start.getFormattedDate(format: "HH:mm"))
@@ -44,20 +42,16 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Drop off".localized)
-										.boldTextModifier(
-											color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-											size: 14
-										)
+										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										                  size: 14)
 								}
 							}
 
 							HStack(alignment: .center) {
 								Image(systemName: "timer")
-									.summaryCardImage(
-										color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)),
-										size: 27.5,
-										width: 30
-									)
+									.summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor)),
+									                  size: 27.5,
+									                  width: 30)
 
 								VStack(alignment: .leading) {
 									Text(viewModel.sleepInterval.end.hoursMinutes(from: viewModel.sleepInterval.start))
@@ -66,10 +60,8 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Sleep duration".localized)
-										.boldTextModifier(
-											color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-											size: 14
-										)
+										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										                  size: 14)
 								}
 							}
 						}
@@ -79,11 +71,9 @@ public struct GeneralSleepInfoCardView: View {
 						VStack(alignment: .leading, spacing: 22) {
 							HStack(alignment: .center) {
 								Image(systemName: "sunrise.fill")
-									.summaryCardImage(
-										color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)),
-										size: 25,
-										width: 30
-									)
+									.summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor)),
+									                  size: 25,
+									                  width: 30)
 
 								VStack(alignment: .leading) {
 									Text(self.viewModel.sleepInterval.end.getFormattedDate(format: "HH:mm"))
@@ -92,20 +82,16 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Awake".localized)
-										.boldTextModifier(
-											color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-											size: 14
-										)
+										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										                  size: 14)
 								}
 							}
 
 							HStack(alignment: .center) {
 								Image(systemName: "moon")
-									.summaryCardImage(
-										color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)),
-										size: 27.5,
-										width: 30
-									)
+									.summaryCardImage(color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor)),
+									                  size: 27.5,
+									                  width: 30)
 
 								VStack(alignment: .leading) {
 									Text(self.viewModel.sleepInterval.start.hoursMinutes(from: viewModel.inbedInterval.start))
@@ -114,10 +100,8 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Falling asleep".localized)
-										.boldTextModifier(
-											color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
-											size: 14
-										)
+										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										                  size: 14)
 								}
 							}
 						}

@@ -15,9 +15,11 @@ struct EnergyHistoryStatsView: View {
 
 	/// use for shimmers only
 	init(colorProvider: ColorSchemeProvider) {
-		self.viewModel = EnergyHistoryStatsViewModel(cellData: [StatisticsCellData(title: "Fest sw", value: "23 BPM"),
-		                                                        StatisticsCellData(title: "Ewd sw", value: "143 min"),
-		                                                        StatisticsCellData(title: "Wdf sw", value: "9 max")])
+		self.viewModel = EnergyHistoryStatsViewModel(cellData: [
+			StatisticsCellData(title: "Fest sw", value: "23 BPM"),
+			StatisticsCellData(title: "Ewd sw", value: "143 min"),
+			StatisticsCellData(title: "Wdf sw", value: "9 max"),
+		])
 		self.colorProvider = colorProvider
 	}
 

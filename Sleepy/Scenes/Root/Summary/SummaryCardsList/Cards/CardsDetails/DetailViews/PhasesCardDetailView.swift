@@ -1,5 +1,6 @@
 // Copyright (c) 2021 Sleepy.
 
+import FirebaseAnalytics
 import HKCoreSleep
 import HKStatistics
 import HKVisualKit
@@ -23,17 +24,22 @@ struct PhasesCardDetailView: View {
 						if let phasesViewModel = cardService.phasesViewModel,
 						   let generalViewModel = cardService.generalViewModel
 						{
+							// MARK: Chart
+
 							StandardChartView(colorProvider: viewModel.colorProvider,
 							                  chartType: .phasesChart,
 							                  chartHeight: 75,
 							                  points: phasesViewModel.phasesData,
-							                  chartColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
 							                  dateInterval: generalViewModel.sleepInterval)
-								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+								.roundedCardBackground(
+									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+								)
 								.padding(.top)
 
-							CardNameTextView(text: "Summary".localized,
-							                 color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							// MARK: Statistics
+
+							SectionNameTextView(text: "Summary".localized,
+							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 							HorizontalStatisticCellView(data: [
 								StatisticsCellData(title: "Total NREM sleep duration".localized,
@@ -48,19 +54,31 @@ struct PhasesCardDetailView: View {
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
 						}
 
-						CardNameTextView(text: "What else?".localized,
-						                 color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+						// MARK: Advice
+
+						SectionNameTextView(text: "What else?".localized,
+						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 						UsefulInfoCardView(imageName: AdviceType.phasesAdvice.rawValue,
 						                   title: "Sleep phases and stages".localized,
 						                   description: "Learn more about sleep phases and stages.".localized,
-						                   destinationView: AdviceView(sheetType: .phasesAdvice, showAdvice: $showAdvice),
+						                   destinationView: AdviceView(sheetType: .phasesAdvice,
+						                                               showAdvice: $showAdvice),
 						                   showModalView: $showAdvice)
-							.usefulInfoCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+							.usefulInfoCardBackground(
+								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+							)
 					}
 				}
 				.navigationTitle("Sleep phases")
+				.onAppear(perform: self.sendAnalytics)
 			}
 		}
+	}
+
+	private func sendAnalytics() {
+		FirebaseAnalytics.Analytics.logEvent("PhasesCard_viewed", parameters: [
+			"contentShown": self.cardService.generalViewModel != nil && self.cardService.phasesViewModel != nil,
+		])
 	}
 }

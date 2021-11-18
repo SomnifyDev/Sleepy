@@ -35,9 +35,7 @@ struct NotificationsIntroView: View {
 				}
 
 				if shouldShowNextTab {
-					NavigationLink(
-						destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab
-					) {
+					NavigationLink(destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
 						Text("Continue".localized)
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}

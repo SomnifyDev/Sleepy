@@ -1,8 +1,12 @@
 # format options
+--wrapparameters after-first
 --allman false
 --enable andOperator
 --enable blankLinesBetweenScopes
 --enable consecutiveBlankLines
+--wraparguments after-first
+--wrapcollections before-first
+--wrapparameters after-first
 --enable consecutiveSpaces
 --guardelse same-line
 --emptybraces no-space

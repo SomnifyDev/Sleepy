@@ -57,9 +57,7 @@ struct HealthKitIntroView: View {
 				}
 
 				if shouldShowNextTab {
-					NavigationLink(
-						destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab
-					) {
+					NavigationLink(destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
 						Text("Continue".localized)
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}

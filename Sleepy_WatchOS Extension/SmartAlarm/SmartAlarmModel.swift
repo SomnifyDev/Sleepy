@@ -61,13 +61,11 @@ final class SmartAlarmModel: NSObject {
 			guard let self = self else {
 				return
 			}
-			self.timer = Timer.scheduledTimer(
-				timeInterval: 1,
-				target: self,
-				selector: #selector(self.updateTimer),
-				userInfo: nil,
-				repeats: true
-			)
+			self.timer = Timer.scheduledTimer(timeInterval: 1,
+			                                  target: self,
+			                                  selector: #selector(self.updateTimer),
+			                                  userInfo: nil,
+			                                  repeats: true)
 			self.timer?.fire()
 		}
 	}
@@ -107,11 +105,10 @@ extension SmartAlarmModel: WKExtendedRuntimeSessionDelegate {
 		UserSettings.isAlarmSet = false
 	}
 
-	func extendedRuntimeSession(
-		_: WKExtendedRuntimeSession,
-		didInvalidateWith _: WKExtendedRuntimeSessionInvalidationReason,
-		error _: Error?
-	) {
+	func extendedRuntimeSession(_: WKExtendedRuntimeSession,
+	                            didInvalidateWith _: WKExtendedRuntimeSessionInvalidationReason,
+	                            error _: Error?)
+	{
 		UserSettings.isAlarmSet = false
 	}
 }

@@ -26,12 +26,11 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
 	let hkStoreService: HKService
 	let statisticsProvider: HKStatisticsProvider
 
-	init(
-		colorProvider: ColorSchemeProvider,
-		statisticsProvider: HKStatisticsProvider,
-		hkStoreService: HKService,
-		parent: RootCoordinator
-	) {
+	init(colorProvider: ColorSchemeProvider,
+	     statisticsProvider: HKStatisticsProvider,
+	     hkStoreService: HKService,
+	     parent: RootCoordinator)
+	{
 		self.colorProvider = colorProvider
 		self.statisticsProvider = statisticsProvider
 		self.parent = parent
@@ -43,7 +42,7 @@ class SummaryNavigationCoordinator: ObservableObject, ViewModel, Identifiable {
 		// создаем дочерний координатор списка карточек
 		self.summaryListCoordinator = SummaryCardsListCoordinator(colorProvider: colorProvider,
 		                                                          statisticsProvider: statisticsProvider,
-                                                                  parent: self)
+		                                                          parent: self)
 	}
 
 	func open(_ url: URL) {

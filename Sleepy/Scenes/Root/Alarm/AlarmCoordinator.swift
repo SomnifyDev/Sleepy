@@ -11,10 +11,9 @@ class AlarmCoordinator: ObservableObject, ViewModel {
 
 	let colorProvider: ColorSchemeProvider
 
-	init(
-		colorSchemeProvider: ColorSchemeProvider,
-		parent: RootCoordinator
-	) {
+	init(colorSchemeProvider: ColorSchemeProvider,
+	     parent: RootCoordinator)
+	{
 		self.parent = parent
 		self.colorProvider = colorSchemeProvider
 		self.viewModel = AlarmCoordinatorView(

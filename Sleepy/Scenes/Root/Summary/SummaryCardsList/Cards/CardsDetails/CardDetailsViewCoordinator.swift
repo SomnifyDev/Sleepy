@@ -23,6 +23,6 @@ class CardDetailsViewCoordinator: ViewModel, ObservableObject, Identifiable {
 	}
 
 	func open(_ url: URL) {
-        parent.open(url)
+		self.parent.open(url)
 	}
 }

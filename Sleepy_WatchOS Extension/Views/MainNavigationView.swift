@@ -11,18 +11,16 @@ struct MainNavigationView: View {
 			ScrollView {
 				VStack(spacing: 8) {
 					NavigationLink(destination: AlarmView()) {
-						NavItemView(
-							imageName: "alarm",
-							title: "Smart alarm".localized,
-							titleColor: Color("mainColor"),
-							mainInfo: mainInfo,
-							bottomTitle: bottomTitle
-						)
-						.frame(height: 84)
-						.background(
-							Color.white.opacity(0.15)
-						)
-						.cornerRadius(8)
+						NavItemView(imageName: "alarm",
+						            title: "Smart alarm".localized,
+						            titleColor: Color("mainColor"),
+						            mainInfo: mainInfo,
+						            bottomTitle: bottomTitle)
+							.frame(height: 84)
+							.background(
+								Color.white.opacity(0.15)
+							)
+							.cornerRadius(8)
 					}
 					.buttonStyle(PlainButtonStyle())
 				}

@@ -3,19 +3,19 @@
 import HKVisualKit
 import SwiftUI
 
-struct HeartHistoryStatsView: View {
-	private let viewModel: HeartHistoryStatsViewModel
+struct RespiratoryHistoryStatsView: View {
+	private let viewModel: RespiratoryHistoryStatsViewModel
 	private let colorProvider: ColorSchemeProvider
-	private var shouldShowAdvice = true
+	private var shouldShowAdvice = false
 
-	init(viewModel: HeartHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
+	init(viewModel: RespiratoryHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
 		self.viewModel = viewModel
 		self.colorProvider = colorProvider
 	}
 
 	/// Use for shimmers only
 	init(colorProvider: ColorSchemeProvider) {
-		self.viewModel = HeartHistoryStatsViewModel(cellData: [
+		self.viewModel = RespiratoryHistoryStatsViewModel(cellData: [
 			StatisticsCellData(title: "Fest sw", value: "23 BPM"),
 			StatisticsCellData(title: "Ewd sw", value: "143 min"),
 			StatisticsCellData(title: "Wdf sw", value: "9 max"),
@@ -40,6 +40,6 @@ struct HeartHistoryStatsView: View {
 	}
 }
 
-struct HeartHistoryStatsViewModel {
+struct RespiratoryHistoryStatsViewModel {
 	let cellData: [StatisticsCellData]
 }
