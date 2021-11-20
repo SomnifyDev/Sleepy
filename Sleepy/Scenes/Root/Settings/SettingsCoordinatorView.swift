@@ -13,8 +13,8 @@ struct SettingsCoordinatorView: View {
 	var body: some View {
 		NavigationView {
 			List {
-				Section(header: HFView(text: "Health".localized, imageName: "heart.circle")) {
-					Stepper(String(format: "Sleep goal %@".localized, Date.minutesToClearString(minutes: self.viewModel.sleepGoalValue)),
+				Section(header: HFView(text: "Health", imageName: "heart.circle")) {
+					Stepper(String(format: "Sleep goal %@", Date.minutesToClearString(minutes: self.viewModel.sleepGoalValue)),
 					        value: self.$viewModel.sleepGoalValue,
 					        in: 360 ... 720,
 					        step: 15) { _ in
@@ -22,11 +22,11 @@ struct SettingsCoordinatorView: View {
 					}
 				}
 
-				Section(header: HFView(text: "Feedback".localized, imageName: "person.2")) {
-					LabeledButton(text: "Rate us".localized,
+				Section(header: HFView(text: "Feedback", imageName: "person.2")) {
+					LabeledButton(text: "Rate us",
 					              showChevron: true,
 					              action: { Armchair.rateApp() })
-					LabeledButton(text: "Share about us".localized,
+					LabeledButton(text: "Share about us",
 					              showChevron: true,
 					              action: { self.viewModel.isSharePresented = true })
 						.sheet(isPresented: self.$viewModel.isSharePresented,
@@ -36,15 +36,15 @@ struct SettingsCoordinatorView: View {
 						       })
 				}.disabled(true)
 
-				Section(header: HFView(text: "Sound Recording".localized, imageName: "mic.circle")) {
-					Stepper(String(format: "Bitrate – %d".localized, self.viewModel.bitrateValue),
+				Section(header: HFView(text: "Sound Recording", imageName: "mic.circle")) {
+					Stepper(String(format: "Bitrate – %d", self.viewModel.bitrateValue),
 					        value: self.$viewModel.bitrateValue,
 					        in: 1000 ... 44000,
 					        step: 1000) { _ in
 						self.viewModel.saveSetting(with: self.viewModel.bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
 					}
 
-					Stepper(String(format: "Min. confidence %d".localized, self.viewModel.recognisionConfidenceValue),
+					Stepper(String(format: "Min. confidence %d", self.viewModel.recognisionConfidenceValue),
 					        value: self.$viewModel.recognisionConfidenceValue,
 					        in: 10 ... 95,
 					        step: 5) { _ in
@@ -53,7 +53,7 @@ struct SettingsCoordinatorView: View {
 				}
 			}
 			.listStyle(.insetGrouped)
-			.navigationBarTitle("Settings".localized, displayMode: .large)
+			.navigationBarTitle("Settings", displayMode: .large)
 			.onAppear { viewModel.getAllValuesFromUserDefaults() }
 		}
 	}

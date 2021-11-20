@@ -17,18 +17,18 @@ struct MainIntroView: View {
 					ScrollView(.vertical, showsIndicators: false) {
 						VStack(alignment: .center) {
 							VStack(alignment: .leading) {
-								WelcomeScreenLineView(title: "Sleep summary".localized,
-								                      subTitle: "Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep.".localized,
+								WelcomeScreenLineView(title: "Sleep summary",
+								                      subTitle: "Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep.",
 								                      imageName: "bed.double",
 								                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
-								WelcomeScreenLineView(title: "Smart alarm".localized,
-								                      subTitle: "Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening.".localized,
+								WelcomeScreenLineView(title: "Smart alarm",
+								                      subTitle: "Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening.",
 								                      imageName: "alarm",
 								                      color: Color(.systemOrange))
 
-								WelcomeScreenLineView(title: "Sounds of sleep analysis".localized,
-								                      subTitle: "Sleepy allows you to record ambient sounds during sleep and analyzes them using machine learning.".localized,
+								WelcomeScreenLineView(title: "Sounds of sleep analysis",
+								                      subTitle: "Sleepy allows you to record ambient sounds during sleep and analyzes them using machine learning.",
 								                      imageName: "waveform",
 								                      color: Color(.systemRed))
 							}.padding(.top, 16)
@@ -37,12 +37,12 @@ struct MainIntroView: View {
 
 					NavigationLink(
 						destination: HealthKitIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro)) {
-							Text("Continue".localized)
+							Text("Continue")
 								.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}
 				}
 			}
-			.navigationTitle("Features".localized)
+			.navigationTitle("Features")
 			.onAppear(perform: self.sendAnalytics)
 		}
 	}

@@ -100,15 +100,15 @@ struct HealthTypeSwitchView: View {
 	private func getItemDescription(for type: HealthData) -> String {
 		switch type {
 		case .heart:
-			return "Heart rate".localized
+			return "Heart rate"
 		case .energy:
-			return "Energy waste".localized
+			return "Energy waste"
 		case .asleep:
-			return "Sleep duration".localized
+			return "Sleep duration"
 		case .respiratory:
-			return "Respiratory".localized
+			return "Respiratory"
 		case .inbed:
-			return "In bed duration".localized
+			return "In bed duration"
 		}
 	}
 

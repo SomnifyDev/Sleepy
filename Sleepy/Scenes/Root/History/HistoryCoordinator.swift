@@ -117,7 +117,7 @@ extension HistoryCoordinator {
 				                                                       for: self.monthBeforeDateInterval,
 				                                                       bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
 					if let result = result {
-						last30daysCellData.append(StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator).localized,
+						last30daysCellData.append(StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator),
 						                                             value: Date.minutesToDateDescription(minutes: Int(result))))
 					}
 					group.leave()
@@ -146,15 +146,15 @@ extension HistoryCoordinator {
 					let tmp = SleepHistoryStatsViewModel(cellData: last30daysCellData,
 					                                     monthSleepPoints: monthSleepPoints,
 					                                     monthBeforeDateInterval: self.monthBeforeDateInterval,
-					                                     currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean1))),
+					                                     currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean1))),
 					                                                                        text: current2weeksInterval.stringFromDateInterval(type: .days),
 					                                                                        value: Int(mean1)),
-					                                     beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:".localized, Date.minutesToDateDescription(minutes: Int(mean2))),
+					                                     beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean2))),
 					                                                                       text: last2weeksInterval.stringFromDateInterval(type: .days),
 					                                                                       value: Int(mean2)),
 					                                     analysisString: Int(mean1) == Int(mean2)
-					                                     	? String(format: "Your %@ time is equal compared to 2 weeks before".localized, type == .inbed ? "in bed" : "asleep")
-					                                     	: String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time".localized, type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
+					                                     	? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
+					                                     	: String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
 
 					if type == .inbed {
 						self.inbedHistoryStatsViewModel = tmp
@@ -185,7 +185,7 @@ extension HistoryCoordinator {
 				                                                       indicatorType: indicator,
 				                                                       for: self.monthBeforeDateInterval) { result in
 					if let result = result {
-						last30daysCellData.append(StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator).localized, value: "\(Double(result))"))
+						last30daysCellData.append(StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator), value: "\(Double(result))"))
 					}
 					group.leave()
 				}

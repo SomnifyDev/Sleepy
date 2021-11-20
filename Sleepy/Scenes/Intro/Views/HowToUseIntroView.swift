@@ -29,13 +29,13 @@ struct HowToUseIntroView: View {
 						.aspectRatio(4 / 3, contentMode: .fit)
 						.clipShape(RoundedRectangle(cornerRadius: 15))
 
-						WelcomeScreenLineView(title: "1. You need to enable the 'Sleep' for Apple Watch".localized,
-						                      subTitle: "Thanks to this Sleepy will be able to receive sleep data and analyze it.".localized,
+						WelcomeScreenLineView(title: "1. You need to enable the 'Sleep' for Apple Watch",
+						                      subTitle: "Thanks to this Sleepy will be able to receive sleep data and analyze it.",
 						                      imageName: "sleep",
 						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
-						WelcomeScreenLineView(title: "2. Wear Apple Watch before going to bed and keep it on while you sleep".localized,
-						                      subTitle: "Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it.".localized,
+						WelcomeScreenLineView(title: "2. Wear Apple Watch before going to bed and keep it on while you sleep",
+						                      subTitle: "Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it.",
 						                      imageName: "sleep",
 						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
@@ -43,7 +43,7 @@ struct HowToUseIntroView: View {
 				}.padding([.leading, .trailing], 16)
 
 				if !self.shouldShownNextTab {
-					Text("Go to settings".localized)
+					Text("Go to settings")
 						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 						.onTapGesture {
 							self.openUrl(urlString: "x-apple-Health://SleepHealthAppPlugin.healthplugin/manageSchedule")
@@ -52,7 +52,7 @@ struct HowToUseIntroView: View {
 				}
 
 				if self.shouldShownNextTab {
-					Text("Got it!".localized)
+					Text("Got it!")
 						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 						.onTapGesture {
 							self.shouldShowIntro = false
@@ -60,7 +60,7 @@ struct HowToUseIntroView: View {
 				}
 			}
 		}
-		.navigationTitle("How to use".localized)
+		.navigationTitle("How to use")
 		.onAppear(perform: self.sendAnalytics)
 	}
 

@@ -19,8 +19,8 @@ struct GoalIntroView: View {
 			VStack {
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .leading) {
-						WelcomeScreenLineView(title: "Set the desired sleep goal".localized,
-						                      subTitle: "Set a sleep goal to help you with your wellness.".localized,
+						WelcomeScreenLineView(title: "Set the desired sleep goal",
+						                      subTitle: "Set a sleep goal to help you with your wellness.",
 						                      imageName: "sleep",
 						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}.padding(.top, 16)
@@ -40,7 +40,7 @@ struct GoalIntroView: View {
 				}.padding([.leading, .trailing], 16)
 
 				if !self.shouldShownNextTab {
-					Text("Save goal".localized)
+					Text("Save goal")
 						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 						.onTapGesture {
 							self.saveSetting(with: Int(sleepGoal), forKey: SleepySettingsKeys.sleepGoal.rawValue)
@@ -50,13 +50,13 @@ struct GoalIntroView: View {
 
 				if self.shouldShownNextTab {
 					NavigationLink(destination: HowToUseIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShownNextTab) {
-						Text("Continue".localized)
+						Text("Continue")
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}
 				}
 			}
 		}
-		.navigationTitle("Sleep goal".localized)
+		.navigationTitle("Sleep goal")
 		.onAppear(perform: self.sendAnalytics)
 	}
 

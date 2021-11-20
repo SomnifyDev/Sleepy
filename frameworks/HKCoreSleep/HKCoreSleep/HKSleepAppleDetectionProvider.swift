@@ -164,7 +164,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 						{
 							// чтоб не спамить уведомлениями о каждом найденном отрезке сна, оповестим только о самом свежем
 							// background sleep analysis push being delivered in 15 minutes
-							self?.notifyByPush(title: "New sleep analysis".localized, body: sleep.sleepInterval.stringFromDateInterval(type: .time))
+							self?.notifyByPush(title: "New sleep analysis", body: sleep.sleepInterval.stringFromDateInterval(type: .time))
 						}
 					}
 

@@ -8,13 +8,7 @@ import SettingsKit
 import SwiftUI
 
 class AudioRecorder: NSObject, ObservableObject {
-	override init() {
-		super.init()
-		self.fetchRecordings()
-	}
-
 	let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
-
 	var audioRecorder: AVAudioRecorder!
 
 	@Published var recordings = [Recording]()
@@ -23,6 +17,11 @@ class AudioRecorder: NSObject, ObservableObject {
 		didSet {
 			self.objectWillChange.send(self)
 		}
+	}
+
+	override init() {
+		super.init()
+		self.fetchRecordings()
 	}
 
 	func startRecording() -> Bool {

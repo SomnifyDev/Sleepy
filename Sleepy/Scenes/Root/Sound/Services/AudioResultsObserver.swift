@@ -9,6 +9,7 @@ import UIKit
 class AudioResultsObserver: NSObject, SNResultsObserving {
 	private enum Constants {
 		static let soundIndentSeconds = 10.0
+		static let bannedTypes = ["coughing"]
 	}
 
 	var fileName = ""
@@ -24,13 +25,14 @@ class AudioResultsObserver: NSObject, SNResultsObserving {
 		// Convert the confidence to a percentage string.
 		let percent = classification.confidence * 100.0
 		let confidence = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+
 		guard percent >= Double(confidence) else { return }
 		let resultItem = SoundAnalysisResult(start: TimeInterval(result.timeRange.start.seconds),
 		                                     end: TimeInterval(result.timeRange.end.seconds),
 		                                     soundType: classification.identifier.replacingOccurrences(of: "_", with: " "),
 		                                     confidence: percent)
-		if resultItem.soundType == "coughing" { return }
-		// Print the classification's name (label) with its confidence.
+
+		guard !Constants.bannedTypes.contains(resultItem.soundType) else { return }
 		let soundRange: Range = resultItem.start - Constants.soundIndentSeconds ..< resultItem.end + Constants.soundIndentSeconds
 		if !self.array.contains(where: { soundRange.overlaps(($0.start - Constants.soundIndentSeconds) ..< ($0.end + Constants.soundIndentSeconds)) }) {
 			self.array.append(resultItem)
@@ -45,19 +47,5 @@ class AudioResultsObserver: NSObject, SNResultsObserving {
 	/// Notifies the observer when a request is complete.
 	func requestDidComplete(_: SNRequest) {
 		print("The request completed successfully!")
-	}
-}
-
-extension CMTime {
-	var stringValue: String {
-		let totalSeconds = Int(self.seconds)
-		let hours = totalSeconds / 3600
-		let minutes = totalSeconds % 3600 / 60
-		let seconds = totalSeconds % 3600 % 60
-		if hours > 0 {
-			return String(format: "%i:%02i:%02i", hours, minutes, seconds)
-		} else {
-			return String(format: "%02i:%02i", minutes, seconds)
-		}
 	}
 }

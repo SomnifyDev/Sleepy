@@ -75,7 +75,7 @@ struct SleepyApp: App {
 				IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
 					.accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 			} else {
-				Text("Loading".localized)
+				Text("Loading")
 					.onAppear {
 						self.setAllUserDefaultsIfNeeded()
 

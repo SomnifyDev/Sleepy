@@ -9,23 +9,23 @@ struct RootCoordinatorView: View {
 	var body: some View {
 		TabView(selection: $viewModel.tab) {
 			SummaryNavigationCoordinatorView(viewModel: viewModel.summaryCoordinator)
-				.tabItem { Label("summary".localized, systemImage: "bed.double.fill") }
+				.tabItem { Label("summary", systemImage: "bed.double.fill") }
 				.tag(TabType.summary)
 
 			HistoryCoordinatorView(viewModel: viewModel.historyCoordinator)
-				.tabItem { Label("history".localized, systemImage: "calendar") }
+				.tabItem { Label("history", systemImage: "calendar") }
 				.tag(TabType.history)
 
 			SoundsCoordinatorView(viewModel: viewModel.soundsCoordinator)
-				.tabItem { Label("sounds".localized, systemImage: "waveform.and.mic") }
+				.tabItem { Label("sounds", systemImage: "waveform.and.mic") }
 				.tag(TabType.soundRecognision)
 
 			AlarmCoordinatorView(viewModel: viewModel.alarmCoordinator)
-				.tabItem { Label("alarm".localized, systemImage: "alarm.fill") }
+				.tabItem { Label("alarm", systemImage: "alarm.fill") }
 				.tag(TabType.alarm)
 
 			SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
-				.tabItem { Label("settings".localized, systemImage: "gear") }
+				.tabItem { Label("settings", systemImage: "gear") }
 				.tag(TabType.settings)
 		}.onAppear(perform: self.viewModel.sendAnalytics)
 	}

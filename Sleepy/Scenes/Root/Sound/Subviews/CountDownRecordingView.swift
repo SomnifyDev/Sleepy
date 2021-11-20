@@ -19,7 +19,7 @@ struct CountDownRecordingView: View {
 
 			VStack {
 				Spacer()
-				Text("Tap anywhere to stop recording".localized)
+				Text("Tap anywhere to stop recording")
 					.foregroundColor(.white)
 					.opacity(0.4)
 			}

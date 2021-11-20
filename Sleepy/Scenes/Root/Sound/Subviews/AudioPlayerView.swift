@@ -49,21 +49,14 @@ struct AudioPlayerView: View {
 						.frame(width: 25, height: 25)
 						.foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 						.aspectRatio(contentMode: .fit)
-						.onTapGesture {
-							self.audioPlayer.currentTime = playAtTime
-							self.audioPlayer.play()
-
-							self.fetchIsPlaying()
-						}
+						.onTapGesture(perform: self.playAudio)
 				} else {
 					Image(systemName: "pause.circle.fill")
 						.resizable()
 						.frame(width: 25, height: 25)
 						.foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 						.aspectRatio(contentMode: .fit)
-						.onTapGesture {
-							self.audioPlayer.pause()
-						}
+						.onTapGesture(perform: self.audioPlayer.pause)
 				}
 
 				Text(self.roundUp(endAtTime - playAtTime, toNearest: 1).stringTime)
@@ -74,8 +67,15 @@ struct AudioPlayerView: View {
 		}
 	}
 
+	private func playAudio() {
+		self.audioPlayer.currentTime = self.playAtTime
+		self.audioPlayer.play()
+
+		self.fetchIsPlaying()
+	}
+
 	private func fetchIsPlaying() {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			self.isPlaying = audioPlayer.isPlaying
 			var val = (audioPlayer.currentTime - playAtTime) / (endAtTime - playAtTime)
 

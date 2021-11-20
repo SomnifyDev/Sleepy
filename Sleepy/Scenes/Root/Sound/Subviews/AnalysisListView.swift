@@ -20,7 +20,7 @@ struct AnalysisListView: View {
 					.edgesIgnoringSafeArea(.all)
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .center, spacing: 2) {
-						SectionNameTextView(text: "Recognized sounds".localized,
+						SectionNameTextView(text: "Recognized sounds",
 						                    color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 							.padding([.top, .bottom])
 
@@ -43,7 +43,7 @@ struct AnalysisListView: View {
 						}
 
 						if result.isEmpty {
-							Text("No sound recognized. You can try to lower recognisition confidence coefficient in your settings".localized)
+							Text("No sound recognized. You can try to lower recognisition confidence coefficient in your settings")
 								.underline()
 								.onTapGesture {
 									self.showSheetView = false
@@ -53,7 +53,7 @@ struct AnalysisListView: View {
 					}
 				}
 			}.navigationTitle(endDate?.getFormattedDate(format: "MMM d") ?? "")
-				.navigationBarItems(trailing: Button("Done".localized,
+				.navigationBarItems(trailing: Button("Done",
 				                                     action: { showSheetView = false }))
 		}
 	}

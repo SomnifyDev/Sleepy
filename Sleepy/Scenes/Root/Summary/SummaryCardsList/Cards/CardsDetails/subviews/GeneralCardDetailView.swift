@@ -32,8 +32,8 @@ struct GeneralCardDetailView: View {
 
 							CardWithChartView(colorProvider: viewModel.colorProvider,
 							                  systemImageName: "banknote.fill",
-							                  titleText: "Sleep: bank".localized,
-							                  mainTitleText: String(format: "Total backlog from your goal during last 2 weeks is %@".localized, bankOfSleepViewModel.backlog),
+							                  titleText: "Sleep: bank",
+							                  mainTitleText: String(format: "Total backlog from your goal during last 2 weeks is %@", bankOfSleepViewModel.backlog),
 							                  titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
 							                  showChevron: false,
 							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
@@ -48,11 +48,11 @@ struct GeneralCardDetailView: View {
 							                                               needTimeLine: false,
 							                                               dragGestureEnabled: false),
 							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
-							                  	Text("Sleep for ".localized)
+							                  	Text("Sleep for ")
 							                  		+ Text("\(bankOfSleepViewModel.timeToCloseDebt)")
 							                  		.foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 							                  		.bold()
-							                  		+ Text(" every day to pay off the debt.".localized),
+							                  		+ Text(" every day to pay off the debt."),
 							                  	colorProvider: viewModel.colorProvider))
 								.roundedCardBackground(
 									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
@@ -62,28 +62,28 @@ struct GeneralCardDetailView: View {
 						// MARK: Statistics
 
 						if let generalViewModel = cardService.generalViewModel {
-							SectionNameTextView(text: "Summary".localized,
+							SectionNameTextView(text: "Summary",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 							HorizontalStatisticCellView(data: getStatisticCells(generalViewModel: generalViewModel),
 							                            colorScheme: viewModel.colorProvider.sleepyColorScheme)
 
-							SectionNameTextView(text: "Statistics".localized,
+							SectionNameTextView(text: "Statistics",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-							ProgressChartView(titleText: "Sleep: goal".localized,
+							ProgressChartView(titleText: "Sleep: goal",
 							                  mainText:
-							                  String(format: "Your sleep duration was %@, it is %u%% of your goal".localized,
+							                  String(format: "Your sleep duration was %@, it is %u%% of your goal",
 							                         generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start),
 							                         getGoalPercentage(viewModel: generalViewModel)),
 							                  systemImage: "zzz",
 							                  colorProvider: viewModel.colorProvider,
-							                  currentProgress: ProgressItem(title: "Your sleep goal".localized,
+							                  currentProgress: ProgressItem(title: "Your sleep goal",
 							                                                text: Date.minutesToClearString(
 							                                                	minutes: generalViewModel.sleepGoal
 							                                                ),
 							                                                value: generalViewModel.sleepGoal),
-							                  beforeProgress: ProgressItem(title: "Sleep duration today".localized,
+							                  beforeProgress: ProgressItem(title: "Sleep duration today",
 							                                               text: Date.minutesToClearString(
 							                                               	minutes: Int(generalViewModel.sleepInterval.duration) / 60),
 							                                               value: Int(generalViewModel.sleepInterval.duration) / 60),
@@ -95,14 +95,14 @@ struct GeneralCardDetailView: View {
 								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 						}
 
-						SectionNameTextView(text: "What else?".localized,
+						SectionNameTextView(text: "What else?",
 						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 						// MARK: Advices
 
 						UsefulInfoCardView(imageName: AdviceType.sleepImportanceAdvice.rawValue,
-						                   title: "Why is sleep so important?".localized,
-						                   description: "Learn more about the role of sleep in your life.".localized,
+						                   title: "Why is sleep so important?",
+						                   description: "Learn more about the role of sleep in your life.",
 						                   destinationView: AdviceView(sheetType: .sleepImportanceAdvice,
 						                                               showAdvice: $showSleepImprovement),
 						                   showModalView: $showSleepImprovement)
@@ -111,8 +111,8 @@ struct GeneralCardDetailView: View {
 							)
 
 						UsefulInfoCardView(imageName: AdviceType.sleepImprovementAdvice.rawValue,
-						                   title: "How to improve your sleep?".localized,
-						                   description: "Learn about the factors that affect the quality of your sleep.".localized,
+						                   title: "How to improve your sleep?",
+						                   description: "Learn about the factors that affect the quality of your sleep.",
 						                   destinationView: AdviceView(sheetType: .sleepImprovementAdvice,
 						                                               showAdvice: $showSleepImportance),
 						                   showModalView: $showSleepImportance)
@@ -131,15 +131,15 @@ struct GeneralCardDetailView: View {
 
 	private func getStatisticCells(generalViewModel: SummaryGeneralDataViewModel) -> [StatisticsCellData] {
 		return [
-			StatisticsCellData(title: "Sleep start".localized,
+			StatisticsCellData(title: "Sleep start",
 			                   value: generalViewModel.sleepInterval.start.getFormattedDate(format: "HH:mm")),
-			StatisticsCellData(title: "Wake up".localized,
+			StatisticsCellData(title: "Wake up",
 			                   value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")),
-			StatisticsCellData(title: "Fall asleep".localized,
+			StatisticsCellData(title: "Fall asleep",
 			                   value: generalViewModel.sleepInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start)),
-			StatisticsCellData(title: "Time asleep".localized,
+			StatisticsCellData(title: "Time asleep",
 			                   value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)),
-			StatisticsCellData(title: "Time in bed".localized,
+			StatisticsCellData(title: "Time in bed",
 			                   value: generalViewModel.inbedInterval.end.hoursMinutes(from: generalViewModel.inbedInterval.start)),
 		]
 	}
@@ -148,11 +148,11 @@ struct GeneralCardDetailView: View {
 		let sleepDuration = viewModel.sleepInterval.duration / 60.0
 		let sleepGoalPercentage = Int((Double(sleepDuration) / Double(viewModel.sleepGoal)) * 100)
 		if sleepGoalPercentage < 80 {
-			return "Pay more attention to your sleep to be more healthy and productive every day!".localized
+			return "Pay more attention to your sleep to be more healthy and productive every day!"
 		} else if sleepGoalPercentage >= 80 && sleepGoalPercentage < 100 {
-			return "You can do better! For a reminder, sleep is the key to longevity and youth!".localized
+			return "You can do better! For a reminder, sleep is the key to longevity and youth!"
 		} else {
-			return "Amazing result for today. Keep it up and stay healthy!".localized
+			return "Amazing result for today. Keep it up and stay healthy!"
 		}
 	}
 

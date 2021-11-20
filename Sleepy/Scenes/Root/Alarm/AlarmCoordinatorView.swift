@@ -26,25 +26,25 @@ struct AlarmCoordinatorView: View {
 								.aspectRatio(contentMode: .fit)
 								.padding(.top)
 
-							SectionNameTextView(text: "What is a smart alarm?".localized,
+							SectionNameTextView(text: "What is a smart alarm?",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 								.padding(.top)
 
-							Text("What is a smart alarm description".localized)
+							Text("What is a smart alarm description")
 								.padding([.trailing, .leading, .bottom])
 								.padding(.top, Constant.smallTopPadding)
 
-							SectionNameTextView(text: "Improve your sleep with smart alarm".localized,
+							SectionNameTextView(text: "Improve your sleep with smart alarm",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-							Text("Improve your sleep with smart alarm description".localized)
+							Text("Improve your sleep with smart alarm description")
 								.padding([.trailing, .leading, .bottom])
 								.padding(.top, Constant.smallTopPadding)
 
-							SectionNameTextView(text: "How to use smart alarm in Sleepy?".localized,
+							SectionNameTextView(text: "How to use smart alarm in Sleepy?",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
-							Text("How to use smart alarm in Sleepy description".localized)
+							Text("How to use smart alarm in Sleepy description")
 								.padding([.trailing, .leading])
 								.padding(.top, Constant.smallTopPadding)
 
@@ -65,7 +65,7 @@ struct AlarmCoordinatorView: View {
 							}
 						}
 					}
-					.navigationBarTitle("Smart alarm".localized,
+					.navigationBarTitle("Smart alarm",
 					                    displayMode: .large)
 				}
 			}

@@ -30,7 +30,7 @@ struct SummaryCardsListView: View {
 						// MARK: General
 
 						if let generalViewModel = cardService.generalViewModel {
-							SectionNameTextView(text: "Sleep information".localized,
+							SectionNameTextView(text: "Sleep information",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 								.padding(.top)
 
@@ -51,7 +51,7 @@ struct SummaryCardsListView: View {
 								)
 						}
 
-						SectionNameTextView(text: "Sleep session".localized,
+						SectionNameTextView(text: "Sleep session",
 						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 						// MARK: Phases
@@ -61,8 +61,8 @@ struct SummaryCardsListView: View {
 						{
 							CardWithChartView(colorProvider: viewModel.colorProvider,
 							                  systemImageName: "sleep",
-							                  titleText: "Phases".localized,
-							                  mainTitleText: "Here is some info about phases of your last sleep".localized,
+							                  titleText: "Phases",
+							                  mainTitleText: "Here is some info about phases of your last sleep",
 							                  titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
 							                  showChevron: true,
 							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
@@ -72,7 +72,7 @@ struct SummaryCardsListView: View {
 							                                               dateInterval: generalViewModel.sleepInterval),
 							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
 							                  	Text(
-							                  		String(format: "Duration of light phase was %@, while the duration of deep sleep was %@".localized, phasesViewModel.timeInLightPhase, phasesViewModel.timeInDeepPhase)
+							                  		String(format: "Duration of light phase was %@, while the duration of deep sleep was %@", phasesViewModel.timeInLightPhase, phasesViewModel.timeInDeepPhase)
 							                  	),
 							                  	colorProvider: viewModel.colorProvider))
 								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
@@ -92,7 +92,7 @@ struct SummaryCardsListView: View {
 								.blur(radius: 4)
 						}
 
-						SectionNameTextView(text: "Heart rate".localized,
+						SectionNameTextView(text: "Heart rate",
 						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 						// MARK: Heart
@@ -102,8 +102,8 @@ struct SummaryCardsListView: View {
 						{
 							CardWithChartView(colorProvider: viewModel.colorProvider,
 							                  systemImageName: "suit.heart.fill",
-							                  titleText: "Heart".localized,
-							                  mainTitleText: "Here is some info about heart rate of your last sleep".localized,
+							                  titleText: "Heart",
+							                  mainTitleText: "Here is some info about heart rate of your last sleep",
 							                  titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
 							                  showChevron: true,
 							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
@@ -115,7 +115,7 @@ struct SummaryCardsListView: View {
 							                                               dateInterval: generalViewModel.sleepInterval),
 							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
 							                  	Text(
-							                  		String(format: "The maximal heartbeat was %@ bpm while the minimal was %@".localized, heartViewModel.minHeartRate, heartViewModel.maxHeartRate)
+							                  		String(format: "The maximal heartbeat was %@ bpm while the minimal was %@", heartViewModel.minHeartRate, heartViewModel.maxHeartRate)
 							                  	),
 							                  	colorProvider: viewModel.colorProvider))
 								.roundedCardBackground(
@@ -148,8 +148,8 @@ struct SummaryCardsListView: View {
 						{
 							CardWithChartView(colorProvider: viewModel.colorProvider,
 							                  systemImageName: "lungs",
-							                  titleText: "Respiratory rate".localized,
-							                  mainTitleText: "Here is some info about respiratory rate of your last sleep".localized,
+							                  titleText: "Respiratory rate",
+							                  mainTitleText: "Here is some info about respiratory rate of your last sleep",
 							                  titleColor: Color(.systemBlue),
 							                  showChevron: true,
 							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
@@ -163,7 +163,7 @@ struct SummaryCardsListView: View {
 							                                               dateInterval: generalViewModel.sleepInterval),
 							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
 							                  	Text(
-							                  		String(format: "The maximal respiratory rate was %@ while the minimal was %@".localized,
+							                  		String(format: "The maximal respiratory rate was %@ while the minimal was %@",
 							                  		       respiratoryViewModel.minRespiratoryRate,
 							                  		       respiratoryViewModel.maxRespiratoryRate)
 							                  	),
@@ -196,7 +196,7 @@ struct SummaryCardsListView: View {
 				}
 			}
 		}
-		.navigationTitle("\("Summary".localized), \((self.cardService.generalViewModel?.sleepInterval.end ?? Date()).getFormattedDate(format: "MMM d"))")
+		.navigationTitle("\("Summary"), \((self.cardService.generalViewModel?.sleepInterval.end ?? Date()).getFormattedDate(format: "MMM d"))")
 		.onAppear { self.viewModel.sendAnalytics(cardService: self.cardService) }
 	}
 }

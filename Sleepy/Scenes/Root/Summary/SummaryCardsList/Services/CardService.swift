@@ -155,9 +155,9 @@ class CardService: ObservableObject {
 		   let minHR = statisticsProvider.getData(dataType: .heart, indicatorType: .min),
 		   let averageHR = statisticsProvider.getData(dataType: .heart, indicatorType: .mean)
 		{
-			maxHeartRate = String(format: "%u bpm".localized, Int(maxHR))
-			minHeartRate = String(format: "%u bpm".localized, Int(minHR))
-			averageHeartRate = String(format: "%u bpm".localized, Int(averageHR))
+			maxHeartRate = String(format: "%u bpm", Int(maxHR))
+			minHeartRate = String(format: "%u bpm", Int(minHR))
+			averageHeartRate = String(format: "%u bpm", Int(averageHR))
 			self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate, averageHeartRate: averageHeartRate)
 		}
 	}
@@ -195,9 +195,9 @@ class CardService: ObservableObject {
 		   let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .min),
 		   let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .mean)
 		{
-			maxRespiratoryRate = String(format: "%u count/min".localized, Int(maxRespiratory))
-			minRespiratoryRate = String(format: "%u count/min".localized, Int(minRespiratory))
-			averageRespiratoryRate = String(format: "%u count/min".localized, Int(averageRespiratory))
+			maxRespiratoryRate = String(format: "%u count/min", Int(maxRespiratory))
+			minRespiratoryRate = String(format: "%u count/min", Int(minRespiratory))
+			averageRespiratoryRate = String(format: "%u count/min", Int(averageRespiratory))
 			self.respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData, maxRespiratoryRate: maxRespiratoryRate, minRespiratoryRate: minRespiratoryRate, averageRespiratoryRate: averageRespiratoryRate)
 		}
 	}
