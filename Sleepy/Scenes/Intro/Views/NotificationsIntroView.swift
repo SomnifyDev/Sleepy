@@ -5,10 +5,10 @@ import HKVisualKit
 import SwiftUI
 
 struct NotificationsIntroView: View {
-	let colorScheme: SleepyColorScheme
 	@Binding var shouldShowIntro: Bool
-
 	@State private var shouldShowNextTab = false
+
+	let colorScheme: SleepyColorScheme
 
 	var body: some View {
 		ZStack {
@@ -35,7 +35,7 @@ struct NotificationsIntroView: View {
 				}
 
 				if shouldShowNextTab {
-					NavigationLink(destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
+					NavigationLink(destination: GoalIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme), isActive: $shouldShowNextTab) {
 						Text("Continue")
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}

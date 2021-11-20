@@ -6,12 +6,13 @@ import XUI
 
 struct AnalysisListView: View {
 	@Store var viewModel: SoundsCoordinator
+
+	@Binding var showSheetView: Bool
+
 	let result: [SoundAnalysisResult]
 	let fileName: String
 	let endDate: Date?
 	let colorProvider: ColorSchemeProvider
-
-	@Binding var showSheetView: Bool
 
 	var body: some View {
 		NavigationView {

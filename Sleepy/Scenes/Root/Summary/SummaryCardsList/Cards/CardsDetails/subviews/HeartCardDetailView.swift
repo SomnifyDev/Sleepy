@@ -10,6 +10,7 @@ import XUI
 struct HeartCardDetailView: View {
 	@Store var viewModel: CardDetailsViewCoordinator
 	@EnvironmentObject var cardService: CardService
+
 	@State private var showAdvice = false
 	@State private var activeSheet: AdviceType!
 

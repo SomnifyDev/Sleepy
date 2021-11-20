@@ -6,6 +6,7 @@ import SwiftUI
 struct HeartHistoryStatsView: View {
 	private let viewModel: HeartHistoryStatsViewModel
 	private let colorProvider: ColorSchemeProvider
+
 	private var shouldShowAdvice = true
 
 	init(viewModel: HeartHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {

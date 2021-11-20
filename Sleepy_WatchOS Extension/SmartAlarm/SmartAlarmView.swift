@@ -6,6 +6,7 @@ struct AlarmView: View {
 	@State private var selectedHour = Date().getHourInt()
 	@State private var selectedMinute = Date().getMinuteInt()
 	@State private var isAlarmActive = false
+
 	private let smartAlarmModel = SmartAlarmModel()
 	private let healthManager = HealthManager()
 	private let hours = [Int](0 ... 23)

@@ -51,11 +51,11 @@ struct AudioRecordingsListView: View {
 				Spacer()
 			}.sheet(isPresented: self.$viewModel.showAnalysis) {
 				AnalysisListView(viewModel: self.viewModel,
+				                 showSheetView: self.$viewModel.showAnalysis,
 				                 result: self.viewModel.resultsObserver.array,
 				                 fileName: self.viewModel.resultsObserver.fileName,
 				                 endDate: self.viewModel.resultsObserver.date,
-				                 colorProvider: self.viewModel.colorProvider,
-				                 showSheetView: self.$viewModel.showAnalysis)
+				                 colorProvider: self.viewModel.colorProvider)
 			}
 
 			if self.viewModel.showLoading {

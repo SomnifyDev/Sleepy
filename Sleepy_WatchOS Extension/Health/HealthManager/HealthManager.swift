@@ -3,14 +3,17 @@
 import Foundation
 import HealthKit
 
-final class HealthManager {
-	private let healthStore = HKHealthStore()
+protocol HealthManagerDelegate: AnyObject {
+	func lightPhaseDetected()
+}
 
+final class HealthManager {
 	static var shared: HealthManager = {
 		HealthManager()
 	}()
 
-	let heartDataManager = HeartDataManager()
+	private let healthStore = HKHealthStore()
+	private let heartDataManager = HeartDataManager()
 
 	weak var delegate: HealthManagerDelegate?
 

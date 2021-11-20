@@ -6,6 +6,7 @@ import SwiftUI
 struct SleepHistoryStatsView: View {
 	private let viewModel: SleepHistoryStatsViewModel
 	private let colorProvider: ColorSchemeProvider
+
 	private var shouldShowAdvice = true
 
 	init(viewModel: SleepHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {

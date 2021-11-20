@@ -6,12 +6,12 @@ import SwiftUI
 import XUI
 
 struct AlarmCoordinatorView: View {
-	@Store var viewModel: AlarmCoordinator
-
 	private enum Constant {
 		static let smallTopPadding: CGFloat = 4
 		static let appleWatchImageheight: CGFloat = 400
 	}
+
+	@Store var viewModel: AlarmCoordinator
 
 	var body: some View {
 		GeometryReader { g in

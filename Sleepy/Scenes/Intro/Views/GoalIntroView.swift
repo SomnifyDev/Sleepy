@@ -6,11 +6,12 @@ import SettingsKit
 import SwiftUI
 
 struct GoalIntroView: View {
-	let colorScheme: SleepyColorScheme
 	@Binding var shouldShowIntro: Bool
 
 	@State private var sleepGoal: Float = 420
 	@State private var shouldShownNextTab = false
+
+	let colorScheme: SleepyColorScheme
 
 	var body: some View {
 		ZStack {
@@ -49,7 +50,7 @@ struct GoalIntroView: View {
 				}
 
 				if self.shouldShownNextTab {
-					NavigationLink(destination: HowToUseIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShownNextTab) {
+					NavigationLink(destination: HowToUseIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme), isActive: $shouldShownNextTab) {
 						Text("Continue")
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}

@@ -36,7 +36,7 @@ struct MainIntroView: View {
 					}
 
 					NavigationLink(
-						destination: HealthKitIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro)) {
+						destination: HealthKitIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme)) {
 							Text("Continue")
 								.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}
