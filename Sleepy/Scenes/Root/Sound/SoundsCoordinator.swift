@@ -6,6 +6,7 @@
 //
 //  Created by Никита Казанцев on 14.08.2021.
 //
+import FirebaseAnalytics
 import Foundation
 import HKVisualKit
 import SettingsKit
@@ -36,5 +37,11 @@ class SoundsCoordinator: ObservableObject, ViewModel {
 
 	func open(_ url: URL) {
 		self.openedURL = url
+	}
+}
+
+extension SoundsCoordinator {
+	func sendAnalytics() {
+		FirebaseAnalytics.Analytics.logEvent("Sounds_viewed", parameters: nil)
 	}
 }

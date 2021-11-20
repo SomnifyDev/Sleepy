@@ -1,5 +1,6 @@
 // Copyright (c) 2021 Sleepy.
 
+import FirebaseAnalytics
 import Foundation
 import HKCoreSleep
 import HKStatistics
@@ -28,7 +29,18 @@ extension RootCoordinator {
 }
 
 class RootCoordinator: ObservableObject, ViewModel {
-	// MARK: Lifecycle
+	@Published var tab = TabType.summary
+	@Published var openedURL: URL?
+
+	@Published private(set) var summaryCoordinator: SummaryNavigationCoordinator!
+	@Published private(set) var historyCoordinator: HistoryCoordinator!
+	@Published private(set) var alarmCoordinator: AlarmCoordinator!
+	@Published private(set) var settingsCoordinator: SettingsCoordinator!
+	@Published private(set) var soundsCoordinator: SoundsCoordinator!
+
+	var colorSchemeProvider: ColorSchemeProvider
+	var statisticsProvider: HKStatisticsProvider
+	var hkStoreService: HKService
 
 	init(colorSchemeProvider: ColorSchemeProvider,
 	     statisticsProvider: HKStatisticsProvider,
@@ -51,21 +63,6 @@ class RootCoordinator: ObservableObject, ViewModel {
 		                                           parent: self)
 		self.settingsCoordinator = SettingsCoordinator(parent: self)
 	}
-
-	// MARK: Internal
-
-	@Published var tab = TabType.summary
-	@Published var openedURL: URL?
-
-	@Published private(set) var summaryCoordinator: SummaryNavigationCoordinator!
-	@Published private(set) var historyCoordinator: HistoryCoordinator!
-	@Published private(set) var alarmCoordinator: AlarmCoordinator!
-	@Published private(set) var settingsCoordinator: SettingsCoordinator!
-	@Published private(set) var soundsCoordinator: SoundsCoordinator!
-
-	var colorSchemeProvider: ColorSchemeProvider
-	var statisticsProvider: HKStatisticsProvider
-	var hkStoreService: HKService
 
 	func open(_ url: URL) {
 		self.openedURL = url
@@ -97,5 +94,13 @@ class RootCoordinator: ObservableObject, ViewModel {
 		case .soundRecognision:
 			self.tab = .soundRecognision
 		}
+	}
+}
+
+extension RootCoordinator {
+	func sendAnalytics() {
+		FirebaseAnalytics.Analytics.logEvent("RootView_viewed", parameters: [
+			"tabOpened": self.tab.rawValue,
+		])
 	}
 }

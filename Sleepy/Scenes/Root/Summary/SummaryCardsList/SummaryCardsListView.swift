@@ -1,6 +1,5 @@
 // Copyright (c) 2021 Sleepy.
 
-import FirebaseAnalytics
 import HKVisualKit
 import SwiftUI
 import XUI
@@ -9,7 +8,6 @@ struct SummaryCardsListView: View {
 	@Store var viewModel: SummaryCardsListCoordinator
 
 	@EnvironmentObject var cardService: CardService
-	@State private var somethingBroken = false
 
 	var body: some View {
 		GeometryReader { _ in
@@ -19,8 +17,8 @@ struct SummaryCardsListView: View {
 
 				ScrollView {
 					VStack(alignment: .center) {
-						// TODO: почему something is broken private и не изменяется нигде
-						if somethingBroken {
+						// TODO: почему не изменяется нигде
+						if viewModel.somethingBroken {
 							BannerView(bannerViewType: .advice(type: .wearMore,
 							                                   imageSystemName: "wearAdvice"),
 							           colorProvider: viewModel.colorProvider)
@@ -199,17 +197,6 @@ struct SummaryCardsListView: View {
 			}
 		}
 		.navigationTitle("\("Summary".localized), \((self.cardService.generalViewModel?.sleepInterval.end ?? Date()).getFormattedDate(format: "MMM d"))")
-		.onAppear(perform: self.sendAnalytics)
-	}
-
-	// MARK: Private methods
-
-	private func sendAnalytics() {
-		FirebaseAnalytics.Analytics.logEvent("SummaryCardsList_viewed", parameters: [
-			"somethingBroken": self.somethingBroken,
-			"generalCardShown": self.cardService.generalViewModel != nil,
-			"phasesCardShown": self.cardService.phasesViewModel != nil && self.cardService.generalViewModel != nil,
-			"heartCardShown": self.cardService.heartViewModel != nil && self.cardService.generalViewModel != nil,
-		])
+		.onAppear { self.viewModel.sendAnalytics(cardService: self.cardService) }
 	}
 }

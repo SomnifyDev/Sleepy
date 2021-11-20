@@ -4,12 +4,8 @@ import SwiftUI
 
 struct CountDownRecordingView: View {
 	@Binding var secondsRecorded: Int
-
-	var timer: Timer {
-		Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-			self.secondsRecorded += 1
-		}
-	}
+	@State private var isActive = true
+	private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
 	var body: some View {
 		ZStack {
@@ -20,9 +16,6 @@ struct CountDownRecordingView: View {
 				.foregroundColor(.white)
 				.opacity(0.7)
 				.font(.largeTitle)
-				.onAppear(perform: {
-					_ = self.timer
-				})
 
 			VStack {
 				Spacer()
@@ -30,6 +23,10 @@ struct CountDownRecordingView: View {
 					.foregroundColor(.white)
 					.opacity(0.4)
 			}
+		}
+		.onReceive(timer) { _ in
+			guard self.isActive else { return }
+			self.secondsRecorded += 1
 		}
 		.statusBar(hidden: true)
 	}

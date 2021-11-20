@@ -10,6 +10,7 @@ public protocol HKDetectionProvider {
 public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 	private let hkService: HKService?
 	private let notificationCenter = UNUserNotificationCenter.current()
+	private let lock = NSLock()
 
 	// MARK: - Init
 
@@ -73,6 +74,9 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 	}
 
 	public func retrieveData(completionHandler: @escaping (Sleep?) -> Void) {
+		// async stuff
+		// acquire the lock
+		self.lock.lock()
 		// считываем все данные здоровья, например, за трое суток
 		let endDate = Date()
 		let startDate = Calendar.current.date(byAdding: .day, value: -3, to: endDate)!
@@ -82,12 +86,14 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 		self.getRawData(interval: interval) { _, asleepRaw, error1, _, heartRaw, error2, _, energyRaw, error3, _, inBedRaw, error4, _, respiratoryRaw, _ in
 			if error1 != nil || error2 != nil || error3 != nil || error4 != nil {
 				completionHandler(nil)
+				self.lock.unlock()
 				return
 			}
 
 			// иногда inbed или asleep может не быть - пытаемся обыграть эти кейсы
 			if (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty {
 				completionHandler(nil)
+				self.lock.unlock()
 				return
 			}
 
@@ -126,6 +132,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				      let heartSamples = sleepData.heartSamples,
 				      let respiratorySamples = sleepData.respiratorySamples else
 				{
+					self.lock.unlock()
 					return
 				}
 
@@ -146,6 +153,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 					guard error == nil else {
 						print(error.debugDescription)
 						completionHandler(nil)
+						self?.lock.unlock()
 						return
 					}
 
