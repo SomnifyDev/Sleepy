@@ -9,12 +9,12 @@ struct AudioPlayerView: View {
 		static let soundIndentSeconds = 10.0
 	}
 
-    @Binding var audioPlayer: AVAudioPlayer
+	@Binding var audioPlayer: AVAudioPlayer
 
 	@State private var isPlaying: Bool = false
 	@State private var currentTime = TimeInterval()
 	@State private var progress = 0.0
-    
+
 	private let colorProvider: ColorSchemeProvider
 	private let playAtTime: TimeInterval
 	private let endAtTime: TimeInterval
@@ -24,18 +24,15 @@ struct AudioPlayerView: View {
 	     colorProvider: ColorSchemeProvider,
 	     playAtTime: TimeInterval,
 	     endAtTime: TimeInterval,
-	     audioName: String) {
+	     audioName: String)
+	{
 		_audioPlayer = audioPlayer
 		self.colorProvider = colorProvider
 		self.playAtTime = max(0, playAtTime - Constants.soundIndentSeconds)
-        self.endAtTime = min(audioPlayer.wrappedValue.duration, endAtTime + Constants.soundIndentSeconds)
+		self.endAtTime = min(audioPlayer.wrappedValue.duration, endAtTime + Constants.soundIndentSeconds)
 		self.audioName = audioName
 
-		// workaround чтоб фиксить отсутствие звука при беззвучном режиме
-		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-			try AVAudioSession.sharedInstance().setActive(true)
-		} catch {}
+		self.setupAVSession()
 	}
 
 	var body: some View {
@@ -63,6 +60,14 @@ struct AudioPlayerView: View {
 					.progressViewStyle(LinearProgressViewStyle(tint: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))))
 			}
 		}
+	}
+
+	private func setupAVSession() {
+		// workaround чтоб фиксить отсутствие звука при беззвучном режиме
+		do {
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+			try AVAudioSession.sharedInstance().setActive(true)
+		} catch {}
 	}
 
 	private func playAudio() {
