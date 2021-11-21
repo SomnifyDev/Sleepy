@@ -9,28 +9,25 @@ struct AudioPlayerView: View {
 		static let soundIndentSeconds = 10.0
 	}
 
-	private var audioPlayer: AVAudioPlayer!
 	@State private var isPlaying: Bool = false
 	@State private var currentTime = TimeInterval()
 	@State private var progress = 0.0
 
+	@Binding var audioPlayer: AVAudioPlayer
 	private let colorProvider: ColorSchemeProvider
 	private let playAtTime: TimeInterval
 	private let endAtTime: TimeInterval
 	private let audioName: String
 
-	init(colorProvider: ColorSchemeProvider,
+	init(audioPlayer: Binding<AVAudioPlayer>,
+	     colorProvider: ColorSchemeProvider,
 	     playAtTime: TimeInterval,
 	     endAtTime: TimeInterval,
-	     audioName: String)
-	{
-		let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-		let audioFilename = documentPath.appendingPathComponent(audioName)
-		self.audioPlayer = try! AVAudioPlayer(contentsOf: audioFilename)
-
+	     audioName: String) {
+		_audioPlayer = audioPlayer
 		self.colorProvider = colorProvider
 		self.playAtTime = max(0, playAtTime - Constants.soundIndentSeconds)
-		self.endAtTime = min(self.audioPlayer.duration, endAtTime + Constants.soundIndentSeconds)
+        self.endAtTime = min(audioPlayer.wrappedValue.duration, endAtTime + Constants.soundIndentSeconds)
 		self.audioName = audioName
 
 		// workaround чтоб фиксить отсутствие звука при беззвучном режиме
