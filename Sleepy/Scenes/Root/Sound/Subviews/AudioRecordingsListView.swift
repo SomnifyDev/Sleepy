@@ -38,16 +38,8 @@ struct AudioRecordingsListView: View {
 									                 colorProvider: self.viewModel.colorProvider)
 										.padding([.top, .bottom, .leading, .trailing], 4)
 										.contentShape(Rectangle())
-										.onTapGesture(perform: {
-											self.setupAudioPlayer(audioURL: recording.fileURL)
-											self.viewModel.runAnalysis(audioFileURL: recording.fileURL)
-										})
-								}.onDelete { indexSet in
-									for index in indexSet {
-										try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
-										self.audioRecorder.fetchRecordings()
-									}
-								}
+                                        .onTapGesture { self.configureAnalysisView(recording: recording) }
+                                }.onDelete { indexSet in self.deleteRecordings(indexSet: indexSet) }
 							}
 						}
 					}
@@ -75,9 +67,21 @@ struct AudioRecordingsListView: View {
 		}
 	}
 
+    private func configureAnalysisView(recording: Recording) {
+        self.setupAudioPlayer(audioURL: recording.fileURL)
+        self.viewModel.runAnalysis(audioFileURL: recording.fileURL)
+    }
+
 	private func setupAudioPlayer(audioURL: URL) {
 		if let newPlayer = try? AVAudioPlayer(contentsOf: audioURL) {
 			self.audioPlayer = newPlayer
 		}
 	}
+
+    private func deleteRecordings(indexSet: IndexSet) {
+        for index in indexSet {
+            try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
+            self.audioRecorder.fetchRecordings()
+        }
+    }
 }

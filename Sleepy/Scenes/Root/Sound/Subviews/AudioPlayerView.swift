@@ -9,11 +9,12 @@ struct AudioPlayerView: View {
 		static let soundIndentSeconds = 10.0
 	}
 
+    @Binding var audioPlayer: AVAudioPlayer
+
 	@State private var isPlaying: Bool = false
 	@State private var currentTime = TimeInterval()
 	@State private var progress = 0.0
-
-	@Binding var audioPlayer: AVAudioPlayer
+    
 	private let colorProvider: ColorSchemeProvider
 	private let playAtTime: TimeInterval
 	private let endAtTime: TimeInterval
