@@ -9,7 +9,8 @@ struct AudioPlayerView: View {
 		static let soundIndentSeconds = 10.0
 	}
 
-	private var audioPlayer: AVAudioPlayer!
+	@Binding var audioPlayer: AVAudioPlayer
+
 	@State private var isPlaying: Bool = false
 	@State private var currentTime = TimeInterval()
 	@State private var progress = 0.0
@@ -19,25 +20,19 @@ struct AudioPlayerView: View {
 	private let endAtTime: TimeInterval
 	private let audioName: String
 
-	init(colorProvider: ColorSchemeProvider,
+	init(audioPlayer: Binding<AVAudioPlayer>,
+	     colorProvider: ColorSchemeProvider,
 	     playAtTime: TimeInterval,
 	     endAtTime: TimeInterval,
 	     audioName: String)
 	{
-		let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-		let audioFilename = documentPath.appendingPathComponent(audioName)
-		self.audioPlayer = try! AVAudioPlayer(contentsOf: audioFilename)
-
+		_audioPlayer = audioPlayer
 		self.colorProvider = colorProvider
 		self.playAtTime = max(0, playAtTime - Constants.soundIndentSeconds)
-		self.endAtTime = min(self.audioPlayer.duration, endAtTime + Constants.soundIndentSeconds)
+		self.endAtTime = min(audioPlayer.wrappedValue.duration, endAtTime + Constants.soundIndentSeconds)
 		self.audioName = audioName
 
-		// workaround чтоб фиксить отсутствие звука при беззвучном режиме
-		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-			try AVAudioSession.sharedInstance().setActive(true)
-		} catch {}
+		self.setupAVSession()
 	}
 
 	var body: some View {
@@ -49,21 +44,14 @@ struct AudioPlayerView: View {
 						.frame(width: 25, height: 25)
 						.foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 						.aspectRatio(contentMode: .fit)
-						.onTapGesture {
-							self.audioPlayer.currentTime = playAtTime
-							self.audioPlayer.play()
-
-							self.fetchIsPlaying()
-						}
+						.onTapGesture(perform: self.playAudio)
 				} else {
 					Image(systemName: "pause.circle.fill")
 						.resizable()
 						.frame(width: 25, height: 25)
 						.foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 						.aspectRatio(contentMode: .fit)
-						.onTapGesture {
-							self.audioPlayer.pause()
-						}
+						.onTapGesture(perform: self.audioPlayer.pause)
 				}
 
 				Text(self.roundUp(endAtTime - playAtTime, toNearest: 1).stringTime)
@@ -74,8 +62,23 @@ struct AudioPlayerView: View {
 		}
 	}
 
+	private func setupAVSession() {
+		// workaround чтоб фиксить отсутствие звука при беззвучном режиме
+		do {
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+			try AVAudioSession.sharedInstance().setActive(true)
+		} catch {}
+	}
+
+	private func playAudio() {
+		self.audioPlayer.currentTime = self.playAtTime
+		self.audioPlayer.play()
+
+		self.fetchIsPlaying()
+	}
+
 	private func fetchIsPlaying() {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			self.isPlaying = audioPlayer.isPlaying
 			var val = (audioPlayer.currentTime - playAtTime) / (endAtTime - playAtTime)
 

@@ -22,10 +22,10 @@ struct NeedHealthAccessView: View {
 				.padding(.top, 8)
 
 				VStack(alignment: .leading, spacing: 8) {
-					Text("Sleepy requires an access for your health data to make smart alarm usable.".localized)
+					Text("Sleepy requires an access for your health data to make smart alarm usable.")
 						.fixedSize(horizontal: false, vertical: true)
 						.font(.system(size: 12))
-					Text("Also make sure you have turned on heart and energy tracking on your Apple Watch.".localized)
+					Text("Also make sure you have turned on heart and energy tracking on your Apple Watch.")
 						.font(.system(size: 12))
 						.fixedSize(horizontal: false, vertical: true)
 				}

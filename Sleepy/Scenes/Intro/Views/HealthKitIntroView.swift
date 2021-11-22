@@ -30,13 +30,13 @@ struct HealthKitIntroView: View {
 						.aspectRatio(4 / 3, contentMode: .fit)
 						.clipShape(RoundedRectangle(cornerRadius: 15))
 
-						WelcomeScreenLineView(title: "Access required".localized,
-						                      subTitle: "Health data is used for analysis.".localized,
+						WelcomeScreenLineView(title: "Access required",
+						                      subTitle: "Health data is used for analysis.",
 						                      imageName: "heart.text.square.fill",
 						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
-						WelcomeScreenLineView(title: "We don't keep your data".localized,
-						                      subTitle: "It is processed locally and is not uploaded to servers.".localized,
+						WelcomeScreenLineView(title: "We don't keep your data",
+						                      subTitle: "It is processed locally and is not uploaded to servers.",
 						                      imageName: "wifi.slash",
 						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 
@@ -44,7 +44,7 @@ struct HealthKitIntroView: View {
 				}.padding([.leading, .trailing], 16)
 
 				if !shouldShowNextTab {
-					Text("Grant access".localized)
+					Text("Grant access")
 						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 						.onTapGesture {
 							HKService.requestPermissions { result, error in
@@ -58,13 +58,13 @@ struct HealthKitIntroView: View {
 
 				if shouldShowNextTab {
 					NavigationLink(destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
-						Text("Continue".localized)
+						Text("Continue")
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}
 				}
 			}
 		}
-		.navigationTitle("Access to Health".localized)
+		.navigationTitle("Access to Health")
 		.onAppear(perform: self.sendAnalytics)
 	}
 

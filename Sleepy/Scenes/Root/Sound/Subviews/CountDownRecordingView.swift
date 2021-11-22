@@ -4,7 +4,9 @@ import SwiftUI
 
 struct CountDownRecordingView: View {
 	@Binding var secondsRecorded: Int
+
 	@State private var isActive = true
+
 	private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
 	var body: some View {
@@ -19,7 +21,7 @@ struct CountDownRecordingView: View {
 
 			VStack {
 				Spacer()
-				Text("Tap anywhere to stop recording".localized)
+				Text("Tap anywhere to stop recording")
 					.foregroundColor(.white)
 					.opacity(0.4)
 			}

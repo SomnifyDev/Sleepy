@@ -33,8 +33,8 @@ struct SleepHistoryStatsView: View {
 			{
 				CardWithChartView(colorProvider: colorProvider,
 				                  systemImageName: "sleep",
-				                  titleText: "Month sleep duration".localized,
-				                  mainTitleText: "Here is some info about your month sleep sessions".localized,
+				                  titleText: "Month sleep duration",
+				                  mainTitleText: "Here is some info about your month sleep sessions",
 				                  titleColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
 				                  showChevron: false,
 				                  chartView: StandardChartView(colorProvider: colorProvider,

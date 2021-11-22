@@ -38,17 +38,17 @@ struct PhasesCardDetailView: View {
 
 							// MARK: Statistics
 
-							SectionNameTextView(text: "Summary".localized,
+							SectionNameTextView(text: "Summary",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 							HorizontalStatisticCellView(data: [
-								StatisticsCellData(title: "Total NREM sleep duration".localized,
+								StatisticsCellData(title: "Total NREM sleep duration",
 								                   value: phasesViewModel.timeInDeepPhase),
-								StatisticsCellData(title: "Max NREM sleep interval".localized,
+								StatisticsCellData(title: "Max NREM sleep interval",
 								                   value: phasesViewModel.mostIntervalInDeepPhase),
-								StatisticsCellData(title: "Total REM sleep duration".localized,
+								StatisticsCellData(title: "Total REM sleep duration",
 								                   value: phasesViewModel.timeInLightPhase),
-								StatisticsCellData(title: "Max REM sleep interval".localized,
+								StatisticsCellData(title: "Max REM sleep interval",
 								                   value: phasesViewModel.mostIntervalInLightPhase),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
@@ -56,12 +56,12 @@ struct PhasesCardDetailView: View {
 
 						// MARK: Advice
 
-						SectionNameTextView(text: "What else?".localized,
+						SectionNameTextView(text: "What else?",
 						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 						UsefulInfoCardView(imageName: AdviceType.phasesAdvice.rawValue,
-						                   title: "Sleep phases and stages".localized,
-						                   description: "Learn more about sleep phases and stages.".localized,
+						                   title: "Sleep phases and stages",
+						                   description: "Learn more about sleep phases and stages.",
 						                   destinationView: AdviceView(sheetType: .phasesAdvice,
 						                                               showAdvice: $showAdvice),
 						                   showModalView: $showAdvice)

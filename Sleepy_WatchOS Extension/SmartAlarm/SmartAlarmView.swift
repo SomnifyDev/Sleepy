@@ -14,13 +14,13 @@ struct AlarmView: View {
 	var body: some View {
 		VStack {
 			HStack {
-				Picker("Hours".localized, selection: $selectedHour) {
+				Picker("Hours", selection: $selectedHour) {
 					ForEach(hours, id: \.self) {
 						Text(integerToString($0))
 					}
 				}
 
-				Picker("Minutes".localized, selection: $selectedMinute) {
+				Picker("Minutes", selection: $selectedMinute) {
 					ForEach(minutes, id: \.self) {
 						Text(integerToString($0))
 					}
@@ -32,11 +32,11 @@ struct AlarmView: View {
 				Button {
 					isAlarmActive ? deactivateAlarm() : activateAlarm()
 				} label: {
-					Text(isAlarmActive ? "Cancel".localized : "Setup".localized)
+					Text(isAlarmActive ? "Cancel" : "Setup")
 				}
 				.padding(.top, 8)
 
-				Text("Smart alarm requires at least 30 minutes interval to be activated.".localized)
+				Text("Smart alarm requires at least 30 minutes interval to be activated.")
 					.font(.system(size: 10))
 					.foregroundColor(.gray)
 					.padding(.top, 4)

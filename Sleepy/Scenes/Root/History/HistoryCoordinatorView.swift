@@ -11,6 +11,6 @@ struct HistoryCoordinatorView: View {
 		NavigationView {
 			HistoryListView(viewModel: viewModel)
 		}
-		.navigationTitle("History".localized)
+		.navigationTitle("History")
 	}
 }

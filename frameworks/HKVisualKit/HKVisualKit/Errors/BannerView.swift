@@ -143,7 +143,7 @@ public struct BannerView: View {
 		     .brokenData(type: _),
 		     .restrictedData(type: _):
 			return "Data empty or restricted"
-		case .advice(type: _, let imageSystemName):
+		case .advice(type: _, _):
 			return "Advice"
 		}
 	}
@@ -162,9 +162,9 @@ public struct BannerView: View {
 	private func getDataText() -> String {
 		switch self.bannerViewType {
 		case let .emptyData(type: type):
-			return String(format: "No data of type %@ was recieved".localized, type.rawValue)
+			return String(format: "No data of type %@ was recieved", type.rawValue)
 		case let .brokenData(type: type):
-			return String(format: "There was not enought data to display your %@ charts. Try to sleep with Apple Watch More".localized, type.rawValue)
+			return String(format: "There was not enought data to display your %@ charts. Try to sleep with Apple Watch More", type.rawValue)
 		case let .restrictedData(type: type):
 			return "Sleepy was restricted from reading your \(type.rawValue) data. Fix that in your settings"
 		case let .advice(type: type, _):

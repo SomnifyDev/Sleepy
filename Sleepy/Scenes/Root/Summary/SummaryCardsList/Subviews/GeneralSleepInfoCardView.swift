@@ -19,8 +19,8 @@ public struct GeneralSleepInfoCardView: View {
 		VStack {
 			GeometryReader { _ in
 				VStack {
-					CardTitleView(titleText: "Sleep: general".localized,
-					              mainText: "Here is some info about your last sleep session".localized,
+					CardTitleView(titleText: "Sleep: general",
+					              mainText: "Here is some info about your last sleep session",
 					              leftIcon: Image(systemName: "zzz"),
 					              rightIcon: Image(systemName: "chevron.right"),
 					              titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
@@ -41,7 +41,7 @@ public struct GeneralSleepInfoCardView: View {
 											color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.fallAsleepDurationColor))
 										)
 
-									Text("Drop off".localized)
+									Text("Drop off")
 										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
 										                  size: 14)
 								}
@@ -59,7 +59,7 @@ public struct GeneralSleepInfoCardView: View {
 											color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.sleepDurationColor))
 										)
 
-									Text("Sleep duration".localized)
+									Text("Sleep duration")
 										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
 										                  size: 14)
 								}
@@ -81,7 +81,7 @@ public struct GeneralSleepInfoCardView: View {
 											color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.awakeColor))
 										)
 
-									Text("Awake".localized)
+									Text("Awake")
 										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
 										                  size: 14)
 								}
@@ -99,7 +99,7 @@ public struct GeneralSleepInfoCardView: View {
 											color: colorProvider.sleepyColorScheme.getColor(of: .summaryCardColors(.moonColor))
 										)
 
-									Text("Falling asleep".localized)
+									Text("Falling asleep")
 										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
 										                  size: 14)
 								}

@@ -90,7 +90,7 @@ struct HistoryListView: View {
 								.blur(radius: 4)
 						}
 					} else {
-						Text("Loading".localized)
+						Text("Loading")
 					}
 				}
 			}
@@ -99,7 +99,7 @@ struct HistoryListView: View {
 				viewModel.extractContextStatistics()
 			}
 		}
-		.navigationTitle("Sleep history".localized)
+		.navigationTitle("Sleep history")
 		.onAppear(perform: self.sendAnalytics)
 	}
 

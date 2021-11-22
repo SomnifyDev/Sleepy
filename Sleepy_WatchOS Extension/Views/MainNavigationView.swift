@@ -4,7 +4,7 @@ import SwiftUI
 
 struct MainNavigationView: View {
 	@State var mainInfo: String = "-"
-	@State var bottomTitle: String = "Inactive".localized
+	@State var bottomTitle: String = "Inactive"
 
 	var body: some View {
 		GeometryReader { _ in
@@ -12,7 +12,7 @@ struct MainNavigationView: View {
 				VStack(spacing: 8) {
 					NavigationLink(destination: AlarmView()) {
 						NavItemView(imageName: "alarm",
-						            title: "Smart alarm".localized,
+						            title: "Smart alarm",
 						            titleColor: Color("mainColor"),
 						            mainInfo: mainInfo,
 						            bottomTitle: bottomTitle)
@@ -51,7 +51,7 @@ struct MainNavigationView: View {
 		}
 
 		self.mainInfo = "\(self.integerToString(UserSettings.settedAlarmHours)):\(self.integerToString(UserSettings.settedAlarmMinutes))"
-		self.bottomTitle = "Active".localized
+		self.bottomTitle = "Active"
 	}
 }
 

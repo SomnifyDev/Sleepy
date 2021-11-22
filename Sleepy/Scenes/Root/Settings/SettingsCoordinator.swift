@@ -6,6 +6,8 @@ import SettingsKit
 import XUI
 
 class SettingsCoordinator: ObservableObject, ViewModel {
+	private unowned let parent: RootCoordinator
+
 	@Published var openedURL: URL?
 
 	@Published var sleepGoalValue = 480
@@ -13,11 +15,7 @@ class SettingsCoordinator: ObservableObject, ViewModel {
 	@Published var recognisionConfidenceValue: Int = 30
 	@Published var isSharePresented: Bool = false
 
-	private unowned let parent: RootCoordinator
-
-	init(
-		parent: RootCoordinator
-	) {
+	init(parent: RootCoordinator) {
 		self.parent = parent
 	}
 

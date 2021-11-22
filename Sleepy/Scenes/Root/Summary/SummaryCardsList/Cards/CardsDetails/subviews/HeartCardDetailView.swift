@@ -42,15 +42,15 @@ struct HeartCardDetailView: View {
 
 							// MARK: Statistics
 
-							SectionNameTextView(text: "Summary".localized,
+							SectionNameTextView(text: "Summary",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 							HorizontalStatisticCellView(data: [
-								StatisticsCellData(title: "Average pulse".localized,
+								StatisticsCellData(title: "Average pulse",
 								                   value: heartViewModel.averageHeartRate),
-								StatisticsCellData(title: "Max pulse".localized,
+								StatisticsCellData(title: "Max pulse",
 								                   value: heartViewModel.maxHeartRate),
-								StatisticsCellData(title: "Min pulse".localized,
+								StatisticsCellData(title: "Min pulse",
 								                   value: heartViewModel.minHeartRate),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
@@ -58,12 +58,12 @@ struct HeartCardDetailView: View {
 
 						// MARK: Advices
 
-						SectionNameTextView(text: "What else?".localized,
+						SectionNameTextView(text: "What else?",
 						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 						UsefulInfoCardView(imageName: AdviceType.heartAdvice.rawValue,
-						                   title: "Heart and sleep".localized,
-						                   description: "Learn more about the importance of sleep for heart health.".localized,
+						                   title: "Heart and sleep",
+						                   description: "Learn more about the importance of sleep for heart health.",
 						                   destinationView: AdviceView(sheetType: .heartAdvice,
 						                                               showAdvice: $showAdvice),
 						                   showModalView: $showAdvice)

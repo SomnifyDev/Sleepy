@@ -40,22 +40,22 @@ struct RespiratoryCardDetailView: View {
 
 							// MARK: Statistics
 
-							SectionNameTextView(text: "Summary".localized,
+							SectionNameTextView(text: "Summary",
 							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 
 							HorizontalStatisticCellView(data: [
-								StatisticsCellData(title: "Max. respiratory rate".localized,
+								StatisticsCellData(title: "Max. respiratory rate",
 								                   value: respiratoryViewModel.maxRespiratoryRate),
-								StatisticsCellData(title: "Mean. respiratory rate".localized,
+								StatisticsCellData(title: "Mean. respiratory rate",
 								                   value: respiratoryViewModel.averageRespiratoryRate),
-								StatisticsCellData(title: "Min. respiratory rate".localized,
+								StatisticsCellData(title: "Min. respiratory rate",
 								                   value: respiratoryViewModel.minRespiratoryRate),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
 						}
 					}
 				}
-				.navigationTitle("Respiratory rate".localized)
+				.navigationTitle("Respiratory rate")
 			}
 		}
 	}

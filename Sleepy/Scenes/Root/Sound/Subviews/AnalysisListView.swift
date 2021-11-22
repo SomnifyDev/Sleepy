@@ -1,26 +1,30 @@
 // Copyright (c) 2021 Sleepy.
 
+import AVKit
 import HKVisualKit
 import SwiftUI
 import XUI
 
 struct AnalysisListView: View {
 	@Store var viewModel: SoundsCoordinator
+
+	@Binding var showSheetView: Bool
+	@Binding var audioPlayer: AVAudioPlayer
+
 	let result: [SoundAnalysisResult]
 	let fileName: String
 	let endDate: Date?
 	let colorProvider: ColorSchemeProvider
-
-	@Binding var showSheetView: Bool
 
 	var body: some View {
 		NavigationView {
 			ZStack {
 				colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
 					.edgesIgnoringSafeArea(.all)
+
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .center, spacing: 2) {
-						SectionNameTextView(text: "Recognized sounds".localized,
+						SectionNameTextView(text: "Recognized sounds",
 						                    color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
 							.padding([.top, .bottom])
 
@@ -35,7 +39,8 @@ struct AnalysisListView: View {
 								              showSeparator: false,
 								              colorProvider: self.colorProvider)
 
-								AudioPlayerView(colorProvider: colorProvider,
+								AudioPlayerView(audioPlayer: self.$audioPlayer,
+								                colorProvider: self.colorProvider,
 								                playAtTime: item.start,
 								                endAtTime: item.end,
 								                audioName: fileName)
@@ -43,18 +48,16 @@ struct AnalysisListView: View {
 						}
 
 						if result.isEmpty {
-							Text("No sound recognized. You can try to lower recognisition confidence coefficient in your settings".localized)
+							Text("No sound recognized. You can try to lower recognisition confidence coefficient in your settings")
 								.underline()
-								.onTapGesture {
-									self.showSheetView = false
-									self.viewModel.openSettings()
-								}
+								.onTapGesture(perform: self.openSettings)
 						}
 					}
 				}
-			}.navigationTitle(endDate?.getFormattedDate(format: "MMM d") ?? "")
-				.navigationBarItems(trailing: Button("Done".localized,
-				                                     action: { showSheetView = false }))
+			}
+			.onDisappear(perform: self.stopAudioPlayer)
+			.navigationTitle(endDate?.getFormattedDate(format: "MMM d") ?? "")
+			.navigationBarItems(trailing: Button("Done", action: { showSheetView = false }))
 		}
 	}
 
@@ -65,5 +68,14 @@ struct AnalysisListView: View {
 			return startDate.getFormattedDate(format: "HH:mm")
 		}
 		return nil
+	}
+
+	private func openSettings() {
+		self.showSheetView = false
+		self.viewModel.openSettings()
+	}
+
+	private func stopAudioPlayer() {
+		self.audioPlayer.stop()
 	}
 }

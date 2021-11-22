@@ -17,15 +17,15 @@ struct NotificationsIntroView: View {
 			VStack {
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .leading) {
-						WelcomeScreenLineView(title: "Allow Sleepy to send notifications".localized,
-						                      subTitle: "This is so Sleepy can send you a summary of your past sleep.".localized,
+						WelcomeScreenLineView(title: "Allow Sleepy to send notifications",
+						                      subTitle: "This is so Sleepy can send you a summary of your past sleep.",
 						                      imageName: "sleep",
 						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}.padding(.top, 16)
 				}.padding([.leading, .trailing], 16)
 
 				if !shouldShowNextTab {
-					Text("Grant access".localized)
+					Text("Grant access")
 						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 						.onTapGesture {
 							self.registerForPushNotifications { _, _ in
@@ -36,13 +36,13 @@ struct NotificationsIntroView: View {
 
 				if shouldShowNextTab {
 					NavigationLink(destination: GoalIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
-						Text("Continue".localized)
+						Text("Continue")
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}
 				}
 			}
 		}
-		.navigationTitle("Notifications".localized)
+		.navigationTitle("Notifications")
 		.onAppear(perform: self.sendAnalytics)
 	}
 
