@@ -1,26 +1,25 @@
+// Copyright (c) 2021 Sleepy.
+
+// swiftformat:disable all
 import FirebaseAnalytics
 import SwiftUI
 import XUI
 
 struct CardDetailsView: View {
-    @Store var coordinator: CardDetailsViewCoordinator
+    @Store var viewModel: CardDetailsViewCoordinator
 
     var body: some View {
         HStack {
-            switch coordinator.card {
+            switch viewModel.card {
             case .heart:
-                HeartCardDetailView(viewModel: self.coordinator)
+                HeartCardDetailView(viewModel: self.viewModel)
             case .general:
-                GeneralCardDetailView(viewModel: self.coordinator)
+                GeneralCardDetailView(viewModel: self.viewModel)
             case .phases:
-                PhasesCardDetailView(viewModel: self.coordinator)
+                PhasesCardDetailView(viewModel: self.viewModel)
             case .breath:
-                RespiratoryCardDetailView(viewModel: self.coordinator)
+                RespiratoryCardDetailView(viewModel: self.viewModel)
             }
-        }.onAppear(perform: self.sendAnalytics)
-    }
-
-    private func sendAnalytics() {
-        FirebaseAnalytics.Analytics.logEvent("CardDetails_viewed", parameters: ["cardType": coordinator.card.rawValue])
+        }.onAppear(perform: self.viewModel.sendAnalytics)
     }
 }

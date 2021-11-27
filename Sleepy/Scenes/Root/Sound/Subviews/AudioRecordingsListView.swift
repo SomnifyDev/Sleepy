@@ -1,9 +1,4 @@
-//
-//  RecordingsList.swift
-//  Sleepy
-//
-//  Created by Никита Казанцев on 14.08.2021.
-//
+// Copyright (c) 2021 Sleepy.
 
 import HKVisualKit
 import SoundAnalysis
@@ -11,128 +6,82 @@ import SwiftUI
 import XUI
 
 struct AudioRecordingsListView: View {
-    @Store var viewModel: SoundsCoordinator
-    @ObservedObject var audioRecorder = AudioRecorder()
+	@Store var viewModel: SoundsCoordinator
 
-    private var groupedByDateData: [Date: [Recording]] {
-        Dictionary(grouping: audioRecorder.recordings, by: { $0.createdAt.startOfDay })
-    }
+	@ObservedObject var audioRecorder = AudioRecorder()
+	@State var audioPlayer: AVAudioPlayer!
 
-    var headers: [Date] {
-        groupedByDateData.map { $0.key }.sorted()
-    }
+	private var groupedByDateData: [Date: [Recording]] {
+		Dictionary(grouping: self.audioRecorder.recordings, by: { $0.createdAt.startOfDay })
+	}
 
-    @State private var showSheetView = false
-    @State private var showProgress = false
-    // Create a new observer to receive notifications for analysis results.
-    let resultsObserver = AudioResultsObserver()
+	private var headers: [Date] {
+		self.groupedByDateData.map { $0.key }.sorted()
+	}
 
-    var body: some View {
-        ZStack(alignment: .center) {
-            viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
-                .edgesIgnoringSafeArea(.all)
+	var body: some View {
+		ZStack(alignment: .center) {
+			self.viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+				.edgesIgnoringSafeArea(.all)
 
-            VStack {
-                if audioRecorder.recordings.isEmpty {
-                    BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
-                               colorProvider: viewModel.colorProvider)
-                        .roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-                } else {
-                    List {
-                        ForEach(headers, id: \.self) { header in
-                            Section(header: Text(header, style: .date)) {
-                                ForEach(groupedByDateData[header]!) { recording in
-                                    RecordingRow(audioURL: recording.fileURL,
-                                                 colorProvider: viewModel.colorProvider)
-                                        .padding([.top, .bottom, .leading, .trailing], 4)
-                                        .onTapGesture {
-                                            showProgress = true
-                                            runAnalysis(audioFileURL: recording.fileURL)
-                                        }
-                                }.onDelete { indexSet in
-                                    for index in indexSet {
-                                        try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
-                                        self.audioRecorder.fetchRecordings()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                Spacer()
-            }.sheet(isPresented: $showSheetView) {
-                AnalysisListView(viewModel: self.viewModel,
-                                 result: resultsObserver.array,
-                                 fileName: resultsObserver.fileName,
-                                 endDate: resultsObserver.date,
-                                 colorProvider: viewModel.colorProvider,
-                                 showSheetView: $showSheetView)
-            }
+			VStack {
+				if self.audioRecorder.recordings.isEmpty {
+					BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
+					           colorProvider: self.viewModel.colorProvider)
+						.roundedCardBackground(color: self.viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+				} else {
+					List {
+						ForEach(self.headers, id: \.self) { header in
+							Section(header: Text(header, style: .date)) {
+								ForEach(self.groupedByDateData[header] ?? []) { recording in
+									RecordingRowView(audioURL: recording.fileURL,
+									                 colorProvider: self.viewModel.colorProvider)
+										.padding([.top, .bottom, .leading, .trailing], 4)
+										.contentShape(Rectangle())
+										.onTapGesture { self.configureAnalysisView(recording: recording) }
+								}.onDelete { indexSet in self.deleteRecordings(indexSet: indexSet) }
+							}
+						}
+					}
+				}
+				Spacer()
+			}
+			.sheet(isPresented: self.$viewModel.showAnalysis) {
+				AnalysisListView(viewModel: self.viewModel,
+				                 showSheetView: self.$viewModel.showAnalysis,
+				                 audioPlayer: Binding(self.$audioPlayer)!,
+				                 result: self.viewModel.resultsObserver.array,
+				                 fileName: self.viewModel.resultsObserver.fileName,
+				                 endDate: self.viewModel.resultsObserver.date,
+				                 colorProvider: self.viewModel.colorProvider)
+					.onDisappear(perform: self.audioPlayer.stop)
+			}
 
-            if showProgress {
-                ProgressView().frame(width: 35, height: 35)
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(6)
-                    .progressViewStyle(CircularProgressViewStyle())
-            }
-        }
-    }
+			if self.viewModel.showLoading {
+				ProgressView()
+					.frame(width: 35, height: 35)
+					.background(Color.black.opacity(0.3))
+					.cornerRadius(6)
+					.progressViewStyle(CircularProgressViewStyle())
+			}
+		}
+	}
 
-    private func runAnalysis(audioFileURL: URL) {
-        do {
-            let request: SNClassifySoundRequest
+	private func configureAnalysisView(recording: Recording) {
+		self.setupAudioPlayer(audioURL: recording.fileURL)
+		self.viewModel.runAnalysis(audioFileURL: recording.fileURL)
+	}
 
-            let config = MLModelConfiguration()
-            let mlModel = try soundClassifier(configuration: config)
+	private func setupAudioPlayer(audioURL: URL) {
+		if let newPlayer = try? AVAudioPlayer(contentsOf: audioURL) {
+			self.audioPlayer = newPlayer
+		}
+	}
 
-            request = try SNClassifySoundRequest(mlModel: mlModel.model)
-
-            guard let audioFileAnalyzer = createAnalyzer(audioFileURL: audioFileURL)
-            else {
-                showProgress = false
-                return
-            }
-            resultsObserver.fileName = audioFileURL.lastPathComponent
-            resultsObserver.date = FileHelper.creationDateForLocalFilePath(filePath: audioFileURL.path)
-            resultsObserver.array = []
-
-            // Prepare a new request for the trained model.
-            try audioFileAnalyzer.add(request, withObserver: resultsObserver)
-
-            audioFileAnalyzer.analyze(completionHandler: { result in
-                showSheetView = result
-                showProgress = false
-            })
-        } catch {
-            showProgress = false
-        }
-    }
-
-    /// Creates an analyzer for an audio file.
-    /// - Parameter audioFileURL: The URL to an audio file.
-    func createAnalyzer(audioFileURL: URL) -> SNAudioFileAnalyzer? {
-        return try? SNAudioFileAnalyzer(url: audioFileURL)
-    }
-}
-
-private struct RecordingRow: View {
-    var audioURL: URL
-    let colorProvider: ColorSchemeProvider
-    var body: some View {
-        VStack {
-            CardTitleView(titleText: "Recording",
-                          leftIcon: Image(systemName: "mic.circle.fill"),
-                          rightIcon: Image(systemName: "chevron.right"),
-                          titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-                          showSeparator: false,
-                          colorProvider: colorProvider)
-            HStack {
-                Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
-                    .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
-                Spacer()
-                Text(FileHelper.covertToFileString(with: FileHelper.sizeForLocalFilePath(filePath: audioURL.path)))
-                    .regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)))
-            }
-        }
-    }
+	private func deleteRecordings(indexSet: IndexSet) {
+		for index in indexSet {
+			try? FileManager.default.removeItem(at: self.audioRecorder.recordings[index].fileURL)
+			self.audioRecorder.fetchRecordings()
+		}
+	}
 }

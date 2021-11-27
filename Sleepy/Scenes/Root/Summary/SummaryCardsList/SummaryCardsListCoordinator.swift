@@ -1,3 +1,6 @@
+// Copyright (c) 2021 Sleepy.
+
+import FirebaseAnalytics
 import HKStatistics
 import HKVisualKit
 import SettingsKit
@@ -5,26 +8,35 @@ import SwiftUI
 import XUI
 
 class SummaryCardsListCoordinator: ObservableObject, ViewModel {
-    @Published private(set) var title: String
-    @Published private(set) var cards: [SummaryViewCardType]?
+	private unowned let parent: SummaryNavigationCoordinator
 
-    private unowned let coordinator: SummaryNavigationCoordinator
+	@Published private(set) var cards: [SummaryViewCardType]?
+	@Published var somethingBroken = false
 
-    let colorProvider: ColorSchemeProvider
-    let statisticsProvider: HKStatisticsProvider
+	let colorProvider: ColorSchemeProvider
+	let statisticsProvider: HKStatisticsProvider
 
-    init(colorProvider: ColorSchemeProvider,
-         statisticsProvider: HKStatisticsProvider,
-         title: String,
-         coordinator: SummaryNavigationCoordinator)
-    {
-        self.colorProvider = colorProvider
-        self.statisticsProvider = statisticsProvider
-        self.title = title
-        self.coordinator = coordinator
-    }
+	init(colorProvider: ColorSchemeProvider,
+	     statisticsProvider: HKStatisticsProvider,
+	     parent: SummaryNavigationCoordinator)
+	{
+		self.colorProvider = colorProvider
+		self.statisticsProvider = statisticsProvider
+		self.parent = parent
+	}
 
-    func open(_ card: SummaryViewCardType) {
-        coordinator.open(card)
-    }
+	func open(_ card: SummaryViewCardType) {
+		self.parent.open(card)
+	}
+}
+
+extension SummaryCardsListCoordinator {
+	func sendAnalytics(cardService: CardService) {
+		FirebaseAnalytics.Analytics.logEvent("SummaryCardsList_viewed", parameters: [
+			"somethingBroken": self.somethingBroken,
+			"generalCardShown": cardService.generalViewModel != nil,
+			"phasesCardShown": cardService.phasesViewModel != nil && cardService.generalViewModel != nil,
+			"heartCardShown": cardService.heartViewModel != nil && cardService.generalViewModel != nil,
+		])
+	}
 }

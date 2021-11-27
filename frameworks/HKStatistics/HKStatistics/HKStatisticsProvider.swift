@@ -134,5 +134,4 @@ public final class HKStatisticsProvider {
             completion(data)
         }
     }
-
 }

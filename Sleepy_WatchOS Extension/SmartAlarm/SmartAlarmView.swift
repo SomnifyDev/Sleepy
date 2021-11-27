@@ -1,107 +1,102 @@
-//
-//  AlarmView.swift
-//  Sleepy_WatchOS Extension
-//
-//  Created by Анас Бен Мустафа on 9/27/21.
-//
+// Copyright (c) 2021 Sleepy.
 
 import SwiftUI
 
 struct AlarmView: View {
-    @State private var selectedHour = Date().getHourInt()
-    @State private var selectedMinute = Date().getMinuteInt()
-    @State private var isAlarmActive = false
-    private let smartAlarmModel: SmartAlarmModel = SmartAlarmModel()
-    private let healthManager: HealthManager = HealthManager()
-    private let hours = [Int](0...23)
-    private let minutes = [Int](0...59)
+	@State private var selectedHour = Date().getHourInt()
+	@State private var selectedMinute = Date().getMinuteInt()
+	@State private var isAlarmActive = false
+	private let smartAlarmModel = SmartAlarmModel()
+	private let healthManager = HealthManager()
+	private let hours = [Int](0 ... 23)
+	private let minutes = [Int](0 ... 59)
 
-    var body: some View {
-        VStack {
-            HStack {
-                Picker("Hours".localized, selection: $selectedHour) {
-                    ForEach(hours, id: \.self) {
-                        Text(integerToString($0))
-                    }
-                }
+	var body: some View {
+		VStack {
+			HStack {
+				Picker("Hours", selection: $selectedHour) {
+					ForEach(hours, id: \.self) {
+						Text(integerToString($0))
+					}
+				}
 
-                Picker("Minutes".localized, selection: $selectedMinute) {
-                    ForEach(minutes, id: \.self) {
-                        Text(integerToString($0))
-                    }
-                }
-            }
-            .frame(height: 70, alignment: .center)
+				Picker("Minutes", selection: $selectedMinute) {
+					ForEach(minutes, id: \.self) {
+						Text(integerToString($0))
+					}
+				}
+			}
+			.frame(height: 70, alignment: .center)
 
-            ScrollView {
-                Button {
-                    isAlarmActive ? deactivateAlarm() : activateAlarm()
-                } label: {
-                    Text(isAlarmActive ? "Cancel".localized : "Setup".localized)
-                }
-                .padding(.top, 8)
+			ScrollView {
+				Button {
+					isAlarmActive ? deactivateAlarm() : activateAlarm()
+				} label: {
+					Text(isAlarmActive ? "Cancel" : "Setup")
+				}
+				.padding(.top, 8)
 
-                Text("Smart alarm requires at least 30 minutes interval to be activated.".localized)
-                    .font(.system(size: 10))
-                    .foregroundColor(.gray)
-                    .padding(.top, 4)
-            }
-        }
-        .onAppear {
-            setUpView()
-        }
-    }
+				Text("Smart alarm requires at least 30 minutes interval to be activated.")
+					.font(.system(size: 10))
+					.foregroundColor(.gray)
+					.padding(.top, 4)
+			}
+		}
+		.onAppear {
+			setUpView()
+		}
+	}
 
-    // MARK: Alarm methods
+	// MARK: Alarm methods
 
-    private func activateAlarm() {
-        let alarmEnd = Date().nextTimeMatchingComponents(components: DateComponents(hour: selectedHour, minute: selectedMinute))
-        if smartAlarmModel.activateAlarm(alarmEnd: alarmEnd) {
-            setUserSettingsForActivatedAlarm()
-            isAlarmActive = true
-        }
-    }
-    
-    private func deactivateAlarm() {
-        isAlarmActive = false
-        UserSettings.isAlarmSet = false
-        smartAlarmModel.deactivateAlarm()
-    }
+	private func activateAlarm() {
+		let alarmEnd = Date().nextTimeMatchingComponents(components: DateComponents(hour: self.selectedHour, minute: self.selectedMinute))
+		if self.smartAlarmModel.activateAlarm(alarmEnd: alarmEnd) {
+			self.setUserSettingsForActivatedAlarm()
+			self.isAlarmActive = true
+		}
+	}
 
-    private func setUserSettingsForActivatedAlarm() {
-        UserSettings.isAlarmSet = true
-        UserSettings.settedAlarmMinutes = selectedMinute
-        UserSettings.settedAlarmHours = selectedHour
-    }
+	private func deactivateAlarm() {
+		self.isAlarmActive = false
+		UserSettings.isAlarmSet = false
+		self.smartAlarmModel.deactivateAlarm()
+	}
 
-    // MARK: View setup
+	private func setUserSettingsForActivatedAlarm() {
+		UserSettings.isAlarmSet = true
+		UserSettings.settedAlarmMinutes = self.selectedMinute
+		UserSettings.settedAlarmHours = self.selectedHour
+	}
 
-    private func setUpView() {
-        setUpActivateButton()
-        setUpPickers()
-    }
+	// MARK: View setup
 
-    private func setUpActivateButton() {
-        isAlarmActive = UserSettings.isAlarmSet
-    }
+	private func setUpView() {
+		self.setUpActivateButton()
+		self.setUpPickers()
+	}
 
-    private func setUpPickers() {
-        guard
-            UserSettings.isAlarmSet,
-            UserSettings.settedAlarmHours != -1,
-            UserSettings.settedAlarmMinutes != -1
-        else {
-            return
-        }
+	private func setUpActivateButton() {
+		self.isAlarmActive = UserSettings.isAlarmSet
+	}
 
-        selectedMinute = UserSettings.settedAlarmMinutes
-        selectedHour = UserSettings.settedAlarmHours
-    }
+	private func setUpPickers() {
+		guard
+			UserSettings.isAlarmSet,
+			UserSettings.settedAlarmHours != -1,
+			UserSettings.settedAlarmMinutes != -1 else
+		{
+			return
+		}
 
-    // MARK: Private methods
+		self.selectedMinute = UserSettings.settedAlarmMinutes
+		self.selectedHour = UserSettings.settedAlarmHours
+	}
 
-    private func integerToString(_ integer: Int) -> String {
-        let minutesStr = integer > 9 ? String(integer) : "0" + String(integer)
-        return minutesStr
-    }
+	// MARK: Private methods
+
+	private func integerToString(_ integer: Int) -> String {
+		let minutesStr = integer > 9 ? String(integer) : "0" + String(integer)
+		return minutesStr
+	}
 }
