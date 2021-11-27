@@ -57,9 +57,9 @@ struct CalendarDayView: View {
 
 		switch calendarType {
 		case .heart, .respiratory, .energy:
-			self.viewModel.statisticsProvider.getMetaDataByIntervalWithIndicator(healthType: calendarType,
-			                                                                     indicatorType: .mean,
-			                                                                     for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
+			self.viewModel.statisticsProvider.getMetaData(healthType: calendarType,
+			                                              indicator: .mean,
+			                                              interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
 				value = val
 				setCircleColor()
 
@@ -75,10 +75,10 @@ struct CalendarDayView: View {
 			}
 
 		case .asleep, .inbed:
-			self.viewModel.statisticsProvider.getDataByIntervalWithIndicator(healthType: calendarType,
-			                                                                 indicatorType: .sum,
-			                                                                 for: DateInterval(start: date.startOfDay, end: date.endOfDay),
-			                                                                 bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+			self.viewModel.statisticsProvider.getData(healthType: calendarType,
+			                                          indicator: .sum,
+			                                          interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+			                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
 				value = val
 				setCircleColor()
 
