@@ -87,6 +87,7 @@
 			buildConfigurationList = D97C395C26BD1530005CCDFB /* Build configuration list for PBXNativeTarget "SettingsKit" */;
 			buildPhases = (
 				D97C395026BD1530005CCDFB /* Headers */,
+				8071269727529BC100F52874 /* ShellScript */,
 				D97C395126BD1530005CCDFB /* Sources */,
 				D97C395226BD1530005CCDFB /* Frameworks */,
 				D97C395326BD1530005CCDFB /* Resources */,
@@ -142,6 +143,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8071269727529BC100F52874 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D97C395126BD1530005CCDFB /* Sources */ = {

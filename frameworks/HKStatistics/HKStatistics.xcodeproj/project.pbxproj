@@ -134,6 +134,7 @@
 			buildConfigurationList = D96DBC372687126000A0E018 /* Build configuration list for PBXNativeTarget "HKStatistics" */;
 			buildPhases = (
 				D96DBC202687126000A0E018 /* Headers */,
+				8071269827529BE800F52874 /* ShellScript */,
 				D96DBC212687126000A0E018 /* Sources */,
 				D96DBC222687126000A0E018 /* Frameworks */,
 				D96DBC232687126000A0E018 /* Resources */,
@@ -191,6 +192,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8071269827529BE800F52874 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D96DBC212687126000A0E018 /* Sources */ = {

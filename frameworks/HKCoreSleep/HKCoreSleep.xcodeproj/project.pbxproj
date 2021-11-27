@@ -118,6 +118,7 @@
 			buildConfigurationList = 808FDF2D2685E48A00B38B78 /* Build configuration list for PBXNativeTarget "HKCoreSleep" */;
 			buildPhases = (
 				808FDF1F2685E48A00B38B78 /* Headers */,
+				8071269927529BF500F52874 /* ShellScript */,
 				808FDF202685E48A00B38B78 /* Sources */,
 				808FDF212685E48A00B38B78 /* Frameworks */,
 				808FDF222685E48A00B38B78 /* Resources */,
@@ -173,6 +174,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8071269927529BF500F52874 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		808FDF202685E48A00B38B78 /* Sources */ = {
