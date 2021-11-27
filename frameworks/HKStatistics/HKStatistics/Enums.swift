@@ -2,38 +2,32 @@
 
 import Foundation
 
-public enum IndicatorType: String {
-	case min = "Min."
-	case max = "Max."
-	case mean = "Avg."
-	case sum = "Sum."
+public enum Indicator {
+	case min
+	case max
+	case mean
+	case sum
 }
 
-public enum NumericDataType {
+public enum NumericData {
 	case heart
 	case energy
 	case respiratory
 }
 
-public enum SleepStatType {
+public enum SleepData {
 	case asleep
 	case inBed
+	case fallAsleepDuration
 }
 
-public enum PhasesStatisticsType {
-	case phasesData
-	case deepPhaseTime
-	case lightPhaseTime
-	case mostIntervalInDeepPhase
-	case mostIntervalInLightPhase
+public enum PhasesData {
+	case chart
+	case deepPhaseDuration
+	case lightPhaseDuration
 }
 
-public enum PhaseCondition {
-	case deepPhase
-	case lightPhase
-}
-
-public enum SleepIntervalType {
+public enum SleepInterval {
 	case inbed
 	case asleep
 }
