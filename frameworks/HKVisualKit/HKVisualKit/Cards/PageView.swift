@@ -77,10 +77,16 @@ struct PageControl: View {
 		HStack(spacing: 8) {
 			ForEach(0 ... maxIndex, id: \.self) { index in
 				Circle()
-					.fill(index == self.index ? Color.white : Color.gray)
+					.fill(index == self.index ? Color(.lightGray) : Color.white)
 					.frame(width: 8, height: 8)
 			}
 		}
-		.padding(15)
+
+		.padding(.vertical, 3)
+		.padding(.horizontal, 4)
+		.background(Color.black.opacity(0.1))
+		.cornerRadius(4)
+		.padding(.trailing, 24)
+		.padding(.bottom, 8)
 	}
 }

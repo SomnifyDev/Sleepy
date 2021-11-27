@@ -1,5 +1,6 @@
 // Copyright (c) 2021 Sleepy.
 
+import AVFAudio
 import HKVisualKit
 import SwiftUI
 import XUI

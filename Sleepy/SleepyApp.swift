@@ -64,13 +64,10 @@ struct SleepyApp: App {
 						                         	}
 						                         })
 					}
-					// .onOpenURL { coordinator!.startDeepLink(from: $0) }
-					.onAppear {
-						DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-							setupAppIcon()
-						}
-						//                     simulateURLOpening()
-					}
+				// .onOpenURL { coordinator!.startDeepLink(from: $0) }
+//					.onAppear {
+				//                     simulateURLOpening()
+//					}
 			} else if shouldShowIntro {
 				IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
 					.accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
@@ -134,19 +131,6 @@ struct SleepyApp: App {
 			case .soundRecognisionConfidence:
 				let defaultSoundRecognisionConfidence = SleepySettingsKeys.soundRecognisionConfidence.settingKeyIntegerValue
 				UserDefaults.standard.set(defaultSoundRecognisionConfidence, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
-			}
-		}
-	}
-
-	private func setupAppIcon() {
-		let application = UIApplication.shared
-		let currentSystemScheme = UITraitCollection.current.userInterfaceStyle
-
-		if application.supportsAlternateIcons {
-			if application.alternateIconName == nil, currentSystemScheme == .dark {
-				application.setAlternateIconName("darkIcon")
-			} else if application.alternateIconName == "darkIcon", currentSystemScheme == .light {
-				application.setAlternateIconName(nil)
 			}
 		}
 	}

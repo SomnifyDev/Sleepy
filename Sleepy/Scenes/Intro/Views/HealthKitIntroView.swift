@@ -24,10 +24,11 @@ struct HealthKitIntroView: View {
 							ForEach(self.images, id: \.self) { imageName in
 								Image(imageName)
 									.resizable()
-									.scaledToFill()
+									.aspectRatio(1.21, contentMode: .fit)
+									.cornerRadius(12)
 							}
 						}
-						.aspectRatio(4 / 3, contentMode: .fit)
+						.aspectRatio(1.21, contentMode: .fit)
 						.clipShape(RoundedRectangle(cornerRadius: 15))
 
 						WelcomeScreenLineView(title: "Access required",

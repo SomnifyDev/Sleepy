@@ -51,10 +51,34 @@ struct SettingsCoordinatorView: View {
 						self.viewModel.saveSetting(with: self.viewModel.recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
 					}
 				}
+
+				Section(header: HFView(text: "Icon", imageName: "app")) {
+					ScrollView(.horizontal, showsIndicators: false) {
+						HStack(spacing: 16) {
+							ForEach(SettingsCoordinator.IconType.allCases, id: \.self) { iconType in
+								VStack {
+									Image(iconType.rawValue)
+										.resizable()
+										.frame(width: 60, height: 60)
+										.cornerRadius(12)
+										.overlay(
+											RoundedRectangle(cornerRadius: 12)
+												.stroke(self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.calendarCurrentDateColor)),
+												        lineWidth: self.viewModel.currentIconType == iconType ? 6 : 0)
+										)
+								}
+								.onTapGesture { self.viewModel.setIcon(iconType: iconType) }
+							}
+						}
+					}
+				} // .frame(height: 45)
 			}
 			.listStyle(.insetGrouped)
 			.navigationBarTitle("Settings", displayMode: .large)
-			.onAppear { viewModel.getAllValuesFromUserDefaults() }
+			.onAppear {
+				viewModel.getAllValuesFromUserDefaults()
+				viewModel.retrieveCurrentIcon()
+			}
 		}
 	}
 }
