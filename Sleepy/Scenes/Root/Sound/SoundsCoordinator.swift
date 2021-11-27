@@ -64,8 +64,10 @@ extension SoundsCoordinator {
 			try audioFileAnalyzer.add(request, withObserver: self.resultsObserver)
 
 			audioFileAnalyzer.analyze(completionHandler: { result in
-				self.showAnalysis = result
-				self.showLoading = false
+				DispatchQueue.main.async {
+					self.showAnalysis = result
+					self.showLoading = false
+				}
 			})
 		} catch {
 			self.showLoading = false

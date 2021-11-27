@@ -9,6 +9,7 @@ struct AudioRecordingsListView: View {
 	@Store var viewModel: SoundsCoordinator
 
 	@ObservedObject var audioRecorder = AudioRecorder()
+	@State var audioPlayer: AVAudioPlayer!
 
 	private var groupedByDateData: [Date: [Recording]] {
 		Dictionary(grouping: self.audioRecorder.recordings, by: { $0.createdAt.startOfDay })
@@ -37,25 +38,23 @@ struct AudioRecordingsListView: View {
 									                 colorProvider: self.viewModel.colorProvider)
 										.padding([.top, .bottom, .leading, .trailing], 4)
 										.contentShape(Rectangle())
-										.onTapGesture(perform: { self.viewModel.runAnalysis(audioFileURL: recording.fileURL) })
-								}.onDelete { indexSet in
-									for index in indexSet {
-										try? FileManager.default.removeItem(at: audioRecorder.recordings[index].fileURL)
-										self.audioRecorder.fetchRecordings()
-									}
-								}
+										.onTapGesture { self.configureAnalysisView(recording: recording) }
+								}.onDelete { indexSet in self.deleteRecordings(indexSet: indexSet) }
 							}
 						}
 					}
 				}
 				Spacer()
-			}.sheet(isPresented: self.$viewModel.showAnalysis) {
+			}
+			.sheet(isPresented: self.$viewModel.showAnalysis) {
 				AnalysisListView(viewModel: self.viewModel,
 				                 showSheetView: self.$viewModel.showAnalysis,
+				                 audioPlayer: Binding(self.$audioPlayer)!,
 				                 result: self.viewModel.resultsObserver.array,
 				                 fileName: self.viewModel.resultsObserver.fileName,
 				                 endDate: self.viewModel.resultsObserver.date,
 				                 colorProvider: self.viewModel.colorProvider)
+					.onDisappear(perform: self.audioPlayer.stop)
 			}
 
 			if self.viewModel.showLoading {
@@ -65,6 +64,24 @@ struct AudioRecordingsListView: View {
 					.cornerRadius(6)
 					.progressViewStyle(CircularProgressViewStyle())
 			}
+		}
+	}
+
+	private func configureAnalysisView(recording: Recording) {
+		self.setupAudioPlayer(audioURL: recording.fileURL)
+		self.viewModel.runAnalysis(audioFileURL: recording.fileURL)
+	}
+
+	private func setupAudioPlayer(audioURL: URL) {
+		if let newPlayer = try? AVAudioPlayer(contentsOf: audioURL) {
+			self.audioPlayer = newPlayer
+		}
+	}
+
+	private func deleteRecordings(indexSet: IndexSet) {
+		for index in indexSet {
+			try? FileManager.default.removeItem(at: self.audioRecorder.recordings[index].fileURL)
+			self.audioRecorder.fetchRecordings()
 		}
 	}
 }
