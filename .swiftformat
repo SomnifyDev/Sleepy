@@ -1,10 +1,11 @@
 # format options
 --wrapparameters after-first
---allman false
+--allman true
 --enable andOperator
 --enable blankLinesBetweenScopes
+--enable blankLinesAroundMark
 --enable consecutiveBlankLines
---wraparguments after-first
+--wraparguments before-first
 --wrapcollections before-first
 --wrapparameters after-first
 --enable consecutiveSpaces
@@ -24,13 +25,14 @@
 --enable redundantParens
 --enable redundantRawValues
 --enable redundantReturn
---indent tabs
+--xcodeindentation enabled
 --enable redundantType
 --enable sortedImports
 --enable spaceAroundBraces
 --elseposition same-line
 --header " Copyright (c) {year} Sleepy."
 --self insert
+--funcattributes prev-line
 
 # file options
 --exclude Pods
