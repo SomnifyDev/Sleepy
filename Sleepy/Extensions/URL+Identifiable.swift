@@ -3,7 +3,7 @@
 import Foundation
 
 extension URL: Identifiable {
-    public var id: String {
-        absoluteString
-    }
+	public var id: String {
+		absoluteString
+	}
 }

@@ -6,9 +6,9 @@ import SwiftUI
 import XUI
 
 class IntroCoordinator: ObservableObject, ViewModel {
-    var colorSchemeProvider: ColorSchemeProvider
+	var colorSchemeProvider: ColorSchemeProvider
 
-    init(colorSchemeProvider: ColorSchemeProvider) {
-        self.colorSchemeProvider = colorSchemeProvider
-    }
+	init(colorSchemeProvider: ColorSchemeProvider) {
+		self.colorSchemeProvider = colorSchemeProvider
+	}
 }

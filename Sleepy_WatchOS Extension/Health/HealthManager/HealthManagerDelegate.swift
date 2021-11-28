@@ -3,5 +3,5 @@
 import Foundation
 
 protocol HealthManagerDelegate: AnyObject {
-    func lightPhaseDetected()
+	func lightPhaseDetected()
 }

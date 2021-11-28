@@ -3,7 +3,7 @@
 import Foundation
 
 struct SummaryGeneralDataViewModel {
-    let sleepInterval: DateInterval
-    let inbedInterval: DateInterval
-    let sleepGoal: Int
+	let sleepInterval: DateInterval
+	let inbedInterval: DateInterval
+	let sleepGoal: Int
 }

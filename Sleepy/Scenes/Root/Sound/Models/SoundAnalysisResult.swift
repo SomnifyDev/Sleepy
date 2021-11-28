@@ -3,8 +3,8 @@
 import Foundation
 
 struct SoundAnalysisResult: Hashable {
-    let start: TimeInterval
-    let end: TimeInterval
-    let soundType: String
-    let confidence: Double
+	let start: TimeInterval
+	let end: TimeInterval
+	let soundType: String
+	let confidence: Double
 }
