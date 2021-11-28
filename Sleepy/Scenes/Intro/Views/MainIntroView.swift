@@ -1,8 +1,8 @@
 // Copyright (c) 2021 Sleepy.
 
 import FirebaseAnalytics
-import HKVisualKit
 import SwiftUI
+import UIComponents
 
 struct MainIntroView: View {
 	let colorScheme: SleepyColorScheme

@@ -1,9 +1,9 @@
 // Copyright (c) 2021 Sleepy.
 
 import FirebaseAnalytics
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 
 struct GoalIntroView: View {
 	@Binding var shouldShowIntro: Bool

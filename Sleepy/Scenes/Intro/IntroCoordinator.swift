@@ -1,8 +1,8 @@
 // Copyright (c) 2021 Sleepy.
 
 import Foundation
-import HKVisualKit
 import SwiftUI
+import UIComponents
 import XUI
 
 class IntroCoordinator: ObservableObject, ViewModel {

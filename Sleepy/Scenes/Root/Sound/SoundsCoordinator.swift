@@ -8,9 +8,9 @@
 //
 import FirebaseAnalytics
 import Foundation
-import HKVisualKit
 import SettingsKit
 import SoundAnalysis
+import UIComponents
 import XUI
 
 class SoundsCoordinator: ObservableObject, ViewModel {

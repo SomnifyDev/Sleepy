@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Sleepy.
 
-import HKVisualKit
 import SwiftUI
+import UIComponents
 
 public struct GeneralSleepInfoCardView: View {
 	@State private var totalHeight = CGFloat.zero // variant for ScrollView/List

@@ -4,9 +4,9 @@ import FirebaseAnalytics
 import Foundation
 import HKCoreSleep
 import HKStatistics
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 import XUI
 
 enum TabType: String {

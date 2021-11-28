@@ -97,9 +97,8 @@ class CardService: ObservableObject {
 				return
 			}
 
-			self.statisticsProvider.getDataByIntervalWithIndicator(healthType: .asleep,
-			                                                       indicatorType: .sum,
-			                                                       for: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
+			self.statisticsProvider.getData(healthType: .asleep,
+			                                indicator: .sum, interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
 				let isComplete = queue.sync { () -> Bool in
 					resultData[dateIndex] = data ?? 0
 					samplesLeft -= 1
@@ -116,8 +115,12 @@ class CardService: ObservableObject {
 	// MARK: Sleep data
 
 	private func getSleepData() {
-		guard let sleepInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .asleep),
-		      let inBedInterval = statisticsProvider.getTodaySleepIntervalBoundary(boundary: .inbed) else { return }
+		guard
+			let sleepInterval = statisticsProvider.getTodaySleepInterval(intervalType: .asleep),
+			let inBedInterval = statisticsProvider.getTodaySleepInterval(intervalType: .inbed) else
+		{
+			return
+		}
 
 		self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
 		                                                    inbedInterval: inBedInterval,
@@ -128,9 +131,9 @@ class CardService: ObservableObject {
 
 	private func getPhasesData() {
 		guard
-			let deepSleepMinutes = statisticsProvider.getData(for: .deepPhaseTime) as? Int,
-			let lightSleepMinutes = statisticsProvider.getData(for: .lightPhaseTime) as? Int,
-			let phasesData = statisticsProvider.getData(for: .phasesData) as? [Double] else
+			let deepSleepMinutes = statisticsProvider.getData(dataType: .deepPhaseDuration) as? Int,
+			let lightSleepMinutes = statisticsProvider.getData(dataType: .lightPhaseDuration) as? Int,
+			let phasesData = statisticsProvider.getData(dataType: .chart) as? [Double] else
 		{
 			return
 		}
@@ -148,12 +151,12 @@ class CardService: ObservableObject {
 
 	private func getHeartData() {
 		var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-		let heartRateData = self.getShortHeartRateData(heartRateData: self.statisticsProvider.getTodayData(of: .heart))
+		let heartRateData = self.getShortHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart))
 
 		if !heartRateData.isEmpty,
-		   let maxHR = statisticsProvider.getData(dataType: .heart, indicatorType: .max),
-		   let minHR = statisticsProvider.getData(dataType: .heart, indicatorType: .min),
-		   let averageHR = statisticsProvider.getData(dataType: .heart, indicatorType: .mean)
+		   let maxHR = statisticsProvider.getData(dataType: .heart, indicator: .max),
+		   let minHR = statisticsProvider.getData(dataType: .heart, indicator: .min),
+		   let averageHR = statisticsProvider.getData(dataType: .heart, indicator: .mean)
 		{
 			maxHeartRate = String(format: "%u bpm", Int(maxHR))
 			minHeartRate = String(format: "%u bpm", Int(minHR))
@@ -188,12 +191,12 @@ class CardService: ObservableObject {
 
 	private func getRespiratoryData() {
 		var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
-		let breathRateData = self.statisticsProvider.getTodayData(of: .respiratory)
+		let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory)
 
 		if !breathRateData.isEmpty,
-		   let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .max),
-		   let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .min),
-		   let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicatorType: .mean)
+		   let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .max),
+		   let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .min),
+		   let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .mean)
 		{
 			maxRespiratoryRate = String(format: "%u count/min", Int(maxRespiratory))
 			minRespiratoryRate = String(format: "%u count/min", Int(minRespiratory))

@@ -1,9 +1,9 @@
 // Copyright (c) 2021 Sleepy.
 
 import Armchair
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 
 struct HealthTypeSwitchView: View {
 	@State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
