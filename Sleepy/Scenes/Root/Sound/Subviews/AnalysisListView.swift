@@ -1,8 +1,8 @@
 // Copyright (c) 2021 Sleepy.
 
 import AVKit
-import HKVisualKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct AnalysisListView: View {

@@ -3,9 +3,9 @@
 import FirebaseAnalytics
 import HKCoreSleep
 import HKStatistics
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct GeneralCardDetailView: View {
@@ -53,7 +53,7 @@ struct GeneralCardDetailView: View {
 							                  		.foregroundColor(viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
 							                  		.bold()
 							                  		+ Text(" every day to pay off the debt."),
-							                  	colorProvider: viewModel.colorProvider))
+							                  	colorProvider: viewModel.colorProvider, showChevron: false))
 								.roundedCardBackground(
 									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
 								)

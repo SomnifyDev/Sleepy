@@ -4,8 +4,8 @@ import FirebaseAnalytics
 import Foundation
 import HKCoreSleep
 import HKStatistics
-import HKVisualKit
 import SettingsKit
+import UIComponents
 import XUI
 
 class CardDetailsViewCoordinator: ViewModel, ObservableObject, Identifiable {

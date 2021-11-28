@@ -5,6 +5,9 @@
       location = "group:Sleepy.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Modules">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

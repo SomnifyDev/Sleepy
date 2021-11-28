@@ -2,8 +2,8 @@
 
 import FirebaseAnalytics
 import HKCoreSleep
-import HKVisualKit
 import SwiftUI
+import UIComponents
 
 struct HealthKitIntroView: View {
 	let colorScheme: SleepyColorScheme

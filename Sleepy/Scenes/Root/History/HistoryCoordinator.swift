@@ -4,7 +4,7 @@ import FirebaseAnalytics
 import Foundation
 import HKCoreSleep
 import HKStatistics
-import HKVisualKit
+import UIComponents
 import XUI
 
 class HistoryCoordinator: ObservableObject, ViewModel {

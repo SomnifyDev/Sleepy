@@ -2,9 +2,9 @@
 
 import FirebaseAnalytics
 import HKStatistics
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 import XUI
 
 class SummaryCardsListCoordinator: ObservableObject, ViewModel {

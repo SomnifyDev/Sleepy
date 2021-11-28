@@ -2,8 +2,8 @@
 
 import FirebaseAnalytics
 import HKCoreSleep
-import HKVisualKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct HistoryListView: View {
