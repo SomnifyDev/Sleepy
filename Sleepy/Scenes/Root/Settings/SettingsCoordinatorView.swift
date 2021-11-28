@@ -2,9 +2,9 @@
 
 import Armchair
 import Foundation
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct SettingsCoordinatorView: View {

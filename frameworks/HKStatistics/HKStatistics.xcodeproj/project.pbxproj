@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D96DBC542687302D00A0E018 /* HKCoreSleep.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC532687302D00A0E018 /* HKCoreSleep.framework */; };
-		D96DBC582687303E00A0E018 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96DBC572687303E00A0E018 /* HKVisualKit.framework */; };
 		D9FB76A527529A2700F42998 /* HKSleepStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB769B27529A2700F42998 /* HKSleepStatisticsProvider.swift */; };
 		D9FB76A627529A2700F42998 /* HKPhasesStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB769C27529A2700F42998 /* HKPhasesStatisticsProvider.swift */; };
 		D9FB76A727529A2700F42998 /* HKDailyStatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FB769D27529A2700F42998 /* HKDailyStatisticsProvider.swift */; };
@@ -53,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D96DBC582687303E00A0E018 /* HKVisualKit.framework in Frameworks */,
 				D96DBC542687302D00A0E018 /* HKCoreSleep.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

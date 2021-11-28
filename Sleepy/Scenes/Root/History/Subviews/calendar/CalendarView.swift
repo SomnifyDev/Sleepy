@@ -1,9 +1,9 @@
 // Copyright (c) 2021 Sleepy.
 
 import HKStatistics
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct CalendarView: View {

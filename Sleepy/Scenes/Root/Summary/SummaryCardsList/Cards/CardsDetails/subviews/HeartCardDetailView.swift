@@ -3,8 +3,8 @@
 import FirebaseAnalytics
 import HKCoreSleep
 import HKStatistics
-import HKVisualKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct HeartCardDetailView: View {

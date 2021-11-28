@@ -33,10 +33,7 @@
 		806E3C63271C11D300AA15BB /* whiteIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C62271C11D300AA15BB /* whiteIcon@2x.png */; };
 		806E3C65271C123F00AA15BB /* darkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C64271C123E00AA15BB /* darkIcon@2x.png */; };
 		806E3C67271C124600AA15BB /* darkIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806E3C66271C124600AA15BB /* darkIcon@3x.png */; };
-		80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; };
-		80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		80780F27266CE7C3000D0DD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F26266CE7C3000D0DD9 /* AppDelegate.swift */; };
-		80780F32266D3B94000D0DD9 /* XUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80780F31266D3B94000D0DD9 /* XUI */; };
 		80780F43266D4377000D0DD9 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F42266D4377000D0DD9 /* RootCoordinator.swift */; };
 		80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */; };
 		80780F4C266D4786000D0DD9 /* SummaryNavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80780F4B266D4786000D0DD9 /* SummaryNavigationCoordinator.swift */; };
@@ -74,6 +71,7 @@
 		80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */; };
 		BAAF340CC29C3B933BF501F8 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */; };
 		D903F875270E2D12008A7307 /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903F874270E2D12008A7307 /* HealthManager.swift */; };
+		D91268392753F3E600B70D8A /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = D91268382753F3E600B70D8A /* Modules */; };
 		D91668AB2701FD9200BD7745 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91668AA2701FD9200BD7745 /* Date+Extension.swift */; };
 		D91668AF2702307900BD7745 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D91668AE2702307900BD7745 /* HealthKit.framework */; };
 		D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94419D0266CD3C40019902F /* SleepyApp.swift */; };
@@ -121,13 +119,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		80780F1E266CE3A0000D0DD9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 80780F0F266CE39F000D0DD9;
-			remoteInfo = HKVisualKit;
-		};
 		808FDF342685E48B00B38B78 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */;
@@ -173,7 +164,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				808FDF3F2685EB8000B38B78 /* HKCoreSleep.framework in Embed Frameworks */,
-				80780F21266CE43A000D0DD9 /* HKVisualKit.framework in Embed Frameworks */,
 				D97C397726BD15CF005CCDFB /* SettingsKit.framework in Embed Frameworks */,
 				D96DBC5126872FEA00A0E018 /* HKStatistics.framework in Embed Frameworks */,
 			);
@@ -231,7 +221,6 @@
 		806E3C62271C11D300AA15BB /* whiteIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteIcon@2x.png"; sourceTree = "<group>"; };
 		806E3C64271C123E00AA15BB /* darkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkIcon@2x.png"; sourceTree = "<group>"; };
 		806E3C66271C124600AA15BB /* darkIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkIcon@3x.png"; sourceTree = "<group>"; };
-		80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HKVisualKit.xcodeproj; path = frameworks/HKVisualKit/HKVisualKit.xcodeproj; sourceTree = "<group>"; };
 		80780F26266CE7C3000D0DD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80780F42266D4377000D0DD9 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		80780F44266D439F000D0DD9 /* RootCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorView.swift; sourceTree = "<group>"; };
@@ -327,8 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80780F32266D3B94000D0DD9 /* XUI in Frameworks */,
-				80780F20266CE43A000D0DD9 /* HKVisualKit.framework in Frameworks */,
+				D91268392753F3E600B70D8A /* Modules in Frameworks */,
 				D96DBC5026872FEA00A0E018 /* HKStatistics.framework in Frameworks */,
 				D97C397626BD15CF005CCDFB /* SettingsKit.framework in Frameworks */,
 				808FDF3E2685EB8000B38B78 /* HKCoreSleep.framework in Frameworks */,
@@ -435,24 +423,6 @@
 				806E3C60271C11CD00AA15BB /* whiteIcon@3x.png */,
 			);
 			path = Icons;
-			sourceTree = "<group>";
-		};
-		80780F04266CE356000D0DD9 /* HK */ = {
-			isa = PBXGroup;
-			children = (
-				D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */,
-				808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */,
-				80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */,
-			);
-			name = HK;
-			sourceTree = "<group>";
-		};
-		80780F1B266CE39F000D0DD9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		80780F34266D3CFD000D0DD9 /* Scenes */ = {
@@ -588,8 +558,9 @@
 			isa = PBXGroup;
 			children = (
 				D91668AE2702307900BD7745 /* HealthKit.framework */,
+				D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */,
+				808FDF302685E48A00B38B78 /* HKCoreSleep.xcodeproj */,
 				D97C395F26BD1530005CCDFB /* SettingsKit.xcodeproj */,
-				80780F04266CE356000D0DD9 /* HK */,
 				808FDF4A26861EFD00B38B78 /* HealthKit.framework */,
 				EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */,
 			);
@@ -900,7 +871,7 @@
 			);
 			name = Sleepy;
 			packageProductDependencies = (
-				80780F31266D3B94000D0DD9 /* XUI */,
+				D91268382753F3E600B70D8A /* Modules */,
 			);
 			productName = Sleepy;
 			productReference = D94419CD266CD3C40019902F /* Sleepy.app */;
@@ -972,7 +943,6 @@
 			);
 			mainGroup = D94419C4266CD3C40019902F;
 			packageReferences = (
-				80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */,
 			);
 			productRefGroup = D94419CE266CD3C40019902F /* Products */;
 			projectDirPath = "";
@@ -984,10 +954,6 @@
 				{
 					ProductGroup = D96DBC3E2687126000A0E018 /* Products */;
 					ProjectRef = D96DBC3D2687126000A0E018 /* HKStatistics.xcodeproj */;
-				},
-				{
-					ProductGroup = 80780F1B266CE39F000D0DD9 /* Products */;
-					ProjectRef = 80780F1A266CE39F000D0DD9 /* HKVisualKit.xcodeproj */;
 				},
 				{
 					ProductGroup = D97C396026BD1530005CCDFB /* Products */;
@@ -1004,13 +970,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		80780F1F266CE3A0000D0DD9 /* HKVisualKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = HKVisualKit.framework;
-			remoteRef = 80780F1E266CE3A0000D0DD9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		808FDF352685E48B00B38B78 /* HKCoreSleep.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1692,22 +1651,10 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/quickbirdstudios/XUI.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		80780F31266D3B94000D0DD9 /* XUI */ = {
+		D91268382753F3E600B70D8A /* Modules */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 80780F30266D3B94000D0DD9 /* XCRemoteSwiftPackageReference "XUI" */;
-			productName = XUI;
+			productName = Modules;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

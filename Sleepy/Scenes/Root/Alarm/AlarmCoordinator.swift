@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Sleepy.
 
 import Foundation
-import HKVisualKit
+import UIComponents
 import XUI
 
 class AlarmCoordinator: ObservableObject, ViewModel {

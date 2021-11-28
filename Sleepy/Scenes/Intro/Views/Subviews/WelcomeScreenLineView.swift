@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Sleepy.
 
-import HKVisualKit
 import SwiftUI
+import UIComponents
 
 struct WelcomeScreenLineView: View {
 	private var title: String

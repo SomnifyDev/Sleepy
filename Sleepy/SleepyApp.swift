@@ -4,9 +4,9 @@ import Armchair
 import Firebase
 import HKCoreSleep
 import HKStatistics
-import HKVisualKit
 import SettingsKit
 import SwiftUI
+import UIComponents
 
 @main
 struct SleepyApp: App {

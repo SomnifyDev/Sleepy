@@ -98,7 +98,7 @@ class CardService: ObservableObject {
 			}
 
 			self.statisticsProvider.getData(healthType: .asleep,
-                                            indicator: .sum, interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
+			                                indicator: .sum, interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
 				let isComplete = queue.sync { () -> Bool in
 					resultData[dateIndex] = data ?? 0
 					samplesLeft -= 1

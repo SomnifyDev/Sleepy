@@ -1,7 +1,7 @@
 // Copyright (c) 2021 Sleepy.
 
-import HKVisualKit
 import SwiftUI
+import UIComponents
 import XUI
 
 struct SummaryCardsListView: View {
@@ -74,7 +74,7 @@ struct SummaryCardsListView: View {
 							                  	Text(
 							                  		String(format: "Duration of light phase was %@, while the duration of deep sleep was %@", phasesViewModel.timeInLightPhase, phasesViewModel.timeInDeepPhase)
 							                  	),
-							                  	colorProvider: viewModel.colorProvider))
+							                  	colorProvider: viewModel.colorProvider, showChevron: false))
 								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 								.onNavigation {
 									viewModel.open(.phases)
@@ -117,7 +117,7 @@ struct SummaryCardsListView: View {
 							                  	Text(
 							                  		String(format: "The maximal heartbeat was %@ bpm while the minimal was %@", heartViewModel.minHeartRate, heartViewModel.maxHeartRate)
 							                  	),
-							                  	colorProvider: viewModel.colorProvider))
+							                  	colorProvider: viewModel.colorProvider, showChevron: false))
 								.roundedCardBackground(
 									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
 								)
@@ -167,7 +167,7 @@ struct SummaryCardsListView: View {
 							                  		       respiratoryViewModel.minRespiratoryRate,
 							                  		       respiratoryViewModel.maxRespiratoryRate)
 							                  	),
-							                  	colorProvider: viewModel.colorProvider))
+							                  	colorProvider: viewModel.colorProvider, showChevron: false))
 								.roundedCardBackground(
 									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
 								)
