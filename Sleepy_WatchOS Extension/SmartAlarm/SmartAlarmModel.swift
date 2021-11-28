@@ -20,9 +20,7 @@ final class SmartAlarmModel: NSObject {
 	// MARK: Methods
 
 	func deactivateAlarm() {
-		guard
-			self.session.state == .scheduled || self.session.state == .running else
-		{
+		guard self.session.state == .scheduled || self.session.state == .running else {
 			return
 		}
 		self.session.invalidate()
@@ -30,9 +28,8 @@ final class SmartAlarmModel: NSObject {
 	}
 
 	func activateAlarm(alarmEnd: Date) -> Bool {
-		guard
-			alarmEnd.minutes(from: Date()) >= 29,
-			let scheduledTime = Calendar.current.date(byAdding: .minute, value: -28, to: alarmEnd) else
+		guard alarmEnd.minutes(from: Date()) >= 29,
+		      let scheduledTime = Calendar.current.date(byAdding: .minute, value: -28, to: alarmEnd) else
 		{
 			return false
 		}

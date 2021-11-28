@@ -110,8 +110,6 @@
 		D9B727DE26FB0F4900B41683 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B727DD26FB0F4900B41683 /* AdviceView.swift */; };
 		D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC42271CB476002BC611 /* HeartDataManager.swift */; };
 		D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC45271CB931002BC611 /* HealthType.swift */; };
-		D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */; };
-		D9B8DC4D271CBC0A002BC611 /* HeartDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */; };
 		D9DC913126A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */; };
 		D9DC913326A9F70200D38E32 /* SummaryPhasesDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */; };
 		D9DC913526A9F71000D38E32 /* SummaryGeneralDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */; };
@@ -311,8 +309,6 @@
 		D9B727DD26FB0F4900B41683 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
 		D9B8DC42271CB476002BC611 /* HeartDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManager.swift; sourceTree = "<group>"; };
 		D9B8DC45271CB931002BC611 /* HealthType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthType.swift; sourceTree = "<group>"; };
-		D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManagerDelegate.swift; sourceTree = "<group>"; };
-		D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartDataManagerDelegate.swift; sourceTree = "<group>"; };
 		D9DC913026A9F6EC00D38E32 /* SummaryHeartDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryHeartDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913226A9F70200D38E32 /* SummaryPhasesDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPhasesDataViewModel.swift; sourceTree = "<group>"; };
 		D9DC913426A9F71000D38E32 /* SummaryGeneralDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryGeneralDataViewModel.swift; sourceTree = "<group>"; };
@@ -842,7 +838,6 @@
 			isa = PBXGroup;
 			children = (
 				D9B8DC42271CB476002BC611 /* HeartDataManager.swift */,
-				D9B8DC4C271CBC0A002BC611 /* HeartDataManagerDelegate.swift */,
 			);
 			path = Heart;
 			sourceTree = "<group>";
@@ -858,7 +853,6 @@
 		D9B8DC48271CBBA0002BC611 /* HealthManager */ = {
 			isa = PBXGroup;
 			children = (
-				D9B8DC49271CBBB2002BC611 /* HealthManagerDelegate.swift */,
 				D903F874270E2D12008A7307 /* HealthManager.swift */,
 			);
 			path = HealthManager;
@@ -1257,9 +1251,7 @@
 				D9441A14266CD4C60019902F /* ComplicationController.swift in Sources */,
 				D9441A0C266CD4C60019902F /* SleepyApp.swift in Sources */,
 				D955D4BA2701A7C500C44B8D /* SmartAlarmView.swift in Sources */,
-				D9B8DC4D271CBC0A002BC611 /* HeartDataManagerDelegate.swift in Sources */,
 				D9E12CAF27122B3000F55BF4 /* String+Extension.swift in Sources */,
-				D9B8DC4A271CBBB2002BC611 /* HealthManagerDelegate.swift in Sources */,
 				D9B8DC43271CB476002BC611 /* HeartDataManager.swift in Sources */,
 				D955D4C42701A97100C44B8D /* NavItemView.swift in Sources */,
 				D9B8DC46271CB931002BC611 /* HealthType.swift in Sources */,

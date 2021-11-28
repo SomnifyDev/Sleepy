@@ -10,12 +10,7 @@ struct HealthTypeSwitchView: View {
 	//    = CGFloat.infinity   // << variant for VStack
 	@Binding var selectedType: HealthData
 
-	private var colorScheme: SleepyColorScheme
-
-	init(selectedType: Binding<HealthData>, colorScheme: SleepyColorScheme) {
-		_selectedType = selectedType
-		self.colorScheme = colorScheme
-	}
+	var colorScheme: SleepyColorScheme
 
 	var body: some View {
 		VStack {

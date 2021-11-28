@@ -6,12 +6,12 @@ import HKVisualKit
 import SwiftUI
 
 struct HealthKitIntroView: View {
-	let colorScheme: SleepyColorScheme
 	@Binding var shouldShowIntro: Bool
-
-	private let images = ["tutorial3", "tutorial4"]
 	@State private var index = 0
 	@State private var shouldShowNextTab = false
+
+	private let images = ["tutorial3", "tutorial4"]
+	let colorScheme: SleepyColorScheme
 
 	var body: some View {
 		ZStack {
@@ -57,7 +57,7 @@ struct HealthKitIntroView: View {
 				}
 
 				if shouldShowNextTab {
-					NavigationLink(destination: NotificationsIntroView(colorScheme: self.colorScheme, shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
+					NavigationLink(destination: NotificationsIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme), isActive: $shouldShowNextTab) {
 						Text("Continue")
 							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
 					}

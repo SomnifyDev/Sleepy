@@ -5,12 +5,13 @@ import HKVisualKit
 import SwiftUI
 
 struct HowToUseIntroView: View {
-	let colorScheme: SleepyColorScheme
 	@Binding var shouldShowIntro: Bool
 
-	private let images = ["tutorial1", "tutorial2"]
 	@State private var index = 0
 	@State private var shouldShownNextTab = false
+
+	private let images = ["tutorial1", "tutorial2"]
+	let colorScheme: SleepyColorScheme
 
 	var body: some View {
 		ZStack {

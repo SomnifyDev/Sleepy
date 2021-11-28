@@ -6,6 +6,7 @@ import SwiftUI
 struct RespiratoryHistoryStatsView: View {
 	private let viewModel: RespiratoryHistoryStatsViewModel
 	private let colorProvider: ColorSchemeProvider
+
 	private var shouldShowAdvice = false
 
 	init(viewModel: RespiratoryHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {

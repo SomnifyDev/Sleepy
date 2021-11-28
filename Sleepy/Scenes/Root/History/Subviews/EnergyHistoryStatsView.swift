@@ -6,6 +6,7 @@ import SwiftUI
 struct EnergyHistoryStatsView: View {
 	private let viewModel: EnergyHistoryStatsViewModel
 	private let colorProvider: ColorSchemeProvider
+
 	private var shouldShowAdvice = true
 
 	init(viewModel: EnergyHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
@@ -13,7 +14,7 @@ struct EnergyHistoryStatsView: View {
 		self.colorProvider = colorProvider
 	}
 
-	/// use for shimmers only
+	/// Use for shimmers only
 	init(colorProvider: ColorSchemeProvider) {
 		self.viewModel = EnergyHistoryStatsViewModel(cellData: [
 			StatisticsCellData(title: "Fest sw", value: "23 BPM"),

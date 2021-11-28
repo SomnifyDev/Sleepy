@@ -2,24 +2,24 @@
 
 import Foundation
 
+protocol HeartDataManagerDelegate: AnyObject {
+	func lightPhaseDetected()
+}
+
 typealias HeartRate = Double
 
-// MARK: Enums
-
-private enum LightPhaseDetectionStrategy {
-	case withConfirmation
-	case withoutConfirmation
-}
-
-private enum Constant {
-	static let confirmativeLightPhaseFlagValue: Double = 1.05
-	static let potentialLightPhaseFlagValue: Double = 1.08
-	static let unconditionalLightPhaseDetectionValue: Double = 1.12
-}
-
-// MARK: HeartDataManager
-
 final class HeartDataManager {
+	private enum Constant {
+		static let confirmativeLightPhaseFlagValue: Double = 1.05
+		static let potentialLightPhaseFlagValue: Double = 1.08
+		static let unconditionalLightPhaseDetectionValue: Double = 1.12
+	}
+
+	private enum LightPhaseDetectionStrategy {
+		case withConfirmation
+		case withoutConfirmation
+	}
+
 	// MARK: Properties
 
 	weak var delegate: HeartDataManagerDelegate?
