@@ -216,6 +216,7 @@
 			buildConfigurationList = 80780F17266CE39F000D0DD9 /* Build configuration list for PBXNativeTarget "HKVisualKit" */;
 			buildPhases = (
 				80780F0A266CE39F000D0DD9 /* Headers */,
+				8071269A27529BFF00F52874 /* ShellScript */,
 				80780F0B266CE39F000D0DD9 /* Sources */,
 				80780F0C266CE39F000D0DD9 /* Frameworks */,
 				80780F0D266CE39F000D0DD9 /* Resources */,
@@ -271,6 +272,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8071269A27529BFF00F52874 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftformat >/dev/null; then\n  swiftformat . --config \"../../.swiftformat\"\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		80780F0B266CE39F000D0DD9 /* Sources */ = {
@@ -444,7 +465,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -455,7 +476,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.HKVisualKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.HKVisualKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -470,7 +491,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z6TZXH8MS8;
+				DEVELOPMENT_TEAM = 74N9HYZTUU;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -481,7 +502,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.HKVisualKit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.HKVisualKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;

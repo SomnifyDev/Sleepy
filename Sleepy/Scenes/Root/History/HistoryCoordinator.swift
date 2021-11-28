@@ -86,10 +86,10 @@ extension HistoryCoordinator {
 		group.enter()
 		DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 			guard let self = self else { return }
-			self.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-			                                                       indicatorType: .mean,
-			                                                       for: current2weeksInterval,
-			                                                       bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+			self.statisticsProvider.getData(healthType: type,
+			                                indicator: .mean,
+			                                interval: current2weeksInterval,
+			                                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
 				meanCurrent2WeeksDuration = result
 				group.leave()
 			}
@@ -98,27 +98,28 @@ extension HistoryCoordinator {
 		group.enter()
 		DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 			guard let self = self else { return }
-			self.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-			                                                       indicatorType: .mean,
-			                                                       for: last2weeksInterval,
-			                                                       bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+			self.statisticsProvider.getData(healthType: type,
+			                                indicator: .mean,
+			                                interval: last2weeksInterval,
+			                                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
 				meanLast2WeeksDuration = result
 				group.leave()
 			}
 		}
 
-		let indicators: [IndicatorType] = [.min, .max, .mean]
+		let indicators: [Indicator] = [.min, .max, .mean]
 		indicators.forEach { indicator in
 			group.enter()
 			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 				guard let self = self else { return }
-				self.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-				                                                       indicatorType: indicator,
-				                                                       for: self.monthBeforeDateInterval,
-				                                                       bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+				self.statisticsProvider.getData(healthType: type,
+				                                indicator: indicator,
+				                                interval: self.monthBeforeDateInterval,
+				                                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
 					if let result = result {
-						last30daysCellData.append(StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator),
-						                                             value: Date.minutesToDateDescription(minutes: Int(result))))
+						last30daysCellData.append(
+							StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator),
+							                   value: Date.minutesToDateDescription(minutes: Int(result))))
 					}
 					group.leave()
 				}
@@ -130,9 +131,9 @@ extension HistoryCoordinator {
 			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 				guard let self = self else { return }
 				// TODO: сюда может вернуться сразу несколько снов за сутки, тогда нарушится логика вывода в график (где каждый столбик = день). FIX IT
-				self.statisticsProvider.getDataByInterval(healthType: type,
-				                                          for: self.monthBeforeDateInterval,
-				                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+				self.statisticsProvider.getData(healthType: type,
+				                                interval: self.monthBeforeDateInterval,
+				                                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
 					monthSleepPoints = result
 					group.leave()
 				}
@@ -174,16 +175,16 @@ extension HistoryCoordinator {
 		if type == .respiratory, self.respiratoryHistoryStatsViewModel != nil { return }
 
 		var last30daysCellData: [StatisticsCellData] = []
-		let indicators: [IndicatorType] = [.min, .max, .mean]
+		let indicators: [Indicator] = [.min, .max, .mean]
 
 		let group = DispatchGroup()
 		indicators.forEach { indicator in
 			group.enter()
 			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 				guard let self = self else { return }
-				self.statisticsProvider.getDataByIntervalWithIndicator(healthType: type,
-				                                                       indicatorType: indicator,
-				                                                       for: self.monthBeforeDateInterval) { result in
+				self.statisticsProvider.getData(healthType: type,
+				                                indicator: indicator,
+				                                interval: self.monthBeforeDateInterval) { result in
 					if let result = result {
 						last30daysCellData.append(StatisticsCellData(title: self.getStatisticsCellDataLabel(for: type, indicator: indicator), value: "\(Double(result))"))
 					}
@@ -212,7 +213,7 @@ extension HistoryCoordinator {
 	}
 
 	/// Получение строки-индикатора для ячейки базовой статистики под календарем
-	func getStatisticsCellDataLabel(for type: HKService.HealthType, indicator: IndicatorType) -> String {
+	func getStatisticsCellDataLabel(for type: HKService.HealthType, indicator: Indicator) -> String {
 		switch type {
 		case .energy:
 			return "\(indicator) Kcal"

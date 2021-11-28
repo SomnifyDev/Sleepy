@@ -4,7 +4,9 @@ import SwiftUI
 
 struct CountDownRecordingView: View {
 	@Binding var secondsRecorded: Int
+
 	@State private var isActive = true
+
 	private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
 	var body: some View {
