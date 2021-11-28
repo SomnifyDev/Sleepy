@@ -3,5 +3,5 @@
 import Foundation
 
 protocol HeartDataManagerDelegate: AnyObject {
-	func lightPhaseDetected()
+    func lightPhaseDetected()
 }

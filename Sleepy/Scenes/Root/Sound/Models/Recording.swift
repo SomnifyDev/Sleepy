@@ -3,11 +3,11 @@
 import Foundation
 
 struct Recording: Hashable, Identifiable {
-	let id = UUID()
-	let fileURL: URL
-	let createdAt: Date
+    let id = UUID()
+    let fileURL: URL
+    let createdAt: Date
 
-	static func < (lhs: Recording, rhs: Recording) -> Bool {
-		return lhs.createdAt < rhs.createdAt
-	}
+    static func < (lhs: Recording, rhs: Recording) -> Bool {
+        return lhs.createdAt < rhs.createdAt
+    }
 }

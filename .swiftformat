@@ -1,6 +1,6 @@
 # format options
 --wrapparameters after-first
---allman true
+--allman false
 --enable andOperator
 --enable blankLinesBetweenScopes
 --enable blankLinesAroundMark

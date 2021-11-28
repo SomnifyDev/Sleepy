@@ -3,26 +3,26 @@
 import Foundation
 
 final class HeartDataManager {
-	private var heartRates = [HeartRateSample]()
-	weak var delegate: HeartDataManagerDelegate?
+    private var heartRates = [HeartRateSample]()
+    weak var delegate: HeartDataManagerDelegate?
 
-	// MARK: Internal methods
+    // MARK: Internal methods
 
-	func append(sample: HeartRateSample) {
-		self.heartRates.append(sample)
-		self.isLightPhase(currentSample: sample)
-	}
+    func append(sample: HeartRateSample) {
+        self.heartRates.append(sample)
+        self.isLightPhase(currentSample: sample)
+    }
 
-	func isLightPhase(currentSample: HeartRateSample) {
-		guard currentSample.heartRate / self.currentMeanValue() >= 1.2 else {
-			return
-		}
-		self.delegate?.lightPhaseDetected()
-	}
+    func isLightPhase(currentSample: HeartRateSample) {
+        guard currentSample.heartRate / self.currentMeanValue() >= 1.2 else {
+            return
+        }
+        self.delegate?.lightPhaseDetected()
+    }
 
-	// MARK: Private methods
+    // MARK: Private methods
 
-	private func currentMeanValue() -> Double {
-		return self.heartRates.reduce(0.0) { $0 + $1.heartRate } / Double(self.heartRates.count)
-	}
+    private func currentMeanValue() -> Double {
+        return self.heartRates.reduce(0.0) { $0 + $1.heartRate } / Double(self.heartRates.count)
+    }
 }

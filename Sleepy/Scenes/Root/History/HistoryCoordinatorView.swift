@@ -5,12 +5,12 @@ import SwiftUI
 import XUI
 
 struct HistoryCoordinatorView: View {
-	@Store var viewModel: HistoryCoordinator
+    @Store var viewModel: HistoryCoordinator
 
-	var body: some View {
-		NavigationView {
-			HistoryListView(viewModel: viewModel)
-		}
-		.navigationTitle("History")
-	}
+    var body: some View {
+        NavigationView {
+            HistoryListView(viewModel: viewModel)
+        }
+        .navigationTitle("History")
+    }
 }
