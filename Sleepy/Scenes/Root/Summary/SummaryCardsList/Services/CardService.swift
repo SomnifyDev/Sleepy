@@ -4,6 +4,7 @@ import Foundation
 import HKStatistics
 import SettingsKit
 import SwiftUI
+import UIComponents
 
 enum SummaryViewCardType: String {
 	case heart
@@ -161,7 +162,26 @@ class CardService: ObservableObject {
 			maxHeartRate = String(format: "%u bpm", Int(maxHR))
 			minHeartRate = String(format: "%u bpm", Int(minHR))
 			averageHeartRate = String(format: "%u bpm", Int(averageHR))
-			self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate, averageHeartRate: averageHeartRate)
+
+			self.statisticsProvider.getData(dataType: .rmssd) { [weak self] rmssd in
+				self?.statisticsProvider.getData(dataType: .ssdn) { ssdn in
+					var indicators: [HKStatisticsProvider.StatsIndicatorModel] = []
+
+					[ssdn, rmssd].forEach {
+						if let value = $0 {
+							indicators.append(value)
+						}
+					}
+
+					DispatchQueue.main.async {
+						self?.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
+						                                                 maxHeartRate: maxHeartRate,
+						                                                 minHeartRate: minHeartRate,
+						                                                 averageHeartRate: averageHeartRate,
+						                                                 indicators: indicators)
+					}
+				}
+			}
 		}
 	}
 
@@ -201,7 +221,10 @@ class CardService: ObservableObject {
 			maxRespiratoryRate = String(format: "%u count/min", Int(maxRespiratory))
 			minRespiratoryRate = String(format: "%u count/min", Int(minRespiratory))
 			averageRespiratoryRate = String(format: "%u count/min", Int(averageRespiratory))
-			self.respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData, maxRespiratoryRate: maxRespiratoryRate, minRespiratoryRate: minRespiratoryRate, averageRespiratoryRate: averageRespiratoryRate)
+			self.respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData,
+			                                                            maxRespiratoryRate: maxRespiratoryRate,
+			                                                            minRespiratoryRate: minRespiratoryRate,
+			                                                            averageRespiratoryRate: averageRespiratoryRate)
 		}
 	}
 }

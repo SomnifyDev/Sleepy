@@ -3,13 +3,33 @@
 import Foundation
 import HealthKit
 import HKCoreSleep
+import SwiftUI
+import UIComponents
 
 public final class HKStatisticsProvider {
+	public struct StatsIndicatorModel {
+		public let name: String
+		public let description: String
+		public let value: Double
+		public let valueNormInterval: ClosedRange<Double>
+		public let unit: String
+		public let feedback: String
+
+		public init(name: String, description: String, value: Double, valueNormInterval: ClosedRange<Double>, unit: String, feedback: String) {
+			self.name = name
+			self.description = description
+			self.value = value
+			self.valueNormInterval = valueNormInterval
+			self.unit = unit
+			self.feedback = feedback
+		}
+	}
+
 	// MARK: - Properties
 
 	private let healthService: HKService
 	private let sleep: Sleep?
-	private let numericTypesStatisticsProvider = HKNumericTypesStatisticsProvider()
+	private let numericTypesStatisticsProvider: HKNumericTypesStatisticsProvider
 	private let phasesStatisticsProvider = HKPhasesStatisticsProvider()
 	private let sleepStatisticsProvider = HKSleepStatisticsProvider()
 	private let generalStatisticsProvider = HKGeneralStatisticsProvider()
@@ -20,6 +40,7 @@ public final class HKStatisticsProvider {
 	public init(sleep: Sleep?, healthService: HKService) {
 		self.sleep = sleep
 		self.healthService = healthService
+		self.numericTypesStatisticsProvider = HKNumericTypesStatisticsProvider(healthService: healthService)
 	}
 
 	// MARK: - Public methods
@@ -49,6 +70,16 @@ public final class HKStatisticsProvider {
 			return nil
 		}
 		return self.sleepStatisticsProvider.sleepData(dataType: dataType, sleep: sleep)
+	}
+
+	/// Returns metrics data like ssdn of heart rythems by metric type
+	public func getData(dataType: MetricsData, completion: @escaping (HKStatisticsProvider.StatsIndicatorModel?) -> Void) {
+		switch dataType {
+		case .rmssd:
+			self.numericTypesStatisticsProvider.calculateRMSSD(completion: completion)
+		case .ssdn:
+			self.numericTypesStatisticsProvider.calculateSSDN(completion: completion)
+		}
 	}
 
 	/// Returns today sleep hata of special health type (energy, heart, asleep, inbed, respiratory)
