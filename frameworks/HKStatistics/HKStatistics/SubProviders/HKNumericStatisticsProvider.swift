@@ -178,9 +178,9 @@ public final class HKNumericTypesStatisticsProvider {
 			let currentAge = birthday.years(from: Date())
 
 			self?.healthService.readData(type: .heart,
-			                             interval: .init(start: Calendar.current.date(byAdding: .hour, value: -1, to: Date())!, end: Date())) { _, samples, error in
+			                             interval: .init(start: Calendar.current.date(byAdding: .hour, value: -2, to: Date())!, end: Date())) { _, samples, error in
 				guard error == nil,
-				      let samples = samples as? [HKQuantitySample], samples.count > 1 else
+				      let samples = samples as? [HKQuantitySample], samples.count >= 12 else
 				{
 					completion(nil)
 					return
