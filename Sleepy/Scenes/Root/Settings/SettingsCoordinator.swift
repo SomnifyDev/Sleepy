@@ -2,8 +2,8 @@
 
 import FirebaseAnalytics
 import Foundation
-import HKVisualKit
 import SettingsKit
+import UIComponents
 import XUI
 
 class SettingsCoordinator: ObservableObject, ViewModel {
