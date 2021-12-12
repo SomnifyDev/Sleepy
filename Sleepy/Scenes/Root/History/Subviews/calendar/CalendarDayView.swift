@@ -18,7 +18,6 @@ struct CalendarDayView: View {
 
 	let currentDate: Date
 	let dateIndex: Int
-
 	let sleepGoal: Int
 
 	var body: some View {

@@ -10,11 +10,16 @@ final class HKSleepStatisticsProvider {
 	func sleepData(dataType: SleepData, sleep: Sleep) -> Int {
 		switch dataType {
 		case .asleep:
-			return sleep.sleepInterval.end.minutes(from: sleep.sleepInterval.start)
+			guard let firstMicroSleep = sleep.samples.last,
+			      let lastMicroSleep = sleep.samples.first else { return 0 }
+			return abs(firstMicroSleep.sleepInterval.end.minutes(from: lastMicroSleep.sleepInterval.start))
 		case .inBed:
-			return sleep.inBedInterval.end.minutes(from: sleep.inBedInterval.start)
+			guard let firstMicroSleep = sleep.samples.last,
+			      let lastMicroSleep = sleep.samples.first else { return 0 }
+			return abs(firstMicroSleep.inBedInterval.end.minutes(from: lastMicroSleep.inBedInterval.start))
 		case .fallAsleepDuration:
-			return sleep.sleepInterval.start.minutes(from: sleep.inBedInterval.start)
+			guard let firstMicroSleep = sleep.samples.last else { return 0 }
+			return abs(firstMicroSleep.sleepInterval.start.minutes(from: firstMicroSleep.inBedInterval.start))
 		}
 	}
 }
