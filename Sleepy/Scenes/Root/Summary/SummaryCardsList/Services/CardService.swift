@@ -81,9 +81,11 @@ class CardService: ObservableObject {
 			let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
 			let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
 
-			self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
-			                                                     backlog: backlogString,
-			                                                     timeToCloseDebt: timeToCloseDebtString)
+			DispatchQueue.main.async { [weak self] in
+				self?.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
+				                                                      backlog: backlogString,
+				                                                      timeToCloseDebt: timeToCloseDebtString)
+			}
 		}
 	}
 
@@ -162,24 +164,37 @@ class CardService: ObservableObject {
 			maxHeartRate = String(format: "%u bpm", Int(maxHR))
 			minHeartRate = String(format: "%u bpm", Int(minHR))
 			averageHeartRate = String(format: "%u bpm", Int(averageHR))
+			var indicators: [HKStatisticsProvider.StatsIndicatorModel] = []
 
-			self.statisticsProvider.getData(dataType: .rmssd) { [weak self] rmssd in
+			let group = DispatchGroup()
+
+			group.enter()
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+				self?.statisticsProvider.getData(dataType: .rmssd) { rmssd in
+					if let value = rmssd {
+						indicators.append(value)
+					}
+					group.leave()
+				}
+			}
+
+			group.enter()
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 				self?.statisticsProvider.getData(dataType: .ssdn) { ssdn in
-					var indicators: [HKStatisticsProvider.StatsIndicatorModel] = []
-
-					[ssdn, rmssd].forEach {
-						if let value = $0 {
-							indicators.append(value)
-						}
+					if let value = ssdn {
+						indicators.append(value)
 					}
+					group.leave()
+				}
+			}
 
-					DispatchQueue.main.async {
-						self?.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
-						                                                 maxHeartRate: maxHeartRate,
-						                                                 minHeartRate: minHeartRate,
-						                                                 averageHeartRate: averageHeartRate,
-						                                                 indicators: indicators)
-					}
+			group.notify(queue: .global(qos: .default)) {
+				DispatchQueue.main.async { [weak self] in
+					self?.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
+					                                                 maxHeartRate: maxHeartRate,
+					                                                 minHeartRate: minHeartRate,
+					                                                 averageHeartRate: averageHeartRate,
+					                                                 indicators: indicators)
 				}
 			}
 		}

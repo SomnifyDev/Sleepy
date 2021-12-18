@@ -63,7 +63,7 @@ struct HeartCardDetailView: View {
 
 							VStack {
 								ForEach(heartViewModel.indicators, id: \.self) { model in
-									StatsIndicatorView(model: model)
+									StatsIndicatorView(viewModel: model)
 										.roundedCardBackground(
 											color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
 										)

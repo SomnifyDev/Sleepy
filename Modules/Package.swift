@@ -25,8 +25,7 @@ let package = Package(name: "Modules",
 
                       dependencies: [
                       	.package(name: "UIComponents",
-                      	         url: "https://github.com/Somnify/UIComponents",
-                      	         .exact("1.0.2")),
+                      	         path: "/Users/nicky/Documents/main Projects/UIComponents/UIComponents"),
                       	.package(name: "XUI",
                       	         url: "https://github.com/quickbirdstudios/XUI.git",
                       	         .branch("main")),
