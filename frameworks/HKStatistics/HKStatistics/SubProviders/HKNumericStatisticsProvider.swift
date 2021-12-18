@@ -60,7 +60,7 @@ public final class HKNumericTypesStatisticsProvider {
 			static let name = "SDNN Index (SDNNI)"
 			static let unit = "ms"
 			static let description = "The SDNNI primarily reflects autonomic influence on HRV"
-			static let normalValuesByAge: [ClosedRange<Double>] = [
+			static let normalValuesBy10YearsAge: [ClosedRange<Double>] = [
 				48.0 ... 113.0,
 				48.0 ... 113.0,
 				42.0 ... 107.0,
@@ -83,12 +83,10 @@ public final class HKNumericTypesStatisticsProvider {
 
 			self?.healthService.readData(type: .heart,
 			                             interval: .init(start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, end: Date())) { _, samples, error in
-				guard error == nil,
-				      let samples = samples as? [HKQuantitySample] else
-				{
+				guard error == nil, let samples = samples as? [HKQuantitySample] else {
 					completion(nil)
 					return
-				}
+                }
 
 				var standardDeviations: [Double] = []
 				var tmpDate: Date?
@@ -98,8 +96,7 @@ public final class HKNumericTypesStatisticsProvider {
 				// then calculating Deviation for each one of intervals
 				samples.forEach { sample in
 					if let startIntervalDate = tmpDate,
-					   abs(sample.startDate.minutes(from: startIntervalDate)) > 5
-					{
+					   abs(sample.startDate.minutes(from: startIntervalDate)) > 5 {
 						if !tmpValues.isEmpty {
 							// we need at least 2 values for standard deviasion, so we do this trick
 							// when there is only 1 sample in 5 minute interval
@@ -120,10 +117,8 @@ public final class HKNumericTypesStatisticsProvider {
 
 						tmpValues = []
 						tmpDate = sample.startDate
-					} else {
-						if tmpDate == nil {
+					} else if tmpDate == nil {
 							tmpDate = sample.startDate
-						}
 					}
 
 					tmpValues.append(60000 / sample.quantity.doubleValue(for: HKUnit(from: "count/min")))
@@ -132,7 +127,7 @@ public final class HKNumericTypesStatisticsProvider {
 				let sum = standardDeviations.reduce(0, +)
 				if sum > 0 {
 					let result = Double(sum) / Double(standardDeviations.count)
-					let normalRange = Constants.normalValuesByAge[currentAge / 10]
+					let normalRange = Constants.normalValuesBy10YearsAge[currentAge / 10]
 					let feedback = normalRange.contains(result) ? Constants.positiveFeedback : Constants.negativeFeedback
 
 					completion(HKStatisticsProvider.StatsIndicatorModel(name: Constants.name,
@@ -156,7 +151,7 @@ public final class HKNumericTypesStatisticsProvider {
 			static let unit = "ms"
 			static let description = "The RMSSD reflects the beat-to-beat variance in HR and is the primary time-domain measure used to estimate the vagally mediated changes reflected in HRV."
 			// normal values by distribution of 10 years https://www.sciencedirect.com/science/article/pii/S0735109797005548
-			static let normalValuesByAge: [ClosedRange<Double>] = [
+			static let normalValuesBy10YearsAge: [ClosedRange<Double>] = [
 				30.0 ... 120.0,
 				25.0 ... 103.0,
 				21.0 ... 87.0,
@@ -179,9 +174,7 @@ public final class HKNumericTypesStatisticsProvider {
 
 			self?.healthService.readData(type: .heart,
 			                             interval: .init(start: Calendar.current.date(byAdding: .hour, value: -2, to: Date())!, end: Date())) { _, samples, error in
-				guard error == nil,
-				      let samples = samples as? [HKQuantitySample], samples.count >= 12 else
-				{
+				guard error == nil, let samples = samples as? [HKQuantitySample], samples.count >= 12 else {
 					completion(nil)
 					return
 				}
@@ -198,7 +191,7 @@ public final class HKNumericTypesStatisticsProvider {
 				let sum = differences.reduce(0, +)
 				if sum > 0 {
 					let result = sqrt(differences.reduce(0, +) / Double(differences.count))
-					let normalRange = Constants.normalValuesByAge[currentAge / 10]
+					let normalRange = Constants.normalValuesBy10YearsAge[currentAge / 10]
 					let feedback = normalRange.contains(result) ? Constants.positiveFeedback : Constants.negativeFeedback
 
 					completion(HKStatisticsProvider.StatsIndicatorModel(name: Constants.name,
