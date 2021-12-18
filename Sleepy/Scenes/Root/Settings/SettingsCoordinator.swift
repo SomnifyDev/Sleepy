@@ -3,20 +3,29 @@
 import FirebaseAnalytics
 import Foundation
 import SettingsKit
+import UIComponents
 import XUI
 
 class SettingsCoordinator: ObservableObject, ViewModel {
+	enum IconType: String, CaseIterable {
+		case dark = "darkIcon"
+		case white = "whiteIcon"
+	}
+
 	private unowned let parent: RootCoordinator
 
 	@Published var openedURL: URL?
 
 	@Published var sleepGoalValue = 480
 	@Published var bitrateValue = 12000
+	@Published var currentIconType: IconType = .white
 	@Published var recognisionConfidenceValue: Int = 30
 	@Published var isSharePresented: Bool = false
+	let colorSchemeProvider: ColorSchemeProvider
 
-	init(parent: RootCoordinator) {
+	init(parent: RootCoordinator, colorSchemeProvider: ColorSchemeProvider) {
 		self.parent = parent
+		self.colorSchemeProvider = colorSchemeProvider
 	}
 
 	func open(_ url: URL) {
@@ -37,5 +46,29 @@ extension SettingsCoordinator {
 		self.sleepGoalValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
 		self.bitrateValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundBitrate.rawValue)
 		self.recognisionConfidenceValue = UserDefaults.standard.integer(forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
+	}
+
+	func setIcon(iconType: IconType) {
+		let application = UIApplication.shared
+		let currentSystemScheme = UITraitCollection.current.userInterfaceStyle
+
+		if application.supportsAlternateIcons {
+			if application.alternateIconName == nil, iconType == .dark {
+				application.setAlternateIconName("darkIcon")
+				self.currentIconType = .dark
+			} else if application.alternateIconName == "darkIcon", iconType == .white {
+				application.setAlternateIconName(nil)
+				self.currentIconType = .white
+			}
+		}
+	}
+
+	/// needs to be called in the main thread. So it should be called in viewDidAppear method
+	func retrieveCurrentIcon() {
+		let application = UIApplication.shared
+		if application.supportsAlternateIcons, application.alternateIconName != nil {
+			self.currentIconType = .dark
+		}
+		self.currentIconType = .white
 	}
 }

@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-public struct HFView: View {
+public struct HeaderView: View {
 	private var imageName: String?
 	private var text: String
 

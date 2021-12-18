@@ -13,7 +13,7 @@ struct SettingsCoordinatorView: View {
 	var body: some View {
 		NavigationView {
 			List {
-				Section(header: HFView(text: "Health", imageName: "heart.circle")) {
+				Section(header: HeaderView(text: "Health", imageName: "heart.circle")) {
 					Stepper(String(format: "Sleep goal %@", Date.minutesToClearString(minutes: self.viewModel.sleepGoalValue)),
 					        value: self.$viewModel.sleepGoalValue,
 					        in: 360 ... 720,
@@ -22,7 +22,7 @@ struct SettingsCoordinatorView: View {
 					}
 				}
 
-				Section(header: HFView(text: "Feedback", imageName: "person.2")) {
+				Section(header: HeaderView(text: "Feedback", imageName: "person.2")) {
 					LabeledButton(text: "Rate us",
 					              showChevron: true,
 					              action: { Armchair.rateApp() })
@@ -36,7 +36,7 @@ struct SettingsCoordinatorView: View {
 						       })
 				}.disabled(true)
 
-				Section(header: HFView(text: "Sound Recording", imageName: "mic.circle")) {
+				Section(header: HeaderView(text: "Sound Recording", imageName: "mic.circle")) {
 					Stepper(String(format: "Bitrate – %d", self.viewModel.bitrateValue),
 					        value: self.$viewModel.bitrateValue,
 					        in: 1000 ... 44000,
@@ -51,10 +51,35 @@ struct SettingsCoordinatorView: View {
 						self.viewModel.saveSetting(with: self.viewModel.recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
 					}
 				}
+
+				Section(header: HeaderView(text: "Icon", imageName: "app")) {
+					ScrollView(.horizontal, showsIndicators: false) {
+						HStack(spacing: 16) {
+							ForEach(SettingsCoordinator.IconType.allCases, id: \.self) { iconType in
+								VStack {
+									Image(iconType.rawValue)
+										.resizable()
+										.frame(width: 60, height: 60)
+										.cornerRadius(12)
+										.overlay(
+											RoundedRectangle(cornerRadius: 12)
+												.stroke(self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.calendarCurrentDateColor)),
+												        lineWidth: self.viewModel.currentIconType == iconType ? 6 : 0)
+										)
+								}
+								.padding(.vertical, 8)
+								.onTapGesture { self.viewModel.setIcon(iconType: iconType) }
+							}
+						}
+					}
+				} // .frame(height: 45)
 			}
 			.listStyle(.insetGrouped)
 			.navigationBarTitle("Settings", displayMode: .large)
-			.onAppear { viewModel.getAllValuesFromUserDefaults() }
+			.onAppear {
+				viewModel.getAllValuesFromUserDefaults()
+				viewModel.retrieveCurrentIcon()
+			}
 		}
 	}
 }

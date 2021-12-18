@@ -61,7 +61,7 @@ class RootCoordinator: ObservableObject, ViewModel {
 		                                         parent: self)
 		self.soundsCoordinator = SoundsCoordinator(colorSchemeProvider: colorSchemeProvider,
 		                                           parent: self)
-		self.settingsCoordinator = SettingsCoordinator(parent: self)
+		self.settingsCoordinator = SettingsCoordinator(parent: self, colorSchemeProvider: colorSchemeProvider)
 	}
 
 	func open(_ url: URL) {

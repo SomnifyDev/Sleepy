@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "tutorial4light.jpg",
+      "filename" : "tutorial4Light.png",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "tutorial4.jpg",
+      "filename" : "tutorial4dark.png",
       "idiom" : "universal"
     }
   ],
