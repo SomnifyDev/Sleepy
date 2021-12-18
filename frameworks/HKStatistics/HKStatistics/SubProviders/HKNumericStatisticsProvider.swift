@@ -11,18 +11,13 @@ final class HKNumericTypesStatisticsProvider {
 	                 indicator: Indicator,
 	                 sleep: Sleep) -> Double?
 	{
-		let flattenArrayPhases = sleep.samples.compactMap { (element: MicroSleep) -> [Phase]? in
-			element.phases
-		}
-		let phases = flattenArrayPhases.flatMap { $0 }
-
 		switch dataType {
 		case .heart:
-			return self.data(indicator, phases.flatMap { $0.heartData })
+			return self.data(indicator, sleep.phases.flatMap { $0.heartData })
 		case .energy:
-			return self.data(indicator, phases.flatMap { $0.energyData })
+			return self.data(indicator, sleep.phases.flatMap { $0.energyData })
 		case .respiratory:
-			return self.data(indicator, phases.flatMap { $0.breathData })
+			return self.data(indicator, sleep.phases.flatMap { $0.breathData })
 		}
 	}
 

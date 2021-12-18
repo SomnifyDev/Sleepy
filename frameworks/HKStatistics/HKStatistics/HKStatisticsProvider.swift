@@ -40,12 +40,8 @@ public final class HKStatisticsProvider {
 		guard let sleep = sleep else {
 			return nil
 		}
-		let flattenArrayPhases = sleep.samples.compactMap { (element: MicroSleep) -> [Phase]? in
-			element.phases
-		}
-		let phases = flattenArrayPhases.flatMap { $0 }
 
-		return self.phasesStatisticsProvider.phasesData(dataType: dataType, data: phases)
+		return self.phasesStatisticsProvider.phasesData(dataType: dataType, data: sleep.phases)
 	}
 
 	/// Returns sleep data by data type
