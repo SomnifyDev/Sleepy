@@ -41,6 +41,7 @@ public final class HKStatisticsProvider {
 		guard let sleep = sleep else {
 			return nil
 		}
+
 		return self.phasesStatisticsProvider.phasesData(dataType: dataType, data: sleep.phases)
 	}
 

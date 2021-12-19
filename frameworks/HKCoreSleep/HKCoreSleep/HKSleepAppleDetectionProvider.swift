@@ -8,8 +8,14 @@ public protocol HKDetectionProvider {
 }
 
 public class HKSleepAppleDetectionProvider: HKDetectionProvider {
+	enum Constants {
+		static let minimalSimilarMicroSleepSamplesDifference = 5 // допустимая погрешность разницы между сэмплами, чтоб не считать это пробуждением
+		static let maximalSleepDifference = 45 // максимально допустимое время пробуждения, чтобы продолжать считать это одним сном
+	}
+
 	private let hkService: HKService?
 	private let notificationCenter = UNUserNotificationCenter.current()
+	private var shouldNotifyByPush = true
 	private let lock = NSLock()
 
 	// MARK: - Init
@@ -24,7 +30,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 	/// - Parameters:
 	///   - sleep: sleep object to be saved
 	///   - completionHandler: completion with success or failure of this operation
-	public func saveSleep(sleep: Sleep, completionHandler: @escaping (Bool, Error?) -> Void) {
+	public func saveSleep(sleep: MicroSleep, completionHandler: @escaping (Bool, Error?) -> Void) {
 		// checking sleep analysis existence
 
 		// lets expand sleep interval a little bit to be 100% while not sure about strict predicate comparsion ( < or <=)
@@ -84,14 +90,13 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 		let interval = DateInterval(start: startDate, end: endDate)
 
 		self.getRawData(interval: interval) { _, asleepRaw, error1, _, heartRaw, error2, _, energyRaw, error3, _, inBedRaw, error4, _, respiratoryRaw, _ in
-			if error1 != nil || error2 != nil || error3 != nil || error4 != nil {
-				completionHandler(nil)
-				self.lock.unlock()
-				return
-			}
-
 			// иногда inbed или asleep может не быть - пытаемся обыграть эти кейсы
-			if (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty {
+			if error1 != nil ||
+				error2 != nil ||
+				error3 != nil ||
+				error4 != nil ||
+				(inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty
+			{
 				completionHandler(nil)
 				self.lock.unlock()
 				return
@@ -105,7 +110,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 			var energyRawFiltered = energyRaw
 			var respiratoryRawFiltered = respiratoryRaw
 
-			var latestSleepWillFetch = true
+			let sleep = Sleep(samples: [])
 
 			while true {
 				// идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
@@ -115,23 +120,35 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				energyRawFiltered = energyRawFiltered?.filter { $0.endDate <= lastIntervalStart }
 				respiratoryRawFiltered = respiratoryRawFiltered?.filter { $0.endDate <= lastIntervalStart }
 
-				// запускаем функцию определения сна для отфильтрованных сэмплов
+				// запускаем функцию определения последнего микросна сна для отфильтрованных сэмплов
 				let sleepData = self.detectSleep(inbedSamplesRaw: ((inBedRawFiltered ?? []).isEmpty && !(asleepRawFiltered ?? []).isEmpty) ? asleepRawFiltered : inBedRawFiltered,
 				                                 asleepSamplesRaw: ((asleepRawFiltered ?? []).isEmpty && !(inBedRawFiltered ?? []).isEmpty) ? inBedRawFiltered : asleepRawFiltered,
 				                                 heartSamplesRaw: heartRawFiltered,
 				                                 energySamplesRaw: energyRawFiltered,
 				                                 respiratoryRaw: respiratoryRawFiltered)
 
-				// если нет ошибок и обнаруженный сон имеет промежуток с другим, обнаруженным ранее, в <= 60 минут, то считаем это одним сном
-				// и идем сохранять его в хранилище
+				// если нет ошибок и обнаруженный сон имеет промежуток с другим, обнаруженным ранее, в <= заданная константа, то считаем это одним сном
+				// и идем сохранять его в хранилище и искать след микросны в текущем сне (кратковременные пробуждения)
 				guard !sleepData.error,
 				      let asleepInterval = sleepData.asleepInterval,
-				      abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= 60 || lastIntervalStart == endDate,
+				      abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= Constants.maximalSleepDifference || lastIntervalStart == endDate,
 				      let inbedInterval = sleepData.inbedInterval,
 				      let energySamples = sleepData.energySamples,
 				      let heartSamples = sleepData.heartSamples,
 				      let respiratorySamples = sleepData.respiratorySamples else
 				{
+					DispatchQueue.main.async { [weak self] in
+						guard let self = self else { return }
+						let state = UIApplication.shared.applicationState
+
+						if state == .background || state == .inactive,
+						   self.shouldNotifyByPush
+						{
+							self.notifyByPush(title: "New sleep analysis", body: "")
+						}
+					}
+
+					completionHandler(!sleep.samples.isEmpty ? sleep : nil)
 					self.lock.unlock()
 					return
 				}
@@ -144,121 +161,23 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				                                                      breathSamples: respiratorySamples,
 				                                                      sleepInterval: asleepInterval)
 
-				let sleep = Sleep(sleepInterval: asleepInterval,
-				                  inBedInterval: inbedInterval,
-				                  phases: phases)
+				let microSleep = MicroSleep(sleepInterval: asleepInterval,
+				                            inBedInterval: inbedInterval,
+				                            phases: phases)
+
+				sleep.samples.append(microSleep)
 
 				// swiftformat:disable:next all
-				self.saveSleep(sleep: sleep, completionHandler: { [weak self] success, error in
+                self.saveSleep(sleep: microSleep, completionHandler: { [weak self] success, error in
 					guard error == nil else {
 						print(error.debugDescription)
 						completionHandler(nil)
 						self?.lock.unlock()
 						return
 					}
-
-					DispatchQueue.main.async {
-						let state = UIApplication.shared.applicationState
-						if state == .background || state == .inactive, success,
-						   latestSleepWillFetch
-						{
-							// чтоб не спамить уведомлениями о каждом найденном отрезке сна, оповестим только о самом свежем
-							// background sleep analysis push being delivered in 15 minutes
-							self?.notifyByPush(title: "New sleep analysis", body: sleep.sleepInterval.stringFromDateInterval(type: .time))
-						}
-					}
-
-					// в комплишене возвращаем только самый первый (самый свежий сон), ибо возвращаемое значение передается в UI и используется на экранах
-					// а остальные сны мы тихо сохраняем в БД
-					if latestSleepWillFetch {
-						completionHandler(sleep)
-					}
-					latestSleepWillFetch = false
 				})
 			}
 		}
-	}
-
-	/// Observes the HealthStore for changes in the types we're interested in, e.g, inbed, asleep samples
-	/// - Parameters:
-	///   - observeHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
-	public func observeData() {
-		let startDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())
-		let sampleDataPredicate = HKQuery.predicateForSamples(withStart: startDate,
-		                                                      end: Date.distantFuture,
-		                                                      options: [])
-
-		let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [sampleDataPredicate])
-
-		for type in [HKSampleType.categoryType(forIdentifier: .sleepAnalysis)!] {
-			// swiftformat:disable:next all
-			let query = HKObserverQuery(sampleType: type, predicate: queryPredicate) { [weak self] _, completionHandler, errorOrNil in
-				DispatchQueue.main.sync {
-					let state = UIApplication.shared.applicationState
-
-					guard state == .background, errorOrNil == nil else {
-						completionHandler()
-						return
-					}
-
-					// Take whatever sleep samples are necessary to update your app.
-					// This often involves executing other queries to access the new data.
-					// We need to defiene if new samples are from apple
-					self?.hkService?.readDataLast(type: .inbed, completionHandler: { _, samples, error in
-						guard error == nil, let samples = samples, !samples.isEmpty else {
-							completionHandler()
-							return
-						}
-
-						if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
-							self?.retrieveData(completionHandler: { _ in
-								// If you have subscribed for background updates you must call the completion handler here.
-								completionHandler()
-							})
-						} else {
-							completionHandler()
-							return
-						}
-					})
-				}
-			}
-
-			// Run the query.
-			HKService.healthStore.execute(query)
-		}
-	}
-
-	// MARK: - Private methods
-
-	private func notifyByPush(title: String, body: String) {
-		// TODO: вынести нотификации в отдельную сущность
-		let content = UNMutableNotificationContent() // Содержимое уведомления
-		let categoryIdentifier = "Delete Notification Type"
-
-		content.title = title
-		content.body = body
-		content.sound = UNNotificationSound.default
-		content.badge = 1
-		content.categoryIdentifier = categoryIdentifier
-
-		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15 * 60, repeats: false)
-		let identifier = "Sleepy Notification"
-		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
-		self.notificationCenter.add(request) { error in
-			if let error = error {
-				print("Error \(error.localizedDescription)")
-			}
-		}
-
-		let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
-		let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
-		let category = UNNotificationCategory(identifier: categoryIdentifier,
-		                                      actions: [snoozeAction, deleteAction],
-		                                      intentIdentifiers: [],
-		                                      options: [])
-
-		self.notificationCenter.setNotificationCategories([category])
 	}
 
 	private func detectSleep(inbedSamplesRaw: [HKSample]?,
@@ -298,7 +217,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				if sample == firstAsleep {
 					asleepSamples.append(sample)
 				} else {
-					if sample.endDate.minutes(from: startDateBeforeAsleep) <= 25 {
+					if sample.endDate.minutes(from: startDateBeforeAsleep) <= Constants.minimalSimilarMicroSleepSamplesDifference {
 						asleepSamples.append(sample)
 						startDateBeforeAsleep = sample.startDate
 					} else { break }
@@ -311,7 +230,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				if sample == firstInbed {
 					inBedSamples.append(sample)
 				} else {
-					if sample.endDate.minutes(from: startDateBeforeInbed) <= 25 {
+					if sample.endDate.minutes(from: startDateBeforeInbed) <= Constants.minimalSimilarMicroSleepSamplesDifference {
 						inBedSamples.append(sample)
 						startDateBeforeInbed = sample.startDate
 					} else { break }
@@ -358,6 +277,90 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 		let respiratorySamples = respiratoryRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
 
 		return (asleepInterval, inbedInterval, inBedSamples, asleepSamples, heartSamples, energySamples, respiratorySamples, false)
+	}
+
+	/// Observes the HealthStore for changes in the types we're interested in, e.g, inbed, asleep samples
+	/// - Parameters:
+	///   - observeHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
+	public func observeData() {
+		let startDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())
+		let sampleDataPredicate = HKQuery.predicateForSamples(withStart: startDate,
+		                                                      end: Date.distantFuture,
+		                                                      options: [])
+
+		let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [sampleDataPredicate])
+
+		for type in [HKSampleType.categoryType(forIdentifier: .sleepAnalysis)!] {
+			// swiftformat:disable:next all
+            let query = HKObserverQuery(sampleType: type, predicate: queryPredicate) { [weak self] _, completionHandler, errorOrNil in
+				DispatchQueue.main.sync {
+					let state = UIApplication.shared.applicationState
+
+					guard state == .background, errorOrNil == nil else {
+						completionHandler()
+						return
+					}
+
+					// Take whatever sleep samples are necessary to update your app.
+					// This often involves executing other queries to access the new data.
+					// We need to defiene if new samples are from apple
+					self?.hkService?.readDataLast(type: .inbed, completionHandler: { _, samples, error in
+						guard error == nil, let samples = samples, !samples.isEmpty else {
+							completionHandler()
+							return
+						}
+
+						if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
+							self?.retrieveData(completionHandler: { _ in
+								// If you have subscribed for background updates you must call the completion handler here.
+								// не используем тут возвращаемое значение Sleep так как нам нужно только сохранить (приложение же в фоне)
+								// а сохранение и так происходит в retrieveData
+								completionHandler()
+							})
+						} else {
+							completionHandler()
+							return
+						}
+					})
+				}
+			}
+
+			// Run the query.
+			HKService.healthStore.execute(query)
+		}
+	}
+
+	// MARK: - Private methods
+
+	private func notifyByPush(title: String, body: String) {
+		// TODO: вынести нотификации в отдельную сущность
+		let content = UNMutableNotificationContent() // Содержимое уведомления
+		let categoryIdentifier = "Delete Notification Type"
+
+		content.title = title
+		content.body = body
+		content.sound = UNNotificationSound.default
+		content.badge = 1
+		content.categoryIdentifier = categoryIdentifier
+
+		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 15 * 60, repeats: false)
+		let identifier = "Sleepy Notification"
+		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+		self.notificationCenter.add(request) { error in
+			if let error = error {
+				print("Error \(error.localizedDescription)")
+			}
+		}
+
+		let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
+		let deleteAction = UNNotificationAction(identifier: "DeleteAction", title: "Delete", options: [.destructive])
+		let category = UNNotificationCategory(identifier: categoryIdentifier,
+		                                      actions: [snoozeAction, deleteAction],
+		                                      intentIdentifiers: [],
+		                                      options: [])
+
+		self.notificationCenter.setNotificationCategories([category])
 	}
 
 	/// Func that gets all raw data samples for provider to star analysis

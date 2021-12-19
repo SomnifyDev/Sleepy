@@ -14,11 +14,11 @@ final class HKDailyStatisticsProvider {
 	func data(healthtype: HKService.HealthType, sleep: Sleep) -> [Double] {
 		switch healthtype {
 		case .energy:
-			return self.generalStatisticsProvider.data(healthType: .energy, data: sleep.phases?.flatMap { $0.energyData } ?? [])
+			return self.generalStatisticsProvider.data(healthType: .energy, data: sleep.phases.flatMap { $0.energyData })
 		case .heart:
-			return self.generalStatisticsProvider.data(healthType: .heart, data: sleep.phases?.flatMap { $0.heartData } ?? [])
+			return self.generalStatisticsProvider.data(healthType: .heart, data: sleep.phases.flatMap { $0.heartData })
 		case .respiratory:
-			return self.generalStatisticsProvider.data(healthType: .respiratory, data: sleep.phases?.flatMap { $0.breathData } ?? [])
+			return self.generalStatisticsProvider.data(healthType: .respiratory, data: sleep.phases.flatMap { $0.breathData })
 		case .asleep, .inbed:
 			assertionFailure("Do not use this method for that. You can get inbed asleep stat from date intervals in Sleep object")
 		}
@@ -26,6 +26,13 @@ final class HKDailyStatisticsProvider {
 	}
 
 	func intervalBoundary(intervalType: SleepInterval, sleep: Sleep) -> DateInterval? {
-		return intervalType == .inbed ? sleep.inBedInterval : sleep.sleepInterval
+		guard let firstMicroSleep = sleep.samples.last,
+		      let lastMicroSleep = sleep.samples.first else { return nil }
+		switch intervalType {
+		case .asleep:
+			return DateInterval(start: firstMicroSleep.sleepInterval.start, end: lastMicroSleep.sleepInterval.end)
+		case .inbed:
+			return DateInterval(start: firstMicroSleep.inBedInterval.start, end: lastMicroSleep.inBedInterval.end)
+		}
 	}
 }

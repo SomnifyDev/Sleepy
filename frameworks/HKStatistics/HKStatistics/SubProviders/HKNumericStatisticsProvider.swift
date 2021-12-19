@@ -19,11 +19,11 @@ public final class HKNumericTypesStatisticsProvider {
 	{
 		switch dataType {
 		case .heart:
-			return self.data(indicator, sleep.phases?.flatMap { $0.heartData } ?? [])
+			return self.data(indicator, sleep.phases.flatMap { $0.heartData })
 		case .energy:
-			return self.data(indicator, sleep.phases?.flatMap { $0.energyData } ?? [])
+			return self.data(indicator, sleep.phases.flatMap { $0.energyData })
 		case .respiratory:
-			return self.data(indicator, sleep.phases?.flatMap { $0.breathData } ?? [])
+			return self.data(indicator, sleep.phases.flatMap { $0.breathData })
 		}
 	}
 

@@ -25,7 +25,7 @@ struct SleepyApp: App {
 	@State var hasOpenedURL = false
 	@State var canShowMain: Bool = false
 	@State var shouldShowIntro: Bool = false
-	@State var sleep: Sleep?
+	@State var sleep: MicroSleep?
 
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -100,7 +100,7 @@ struct SleepyApp: App {
 				return
 			}
 			// сон прочитался
-			self.showDebugSleepDuration(sleep)
+			self.showDebugSleepDuration(sleep: sleep)
 
 			self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 			self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
@@ -162,8 +162,9 @@ struct SleepyApp: App {
 		#endif
 	}
 
-	private func showDebugSleepDuration(_ sleep: Sleep) {
-		print(sleep.sleepInterval.duration)
-		print(sleep.inBedInterval.duration)
+	private func showDebugSleepDuration(sleep: Sleep) {
+		sleep.samples.forEach { sample in
+			print(sample.sleepInterval.stringFromDateInterval(type: .time))
+		}
 	}
 }
