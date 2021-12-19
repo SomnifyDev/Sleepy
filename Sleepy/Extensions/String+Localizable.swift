@@ -2,8 +2,10 @@
 
 import Foundation
 
-public extension String {
-	var localized: String {
-		return NSLocalizedString(self, comment: "\(self)_comment")
-	}
+public extension String
+{
+    var localized: String
+    {
+        return NSLocalizedString(self, comment: "\(self)_comment")
+    }
 }

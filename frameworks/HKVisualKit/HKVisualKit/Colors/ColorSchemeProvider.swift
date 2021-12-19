@@ -2,10 +2,12 @@
 
 import Foundation
 
-public final class ColorSchemeProvider {
-	public let sleepyColorScheme: SleepyColorScheme
+public final class ColorSchemeProvider
+{
+    public let sleepyColorScheme: SleepyColorScheme
 
-	public init() {
-		self.sleepyColorScheme = SleepyColorScheme()
-	}
+    public init()
+    {
+        self.sleepyColorScheme = SleepyColorScheme()
+    }
 }

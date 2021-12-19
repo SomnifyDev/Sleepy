@@ -2,8 +2,9 @@
 
 import Foundation
 
-struct BankOfSleepDataViewModel {
-	let bankOfSleepData: [Double]
-	let backlog: String
-	let timeToCloseDebt: String
+struct BankOfSleepDataViewModel
+{
+    let bankOfSleepData: [Double]
+    let backlog: String
+    let timeToCloseDebt: String
 }

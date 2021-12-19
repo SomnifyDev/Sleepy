@@ -7,7 +7,6 @@ target 'Sleepy' do
   use_frameworks!
 
   # Pods for Sleepy
-  pod 'SwiftLint'
   pod 'SwiftFormat/CLI'
 
   pod 'Armchair', '>= 0.3'

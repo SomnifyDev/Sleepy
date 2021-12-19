@@ -2,8 +2,10 @@
 
 import SwiftUI
 
-struct LoadingAppView: View {
-	var body: some View {
-		Text("Loading...")
-	}
+struct LoadingAppView: View
+{
+    var body: some View
+    {
+        Text("Loading...")
+    }
 }

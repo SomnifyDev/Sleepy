@@ -2,6 +2,7 @@
 
 import Foundation
 
-protocol HealthManagerDelegate: AnyObject {
-	func lightPhaseDetected()
+protocol HealthManagerDelegate: AnyObject
+{
+    func lightPhaseDetected()
 }

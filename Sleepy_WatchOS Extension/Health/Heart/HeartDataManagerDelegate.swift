@@ -2,6 +2,7 @@
 
 import Foundation
 
-protocol HeartDataManagerDelegate: AnyObject {
-	func lightPhaseDetected()
+protocol HeartDataManagerDelegate: AnyObject
+{
+    func lightPhaseDetected()
 }
