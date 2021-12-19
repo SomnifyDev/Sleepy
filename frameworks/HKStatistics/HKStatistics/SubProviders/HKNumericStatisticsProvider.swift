@@ -55,7 +55,7 @@ public final class HKNumericTypesStatisticsProvider {
 
 	/// It is calculated by first dividing the 24 h record into 288 5 min segments and then calculating the standard deviation of all NN intervals contained within each segment
 	/// https://www.sciencedirect.com/science/article/pii/S0735109797005548 for numbers
-	public func calculateSSDN(completion: @escaping (HKStatisticsProvider.StatsIndicatorModel?) -> Void) {
+	public func calculateSSDN(completion: @escaping (StatsIndicatorModel?) -> Void) {
 		enum Constants {
 			static let name = "SDNN Index (SDNNI)"
 			static let unit = "ms"
@@ -86,7 +86,7 @@ public final class HKNumericTypesStatisticsProvider {
 				guard error == nil, let samples = samples as? [HKQuantitySample] else {
 					completion(nil)
 					return
-                }
+				}
 
 				var standardDeviations: [Double] = []
 				var tmpDate: Date?
@@ -96,7 +96,8 @@ public final class HKNumericTypesStatisticsProvider {
 				// then calculating Deviation for each one of intervals
 				samples.forEach { sample in
 					if let startIntervalDate = tmpDate,
-					   abs(sample.startDate.minutes(from: startIntervalDate)) > 5 {
+					   abs(sample.startDate.minutes(from: startIntervalDate)) > 5
+					{
 						if !tmpValues.isEmpty {
 							// we need at least 2 values for standard deviasion, so we do this trick
 							// when there is only 1 sample in 5 minute interval
@@ -118,7 +119,7 @@ public final class HKNumericTypesStatisticsProvider {
 						tmpValues = []
 						tmpDate = sample.startDate
 					} else if tmpDate == nil {
-							tmpDate = sample.startDate
+						tmpDate = sample.startDate
 					}
 
 					tmpValues.append(60000 / sample.quantity.doubleValue(for: HKUnit(from: "count/min")))
@@ -130,12 +131,12 @@ public final class HKNumericTypesStatisticsProvider {
 					let normalRange = Constants.normalValuesBy10YearsAge[currentAge / 10]
 					let feedback = normalRange.contains(result) ? Constants.positiveFeedback : Constants.negativeFeedback
 
-					completion(HKStatisticsProvider.StatsIndicatorModel(name: Constants.name,
-					                                                    description: Constants.description,
-					                                                    value: result,
-					                                                    valueNormInterval: normalRange,
-					                                                    unit: Constants.unit,
-					                                                    feedback: feedback))
+					completion(StatsIndicatorModel(name: Constants.name,
+					                               description: Constants.description,
+					                               value: result,
+					                               valueNormInterval: normalRange,
+					                               unit: Constants.unit,
+					                               feedback: feedback))
 				} else {
 					completion(nil)
 				}
@@ -145,7 +146,7 @@ public final class HKNumericTypesStatisticsProvider {
 
 	/// The root mean square of successive differences between normal heartbeats (RMSSD) is obtained by first calculating each successive time difference between heartbeats in ms.
 	/// Then, each of the values is squared and the result is averaged before the square root of the total is obtained
-	public func calculateRMSSD(completion: @escaping (HKStatisticsProvider.StatsIndicatorModel?) -> Void) {
+	public func calculateRMSSD(completion: @escaping (StatsIndicatorModel?) -> Void) {
 		enum Constants {
 			static let name = "RMSSD"
 			static let unit = "ms"
@@ -194,12 +195,12 @@ public final class HKNumericTypesStatisticsProvider {
 					let normalRange = Constants.normalValuesBy10YearsAge[currentAge / 10]
 					let feedback = normalRange.contains(result) ? Constants.positiveFeedback : Constants.negativeFeedback
 
-					completion(HKStatisticsProvider.StatsIndicatorModel(name: Constants.name,
-					                                                    description: Constants.description,
-					                                                    value: result,
-					                                                    valueNormInterval: normalRange,
-					                                                    unit: Constants.unit,
-					                                                    feedback: feedback))
+					completion(StatsIndicatorModel(name: Constants.name,
+					                               description: Constants.description,
+					                               value: result,
+					                               valueNormInterval: normalRange,
+					                               unit: Constants.unit,
+					                               feedback: feedback))
 				} else {
 					completion(nil)
 				}

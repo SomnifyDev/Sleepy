@@ -164,7 +164,7 @@ class CardService: ObservableObject {
 			maxHeartRate = String(format: "%u bpm", Int(maxHR))
 			minHeartRate = String(format: "%u bpm", Int(minHR))
 			averageHeartRate = String(format: "%u bpm", Int(averageHR))
-			var indicators: [HKStatisticsProvider.StatsIndicatorModel] = []
+			var indicators: [StatsIndicatorModel] = []
 
 			let group = DispatchGroup()
 
