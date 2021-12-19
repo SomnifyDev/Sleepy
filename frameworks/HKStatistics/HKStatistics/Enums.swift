@@ -9,6 +9,11 @@ public enum Indicator {
 	case sum
 }
 
+public enum MetricsData {
+	case rmssd
+	case ssdn
+}
+
 public enum NumericData {
 	case heart
 	case energy

@@ -3,13 +3,13 @@
 import Foundation
 import HealthKit
 import HKCoreSleep
+import SwiftUI
+import UIComponents
 
 public final class HKStatisticsProvider {
-	// MARK: - Properties
-
 	private let healthService: HKService
 	private let sleep: Sleep?
-	private let numericTypesStatisticsProvider = HKNumericTypesStatisticsProvider()
+	private let numericTypesStatisticsProvider: HKNumericTypesStatisticsProvider
 	private let phasesStatisticsProvider = HKPhasesStatisticsProvider()
 	private let sleepStatisticsProvider = HKSleepStatisticsProvider()
 	private let generalStatisticsProvider = HKGeneralStatisticsProvider()
@@ -20,6 +20,7 @@ public final class HKStatisticsProvider {
 	public init(sleep: Sleep?, healthService: HKService) {
 		self.sleep = sleep
 		self.healthService = healthService
+		self.numericTypesStatisticsProvider = HKNumericTypesStatisticsProvider(healthService: healthService)
 	}
 
 	// MARK: - Public methods
@@ -49,6 +50,16 @@ public final class HKStatisticsProvider {
 			return nil
 		}
 		return self.sleepStatisticsProvider.sleepData(dataType: dataType, sleep: sleep)
+	}
+
+	/// Returns metrics data like ssdn of heart rythems by metric type
+	public func getData(dataType: MetricsData, completion: @escaping (StatsIndicatorModel?) -> Void) {
+		switch dataType {
+		case .rmssd:
+			self.numericTypesStatisticsProvider.calculateRMSSD(completion: completion)
+		case .ssdn:
+			self.numericTypesStatisticsProvider.calculateSSDN(completion: completion)
+		}
 	}
 
 	/// Returns today sleep hata of special health type (energy, heart, asleep, inbed, respiratory)

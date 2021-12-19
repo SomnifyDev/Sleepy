@@ -55,6 +55,20 @@ struct HeartCardDetailView: View {
 								                   value: heartViewModel.minHeartRate),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
+
+							// MARK: Indicators
+
+							SectionNameTextView(text: "Indicators",
+							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+
+							VStack {
+								ForEach(heartViewModel.indicators, id: \.self) { model in
+									StatsIndicatorView(viewModel: model)
+										.roundedCardBackground(
+											color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
+										)
+								}
+							}
 						}
 
 						// MARK: Advices

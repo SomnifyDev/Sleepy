@@ -8,6 +8,11 @@ extension Date {
 		return abs(Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0)
 	}
 
+	/// Returns the amount of years from another date
+	func years(from date: Date) -> Int {
+		return abs(Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0)
+	}
+
 	/// Returns date in some special string format
 	func getFormattedDate(format: String) -> String {
 		let dateformat = DateFormatter()

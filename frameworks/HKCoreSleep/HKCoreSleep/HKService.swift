@@ -30,8 +30,8 @@ public class HKService {
 				return "Heart rate mean"
 			case .respiratory:
 				return "Respiratory rate"
-			case .asleep, .inbed:
-				return ""
+			default:
+				fatalError("should be used like that")
 			}
 		}
 	}
@@ -42,11 +42,13 @@ public class HKService {
 
 	public static let healthStore = HKHealthStore()
 
-	private static var readDataTypes: Set<HKSampleType> = [
+	private static var readDataTypes: Set<HKObjectType> = [
 		HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!,
 		HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!,
 		HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.respiratoryRate)!,
 		HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)!,
+		HKObjectType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.dateOfBirth)!,
+		HKObjectType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!,
 	]
 
 	private static var writeDataTypes: Set<HKSampleType> = [HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)!]
@@ -99,6 +101,14 @@ public class HKService {
 	}
 
 	// MARK: Public methods
+
+	public static func readBirthday() -> DateComponents? {
+		return try? self.healthStore.dateOfBirthComponents()
+	}
+
+	public static func readSex() -> HKBiologicalSexObject? {
+		return try? self.healthStore.biologicalSex()
+	}
 
 	public static func requestPermissions(completion: @escaping (Bool, Error?) -> Void) {
 		self.healthStore.requestAuthorization(toShare: self.writeDataTypes, read: self.readDataTypes, completion: completion)

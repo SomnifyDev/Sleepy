@@ -4,6 +4,7 @@ import Foundation
 import HKStatistics
 import SettingsKit
 import SwiftUI
+import UIComponents
 
 enum SummaryViewCardType: String {
 	case heart
@@ -80,9 +81,11 @@ class CardService: ObservableObject {
 			let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
 			let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
 
-			self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
-			                                                     backlog: backlogString,
-			                                                     timeToCloseDebt: timeToCloseDebtString)
+			DispatchQueue.main.async { [weak self] in
+				self?.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
+				                                                      backlog: backlogString,
+				                                                      timeToCloseDebt: timeToCloseDebtString)
+			}
 		}
 	}
 
@@ -161,7 +164,39 @@ class CardService: ObservableObject {
 			maxHeartRate = String(format: "%u bpm", Int(maxHR))
 			minHeartRate = String(format: "%u bpm", Int(minHR))
 			averageHeartRate = String(format: "%u bpm", Int(averageHR))
-			self.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData, maxHeartRate: maxHeartRate, minHeartRate: minHeartRate, averageHeartRate: averageHeartRate)
+			var indicators: [StatsIndicatorModel] = []
+
+			let group = DispatchGroup()
+
+			group.enter()
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+				self?.statisticsProvider.getData(dataType: .rmssd) { rmssd in
+					if let value = rmssd {
+						indicators.append(value)
+					}
+					group.leave()
+				}
+			}
+
+			group.enter()
+			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+				self?.statisticsProvider.getData(dataType: .ssdn) { ssdn in
+					if let value = ssdn {
+						indicators.append(value)
+					}
+					group.leave()
+				}
+			}
+
+			group.notify(queue: .global(qos: .default)) {
+				DispatchQueue.main.async { [weak self] in
+					self?.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
+					                                                 maxHeartRate: maxHeartRate,
+					                                                 minHeartRate: minHeartRate,
+					                                                 averageHeartRate: averageHeartRate,
+					                                                 indicators: indicators)
+				}
+			}
 		}
 	}
 
@@ -201,7 +236,10 @@ class CardService: ObservableObject {
 			maxRespiratoryRate = String(format: "%u count/min", Int(maxRespiratory))
 			minRespiratoryRate = String(format: "%u count/min", Int(minRespiratory))
 			averageRespiratoryRate = String(format: "%u count/min", Int(averageRespiratory))
-			self.respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData, maxRespiratoryRate: maxRespiratoryRate, minRespiratoryRate: minRespiratoryRate, averageRespiratoryRate: averageRespiratoryRate)
+			self.respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData,
+			                                                            maxRespiratoryRate: maxRespiratoryRate,
+			                                                            minRespiratoryRate: minRespiratoryRate,
+			                                                            averageRespiratoryRate: averageRespiratoryRate)
 		}
 	}
 }
