@@ -13,7 +13,7 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
 	@Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
 	@Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
-	@Published var heartHistoryStatsViewModel: HeartHistoryStatsViewModel?
+	@Published var heartHistoryStatisticsViewModel: HeartHistoryStatisticsViewModel?
 	@Published var energyHistoryStatsViewModel: EnergyHistoryStatsViewModel?
 	@Published var respiratoryHistoryStatsViewModel: RespiratoryHistoryStatsViewModel?
 
@@ -170,7 +170,7 @@ extension HistoryCoordinator {
 	/// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
 	func extractBasicNumericDataIfNeeded(type: HKService.HealthType) {
 		if type == .asleep || type == .inbed { fatalError("Not numeric type being used") }
-		if type == .heart, self.heartHistoryStatsViewModel != nil { return }
+		if type == .heart, self.heartHistoryStatisticsViewModel != nil { return }
 		if type == .energy, self.energyHistoryStatsViewModel != nil { return }
 		if type == .respiratory, self.respiratoryHistoryStatsViewModel != nil { return }
 
@@ -201,7 +201,7 @@ extension HistoryCoordinator {
 					case .energy:
 						self.energyHistoryStatsViewModel = EnergyHistoryStatsViewModel(cellData: last30daysCellData)
 					case .heart:
-						self.heartHistoryStatsViewModel = HeartHistoryStatsViewModel(cellData: last30daysCellData)
+						self.heartHistoryStatisticsViewModel = HeartHistoryStatisticsViewModel(cellData: last30daysCellData)
 					case .respiratory:
 						self.respiratoryHistoryStatsViewModel = RespiratoryHistoryStatsViewModel(cellData: last30daysCellData)
 					case .asleep, .inbed:

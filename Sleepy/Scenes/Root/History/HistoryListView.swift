@@ -48,9 +48,9 @@ struct HistoryListView: View {
 								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .heart {
-						if let heartHistoryStatsViewModel = viewModel.heartHistoryStatsViewModel {
-							HeartHistoryStatsView(viewModel: heartHistoryStatsViewModel,
-							                      colorProvider: viewModel.colorSchemeProvider)
+						if let heartHistoryStatisticsViewModel = viewModel.heartHistoryStatisticsViewModel {
+							HeartHistoryStatisticsView(viewModel: heartHistoryStatisticsViewModel,
+							                           colorProvider: viewModel.colorSchemeProvider)
 						} else {
 							MotivationCellView(type: .heart, colorProvider: self.viewModel.colorSchemeProvider)
 
@@ -58,7 +58,7 @@ struct HistoryListView: View {
 							           colorProvider: viewModel.colorSchemeProvider)
 								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 
-							HeartHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+							HeartHistoryStatisticsView(colorProvider: self.viewModel.colorSchemeProvider)
 								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .energy {

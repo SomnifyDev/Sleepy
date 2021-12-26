@@ -5,16 +5,15 @@ import SwiftUI
 import UIComponents
 
 struct MainIntroView: View {
-	let colorScheme: SleepyColorScheme
 	@Binding var shouldShowIntro: Bool
 
 	var body: some View {
 		NavigationView {
 			ZStack {
-				colorScheme.getColor(of: .general(.appBackgroundColor))
+				ColorsRepository.General.appBackground
 					.edgesIgnoringSafeArea(.all)
 				VStack {
-					ScrollView(.vertical, showsIndicators: false) {
+					ScrollView(showsIndicators: false) {
 						VStack(alignment: .center) {
 							VStack(alignment: .leading) {
 								WelcomeScreenLineView(title: "Sleep summary",

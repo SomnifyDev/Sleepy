@@ -21,11 +21,9 @@ class SettingsCoordinator: ObservableObject, ViewModel {
 	@Published var currentIconType: IconType = .white
 	@Published var recognisionConfidenceValue: Int = 30
 	@Published var isSharePresented: Bool = false
-	let colorSchemeProvider: ColorSchemeProvider
 
-	init(parent: RootCoordinator, colorSchemeProvider: ColorSchemeProvider) {
+	init(parent: RootCoordinator) {
 		self.parent = parent
-		self.colorSchemeProvider = colorSchemeProvider
 	}
 
 	func open(_ url: URL) {
@@ -50,7 +48,6 @@ extension SettingsCoordinator {
 
 	func setIcon(iconType: IconType) {
 		let application = UIApplication.shared
-		let currentSystemScheme = UITraitCollection.current.userInterfaceStyle
 
 		if application.supportsAlternateIcons {
 			if application.alternateIconName == nil, iconType == .dark {

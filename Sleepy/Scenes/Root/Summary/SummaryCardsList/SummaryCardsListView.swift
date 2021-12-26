@@ -5,198 +5,139 @@ import UIComponents
 import XUI
 
 struct SummaryCardsListView: View {
-	@Store var viewModel: SummaryCardsListCoordinator
 
-	@EnvironmentObject var cardService: CardService
+    @Store var viewModel: SummaryCardsListCoordinator
 
-	var body: some View {
-		GeometryReader { _ in
-			ZStack {
-				viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
-					.edgesIgnoringSafeArea(.all)
+    @EnvironmentObject var cardService: CardService
 
-				ScrollView {
-					VStack(alignment: .center) {
-						// TODO: почему не изменяется нигде
-						if viewModel.somethingBroken {
-							BannerView(bannerViewType: .advice(type: .wearMore,
-							                                   imageSystemName: "wearAdvice"),
-							           colorProvider: viewModel.colorProvider)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-						}
+    var body: some View {
+        ZStack {
+            ColorsRepository.General.appBackground
+                .edgesIgnoringSafeArea(.all)
 
-						// MARK: General
+            ScrollView {
+                VStack(alignment: .center) {
 
-						if let generalViewModel = cardService.generalViewModel {
-							SectionNameTextView(text: "Sleep information",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
-								.padding(.top)
+                    if viewModel.somethingBroken {
+                        BannerView(with: viewModel.somethingBrokenBannerViewModel) {
+                            CardTitleView(with: viewModel.somethingBrokenBannerViewModel.cardTitleViewModel)
+                        }
+                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                    }
 
-							GeneralSleepInfoCardView(viewModel: generalViewModel,
-							                         colorProvider: viewModel.colorProvider)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-								.onNavigation {
-									viewModel.open(.general)
-								}
-								.buttonStyle(PlainButtonStyle())
-						} else {
-							BannerView(bannerViewType: .brokenData(type: .asleep),
-							           colorProvider: viewModel.colorProvider)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-						}
+                    // MARK: - General card
 
-						SectionNameTextView(text: "Sleep session",
-						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                    if let generalViewModel = cardService.generalViewModel {
+                        SectionNameTextView(
+                            text: "Sleep information",
+                            color: ColorsRepository.Text.standard
+                        )
+                            .padding(.top)
+                        GeneralSleepInfoCardView(viewModel: generalViewModel)
+                            .buttonStyle(PlainButtonStyle())
+                            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                            .onNavigation { viewModel.open(.general) }
+                    }
 
-						// MARK: Phases
+                    // MARK: - Phases card
 
-						if let phasesViewModel = cardService.phasesViewModel,
-						   let generalViewModel = cardService.generalViewModel
-						{
-							CardWithChartView(colorProvider: viewModel.colorProvider,
-							                  systemImageName: "sleep",
-							                  titleText: "Phases",
-							                  mainTitleText: "Here is some info about phases of your last sleep",
-							                  titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
-							                  showChevron: true,
-							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
-							                                               chartType: .phasesChart,
-							                                               chartHeight: 75,
-							                                               points: phasesViewModel.phasesData,
-							                                               dateInterval: generalViewModel.sleepInterval),
-							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
-							                  	Text(
-							                  		String(format: "Duration of light phase was %@, while the duration of deep sleep was %@", phasesViewModel.timeInLightPhase, phasesViewModel.timeInDeepPhase)
-							                  	),
-							                  	colorProvider: viewModel.colorProvider, showChevron: false))
-								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-								.onNavigation {
-									viewModel.open(.phases)
-								}
-								.buttonStyle(PlainButtonStyle())
-						} else {
-							BannerView(bannerViewType: .emptyData(type: .asleep),
-							           colorProvider: viewModel.colorProvider)
-								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                    if let phasesViewModel = cardService.phasesViewModel,
+                       let generalViewModel = cardService.generalViewModel {
+                        SectionNameTextView(
+                            text: "Sleep session",
+                            color: ColorsRepository.Text.standard
+                        )
+                        CardWithContentView(with: viewModel.phasesCardTitleViewModel) {
+                            VStack {
+                                StandardChartView(
+                                    chartType: .phasesChart,
+                                    chartHeight: 75,
+                                    points: phasesViewModel.phasesData,
+                                    dateInterval: generalViewModel.sleepInterval
+                                )
+                                CardBottomSimpleDescriptionView(
+                                    with: String(
+                                        format: "Duration of light phase was %@, while the duration of deep sleep was %@",
+                                        phasesViewModel.timeInLightPhase,
+                                        phasesViewModel.timeInDeepPhase
+                                    )
+                                )
+                            }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                        .onNavigation { viewModel.open(.phases) }
+                    }
 
-							CardWithChartView<StandardChartView, EmptyView>(colorProvider: viewModel.colorProvider,
-							                                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
-							                                                chartType: .phasesChart)
-								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-								.blur(radius: 4)
-						}
+                    // MARK: - Heart card
 
-						SectionNameTextView(text: "Heart rate",
-						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                    if let heartViewModel = cardService.heartViewModel,
+                       let generalViewModel = cardService.generalViewModel {
+                        SectionNameTextView(
+                            text: "Heart rate",
+                            color: ColorsRepository.Text.standard
+                        )
+                        CardWithContentView(with: viewModel.heartCardViewModel) {
+                            VStack {
+                                StandardChartView(
+                                    chartType: .defaultChart(
+                                        barType: .circle(color: ColorsRepository.Heart.heart)
+                                    ),
+                                    chartHeight: 75,
+                                    points: heartViewModel.heartRateData,
+                                    dateInterval: generalViewModel.sleepInterval
+                                )
+                                CardBottomSimpleDescriptionView(
+                                    with: String(
+                                        format: "The maximal heartbeat was %@ bpm while the minimal was %@",
+                                        heartViewModel.minHeartRate,
+                                        heartViewModel.maxHeartRate
+                                    )
+                                )
+                            }
+                        }
+                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                        .onNavigation { viewModel.open(.heart) }
+                        .buttonStyle(PlainButtonStyle())
+                    }
 
-						// MARK: Heart
+                    // MARK: - Respiratory card
 
-						if let heartViewModel = cardService.heartViewModel,
-						   let generalViewModel = cardService.generalViewModel
-						{
-							CardWithChartView(colorProvider: viewModel.colorProvider,
-							                  systemImageName: "suit.heart.fill",
-							                  titleText: "Heart",
-							                  mainTitleText: "Here is some info about heart rate of your last sleep",
-							                  titleColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-							                  showChevron: true,
-							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
-							                                               chartType: .defaultChart(
-							                                               	barType: .circle(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)))
-							                                               ),
-							                                               chartHeight: 75,
-							                                               points: heartViewModel.heartRateData,
-							                                               dateInterval: generalViewModel.sleepInterval),
-							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
-							                  	Text(
-							                  		String(format: "The maximal heartbeat was %@ bpm while the minimal was %@", heartViewModel.minHeartRate, heartViewModel.maxHeartRate)
-							                  	),
-							                  	colorProvider: viewModel.colorProvider, showChevron: false))
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-								.onNavigation {
-									viewModel.open(.heart)
-								}
-								.buttonStyle(PlainButtonStyle())
-						} else {
-							BannerView(bannerViewType: .emptyData(type: .heart),
-							           colorProvider: viewModel.colorProvider)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-
-							CardWithChartView<StandardChartView, EmptyView>(colorProvider: viewModel.colorProvider,
-							                                                color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor)),
-							                                                chartType: .defaultChart(barType: .circle(color: Color.red)))
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-								.blur(radius: 4)
-						}
-
-						// MARK: Respiratory
-
-						if let respiratoryViewModel = cardService.respiratoryViewModel,
-						   let generalViewModel = cardService.generalViewModel
-						{
-							CardWithChartView(colorProvider: viewModel.colorProvider,
-							                  systemImageName: "lungs",
-							                  titleText: "Respiratory rate",
-							                  mainTitleText: "Here is some info about respiratory rate of your last sleep",
-							                  titleColor: Color(.systemBlue),
-							                  showChevron: true,
-							                  chartView: StandardChartView(colorProvider: viewModel.colorProvider,
-							                                               chartType: .defaultChart(
-							                                               	barType: .rectangle(
-							                                               		color: Color(.systemBlue)
-							                                               	)
-							                                               ),
-							                                               chartHeight: 75,
-							                                               points: respiratoryViewModel.respiratoryRateData,
-							                                               dateInterval: generalViewModel.sleepInterval),
-							                  bottomView: CardBottomSimpleDescriptionView(descriptionText:
-							                  	Text(
-							                  		String(format: "The maximal respiratory rate was %@ while the minimal was %@",
-							                  		       respiratoryViewModel.minRespiratoryRate,
-							                  		       respiratoryViewModel.maxRespiratoryRate)
-							                  	),
-							                  	colorProvider: viewModel.colorProvider, showChevron: false))
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-								.onNavigation {
-									viewModel.open(.breath)
-								}
-								.buttonStyle(PlainButtonStyle())
-						} else {
-							BannerView(bannerViewType: .emptyData(type: .respiratory),
-							           colorProvider: viewModel.colorProvider)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-
-							CardWithChartView<StandardChartView, EmptyView>(colorProvider: viewModel.colorProvider,
-							                                                color: Color(.systemBlue),
-							                                                chartType: .defaultChart(
-							                                                	barType: .rectangle(
-							                                                		color: Color(.systemBlue)
-							                                                	)
-							                                                ))
-							.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-							.blur(radius: 4)
-						}
-					}
-				}
-			}
-		}
-		.navigationTitle("\("Summary"), \((self.cardService.generalViewModel?.sleepInterval.end ?? Date()).getFormattedDate(format: "MMM d"))")
-		.onAppear { self.viewModel.sendAnalytics(cardService: self.cardService) }
-	}
+                    if let respiratoryViewModel = cardService.respiratoryViewModel,
+                       let generalViewModel = cardService.generalViewModel {
+                        SectionNameTextView(
+                            text: "Respiratory rate",
+                            color: ColorsRepository.Text.standard
+                        )
+                        CardWithContentView(with: viewModel.heartCardViewModel) {
+                            VStack {
+                                StandardChartView(
+                                    chartType: .defaultChart(
+                                        barType: .rectangle(
+                                            color: Color.blue
+                                        )
+                                    ),
+                                    chartHeight: 75,
+                                    points: respiratoryViewModel.respiratoryRateData,
+                                    dateInterval: generalViewModel.sleepInterval
+                                )
+                                CardBottomSimpleDescriptionView(
+                                    with: String(
+                                        format: "The maximal respiratory rate was %@ while the minimal was %@",
+                                        respiratoryViewModel.minRespiratoryRate,
+                                        respiratoryViewModel.maxRespiratoryRate
+                                    )
+                                )
+                            }
+                        }
+                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                        .onNavigation { viewModel.open(.breath) }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+            }
+        }
+        .navigationTitle("\("Summary"), \((cardService.generalViewModel?.sleepInterval.end ?? Date()).getFormattedDate(format: "MMM d"))")
+        .onAppear { viewModel.sendAnalytics(cardService: cardService) }
+    }
 }

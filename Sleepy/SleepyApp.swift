@@ -10,42 +10,27 @@ import UIComponents
 
 @main
 struct SleepyApp: App {
-	// MARK: Properties
+	// MARK: - Properties
+
+	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
 	@State var hkService: HKService?
 	@State var cardService: CardService!
-
-	let colorSchemeProvider: ColorSchemeProvider
 	@State var sleepDetectionProvider: HKSleepAppleDetectionProvider?
 	@State var statisticsProvider: HKStatisticsProvider?
-
 	@State var rootViewModel: RootCoordinator?
 	@State var introViewModel: IntroCoordinator?
-
 	@State var hasOpenedURL = false
 	@State var canShowMain: Bool = false
 	@State var shouldShowIntro: Bool = false
 	@State var sleep: MicroSleep?
-
-	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
-	init() {
-		FirebaseApp.configure()
-
-		self.colorSchemeProvider = ColorSchemeProvider()
-
-		if !UserDefaults.standard.bool(forKey: "launchedBefore") {
-			_shouldShowIntro = State(initialValue: true)
-			_introViewModel = State(initialValue: IntroCoordinator(colorSchemeProvider: self.colorSchemeProvider))
-		}
-	}
 
 	var body: some Scene {
 		WindowGroup {
 			if canShowMain {
 				RootCoordinatorView(viewModel: rootViewModel!)
 					.environmentObject(cardService)
-					.accentColor(colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+					.accentColor(ColorsRepository.General.mainSleepy)
 					.onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
 						UIApplication.shared.applicationIconBadgeNumber = 0
 						guard let sleep = self.sleep else { return }
@@ -64,13 +49,9 @@ struct SleepyApp: App {
 						                         	}
 						                         })
 					}
-				// .onOpenURL { coordinator!.startDeepLink(from: $0) }
-//					.onAppear {
-				//                     simulateURLOpening()
-//					}
 			} else if shouldShowIntro {
 				IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
-					.accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+					.accentColor(ColorsRepository.General.mainSleepy)
 			} else {
 				Text("Loading")
 					.onAppear {
@@ -85,6 +66,16 @@ struct SleepyApp: App {
 		}
 	}
 
+	// MARK: - Init
+
+	init() {
+		FirebaseApp.configure()
+		if !UserDefaults.standard.bool(forKey: "launchedBefore") {
+			_shouldShowIntro = State(initialValue: true)
+			_introViewModel = State(initialValue: IntroCoordinator())
+		}
+	}
+
 	// MARK: Private methods
 
 	private func retrieveSleep() {
@@ -94,7 +85,7 @@ struct SleepyApp: App {
 				self.statisticsProvider = HKStatisticsProvider(sleep: nil,
 				                                               healthService: hkService!)
 				self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-				self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider, statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
+				self.rootViewModel = RootCoordinator(statisticsProvider: statisticsProvider!, hkStoreService: hkService!)
 
 				self.canShowMain = true
 				return
@@ -104,8 +95,7 @@ struct SleepyApp: App {
 
 			self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 			self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
-			self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider,
-			                                     statisticsProvider: statisticsProvider!,
+			self.rootViewModel = RootCoordinator(statisticsProvider: statisticsProvider!,
 			                                     hkStoreService: hkService!)
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + 7.5) {

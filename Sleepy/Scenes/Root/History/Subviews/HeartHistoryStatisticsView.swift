@@ -3,20 +3,16 @@
 import SwiftUI
 import UIComponents
 
-struct HeartHistoryStatsView: View {
-	private let viewModel: HeartHistoryStatsViewModel
-	private let colorProvider: ColorSchemeProvider
+struct HeartHistoryStatisticsView: View {
+	private let viewModel: HeartHistoryStatisticsViewModel
 
-	private var shouldShowAdvice = true
-
-	init(viewModel: HeartHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
+	init(viewModel: HeartHistoryStatisticsViewModel) {
 		self.viewModel = viewModel
-		self.colorProvider = colorProvider
 	}
 
 	/// Use for shimmers only
 	init(colorProvider: ColorSchemeProvider) {
-		self.viewModel = HeartHistoryStatsViewModel(cellData: [
+		self.viewModel = HeartHistoryStatisticsViewModel(cellData: [
 			StatisticsCellData(title: "Fest sw", value: "23 BPM"),
 			StatisticsCellData(title: "Ewd sw", value: "143 min"),
 			StatisticsCellData(title: "Wdf sw", value: "9 max"),
@@ -26,21 +22,18 @@ struct HeartHistoryStatsView: View {
 
 	var body: some View {
 		VStack {
-			if shouldShowAdvice {
-				MotivationCellView(type: .heart, colorProvider: colorProvider)
-			}
+			MotivationCellView(type: .heart, colorProvider: colorProvider)
 
 			if !viewModel.cellData.isEmpty {
 				SectionNameTextView(text: "Last 30 days",
 				                    color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+
+				//                StatisticsCellView(with: <#T##StatisticsCellViewModel#>)
+				viewModel
 
 				HorizontalStatisticCellView(data: viewModel.cellData,
 				                            colorScheme: colorProvider.sleepyColorScheme)
 			}
 		}
 	}
-}
-
-struct HeartHistoryStatsViewModel {
-	let cellData: [StatisticsCellData]
 }
