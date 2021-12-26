@@ -8,14 +8,15 @@ public protocol HKDetectionProvider {
 }
 
 public class HKSleepAppleDetectionProvider: HKDetectionProvider {
-	enum Constants {
-		static let minimalSimilarMicroSleepSamplesDifference = 5 // допустимая погрешность разницы между сэмплами, чтоб не считать это пробуждением
-		static let maximalSleepDifference = 45 // максимально допустимое время пробуждения, чтобы продолжать считать это одним сном
+	public enum Constants {
+		// допустимая погрешность разницы между сэмплами, чтоб не считать это пробуждением
+		public static let minimalSimilarMicroSleepSamplesDifference = 5
+		// максимально допустимое время пробуждения, чтобы продолжать считать это одним сном
+		public static let maximalSleepDifference = 45
 	}
 
 	private let hkService: HKService?
 	private let notificationCenter = UNUserNotificationCenter.current()
-	private var shouldNotifyByPush = true
 	private let lock = NSLock()
 
 	// MARK: - Init
@@ -111,6 +112,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 			var respiratoryRawFiltered = respiratoryRaw
 
 			let sleep = Sleep(samples: [])
+			var shouldNotifyAnalysisByPush = false
 
 			while true {
 				// идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
@@ -127,7 +129,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				                                 energySamplesRaw: energyRawFiltered,
 				                                 respiratoryRaw: respiratoryRawFiltered)
 
-				// если нет ошибок и обнаруженный сон имеет промежуток с другим, обнаруженным ранее, в <= заданная константа, то считаем это одним сном
+				// если нет ошибок и обнаруженный сон имеет промежуток с другим,
+				// обнаруженным ранее, в <= заданная константа, то считаем это одним сном
 				// и идем сохранять его в хранилище и искать след микросны в текущем сне (кратковременные пробуждения)
 				guard !sleepData.error,
 				      let asleepInterval = sleepData.asleepInterval,
@@ -141,10 +144,12 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 						guard let self = self else { return }
 						let state = UIApplication.shared.applicationState
 
-						if state == .background || state == .inactive,
-						   self.shouldNotifyByPush
+						if let sleepInterval = sleep.sleepInterval,
+						   state == .background || state == .inactive,
+						   shouldNotifyAnalysisByPush
 						{
-							self.notifyByPush(title: "New sleep analysis", body: "")
+							self.notifyByPush(title: "New sleep analysis",
+							                  body: sleepInterval.stringFromDateInterval(type: .time))
 						}
 					}
 
@@ -170,11 +175,14 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 				// swiftformat:disable:next all
                 self.saveSleep(sleep: microSleep, completionHandler: { [weak self] success, error in
 					guard error == nil else {
+						// если вернулась ошибка - текущий сон есть - завершаем работу функции
 						print(error.debugDescription)
 						completionHandler(nil)
 						self?.lock.unlock()
 						return
 					}
+
+					shouldNotifyAnalysisByPush = true
 				})
 			}
 		}

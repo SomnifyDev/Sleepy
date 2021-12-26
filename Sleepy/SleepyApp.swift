@@ -25,7 +25,7 @@ struct SleepyApp: App {
 	@State var hasOpenedURL = false
 	@State var canShowMain: Bool = false
 	@State var shouldShowIntro: Bool = false
-	@State var sleep: MicroSleep?
+	@State var sleep: Sleep?
 
 	@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -57,17 +57,19 @@ struct SleepyApp: App {
 						                         bundlePrefixes: ["com.apple"],
 						                         completionHandler: { _, samples, error in
 						                         	guard error == nil,
-						                         	      let sample = samples?.first else { return }
-						                         	if abs(sample.startDate.minutes(from: sleep.sleepInterval.end)) >= 60 {
-						                         		// сбрасываем до экрана loading чтоб пересчитался сон
+						                         	      let newSample = samples?.first,
+						                         	      let previousSleep = self.sleep?.sleepInterval else { return }
+						                         	// если есть сон новее
+						                         	// сбрасываем до экрана loading чтоб пересчитался сон
+						                         	if abs(newSample.startDate.minutes(from: previousSleep.end)) >= HKCoreSleep.HKSleepAppleDetectionProvider.Constants.maximalSleepDifference {
 						                         		self.canShowMain = false
 						                         	}
 						                         })
 					}
 				// .onOpenURL { coordinator!.startDeepLink(from: $0) }
-//					.onAppear {
+				//					.onAppear {
 				//                     simulateURLOpening()
-//					}
+				//					}
 			} else if shouldShowIntro {
 				IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
 					.accentColor(self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
@@ -102,6 +104,7 @@ struct SleepyApp: App {
 			// сон прочитался
 			self.showDebugSleepDuration(sleep: sleep)
 
+			self.sleep = sleep
 			self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
 			self.cardService = CardService(statisticsProvider: self.statisticsProvider!)
 			self.rootViewModel = RootCoordinator(colorSchemeProvider: colorSchemeProvider,

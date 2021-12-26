@@ -5,11 +5,24 @@ import HealthKit
 
 public class Sleep {
 	public var samples: [MicroSleep] = []
+
 	public var phases: [Phase] {
 		let flattenArrayPhases = self.samples.compactMap { (element: MicroSleep) -> [Phase]? in
 			element.phases
 		}
 		return flattenArrayPhases.flatMap { $0 }
+	}
+
+	public var sleepInterval: DateInterval? {
+		guard let startDate = samples.first?.sleepInterval.start,
+		      let endDate = samples.last?.sleepInterval.end else { return nil }
+		return DateInterval(start: startDate, end: endDate)
+	}
+
+	public var inbedInterval: DateInterval? {
+		guard let startDate = samples.first?.inBedInterval.start,
+		      let endDate = samples.last?.inBedInterval.end else { return nil }
+		return DateInterval(start: startDate, end: endDate)
 	}
 
 	public init(samples: [MicroSleep]) {

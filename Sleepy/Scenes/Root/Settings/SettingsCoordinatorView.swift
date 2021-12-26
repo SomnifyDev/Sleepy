@@ -23,18 +23,26 @@ struct SettingsCoordinatorView: View {
 				}
 
 				Section(header: HeaderView(text: "Feedback", imageName: "person.2")) {
+					LabeledButton(text: "Twitter",
+					              showChevron: true,
+					              action: { UIApplication.shared.openURL(URL(string: SettingsCoordinator.Constants.twitterURL)!) })
+
+					LabeledButton(text: "Email us",
+					              showChevron: true,
+					              action: { UIApplication.shared.openURL(URL(string: "mailto:\(SettingsCoordinator.Constants.email)")!) })
+
 					LabeledButton(text: "Rate us",
 					              showChevron: true,
 					              action: { Armchair.rateApp() })
+						.disabled(true)
+
 					LabeledButton(text: "Share about us",
 					              showChevron: true,
 					              action: { self.viewModel.isSharePresented = true })
 						.sheet(isPresented: self.$viewModel.isSharePresented,
-						       content: {
-						       	// TODO: replace with ours website
-						       	ActivityViewController(activityItems: [URL(string: "https://www.apple.com")!])
-						       })
-				}.disabled(true)
+						       content: { ActivityViewController(activityItems: [URL(string: SettingsCoordinator.Constants.appstoreURL)!]) })
+						.disabled(true)
+				}
 
 				Section(header: HeaderView(text: "Sound Recording", imageName: "mic.circle")) {
 					Stepper(String(format: "Bitrate – %d", self.viewModel.bitrateValue),
@@ -64,15 +72,16 @@ struct SettingsCoordinatorView: View {
 										.overlay(
 											RoundedRectangle(cornerRadius: 12)
 												.stroke(self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.calendarCurrentDateColor)),
-												        lineWidth: self.viewModel.currentIconType == iconType ? 6 : 0)
+												        lineWidth: self.viewModel.currentIconType == iconType ? 3 : 0)
 										)
 								}
-								.padding(.vertical, 8)
 								.onTapGesture { self.viewModel.setIcon(iconType: iconType) }
 							}
 						}
+						.padding(.vertical, 8)
+						.padding(.horizontal, 8)
 					}
-				} // .frame(height: 45)
+				}
 			}
 			.listStyle(.insetGrouped)
 			.navigationBarTitle("Settings", displayMode: .large)
