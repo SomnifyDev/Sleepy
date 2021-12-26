@@ -69,6 +69,7 @@
 		80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */; };
 		80D7F0C0268CFF850055ECEE /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */; };
 		80E15A992708DF68003F55F8 /* HowToUseIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */; };
+		80FCF0672778956200A24EE5 /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FCF0662778956200A24EE5 /* HistoryInteractor.swift */; };
 		BAAF340CC29C3B933BF501F8 /* Pods_Sleepy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA192C533040726BA3D0D2C /* Pods_Sleepy.framework */; };
 		D903F875270E2D12008A7307 /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D903F874270E2D12008A7307 /* HealthManager.swift */; };
 		D91268392753F3E600B70D8A /* Modules in Frameworks */ = {isa = PBXBuildFile; productRef = D91268382753F3E600B70D8A /* Modules */; };
@@ -258,6 +259,7 @@
 		80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthTypeSwitchView.swift; sourceTree = "<group>"; };
 		80D7F0BF268CFF850055ECEE /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		80E15A982708DF68003F55F8 /* HowToUseIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseIntroView.swift; sourceTree = "<group>"; };
+		80FCF0662778956200A24EE5 /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
 		D903F874270E2D12008A7307 /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
 		D91668AA2701FD9200BD7745 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		D91668AD2702307900BD7745 /* Sleepy_WatchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Sleepy_WatchOS Extension.entitlements"; sourceTree = "<group>"; };
@@ -758,6 +760,7 @@
 			isa = PBXGroup;
 			children = (
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
+				80FCF0662778956200A24EE5 /* HistoryInteractor.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
 				8002F3A526A1FA3600A7192A /* HistoryListView.swift */,
 				805D75152692456000C19034 /* Subviews */,
@@ -1200,6 +1203,7 @@
 				D99509FA267780C400694208 /* AlarmCoordinator.swift in Sources */,
 				80260614271F577200D737AF /* soundClassifier.mlmodel in Sources */,
 				80D7F0BE268CF7A30055ECEE /* HealthTypeSwitchView.swift in Sources */,
+				80FCF0672778956200A24EE5 /* HistoryInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

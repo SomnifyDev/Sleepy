@@ -4,43 +4,35 @@ import SwiftUI
 import UIComponents
 
 struct RespiratoryHistoryStatsView: View {
-	private let viewModel: RespiratoryHistoryStatsViewModel
-	private let colorProvider: ColorSchemeProvider
+	private let viewModel: StatisticsCellCollectionViewModel
 
 	private var shouldShowAdvice = false
 
-	init(viewModel: RespiratoryHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
+	init(viewModel: StatisticsCellCollectionViewModel) {
 		self.viewModel = viewModel
-		self.colorProvider = colorProvider
 	}
 
 	/// Use for shimmers only
-	init(colorProvider: ColorSchemeProvider) {
-		self.viewModel = RespiratoryHistoryStatsViewModel(cellData: [
-			StatisticsCellData(title: "Fest sw", value: "23 BPM"),
-			StatisticsCellData(title: "Ewd sw", value: "143 min"),
-			StatisticsCellData(title: "Wdf sw", value: "9 max"),
+	init() {
+		self.viewModel = StatisticsCellCollectionViewModel(cellData: [
+			StatisticsCellViewModel(title: "Fest sw", value: "23 BPM"),
+			StatisticsCellViewModel(title: "Ewd sw", value: "143 min"),
+			StatisticsCellViewModel(title: "Wdf sw", value: "9 max"),
 		])
-		self.colorProvider = colorProvider
 	}
 
 	var body: some View {
 		VStack {
-			if shouldShowAdvice {
-				MotivationCellView(type: .heart, colorProvider: colorProvider)
-			}
+//			if shouldShowAdvice {
+//				MotivationCellView(with: .heart)
+//			}
 
 			if !viewModel.cellData.isEmpty {
 				SectionNameTextView(text: "Last 30 days",
-				                    color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+                                    color: ColorsRepository.Text.standard)
 
-				HorizontalStatisticCellView(data: viewModel.cellData,
-				                            colorScheme: colorProvider.sleepyColorScheme)
+                StatisticsCellCollectionView(with: viewModel)
 			}
 		}
 	}
-}
-
-struct RespiratoryHistoryStatsViewModel {
-	let cellData: [StatisticsCellData]
 }

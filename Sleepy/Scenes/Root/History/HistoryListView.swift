@@ -8,7 +8,8 @@ import XUI
 
 struct HistoryListView: View {
 	@Store var viewModel: HistoryCoordinator
-
+    let interactor: HistoryInteractor
+    
 	var body: some View {
 		GeometryReader { _ in
 			ZStack {

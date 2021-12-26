@@ -5,18 +5,16 @@ import UIComponents
 
 struct SleepHistoryStatsView: View {
 	private let viewModel: SleepHistoryStatsViewModel
-	private let colorProvider: ColorSchemeProvider
 
 	private var shouldShowAdvice = true
 
-	init(viewModel: SleepHistoryStatsViewModel, colorProvider: ColorSchemeProvider) {
+	init(viewModel: SleepHistoryStatsViewModel) {
 		self.viewModel = viewModel
-		self.colorProvider = colorProvider
 	}
 
 	/// Use for shimmers only
-	init(colorProvider: ColorSchemeProvider) {
-		self.viewModel = SleepHistoryStatsViewModel(cellData: [StatisticsCellData(title: "some data", value: "14.243")],
+	init() {
+		self.viewModel = SleepHistoryStatsViewModel(cellData: [StatisticsCellViewModel(title: "some data", value: "14.243")],
 		                                            monthSleepPoints: [350, 320, 450, 300, 0, 302, 350, 320, 450, 300, 0, 302],
 		                                            monthBeforeDateInterval: DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date())!, end: Date()),
 		                                            currentWeeksProgress: ProgressItem(title: "some title", text: "some subtitle", value: 480),
@@ -32,8 +30,7 @@ struct SleepHistoryStatsView: View {
 			if let monthSleepPoints = viewModel.monthSleepPoints,
 			   let monthBeforeDateInterval = viewModel.monthBeforeDateInterval
 			{
-				CardWithChartView(colorProvider: colorProvider,
-				                  systemImageName: "sleep",
+				CardWithChartView(systemImageName: "sleep",
 				                  titleText: "Month sleep duration",
 				                  mainTitleText: "Here is some info about your month sleep sessions",
 				                  titleColor: colorProvider.sleepyColorScheme.getColor(of: .phases(.deepSleepColor)),
@@ -55,16 +52,14 @@ struct SleepHistoryStatsView: View {
 
 			if !viewModel.cellData.isEmpty {
 				SectionNameTextView(text: "Last 30 days",
-				                    color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+				                    color: ColorsRepository.Text.standard)
 
-				HorizontalStatisticCellView(data: viewModel.cellData,
-				                            colorScheme: colorProvider.sleepyColorScheme)
+				StatisticsCellCollectionView(data: viewModel.cellData)
 			}
 
 			ProgressChartView(titleText: "Progress",
 			                  mainText: "Thats some progress you've made in several weeks",
 			                  systemImage: "timer",
-			                  colorProvider: colorProvider,
 			                  currentProgress:
 			                  ProgressItem(title: viewModel.currentWeeksProgress.title,
 			                               text: viewModel.currentWeeksProgress.text,
@@ -75,17 +70,17 @@ struct SleepHistoryStatsView: View {
 			                               value: viewModel.beforeWeeksProgress.value),
 			                  analysisString: viewModel.analysisString,
 			                  mainColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-			                  mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+			                  mainTextColor: ColorsRepository.Text.standard)
 				.roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 		}
 	}
 }
 
 struct SleepHistoryStatsViewModel {
-	let cellData: [StatisticsCellData]
+	let cellData: [StatisticsCellViewModel]
 	let monthSleepPoints: [Double]?
 	let monthBeforeDateInterval: DateInterval?
-	let currentWeeksProgress: ProgressItem
-	let beforeWeeksProgress: ProgressItem
+	let currentWeeksProgress: ProgressElementViewModel
+	let beforeWeeksProgress: ProgressElementViewModel
 	let analysisString: String
 }

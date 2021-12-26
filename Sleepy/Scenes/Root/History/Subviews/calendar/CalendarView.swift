@@ -81,8 +81,6 @@ private struct CalendarTitleView: View {
 	@Binding var calendarType: HealthData
 	@Binding var monthDate: Date
 
-	let colorSchemeProvider: ColorSchemeProvider
-
 	var body: some View {
 		HStack {
 			Text(Image(systemName: "calendar"))
@@ -118,9 +116,9 @@ private struct CalendarTitleView: View {
 	private func getSelectedCalendarColor(for type: HealthData) -> Color {
 		switch type {
 		case .heart:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
+			return self.colorSchemeProvider.sleepyColorScheme.ColorsRepository.Heart.heart
 		case .energy:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .energy(.energyColor))
+			return self.colorSchemeProvider.sleepyColorSchemeColorsRepository.Heart.energy
 		case .asleep:
 			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
 		case .inbed:

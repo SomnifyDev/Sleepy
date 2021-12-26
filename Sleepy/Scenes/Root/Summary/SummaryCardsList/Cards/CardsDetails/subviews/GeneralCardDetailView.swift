@@ -27,7 +27,7 @@ struct GeneralCardDetailView: View {
 
 						if let bankOfSleepViewModel = cardService.bankOfSleepViewModel {
 							SectionNameTextView(text: "Bank",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 								.padding(.top)
 
 							CardWithChartView(colorProvider: viewModel.colorProvider,
@@ -63,13 +63,13 @@ struct GeneralCardDetailView: View {
 
 						if let generalViewModel = cardService.generalViewModel {
 							SectionNameTextView(text: "Summary",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 
-							HorizontalStatisticCellView(data: getStatisticCells(generalViewModel: generalViewModel),
+							StatisticsCellCollectionView(data: getStatisticCells(generalViewModel: generalViewModel),
 							                            colorScheme: viewModel.colorProvider.sleepyColorScheme)
 
 							SectionNameTextView(text: "Statistics",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 
 							ProgressChartView(titleText: "Sleep: goal",
 							                  mainText:
@@ -91,12 +91,12 @@ struct GeneralCardDetailView: View {
 							                  	viewModel: generalViewModel
 							                  ),
 							                  mainColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-							                  mainTextColor: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                  mainTextColor: viewModel.ColorsRepository.Text.standard)
 								.roundedCardBackground(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
 						}
 
 						SectionNameTextView(text: "What else?",
-						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+						                    color: viewModel.ColorsRepository.Text.standard)
 
 						// MARK: Advices
 
@@ -129,17 +129,17 @@ struct GeneralCardDetailView: View {
 
 	// MARK: Private methods
 
-	private func getStatisticCells(generalViewModel: SummaryGeneralDataViewModel) -> [StatisticsCellData] {
+	private func getStatisticCells(generalViewModel: SummaryGeneralDataViewModel) -> [StatisticsCellViewModel] {
 		return [
-			StatisticsCellData(title: "Sleep start",
+			StatisticsCellViewModel(title: "Sleep start",
 			                   value: generalViewModel.sleepInterval.start.getFormattedDate(format: "HH:mm")),
-			StatisticsCellData(title: "Wake up",
+			StatisticsCellViewModel(title: "Wake up",
 			                   value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")),
-			StatisticsCellData(title: "Fall asleep",
+			StatisticsCellViewModel(title: "Fall asleep",
 			                   value: generalViewModel.sleepInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start)),
-			StatisticsCellData(title: "Time asleep",
+			StatisticsCellViewModel(title: "Time asleep",
 			                   value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)),
-			StatisticsCellData(title: "Time in bed",
+			StatisticsCellViewModel(title: "Time in bed",
 			                   value: generalViewModel.inbedInterval.end.hoursMinutes(from: generalViewModel.inbedInterval.start)),
 		]
 	}

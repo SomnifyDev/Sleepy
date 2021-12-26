@@ -40,16 +40,16 @@ struct PhasesCardDetailView: View {
 							// MARK: Statistics
 
 							SectionNameTextView(text: "Summary",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 
-							HorizontalStatisticCellView(data: [
-								StatisticsCellData(title: "Total NREM sleep duration",
+							StatisticsCellCollectionView(data: [
+								StatisticsCellViewModel(title: "Total NREM sleep duration",
 								                   value: phasesViewModel.timeInDeepPhase),
-								StatisticsCellData(title: "Max NREM sleep interval",
+								StatisticsCellViewModel(title: "Max NREM sleep interval",
 								                   value: phasesViewModel.mostIntervalInDeepPhase),
-								StatisticsCellData(title: "Total REM sleep duration",
+								StatisticsCellViewModel(title: "Total REM sleep duration",
 								                   value: phasesViewModel.timeInLightPhase),
-								StatisticsCellData(title: "Max REM sleep interval",
+								StatisticsCellViewModel(title: "Max REM sleep interval",
 								                   value: phasesViewModel.mostIntervalInLightPhase),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
@@ -58,7 +58,7 @@ struct PhasesCardDetailView: View {
 						// MARK: Advice
 
 						SectionNameTextView(text: "What else?",
-						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+						                    color: viewModel.ColorsRepository.Text.standard)
 
 						UsefulInfoCardView(imageName: AdviceType.phasesAdvice.rawValue,
 						                   title: "Sleep phases and stages",
