@@ -78,12 +78,12 @@ struct GeneralCardDetailView: View {
 							                         getGoalPercentage(viewModel: generalViewModel)),
 							                  systemImage: "zzz",
 							                  colorProvider: viewModel.colorProvider,
-							                  currentProgress: ProgressItem(title: "Your sleep goal",
+							                  currentProgress: ProgressElementViewModel(title: "Your sleep goal",
 							                                                text: Date.minutesToClearString(
 							                                                	minutes: generalViewModel.sleepGoal
 							                                                ),
 							                                                value: generalViewModel.sleepGoal),
-							                  beforeProgress: ProgressItem(title: "Sleep duration today",
+							                  beforeProgress: ProgressElementViewModel(title: "Sleep duration today",
 							                                               text: Date.minutesToClearString(
 							                                               	minutes: Int(generalViewModel.sleepInterval.duration) / 60),
 							                                               value: Int(generalViewModel.sleepInterval.duration) / 60),

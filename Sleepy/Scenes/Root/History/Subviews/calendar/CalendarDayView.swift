@@ -101,7 +101,7 @@ struct CalendarDayView: View {
                 ? ColorsRepository.Calendar.positiveDay
 					: (value > Double(self.sleepGoal) * 0.9
 						? ColorsRepository.Calendar.neutralDay
-						: ColorsRepository.Calendar.negativeDay
+						: ColorsRepository.Calendar.negativeDay)
 
 			case .energy:
                 self.circleColor = ColorsRepository.Heart.energy

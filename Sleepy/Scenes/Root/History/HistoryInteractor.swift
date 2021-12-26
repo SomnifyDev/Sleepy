@@ -94,7 +94,7 @@ class HistoryInteractor {
                                                 bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                     if let result = result {
                         last30daysCellData.append(
-                            (title: self.getLabel(for: type, indicator: indicator),
+                            StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
                                                value: Date.minutesToDateDescription(minutes: Int(result))))
                     }
                     group.leave()
@@ -122,12 +122,12 @@ class HistoryInteractor {
                 DispatchQueue.main.async {
                     let tmp = SleepHistoryStatsViewModel(cellData: last30daysCellData,
                                                          monthSleepPoints: monthSleepPoints,
-                                                         monthBeforeDateInterval: self.monthBeforeDateInterval,
-                                                         currentWeeksProgress: ProgressItem(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean1))),
-                                                                                            text: current2weeksInterval.stringFromDateInterval(type: .days),
+                                                         monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
+                                                         currentWeeksProgress: ProgressElementViewModel(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean1))),
+                                                                                                        payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
                                                                                             value: Int(mean1)),
-                                                         beforeWeeksProgress: ProgressItem(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean2))),
-                                                                                           text: last2weeksInterval.stringFromDateInterval(type: .days),
+                                                         beforeWeeksProgress: ProgressElementViewModel(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean2))),
+                                                                                                       payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
                                                                                            value: Int(mean2)),
                                                          analysisString: Int(mean1) == Int(mean2)
                                                              ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
@@ -160,9 +160,9 @@ class HistoryInteractor {
                 guard let self = self else { return }
                 self.viewModel.statisticsProvider.getData(healthType: type,
                                                 indicator: indicator,
-                                                           interval: self.$viewModel.monthBeforeDateInterval) { result in
+                                                           interval: self.viewModel.monthBeforeDateInterval) { result in
                     if let result = result {
-                        last30daysCellData.append((title: self.getLabel(for: type, indicator: indicator), value: "\(Double(result))"))
+                        last30daysCellData.append(StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator), value: "\(Double(result))"))
                     }
                     group.leave()
                 }
@@ -174,12 +174,8 @@ class HistoryInteractor {
             if !last30daysCellData.isEmpty {
                 DispatchQueue.main.async {
                     switch type {
-                    case .energy:
-                        self.viewModel.energyHistoryStatsViewModel = EnergyHistoryStatsViewModel(cellData: last30daysCellData)
-                    case .heart:
-                        self.$viewModel.heartHistoryStatisticsViewModel = StatisticsCellCollectionView(with: last30daysCellData)
-                    case .respiratory:
-                        self.viewModel.respiratoryHistoryStatsViewModel = RespiratoryHistoryStatsViewModel(cellData: last30daysCellData)
+                    case .energy, .heart, .respiratory:
+                        self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .asleep, .inbed:
                         return
                     }

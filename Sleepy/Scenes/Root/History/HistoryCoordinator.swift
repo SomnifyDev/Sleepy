@@ -13,9 +13,9 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
 	@Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
 	@Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
-	@Published var heartHistoryStatisticsViewModel: HeartHistoryStatisticsViewModel?
-	@Published var energyHistoryStatsViewModel: EnergyHistoryStatsViewModel?
-	@Published var respiratoryHistoryStatsViewModel: RespiratoryHistoryStatsViewModel?
+	@Published var heartHistoryStatisticsViewModel: StatisticsCellCollectionViewModel?
+	@Published var energyHistoryStatsViewModel: StatisticsCellCollectionViewModel?
+	@Published var respiratoryHistoryStatsViewModel: StatisticsCellCollectionViewModel?
 
 	// велечина, являющаяся маркером текущего месяца для календаря (изменяется когда свайпаем месяц)
 	@Published var monthDate = Date()
@@ -23,7 +23,7 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 	private unowned let parent: RootCoordinator
 	let statisticsProvider: HKStatisticsProvider
 
-	private let monthBeforeDateInterval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date().endOfDay)!.startOfDay, end: Date().endOfDay)
+    let monthBeforeDateInterval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date().endOfDay)!.startOfDay, end: Date().endOfDay)
 
 	init(statisticsProvider: HKStatisticsProvider,
 	     parent: RootCoordinator)
