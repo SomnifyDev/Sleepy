@@ -4,11 +4,11 @@ import SwiftUI
 import UIComponents
 
 public struct GeneralSleepInfoCardView: View {
+
 	@State private var totalHeight = CGFloat.zero // variant for ScrollView/List
 	// = CGFloat.infinity - variant for VStack
 
 	let viewModel: SummaryGeneralDataViewModel
-	let colorProvider: ColorSchemeProvider
 
 	public var body: some View {
 		VStack {

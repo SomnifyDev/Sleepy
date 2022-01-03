@@ -18,6 +18,7 @@ extension SummaryViewCardType: Identifiable {
 }
 
 class CardService: ObservableObject {
+
 	// MARK: Properties
 
 	@Published var bankOfSleepViewModel: BankOfSleepDataViewModel?

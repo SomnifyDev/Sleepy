@@ -478,7 +478,7 @@
 			children = (
 				80780F5E266D4F42000D0DD9 /* CardDetailsViewCoordinator.swift */,
 				803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */,
-				D9B1722826B0146D002C3B0D /* subviews */,
+				D9B1722826B0146D002C3B0D /* Subviews */,
 			);
 			name = CardsDetails;
 			path = Cards/CardsDetails;
@@ -787,7 +787,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D9B1722826B0146D002C3B0D /* subviews */ = {
+		D9B1722826B0146D002C3B0D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				D9B1722B26B014A8002C3B0D /* HeartCardDetailView.swift */,
@@ -796,7 +796,7 @@
 				803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */,
 				D9B727DC26FB0F2C00B41683 /* Advices */,
 			);
-			path = subviews;
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		D9B727DC26FB0F2C00B41683 /* Advices */ = {
