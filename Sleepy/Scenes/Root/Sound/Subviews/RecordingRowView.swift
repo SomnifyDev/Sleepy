@@ -16,7 +16,7 @@ struct RecordingRowView: View {
 			              colorProvider: colorProvider)
 			HStack {
 				Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
-					.regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+					.regularTextModifier(color: ColorsRepository.Text.standard)
 				Spacer()
 				Text(FileHelper.covertToFileString(with: FileHelper.sizeForLocalFilePath(filePath: audioURL.path)))
 					.regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)))

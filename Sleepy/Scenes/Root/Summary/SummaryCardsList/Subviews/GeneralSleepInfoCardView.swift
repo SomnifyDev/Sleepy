@@ -19,7 +19,7 @@ public struct GeneralSleepInfoCardView: View {
 					              leftIcon: Image(systemName: "zzz"),
 					              rightIcon: Image(systemName: "chevron.right"),
 					              titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-					              mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+					              mainTextColor: ColorsRepository.Text.standard,
 					              colorProvider: self.colorProvider)
 
 					HStack {
@@ -37,7 +37,7 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Drop off")
-										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										.boldTextModifier(color: ColorsRepository.Text.standard,
 										                  size: 14)
 								}
 							}
@@ -55,7 +55,7 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Sleep duration")
-										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										.boldTextModifier(color: ColorsRepository.Text.standard,
 										                  size: 14)
 								}
 							}
@@ -77,7 +77,7 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Awake")
-										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										.boldTextModifier(color: ColorsRepository.Text.standard,
 										                  size: 14)
 								}
 							}
@@ -95,7 +95,7 @@ public struct GeneralSleepInfoCardView: View {
 										)
 
 									Text("Falling asleep")
-										.boldTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)),
+										.boldTextModifier(color: ColorsRepository.Text.standard,
 										                  size: 14)
 								}
 							}

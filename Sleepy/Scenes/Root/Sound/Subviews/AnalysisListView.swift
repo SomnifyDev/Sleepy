@@ -25,7 +25,7 @@ struct AnalysisListView: View {
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .center, spacing: 2) {
 						SectionNameTextView(text: "Recognized sounds",
-						                    color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+						                    color: ColorsRepository.Text.standard)
 							.padding([.top, .bottom])
 
 						ForEach(result, id: \.self) { item in

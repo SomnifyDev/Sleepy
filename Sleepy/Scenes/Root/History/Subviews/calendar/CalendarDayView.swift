@@ -52,7 +52,7 @@ struct CalendarDayView: View {
 		self.value = nil
 		self.setCircleColor()
 
-		guard let calendarType = HKService.HealthType(rawValue: self.viewModel.calendarType.rawValue) else { return }
+        guard let calendarType = HKService.HealthType(rawValue: self.$viewModel.calendarType.rawValue) else { return }
 
 		switch calendarType {
 		case .heart, .respiratory, .energy:
@@ -92,25 +92,25 @@ struct CalendarDayView: View {
 
 	private func setCircleColor() {
 		if let value = value {
-			switch self.viewModel.calendarType {
+            switch self.$viewModel.$calendarType {
 			case .heart:
-				self.circleColor = self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
+				self.circleColor = ColorsRepository.Heart.heart
 
 			case .asleep, .inbed:
 				self.circleColor = Int(value) > self.sleepGoal
-					? self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.positiveDayColor))
+                ? ColorsRepository.Calendar.positiveDay
 					: (value > Double(self.sleepGoal) * 0.9
-						? self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.neutralDayColor))
-						: self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.negativeDayColor)))
+						? ColorsRepository.Calendar.neutralDay
+						: ColorsRepository.Calendar.negativeDay)
 
 			case .energy:
-				self.circleColor = self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .energy(.energyColor))
+                self.circleColor = ColorsRepository.Heart.energy
 
 			case .respiratory:
 				self.circleColor = Color(.systemBlue)
 			}
 		} else {
-			self.circleColor = self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.emptyDayColor))
+                        self.circleColor = ColorsRepository.Calendar.emptyDay
 			return
 		}
 	}

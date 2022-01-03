@@ -30,7 +30,7 @@ struct HeartCardDetailView: View {
 							StandardChartView(colorProvider: viewModel.colorProvider,
 							                  chartType: .defaultChart(
 							                  	barType: .circle(
-							                  		color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
+							                  		color: viewModel.colorProvider.sleepyColorScheme.ColorsRepository.Heart.heart
 							                  	)
 							                  ),
 							                  chartHeight: 75,
@@ -44,14 +44,14 @@ struct HeartCardDetailView: View {
 							// MARK: Statistics
 
 							SectionNameTextView(text: "Summary",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 
-							HorizontalStatisticCellView(data: [
-								StatisticsCellData(title: "Average pulse",
+							StatisticsCellCollectionView(data: [
+								StatisticsCellViewModel(title: "Average pulse",
 								                   value: heartViewModel.averageHeartRate),
-								StatisticsCellData(title: "Max pulse",
+								StatisticsCellViewModel(title: "Max pulse",
 								                   value: heartViewModel.maxHeartRate),
-								StatisticsCellData(title: "Min pulse",
+								StatisticsCellViewModel(title: "Min pulse",
 								                   value: heartViewModel.minHeartRate),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
@@ -59,7 +59,7 @@ struct HeartCardDetailView: View {
 							// MARK: Indicators
 
 							SectionNameTextView(text: "Indicators",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 
 							VStack {
 								ForEach(heartViewModel.indicators, id: \.self) { model in
@@ -74,7 +74,7 @@ struct HeartCardDetailView: View {
 						// MARK: Advices
 
 						SectionNameTextView(text: "What else?",
-						                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+						                    color: viewModel.ColorsRepository.Text.standard)
 
 						UsefulInfoCardView(imageName: AdviceType.heartAdvice.rawValue,
 						                   title: "Heart and sleep",

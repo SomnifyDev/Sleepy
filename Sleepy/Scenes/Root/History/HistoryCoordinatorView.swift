@@ -6,10 +6,11 @@ import XUI
 
 struct HistoryCoordinatorView: View {
 	@Store var viewModel: HistoryCoordinator
+    let interactor: HistoryInteractor
 
 	var body: some View {
 		NavigationView {
-			HistoryListView(viewModel: viewModel)
+			HistoryListView(viewModel: viewModel, interactor: interactor)
 		}
 		.navigationTitle("History")
 	}

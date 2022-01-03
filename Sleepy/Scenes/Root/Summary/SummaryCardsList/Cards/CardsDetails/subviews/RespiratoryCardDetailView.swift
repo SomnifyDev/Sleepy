@@ -41,14 +41,14 @@ struct RespiratoryCardDetailView: View {
 							// MARK: Statistics
 
 							SectionNameTextView(text: "Summary",
-							                    color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+							                    color: viewModel.ColorsRepository.Text.standard)
 
-							HorizontalStatisticCellView(data: [
-								StatisticsCellData(title: "Max. respiratory rate",
+							StatisticsCellCollectionView(data: [
+								StatisticsCellViewModel(title: "Max. respiratory rate",
 								                   value: respiratoryViewModel.maxRespiratoryRate),
-								StatisticsCellData(title: "Mean. respiratory rate",
+								StatisticsCellViewModel(title: "Mean. respiratory rate",
 								                   value: respiratoryViewModel.averageRespiratoryRate),
-								StatisticsCellData(title: "Min. respiratory rate",
+								StatisticsCellViewModel(title: "Min. respiratory rate",
 								                   value: respiratoryViewModel.minRespiratoryRate),
 							],
 							colorScheme: viewModel.colorProvider.sleepyColorScheme)
