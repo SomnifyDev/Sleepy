@@ -13,13 +13,11 @@ class CardDetailsViewCoordinator: ViewModel, ObservableObject, Identifiable {
 
 	private unowned let parent: SummaryNavigationCoordinator
 
-	var colorProvider: ColorSchemeProvider
 	var statisticsProvider: HKStatisticsProvider
 
 	init(card: SummaryViewCardType, parent: SummaryNavigationCoordinator) {
 		self.parent = parent
 		self.card = card
-		self.colorProvider = parent.colorProvider
 		self.statisticsProvider = parent.statisticsProvider
 	}
 

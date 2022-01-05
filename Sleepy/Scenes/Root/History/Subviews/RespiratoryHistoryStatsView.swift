@@ -23,10 +23,6 @@ struct RespiratoryHistoryStatsView: View {
 
 	var body: some View {
 		VStack {
-//			if shouldShowAdvice {
-//				MotivationCellView(with: .heart)
-//			}
-
 			if !viewModel.cellData.isEmpty {
 				SectionNameTextView(text: "Last 30 days",
                                     color: ColorsRepository.Text.standard)

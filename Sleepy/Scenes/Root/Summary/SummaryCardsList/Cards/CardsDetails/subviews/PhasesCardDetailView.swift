@@ -8,78 +8,89 @@ import UIComponents
 import XUI
 
 struct PhasesCardDetailView: View {
-	@Store var viewModel: CardDetailsViewCoordinator
-	@EnvironmentObject var cardService: CardService
+    @Store var viewModel: CardDetailsViewCoordinator
+    @EnvironmentObject var cardService: CardService
 
-	@State private var showAdvice = false
-	@State private var activeSheet: AdviceType!
+    @State private var showAdvice = false
+    @State private var activeSheet: AdviceType!
 
-	var body: some View {
-		GeometryReader { _ in
-			ZStack {
-				viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
-					.edgesIgnoringSafeArea(.all)
+    var body: some View {
+        ZStack {
+            ColorsRepository.General.appBackground
+                .edgesIgnoringSafeArea(.all)
 
-				ScrollView(.vertical, showsIndicators: false) {
-					VStack(alignment: .center) {
-						if let phasesViewModel = cardService.phasesViewModel,
-						   let generalViewModel = cardService.generalViewModel
-						{
-							// MARK: Chart
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .center) {
+                    if let phasesViewModel = cardService.phasesViewModel,
+                       let generalViewModel = cardService.generalViewModel
+                    {
+                        // MARK: Chart
 
-							StandardChartView(colorProvider: viewModel.colorProvider,
-							                  chartType: .phasesChart,
-							                  chartHeight: 75,
-							                  points: phasesViewModel.phasesData,
-							                  dateInterval: generalViewModel.sleepInterval)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-								.padding(.top)
+                        StandardChartView(
+                            chartType: .phasesChart,
+                            chartHeight: 75,
+                            points: phasesViewModel.phasesData,
+                            dateInterval: generalViewModel.sleepInterval
+                        )
+                            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                            .padding(.top)
 
-							// MARK: Statistics
+                        // MARK: Statistics
 
-							SectionNameTextView(text: "Summary",
-							                    color: viewModel.ColorsRepository.Text.standard)
+                        SectionNameTextView(text: "Summary",
+                                            color: ColorsRepository.Text.standard)
 
-							StatisticsCellCollectionView(data: [
-								StatisticsCellViewModel(title: "Total NREM sleep duration",
-								                   value: phasesViewModel.timeInDeepPhase),
-								StatisticsCellViewModel(title: "Max NREM sleep interval",
-								                   value: phasesViewModel.mostIntervalInDeepPhase),
-								StatisticsCellViewModel(title: "Total REM sleep duration",
-								                   value: phasesViewModel.timeInLightPhase),
-								StatisticsCellViewModel(title: "Max REM sleep interval",
-								                   value: phasesViewModel.mostIntervalInLightPhase),
-							],
-							colorScheme: viewModel.colorProvider.sleepyColorScheme)
-						}
+                        StatisticsCellCollectionView(
+                            with: StatisticsCellCollectionViewModel(
+                                with: [
+                                    StatisticsCellViewModel(
+                                        title: "Total NREM sleep duration",
+                                        value: phasesViewModel.timeInDeepPhase
+                                    ),
+                                    StatisticsCellViewModel(
+                                        title: "Max NREM sleep interval",
+                                        value: phasesViewModel.mostIntervalInDeepPhase
+                                    ),
+                                    StatisticsCellViewModel(
+                                        title: "Total REM sleep duration",
+                                        value: phasesViewModel.timeInLightPhase
+                                    ),
+                                    StatisticsCellViewModel(
+                                        title: "Max REM sleep interval",
+                                        value: phasesViewModel.mostIntervalInLightPhase
+                                    ),
+                                ]
+                            )
+                        )
+                    }
 
-						// MARK: Advice
+                    // MARK: Advice
 
-						SectionNameTextView(text: "What else?",
-						                    color: viewModel.ColorsRepository.Text.standard)
+                    SectionNameTextView(text: "What else?",
+                                        color: ColorsRepository.Text.standard)
 
-						UsefulInfoCardView(imageName: AdviceType.phasesAdvice.rawValue,
-						                   title: "Sleep phases and stages",
-						                   description: "Learn more about sleep phases and stages.",
-						                   destinationView: AdviceView(sheetType: .phasesAdvice,
-						                                               showAdvice: $showAdvice),
-						                   showModalView: $showAdvice)
-							.usefulInfoCardBackground(
-								color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-							)
-					}
-				}
-				.navigationTitle("Sleep phases")
-				.onAppear(perform: self.sendAnalytics)
-			}
-		}
-	}
+                    ArticleCardView(
+                        with: ArticleCardViewModel(
+                            title: "Sleep phases and stages",
+                            description: "Learn more about sleep phases and stages.",
+                            coverImage: Image("phasesAdvice")
+                        ),
+                        destinationView: AdviceView(
+                            sheetType: .phasesAdvice,
+                            showAdvice: $showAdvice
+                        )
+                    )
+                        .usefulInfoCardBackground(color: ColorsRepository.Card.cardBackground)
+                }
+            }
+            .navigationTitle("Sleep phases")
+            .onAppear(perform: self.sendAnalytics)
+        }
+    }
 
-	private func sendAnalytics() {
-		FirebaseAnalytics.Analytics.logEvent("PhasesCard_viewed", parameters: [
-			"contentShown": self.cardService.generalViewModel != nil && self.cardService.phasesViewModel != nil,
-		])
-	}
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("PhasesCard_viewed", parameters: [
+            "contentShown": self.cardService.generalViewModel != nil && self.cardService.phasesViewModel != nil,
+        ])
+    }
 }

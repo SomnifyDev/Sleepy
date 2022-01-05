@@ -8,63 +8,70 @@ import UIComponents
 import XUI
 
 struct RespiratoryCardDetailView: View {
-	@Store var viewModel: CardDetailsViewCoordinator
-	@EnvironmentObject var cardService: CardService
+    @Store var viewModel: CardDetailsViewCoordinator
+    @EnvironmentObject var cardService: CardService
 
-	var body: some View {
-		GeometryReader { _ in
-			ZStack {
-				viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
-					.edgesIgnoringSafeArea(.all)
+    var body: some View {
+        ZStack {
+            ColorsRepository.General.appBackground
+                .edgesIgnoringSafeArea(.all)
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .center) {
+                    if let respiratoryViewModel = cardService.respiratoryViewModel,
+                       let generalViewModel = cardService.generalViewModel
+                    {
+                        // MARK: Chart
 
-				ScrollView(.vertical, showsIndicators: false) {
-					VStack(alignment: .center) {
-						if let respiratoryViewModel = cardService.respiratoryViewModel,
-						   let generalViewModel = cardService.generalViewModel
-						{
-							// MARK: Chart
+                        StandardChartView(
+                            chartType: .defaultChart(
+                                barType: .rectangular(
+                                    color: Color(.systemBlue)
+                                )
+                            ),
+                            chartHeight: 75,
+                            points: respiratoryViewModel.respiratoryRateData,
+                            dateInterval: generalViewModel.sleepInterval
+                        )
+                            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                            .padding(.top)
 
-							StandardChartView(colorProvider: viewModel.colorProvider,
-							                  chartType: .defaultChart(
-							                  	barType: .rectangle(
-							                  		color: Color(.systemBlue)
-							                  	)
-							                  ),
-							                  chartHeight: 75,
-							                  points: respiratoryViewModel.respiratoryRateData,
-							                  dateInterval: generalViewModel.sleepInterval)
-								.roundedCardBackground(
-									color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor))
-								)
-								.padding(.top)
+                        // MARK: Statistics
 
-							// MARK: Statistics
+                        SectionNameTextView(
+                            text: "Summary",
+                            color: ColorsRepository.Text.standard
+                        )
 
-							SectionNameTextView(text: "Summary",
-							                    color: viewModel.ColorsRepository.Text.standard)
+                        StatisticsCellCollectionView(
+                            with: StatisticsCellCollectionViewModel(
+                                with: [
+                                    StatisticsCellViewModel(
+                                        title: "Max. respiratory rate",
+                                        value: respiratoryViewModel.maxRespiratoryRate
+                                    ),
+                                    StatisticsCellViewModel(
+                                        title: "Mean. respiratory rate",
+                                        value: respiratoryViewModel.averageRespiratoryRate
+                                    ),
+                                    StatisticsCellViewModel(
+                                        title: "Min. respiratory rate",
+                                        value: respiratoryViewModel.minRespiratoryRate
+                                    ),
+                                ]
+                            )
+                        )
+                    }
+                }
+            }
+            .navigationTitle("Respiratory rate")
+        }
+    }
 
-							StatisticsCellCollectionView(data: [
-								StatisticsCellViewModel(title: "Max. respiratory rate",
-								                   value: respiratoryViewModel.maxRespiratoryRate),
-								StatisticsCellViewModel(title: "Mean. respiratory rate",
-								                   value: respiratoryViewModel.averageRespiratoryRate),
-								StatisticsCellViewModel(title: "Min. respiratory rate",
-								                   value: respiratoryViewModel.minRespiratoryRate),
-							],
-							colorScheme: viewModel.colorProvider.sleepyColorScheme)
-						}
-					}
-				}
-				.navigationTitle("Respiratory rate")
-			}
-		}
-	}
+    // MARK: Private methods
 
-	// MARK: Private methods
-
-	private func sendAnalytics() {
-		FirebaseAnalytics.Analytics.logEvent("RespiratoryCard_viewed", parameters: [
-			"contentShown": self.cardService.generalViewModel != nil && self.cardService.respiratoryViewModel != nil,
-		])
-	}
+    private func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("RespiratoryCard_viewed", parameters: [
+            "contentShown": self.cardService.generalViewModel != nil && self.cardService.respiratoryViewModel != nil,
+        ])
+    }
 }

@@ -77,11 +77,11 @@ struct SummaryCardsListView: View {
                             text: "Heart rate",
                             color: ColorsRepository.Text.standard
                         )
-                        CardWithContentView(with: viewModel.heartCardViewModel) {
+                        CardWithContentView(with: viewModel.heartCardTitleViewModel) {
                             VStack {
                                 StandardChartView(
                                     chartType: .defaultChart(
-                                        barType: .circle(color: ColorsRepository.Heart.heart)
+                                        barType: .circular(color: ColorsRepository.Heart.heart)
                                     ),
                                     chartHeight: 75,
                                     points: heartViewModel.heartRateData,
@@ -109,11 +109,11 @@ struct SummaryCardsListView: View {
                             text: "Respiratory rate",
                             color: ColorsRepository.Text.standard
                         )
-                        CardWithContentView(with: viewModel.heartCardViewModel) {
+                        CardWithContentView(with: viewModel.respiratoryCardTitleViewModel) {
                             VStack {
                                 StandardChartView(
                                     chartType: .defaultChart(
-                                        barType: .rectangle(
+                                        barType: .rectangular(
                                             color: Color.blue
                                         )
                                     ),
