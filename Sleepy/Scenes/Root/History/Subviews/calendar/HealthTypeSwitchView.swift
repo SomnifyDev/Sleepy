@@ -9,7 +9,7 @@ import UIComponents
 struct HealthTypeSwitchView: View {
 	@State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
 	//    = CGFloat.infinity   // << variant for VStack
-	@Binding var selectedType: HealthType
+	@Binding var selectedType: HKService.HealthType
 
 	var body: some View {
 		VStack {
@@ -26,7 +26,7 @@ struct HealthTypeSwitchView: View {
 		var height = CGFloat.zero
 
 		return ZStack(alignment: .topLeading) {
-			ForEach(HealthType.allCases, id: \.self) { tag in
+            ForEach(HKService.HealthType.allCases, id: \.self) { tag in
 				self.item(for: tag)
 					.padding([.horizontal, .vertical], 4)
 					.alignmentGuide(.leading, computeValue: { d in
@@ -55,7 +55,7 @@ struct HealthTypeSwitchView: View {
 		}.background(self.viewHeightReader($totalHeight))
 	}
 
-	private func item(for type: HealthType) -> some View {
+	private func item(for type: HKService.HealthType) -> some View {
 		Text(self.getItemDescription(for: type))
 			.healthTypeSwitchTextModifier()
 			.background(type == self.selectedType
@@ -76,12 +76,12 @@ struct HealthTypeSwitchView: View {
 			}
 	}
 
-	private func getSelectedItemColor(for type: HealthType) -> Color {
+	private func getSelectedItemColor(for type: HKService.HealthType) -> Color {
 		switch type {
 		case .heart:
             return ColorsRepository.Heart.heart
 		case .energy:
-			return ColorsRepository.Heart.energy
+			return ColorsRepository.Energy.energy
 		case .asleep, .inbed:
             return ColorsRepository.Phase.lightSleep
 		case .respiratory:
@@ -89,7 +89,7 @@ struct HealthTypeSwitchView: View {
 		}
 	}
 
-	private func getItemDescription(for type: HealthType) -> String {
+    private func getItemDescription(for type: HKService.HealthType) -> String {
 		switch type {
 		case .heart:
 			return "Heart rate"

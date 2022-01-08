@@ -21,14 +21,14 @@ struct AudioRecordingsListView: View {
 
 	var body: some View {
 		ZStack(alignment: .center) {
-			self.viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+			ColorsRepository.General.appBackground
 				.edgesIgnoringSafeArea(.all)
 
 			VStack {
 				if self.audioRecorder.recordings.isEmpty {
 					BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
 					           colorProvider: self.viewModel.colorProvider)
-						.roundedCardBackground(color: self.viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+						.roundedCardBackground(color: self.viewModel.ColorsRepository.Card.cardBackground)
 				} else {
 					List {
 						ForEach(self.headers, id: \.self) { header in

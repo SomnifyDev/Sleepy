@@ -120,9 +120,9 @@ private struct CalendarTitleView: View {
 		case .energy:
 			return self.colorSchemeProvider.sleepyColorSchemeColorsRepository.Heart.energy
 		case .asleep:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
+			return self.colorSchemeProvider.sleepyColorsRepository.General.appBackground
 		case .inbed:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
+			return self.colorSchemeProvider.sleepyColorsRepository.General.appBackground
 		case .respiratory:
 			return Color(.systemBlue)
 		}

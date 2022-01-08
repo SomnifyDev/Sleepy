@@ -9,7 +9,7 @@ import XUI
 
 class HistoryCoordinator: ObservableObject, ViewModel {
 	@Published var openedURL: URL?
-	@Published var calendarType: HealthType
+    @Published var calendarType: HKService.HealthType
 
 	@Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
 	@Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?

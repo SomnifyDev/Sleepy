@@ -14,7 +14,7 @@ struct RespiratoryHistoryStatsView: View {
 
 	/// Use for shimmers only
 	init() {
-		self.viewModel = StatisticsCellCollectionViewModel(cellData: [
+        self.viewModel = StatisticsCellCollectionViewModel(with: [
 			StatisticsCellViewModel(title: "Fest sw", value: "23 BPM"),
 			StatisticsCellViewModel(title: "Ewd sw", value: "143 min"),
 			StatisticsCellViewModel(title: "Wdf sw", value: "9 max"),
@@ -23,12 +23,12 @@ struct RespiratoryHistoryStatsView: View {
 
 	var body: some View {
 		VStack {
-			if !viewModel.cellData.isEmpty {
-				SectionNameTextView(text: "Last 30 days",
+            if !viewModel.cellModels.isEmpty {
+                SectionNameTextView(text: "Last 30 days",
                                     color: ColorsRepository.Text.standard)
 
                 StatisticsCellCollectionView(with: viewModel)
-			}
+            }
 		}
 	}
 }

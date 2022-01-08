@@ -9,11 +9,11 @@ typealias HealthType = HKService.HealthType
 final class HKGeneralStatisticsProvider {
 	// MARK: - Methods
 
-	func data(healthType _: HealthType, data: [SampleData]) -> [Double] {
+	func data(healthType _: HKService.HealthType, data: [SampleData]) -> [Double] {
 		return data.map { $0.value }
 	}
 
-	func data(healthType: HealthType, indicator: Indicator, data: [HKSample]) -> Double? {
+	func data(healthType: HKService.HealthType, indicator: Indicator, data: [HKSample]) -> Double? {
 		switch healthType {
 		case .energy:
 			return self.handleForQuantitySample(indicator: indicator, data: data, unit: HKUnit.kilocalorie())

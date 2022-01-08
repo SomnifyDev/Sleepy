@@ -11,11 +11,10 @@ struct HealthKitIntroView: View {
 	@State private var shouldShowNextTab = false
 
 	private let images = ["tutorial3", "tutorial4"]
-	let colorScheme: SleepyColorScheme
 
 	var body: some View {
 		ZStack {
-			colorScheme.getColor(of: .general(.appBackgroundColor))
+            ColorsRepository.General.appBackground
 				.edgesIgnoringSafeArea(.all)
 			VStack {
 				ScrollView(.vertical, showsIndicators: false) {
@@ -34,19 +33,19 @@ struct HealthKitIntroView: View {
 						WelcomeScreenLineView(title: "Access required",
 						                      subTitle: "Health data is used for analysis.",
 						                      imageName: "heart.text.square.fill",
-						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+						                      color: ColorsRepository.General.appBackground)
 
 						WelcomeScreenLineView(title: "We don't keep your data",
 						                      subTitle: "It is processed locally and is not uploaded to servers.",
 						                      imageName: "wifi.slash",
-						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+						                      color: ColorsRepository.General.appBackground)
 
 					}.padding(.top, 16)
 				}.padding([.leading, .trailing], 16)
 
 				if !shouldShowNextTab {
 					Text("Grant access")
-						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+						.customButton(color: ColorsRepository.General.appBackground)
 						.onTapGesture {
 							HKService.requestPermissions { result, error in
 								guard error == nil, result else {
@@ -60,7 +59,7 @@ struct HealthKitIntroView: View {
 				if shouldShowNextTab {
 					NavigationLink(destination: NotificationsIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme), isActive: $shouldShowNextTab) {
 						Text("Continue")
-							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+							.customButton(color: ColorsRepository.General.appBackground)
 					}
 				}
 			}

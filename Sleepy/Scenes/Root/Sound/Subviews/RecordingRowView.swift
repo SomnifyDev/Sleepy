@@ -5,13 +5,13 @@ import UIComponents
 
 struct RecordingRowView: View {
 	var audioURL: URL
-	let colorProvider: ColorSchemeProvider
+
 	var body: some View {
 		VStack {
 			CardTitleView(titleText: "Recording",
 			              leftIcon: Image(systemName: "mic.circle.fill"),
 			              rightIcon: Image(systemName: "chevron.right"),
-			              titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
+			              titleColor: ColorsRepository.General.mainSleepy,
 			              showSeparator: false,
 			              colorProvider: colorProvider)
 			HStack {
@@ -19,7 +19,7 @@ struct RecordingRowView: View {
 					.regularTextModifier(color: ColorsRepository.Text.standard)
 				Spacer()
 				Text(FileHelper.covertToFileString(with: FileHelper.sizeForLocalFilePath(filePath: audioURL.path)))
-					.regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)))
+                    .regularTextModifier(color: ColorsRepository.Text.secondary)
 			}
 		}
 	}

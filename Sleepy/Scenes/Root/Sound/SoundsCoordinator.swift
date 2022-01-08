@@ -21,11 +21,9 @@ class SoundsCoordinator: ObservableObject, ViewModel {
 	@Published var showLoading = false
 
 	let resultsObserver = AudioResultsObserver()
-	let colorProvider: ColorSchemeProvider
 
-	init(colorSchemeProvider: ColorSchemeProvider, parent: RootCoordinator) {
+	init(parent: RootCoordinator) {
 		self.parent = parent
-		self.colorProvider = colorSchemeProvider
 	}
 
 	func openSettings() {

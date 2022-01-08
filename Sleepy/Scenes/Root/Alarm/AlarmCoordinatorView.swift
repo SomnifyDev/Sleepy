@@ -17,7 +17,7 @@ struct AlarmCoordinatorView: View {
 		GeometryReader { g in
 			NavigationView {
 				ZStack {
-					viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+					ColorsRepository.General.appBackground
 						.edgesIgnoringSafeArea(.all)
 					ScrollView {
 						VStack(alignment: .leading) {
@@ -27,7 +27,7 @@ struct AlarmCoordinatorView: View {
 								.padding(.top)
 
 							SectionNameTextView(text: "What is a smart alarm?",
-							                    color: viewModel.ColorsRepository.Text.standard)
+							                    color: ColorsRepository.Text.standard)
 								.padding(.top)
 
 							Text("What is a smart alarm description")
@@ -35,14 +35,14 @@ struct AlarmCoordinatorView: View {
 								.padding(.top, Constant.smallTopPadding)
 
 							SectionNameTextView(text: "Improve your sleep with smart alarm",
-							                    color: viewModel.ColorsRepository.Text.standard)
+							                    color: ColorsRepository.Text.standard)
 
 							Text("Improve your sleep with smart alarm description")
 								.padding([.trailing, .leading, .bottom])
 								.padding(.top, Constant.smallTopPadding)
 
 							SectionNameTextView(text: "How to use smart alarm in Sleepy?",
-							                    color: viewModel.ColorsRepository.Text.standard)
+							                    color: ColorsRepository.Text.standard)
 
 							Text("How to use smart alarm in Sleepy description")
 								.padding([.trailing, .leading])

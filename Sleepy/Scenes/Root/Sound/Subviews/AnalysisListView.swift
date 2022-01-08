@@ -14,12 +14,11 @@ struct AnalysisListView: View {
 	let result: [SoundAnalysisResult]
 	let fileName: String
 	let endDate: Date?
-	let colorProvider: ColorSchemeProvider
 
 	var body: some View {
 		NavigationView {
 			ZStack {
-				colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+				ColorsRepository.General.appBackground
 					.edgesIgnoringSafeArea(.all)
 
 				ScrollView(.vertical, showsIndicators: false) {
@@ -34,17 +33,15 @@ struct AnalysisListView: View {
 								              mainText: String(format: "%.2f%% confidence", item.confidence),
 								              leftIcon: Image(systemName: "waveform"),
 								              navigationText: self.getDescription(item: item, date: endDate),
-								              titleColor: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-								              mainTextColor: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)),
-								              showSeparator: false,
-								              colorProvider: self.colorProvider)
+								              titleColor: ColorsRepository.General.mainSleepy,
+								              mainTextColor: ColorsRepository.Text.secondary,
+								              showSeparator: false)
 
 								AudioPlayerView(audioPlayer: self.$audioPlayer,
-								                colorProvider: self.colorProvider,
 								                playAtTime: item.start,
 								                endAtTime: item.end,
 								                audioName: fileName)
-							}.roundedCardBackground(color: colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                            }.roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 						}
 
 						if result.isEmpty {
