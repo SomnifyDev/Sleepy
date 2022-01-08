@@ -18,12 +18,12 @@ struct SummaryCardsListView: View {
             ScrollView {
                 VStack(alignment: .center) {
 
-                    if viewModel.somethingBroken {
-                        BannerView(with: viewModel.somethingBrokenBannerViewModel) {
-                            CardTitleView(with: viewModel.somethingBrokenBannerViewModel.cardTitleViewModel)
-                        }
-                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
-                    }
+//                    if viewModel.somethingBroken {
+//                        BannerView(with: viewModel.somethingBrokenBannerViewModel) {
+//                            CardTitleView(with: viewModel.somethingBrokenBannerViewModel.cardTitleViewModel)
+//                        }
+//                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+//                    }
 
                     // MARK: - General card
 

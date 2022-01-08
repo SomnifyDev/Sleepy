@@ -37,7 +37,7 @@ struct HealthTypeSwitchView: View {
 
 						let result = width
 
-						if tag == HealthData.allCases.last! {
+						if tag == HKService.HealthType.allCases.last! {
 							width = 0
 						} else {
 							width -= d.width
@@ -46,7 +46,7 @@ struct HealthTypeSwitchView: View {
 					})
 					.alignmentGuide(.top, computeValue: { _ in
 						let result = height
-						if tag == HealthData.allCases.last! {
+						if tag == HKService.HealthType.allCases.last! {
 							height = 0
 						}
 						return result

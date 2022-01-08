@@ -27,7 +27,7 @@ struct SoundsCoordinatorView: View {
 
 					if audioRecorder.recording == false {
 						Text(shouldGrantPermissions ? "Allow mic access" : "Record")
-							.customButton(color: viewModel.ColorsRepository.General.mainSleepy)
+							.customButton(color: ColorsRepository.General.mainSleepy)
 							.onTapGesture(perform: self.startRecording)
 					}
 				}

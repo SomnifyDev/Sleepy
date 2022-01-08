@@ -21,9 +21,9 @@ class HistoryInteractor {
 
     /// Вызывается для подгрузки всей статистики выбранной вкладки календаря
     func extractContextStatistics() {
-        FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": self.$viewModel.calendarType.rawValue])
+        FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": self.viewModel.calendarType.rawValue])
 
-        switch self.$viewModel.calendarType {
+        switch self.viewModel.calendarType {
         case .heart:
             self.extractBasicNumericDataIfNeeded(type: .heart)
         case .energy:

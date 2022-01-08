@@ -35,7 +35,7 @@ struct MainIntroView: View {
 					}
 
 					NavigationLink(
-						destination: HealthKitIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme)) {
+						destination: HealthKitIntroView(shouldShowIntro: $shouldShowIntro)) {
 							Text("Continue")
 								.customButton(color: ColorsRepository.General.appBackground)
 					}

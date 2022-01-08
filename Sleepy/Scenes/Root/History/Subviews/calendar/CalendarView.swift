@@ -20,11 +20,9 @@ struct CalendarView: View {
 
 				VStack {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
-					                  monthDate: $viewModel.monthDate,
-					                  colorSchemeProvider: viewModel.colorSchemeProvider)
+					                  monthDate: $viewModel.monthDate)
 
-					HealthTypeSwitchView(selectedType: $viewModel.calendarType,
-					                     colorScheme: viewModel.colorSchemeProvider.sleepyColorScheme)
+					HealthTypeSwitchView(selectedType: $viewModel.calendarType)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
 						ForEach(1 ... viewModel.monthDate.getDaysInMonth(), id: \.self) { index in
@@ -78,7 +76,7 @@ struct CalendarView: View {
 }
 
 private struct CalendarTitleView: View {
-	@Binding var calendarType: HealthData
+	@Binding var calendarType: HKService.HealthType
 	@Binding var monthDate: Date
 
 	var body: some View {
@@ -113,16 +111,16 @@ private struct CalendarTitleView: View {
 		}.frame(height: 30, alignment: .top)
 	}
 
-	private func getSelectedCalendarColor(for type: HealthData) -> Color {
+	private func getSelectedCalendarColor(for type: HKService.HealthType) -> Color {
 		switch type {
 		case .heart:
-			return self.colorSchemeProvider.sleepyColorScheme.ColorsRepository.Heart.heart
+			return ColorsRepository.Heart.heart
 		case .energy:
-			return self.colorSchemeProvider.sleepyColorSchemeColorsRepository.Heart.energy
+			return ColorsRepository.Energy.energy
 		case .asleep:
-			return self.colorSchemeProvider.sleepyColorsRepository.General.appBackground
+			return ColorsRepository.General.appBackground
 		case .inbed:
-			return self.colorSchemeProvider.sleepyColorsRepository.General.appBackground
+			return ColorsRepository.General.appBackground
 		case .respiratory:
 			return Color(.systemBlue)
 		}

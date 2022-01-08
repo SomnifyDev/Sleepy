@@ -57,7 +57,7 @@ struct HealthKitIntroView: View {
 				}
 
 				if shouldShowNextTab {
-					NavigationLink(destination: NotificationsIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme), isActive: $shouldShowNextTab) {
+					NavigationLink(destination: NotificationsIntroView(shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
 						Text("Continue")
 							.customButton(color: ColorsRepository.General.appBackground)
 					}

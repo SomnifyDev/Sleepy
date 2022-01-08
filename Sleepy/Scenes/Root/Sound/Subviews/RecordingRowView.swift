@@ -12,8 +12,7 @@ struct RecordingRowView: View {
 			              leftIcon: Image(systemName: "mic.circle.fill"),
 			              rightIcon: Image(systemName: "chevron.right"),
 			              titleColor: ColorsRepository.General.mainSleepy,
-			              showSeparator: false,
-			              colorProvider: colorProvider)
+			              showSeparator: false)
 			HStack {
 				Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
 					.regularTextModifier(color: ColorsRepository.Text.standard)

@@ -63,7 +63,7 @@ struct SettingsCoordinatorView: View {
 										.cornerRadius(12)
 										.overlay(
 											RoundedRectangle(cornerRadius: 12)
-												.stroke(self.viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.calendarCurrentDateColor)),
+												.stroke(ColorsRepository.Calendar.calendarCurrentDate,
 												        lineWidth: self.viewModel.currentIconType == iconType ? 6 : 0)
 										)
 								}

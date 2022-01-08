@@ -24,58 +24,57 @@ struct HistoryListView: View {
 						if let asleepHistoryStatsViewModel = viewModel.asleepHistoryStatsViewModel {
 							SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .asleep)
+//							MotivationCellView(type: .asleep)
 
 //							BannerView(bannerViewType: .brokenData(type: .asleep))
 //								.roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
-							SleepHistoryStatsView()
-								.blur(radius: 4)
+//							SleepHistoryStatsView()
+//								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .inbed {
 						if let inbedHistoryStatsViewModel = viewModel.inbedHistoryStatsViewModel {
-							SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel,
-							                      colorProvider: viewModel.colorSchemeProvider)
+							SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .asleep)
+//							MotivationCellView(type: .asleep)
 
 //							BannerView(bannerViewType: .brokenData(type: .inbed))
 //								.roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
-							SleepHistoryStatsView()
-								.blur(radius: 4)
+//							SleepHistoryStatsView()
+//								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .heart {
 						if let heartHistoryStatisticsViewModel = viewModel.heartHistoryStatisticsViewModel {
 							HeartHistoryStatisticsView(viewModel: heartHistoryStatisticsViewModel)
 						} else {
-							MotivationCellView(type: .heart)
+//							MotivationCellView(type: .heart)
 
 //							BannerView(bannerViewType: .brokenData(type: .heart),
 //							           colorProvider: viewModel.colorSchemeProvider)
 //								.roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
-							HeartHistoryStatisticsView()
-								.blur(radius: 4)
+//							HeartHistoryStatisticsView()
+//								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .energy {
 						if let energyHistoryStatsViewModel = viewModel.energyHistoryStatsViewModel {
 							EnergyHistoryStatsView(viewModel: energyHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .energy)
+//							MotivationCellView(type: .energy)
 
 //							BannerView(bannerViewType: .brokenData(type: .energy),
 //							           colorProvider: viewModel.colorSchemeProvider)
 //								.roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
-							EnergyHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
-								.blur(radius: 4)
+//							EnergyHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+//								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .respiratory {
 						if let respiratoryHistoryStatsViewModel = viewModel.respiratoryHistoryStatsViewModel {
 							RespiratoryHistoryStatsView(viewModel: respiratoryHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .respiratory)
+//							MotivationCellView(type: .respiratory)
 
 //							BannerView(bannerViewType: .brokenData(type: .respiratory),
 //							           colorProvider: viewModel.colorSchemeProvider)
@@ -89,9 +88,9 @@ struct HistoryListView: View {
 					}
 				}
 			}
-			.onAppear(perform: viewModel.extractContextStatistics)
+			.onAppear(perform: interactor.extractContextStatistics)
 			.onChange(of: viewModel.calendarType) { _ in
-				viewModel.extractContextStatistics()
+                interactor.extractContextStatistics()
 			}
 		}
 		.navigationTitle("Sleep history")

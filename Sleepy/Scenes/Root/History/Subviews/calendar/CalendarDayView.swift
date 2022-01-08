@@ -24,13 +24,13 @@ struct CalendarDayView: View {
 		GeometryReader { geometry in
 			ZStack {
 				Circle()
-					.foregroundColor(circleColor ?? viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.emptyDayColor)))
+                    .foregroundColor(circleColor ?? ColorsRepository.Calendar.emptyDay)
 
 				if currentDate.getMonthInt() == monthDate.getMonthInt() &&
 					currentDate.getDayInt() == dateIndex
 				{
 					Circle()
-						.strokeBorder(viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .calendar(.calendarCurrentDateColor)), lineWidth: 3)
+						.strokeBorder(ColorsRepository.Calendar.calendarCurrentDate, lineWidth: 3)
 				}
 
 				Text(description)
@@ -52,7 +52,7 @@ struct CalendarDayView: View {
 		self.value = nil
 		self.setCircleColor()
 
-        guard let calendarType = HKService.HealthType(rawValue: self.$viewModel.calendarType.rawValue) else { return }
+        guard let calendarType = HKService.HealthType(rawValue: self.viewModel.calendarType.rawValue) else { return }
 
 		switch calendarType {
 		case .heart, .respiratory, .energy:
@@ -92,7 +92,7 @@ struct CalendarDayView: View {
 
 	private func setCircleColor() {
 		if let value = value {
-            switch self.$viewModel.$calendarType {
+            switch self.viewModel.calendarType {
 			case .heart:
 				self.circleColor = ColorsRepository.Heart.heart
 
@@ -104,7 +104,7 @@ struct CalendarDayView: View {
 						: ColorsRepository.Calendar.negativeDay)
 
 			case .energy:
-                self.circleColor = ColorsRepository.Heart.energy
+                self.circleColor = ColorsRepository.Energy.energy
 
 			case .respiratory:
 				self.circleColor = Color(.systemBlue)
