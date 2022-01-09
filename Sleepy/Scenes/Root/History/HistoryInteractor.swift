@@ -40,8 +40,8 @@ class HistoryInteractor {
     /// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов)
     func extractSleepDataIfNeeded(type: HKService.HealthType) {
         if type != .asleep, type != .inbed { fatalError("Not category type being used") }
-        if type == .inbed, self.$viewModel.inbedHistoryStatsViewModel != nil { return }
-        if type == .asleep, self.$viewModel.asleepHistoryStatsViewModel != nil { return }
+        if type == .inbed, self.viewModel.inbedHistoryStatsViewModel != nil { return }
+        if type == .asleep, self.viewModel.asleepHistoryStatsViewModel != nil { return }
 
         var last30daysCellData: [StatisticsCellViewModel] = []
 
@@ -63,9 +63,9 @@ class HistoryInteractor {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             self.viewModel.statisticsProvider.getData(healthType: type,
-                                            indicator: .mean,
-                                            interval: current2weeksInterval,
-                                            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+                                                      indicator: .mean,
+                                                      interval: current2weeksInterval,
+                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 meanCurrent2WeeksDuration = result
                 group.leave()
             }
@@ -75,9 +75,9 @@ class HistoryInteractor {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             self.viewModel.statisticsProvider.getData(healthType: type,
-                                            indicator: .mean,
-                                            interval: last2weeksInterval,
-                                            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+                                                      indicator: .mean,
+                                                      interval: last2weeksInterval,
+                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                 meanLast2WeeksDuration = result
                 group.leave()
             }
@@ -89,13 +89,13 @@ class HistoryInteractor {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let self = self else { return }
                 self.viewModel.statisticsProvider.getData(healthType: type,
-                                                indicator: indicator,
+                                                          indicator: indicator,
                                                           interval: self.viewModel.monthBeforeDateInterval,
-                                                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+                                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                     if let result = result {
                         last30daysCellData.append(
                             StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
-                                               value: Date.minutesToDateDescription(minutes: Int(result))))
+                                                    value: Date.minutesToDateDescription(minutes: Int(result))))
                     }
                     group.leave()
                 }
@@ -109,7 +109,7 @@ class HistoryInteractor {
                 // TODO: сюда может вернуться сразу несколько снов за сутки, тогда нарушится логика вывода в график (где каждый столбик = день). FIX IT
                 self.viewModel.statisticsProvider.getData(healthType: type,
                                                           interval: self.viewModel.monthBeforeDateInterval,
-                                                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+                                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
                     monthSleepPoints = result
                     group.leave()
                 }
@@ -120,18 +120,18 @@ class HistoryInteractor {
             guard let self = self else { return }
             if let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
                 DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsViewModel(cellData: last30daysCellData,
+                    let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
                                                          monthSleepPoints: monthSleepPoints,
                                                          monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
                                                          currentWeeksProgress: ProgressElementViewModel(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean1))),
                                                                                                         payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                            value: Int(mean1)),
+                                                                                                        value: Int(mean1)),
                                                          beforeWeeksProgress: ProgressElementViewModel(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean2))),
                                                                                                        payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                           value: Int(mean2)),
+                                                                                                       value: Int(mean2)),
                                                          analysisString: Int(mean1) == Int(mean2)
-                                                             ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
-                                                             : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
+                                                         ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
+                                                         : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
 
                     if type == .inbed {
                         self.viewModel.inbedHistoryStatsViewModel = tmp
@@ -146,9 +146,9 @@ class HistoryInteractor {
     /// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
     func extractBasicNumericDataIfNeeded(type: HKService.HealthType) {
         if type == .asleep || type == .inbed { fatalError("Not numeric type being used") }
-        if type == .heart, self.$viewModel.heartHistoryStatisticsViewModel != nil { return }
-        if type == .energy, self.$viewModel.energyHistoryStatsViewModel != nil { return }
-        if type == .respiratory, self.$viewModel.respiratoryHistoryStatsViewModel != nil { return }
+        if type == .heart, self.viewModel.heartHistoryStatisticsViewModel != nil { return }
+        if type == .energy, self.viewModel.energyHistoryStatsViewModel != nil { return }
+        if type == .respiratory, self.viewModel.respiratoryHistoryStatsViewModel != nil { return }
 
         var last30daysCellData: [StatisticsCellViewModel] = []
         let indicators: [Indicator] = [.min, .max, .mean]
@@ -159,8 +159,8 @@ class HistoryInteractor {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let self = self else { return }
                 self.viewModel.statisticsProvider.getData(healthType: type,
-                                                indicator: indicator,
-                                                           interval: self.viewModel.monthBeforeDateInterval) { result in
+                                                          indicator: indicator,
+                                                          interval: self.viewModel.monthBeforeDateInterval) { result in
                     if let result = result {
                         last30daysCellData.append(StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator), value: "\(Double(result))"))
                     }

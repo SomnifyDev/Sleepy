@@ -8,11 +8,15 @@ struct RecordingRowView: View {
 
 	var body: some View {
 		VStack {
-			CardTitleView(titleText: "Recording",
-			              leftIcon: Image(systemName: "mic.circle.fill"),
-			              rightIcon: Image(systemName: "chevron.right"),
-			              titleColor: ColorsRepository.General.mainSleepy,
-			              showSeparator: false)
+            CardTitleView(with: .init(leadIcon: IconsRepository.microphone,
+                                      title: "Recording",
+                                      description: nil,
+                                      trailIcon: .init(image: IconsRepository.chevronRight, action: nil),
+                                      trailText: nil,
+                                      titleColor: ColorsRepository.General.mainSleepy,
+                                      descriptionColor: nil,
+                                      shouldShowSeparator: false))
+
 			HStack {
 				Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
 					.regularTextModifier(color: ColorsRepository.Text.standard)

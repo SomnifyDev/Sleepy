@@ -23,9 +23,11 @@ struct EnergyHistoryStatsView: View {
 
 	var body: some View {
 		VStack {
-//			if shouldShowAdvice {
-//				MotivationCellView(type: .energy)
-//			}
+
+            MotivationCellView(with: .init(leadIcon: IconsRepository.article,
+                                           title: "How Your Body Use Calories While You Sleep",
+                                           description: "Energy use is particularly high during REM (rapid eye movement) sleep.",
+                                           url: URL(string: "https://www.alaskasleep.com/blog/how-your-body-use-calories-while-you-sleep")!))
 
             if !viewModel.cellModels.isEmpty {
 				SectionNameTextView(text: "Last 30 days",

@@ -3,6 +3,7 @@
 import HKStatistics
 import SettingsKit
 import SwiftUI
+import HKCoreSleep
 import UIComponents
 import XUI
 
@@ -82,10 +83,10 @@ private struct CalendarTitleView: View {
 	var body: some View {
 		HStack {
 			Text(Image(systemName: "calendar"))
-				.regularTextModifier(color: getSelectedCalendarColor(for: calendarType), size: 24)
+                .regularTextModifier(color: ColorsRepository.Text.standard, size: 24)
 
 			Text("\(monthDate.getMonthString()) \(monthDate.getYearString())")
-				.calendarMonthTitleModifier(color: getSelectedCalendarColor(for: calendarType))
+				.calendarMonthTitleModifier(color: ColorsRepository.Text.standard)
 
 			Spacer()
 
@@ -105,7 +106,7 @@ private struct CalendarTitleView: View {
 				                                  to: monthDate)!
 			} label: {
 				Text(Image(systemName: "chevron.right"))
-					.boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
+					.boldTextModifier(color: ColorsRepository.Text.standard)
 			}
 
 		}.frame(height: 30, alignment: .top)

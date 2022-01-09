@@ -21,7 +21,10 @@ struct HeartHistoryStatisticsView: View {
 
 	var body: some View {
 		VStack {
-//			MotivationCellView(type: .heart)
+            MotivationCellView(with: .init(leadIcon: IconsRepository.article,
+                                           title: "What your sleep data means",
+                                           description: "A normal resting heart rate ranges from 60 to 100 beats per minute, according to Harvard Health.",
+                                           url: URL(string: "https://www.cnet.com/health/sleep/sleeping-heart-rate-breathing-rate-and-hrv-what-your-sleep-data-means/")!))
 
             if !viewModel.cellModels.isEmpty {
 				SectionNameTextView(text: "Last 30 days",

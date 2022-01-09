@@ -29,13 +29,14 @@ struct AnalysisListView: View {
 
 						ForEach(result, id: \.self) { item in
 							VStack {
-								CardTitleView(titleText: item.soundType,
-								              mainText: String(format: "%.2f%% confidence", item.confidence),
-								              leftIcon: Image(systemName: "waveform"),
-								              navigationText: self.getDescription(item: item, date: endDate),
-								              titleColor: ColorsRepository.General.mainSleepy,
-								              mainTextColor: ColorsRepository.Text.secondary,
-								              showSeparator: false)
+                                CardTitleView(with: .init(leadIcon: IconsRepository.waveform,
+                                                          title: item.soundType,
+                                                          description: String(format: "%.2f%% confidence", item.confidence),
+                                                          trailIcon: nil,
+                                                          trailText: self.getDescription(item: item, date: endDate),
+                                                          titleColor: ColorsRepository.General.mainSleepy,
+                                                          descriptionColor: ColorsRepository.Text.secondary,
+                                                          shouldShowSeparator: false))
 
 								AudioPlayerView(audioPlayer: self.$audioPlayer,
 								                playAtTime: item.start,

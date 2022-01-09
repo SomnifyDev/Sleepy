@@ -12,7 +12,6 @@ class SummaryCardsListCoordinator: ObservableObject, ViewModel {
 	private unowned let parent: SummaryNavigationCoordinator
 
 	@Published private(set) var cards: [SummaryViewCardType]?
-	@Published var somethingBroken = false
 
 	let statisticsProvider: HKStatisticsProvider
     let factory: SummaryListFactory = SummaryListFactory()
@@ -49,7 +48,6 @@ extension SummaryCardsListCoordinator {
 
 	func sendAnalytics(cardService: CardService) {
 		FirebaseAnalytics.Analytics.logEvent("SummaryCardsList_viewed", parameters: [
-			"somethingBroken": self.somethingBroken,
 			"generalCardShown": cardService.generalViewModel != nil,
 			"phasesCardShown": cardService.phasesViewModel != nil && cardService.generalViewModel != nil,
 			"heartCardShown": cardService.heartViewModel != nil && cardService.generalViewModel != nil,

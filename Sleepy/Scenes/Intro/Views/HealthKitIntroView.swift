@@ -19,7 +19,7 @@ struct HealthKitIntroView: View {
 			VStack {
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .leading) {
-						PagingView(index: $index.animation(), maxIndex: images.count - 1) {
+						PaginationView(index: $index.animation(), maxIndex: images.count - 1) {
 							ForEach(self.images, id: \.self) { imageName in
 								Image(imageName)
 									.resizable()
