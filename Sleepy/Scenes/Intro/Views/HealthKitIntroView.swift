@@ -33,19 +33,19 @@ struct HealthKitIntroView: View {
 						WelcomeScreenLineView(title: "Access required",
 						                      subTitle: "Health data is used for analysis.",
 						                      imageName: "heart.text.square.fill",
-						                      color: ColorsRepository.General.appBackground)
+                                              color: ColorsRepository.General.mainSleepy)
 
 						WelcomeScreenLineView(title: "We don't keep your data",
 						                      subTitle: "It is processed locally and is not uploaded to servers.",
 						                      imageName: "wifi.slash",
-						                      color: ColorsRepository.General.appBackground)
+						                      color: ColorsRepository.General.mainSleepy)
 
 					}.padding(.top, 16)
 				}.padding([.leading, .trailing], 16)
 
 				if !shouldShowNextTab {
 					Text("Grant access")
-						.customButton(color: ColorsRepository.General.appBackground)
+						.customButton(color: ColorsRepository.General.mainSleepy)
 						.onTapGesture {
 							HKService.requestPermissions { result, error in
 								guard error == nil, result else {
@@ -59,7 +59,7 @@ struct HealthKitIntroView: View {
 				if shouldShowNextTab {
 					NavigationLink(destination: NotificationsIntroView(shouldShowIntro: $shouldShowIntro), isActive: $shouldShowNextTab) {
 						Text("Continue")
-							.customButton(color: ColorsRepository.General.appBackground)
+							.customButton(color: ColorsRepository.General.mainSleepy)
 					}
 				}
 			}

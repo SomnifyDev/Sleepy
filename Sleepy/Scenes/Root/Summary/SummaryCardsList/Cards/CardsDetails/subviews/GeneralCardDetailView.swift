@@ -151,12 +151,10 @@ struct GeneralCardDetailView: View {
 
     private func getStatisticCells(generalViewModel: SummaryGeneralDataViewModel) -> [StatisticsCellViewModel] {
         return [
-            StatisticsCellViewModel(title: "Sleep start",
-                                    value: generalViewModel.sleepInterval.start.getFormattedDate(format: "HH:mm")),
-            StatisticsCellViewModel(title: "Wake up",
-                                    value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")),
             StatisticsCellViewModel(title: "Fall asleep",
                                     value: generalViewModel.sleepInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start)),
+            StatisticsCellViewModel(title: "Wake up",
+                                    value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")),
             StatisticsCellViewModel(title: "Time asleep",
                                     value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)),
             StatisticsCellViewModel(title: "Time in bed",

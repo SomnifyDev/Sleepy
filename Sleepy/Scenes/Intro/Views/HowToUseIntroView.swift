@@ -32,12 +32,12 @@ struct HowToUseIntroView: View {
 
                         WelcomeScreenLineView(title: "1. You need to enable the 'Sleep' for Apple Watch",
                                               subTitle: "Thanks to this Sleepy will be able to receive sleep data and analyze it.",
-                                              imageName: "sleep",
+                                              imageName: "1.circle",
                                               color: ColorsRepository.General.mainSleepy)
 
                         WelcomeScreenLineView(title: "2. Wear Apple Watch before going to bed and keep it on while you sleep",
                                               subTitle: "Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it.",
-                                              imageName: "sleep",
+                                              imageName: "2.circle",
                                               color: ColorsRepository.General.mainSleepy)
 
                     }.padding(.top, 16)

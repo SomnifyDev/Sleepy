@@ -15,6 +15,7 @@ struct GoalIntroView: View {
         ZStack {
             ColorsRepository.General.appBackground
                 .edgesIgnoringSafeArea(.all)
+            
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {

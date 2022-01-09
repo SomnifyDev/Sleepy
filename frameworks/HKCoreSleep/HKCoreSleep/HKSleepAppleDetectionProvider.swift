@@ -39,7 +39,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: sleep.inBedInterval.end)!
         let expandedInterval = DateInterval(start: expandedIntervalStart, end: expandedIntervalEnd)
         self.hkService?.readData(type: .asleep, interval: expandedInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
-            guard let samples = samples, !samples.isEmpty else {
+            // данной проверкой убеждаемся, что в данном интервале не было сохранено сна ранее
+            guard let samples = samples, samples.isEmpty else {
                 completionHandler(false, nil)
                 return
             }

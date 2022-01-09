@@ -17,7 +17,7 @@ struct NotificationsIntroView: View {
 					VStack(alignment: .leading) {
 						WelcomeScreenLineView(title: "Allow Sleepy to send notifications",
 						                      subTitle: "This is so Sleepy can send you a summary of your past sleep.",
-						                      imageName: "sleep",
+						                      imageName: "bubble.left",
                                               color: ColorsRepository.General.mainSleepy)
 					}.padding(.top, 16)
 				}.padding([.leading, .trailing], 16)

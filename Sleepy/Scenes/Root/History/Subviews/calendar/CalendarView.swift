@@ -96,7 +96,7 @@ private struct CalendarTitleView: View {
 				                                  to: monthDate)!
 			} label: {
 				Text(Image(systemName: "chevron.left"))
-					.boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
+                    .boldTextModifier(color: ColorsRepository.Text.standard)
 			}
 			.padding(.trailing, 8)
 

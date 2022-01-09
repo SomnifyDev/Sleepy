@@ -21,7 +21,7 @@ struct SummaryListFactory {
             leadIcon: IconsRepository.sleep,
             title: "Phases",
             description: "Here is some info about phases of your last sleep",
-            trailIcon: nil,
+            trailIcon: .init(image: IconsRepository.chevronRight, action: nil),
             trailText: nil,
             titleColor: ColorsRepository.Phase.deepSleep,
             descriptionColor: ColorsRepository.Text.secondary,

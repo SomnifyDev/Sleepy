@@ -19,7 +19,7 @@ struct MainIntroView: View {
 								WelcomeScreenLineView(title: "Sleep summary",
 								                      subTitle: "Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep.",
 								                      imageName: "bed.double",
-								                      color: ColorsRepository.General.appBackground)
+                                                      color: ColorsRepository.General.mainSleepy)
 
 								WelcomeScreenLineView(title: "Smart alarm",
 								                      subTitle: "Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening.",
@@ -37,7 +37,7 @@ struct MainIntroView: View {
 					NavigationLink(
 						destination: HealthKitIntroView(shouldShowIntro: $shouldShowIntro)) {
 							Text("Continue")
-								.customButton(color: ColorsRepository.General.appBackground)
+                                .customButton(color: ColorsRepository.General.mainSleepy)
 					}
 				}
 			}

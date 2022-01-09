@@ -162,7 +162,7 @@ class HistoryInteractor {
                                                           indicator: indicator,
                                                           interval: self.viewModel.monthBeforeDateInterval) { result in
                     if let result = result {
-                        last30daysCellData.append(StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator), value: "\(Double(result))"))
+                        last30daysCellData.append(StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator), value: "\(String(format: self.getValueFormat(for: type), Double(result)))"))
                     }
                     group.leave()
                 }
@@ -174,8 +174,12 @@ class HistoryInteractor {
             if !last30daysCellData.isEmpty {
                 DispatchQueue.main.async {
                     switch type {
-                    case .energy, .heart, .respiratory:
+                    case .energy:
                         self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                    case .heart:
+                        self.viewModel.heartHistoryStatisticsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                    case .respiratory:
+                        self.viewModel.respiratoryHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .asleep, .inbed:
                         return
                     }
@@ -195,6 +199,15 @@ class HistoryInteractor {
             return "\(indicator) BrPM"
         case .asleep, .inbed:
             return "\(indicator) duration"
+        }
+    }
+
+    func getValueFormat(for type: HKService.HealthType) -> String {
+        switch type {
+        case .respiratory, .heart:
+            return "%.0f"
+        default:
+            return "%.3f"
         }
     }
 }

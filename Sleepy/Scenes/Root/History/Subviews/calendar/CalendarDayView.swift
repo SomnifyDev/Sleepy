@@ -9,109 +9,108 @@ import UIComponents
 import XUI
 
 struct CalendarDayView: View {
-	@Store var viewModel: HistoryCoordinator
-	@Binding var monthDate: Date
+    @Store var viewModel: HistoryCoordinator
+    @Binding var monthDate: Date
 
-	@State private var description = ""
-	@State private var value: Double?
-	@State private var circleColor: Color?
+    @State private var description = ""
+    @State private var value: Double?
+    @State private var circleColor: Color?
 
-	let currentDate: Date
-	let dateIndex: Int
-	let sleepGoal: Int
+    let currentDate: Date
+    let dateIndex: Int
+    let sleepGoal: Int
 
-	var body: some View {
-		GeometryReader { geometry in
-			ZStack {
-				Circle()
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Circle()
                     .foregroundColor(circleColor ?? ColorsRepository.Calendar.emptyDay)
 
-				if currentDate.getMonthInt() == monthDate.getMonthInt() &&
-					currentDate.getDayInt() == dateIndex
-				{
-					Circle()
-						.strokeBorder(ColorsRepository.Calendar.calendarCurrentDate, lineWidth: 3)
-				}
+                if currentDate.getMonthInt() == monthDate.getMonthInt() &&
+                    currentDate.getDayInt() == dateIndex {
+                    Circle()
+                        .strokeBorder(ColorsRepository.Calendar.calendarCurrentDate, lineWidth: 3)
+                }
 
-				Text(description)
-					.dayCircleInfoTextModifier(geometry: geometry)
-					.onAppear(perform: getDayData)
-					.onChange(of: viewModel.calendarType) { _ in
-						getDayData()
-					}
-					.onChange(of: monthDate) { _ in
-						getDayData()
-					}
-			}
-		}
-	}
+                Text(description)
+                    .dayCircleInfoTextModifier(geometry: geometry)
+                    .onAppear(perform: getDayData)
+                    .onChange(of: viewModel.calendarType) { _ in
+                        getDayData()
+                    }
+                    .onChange(of: monthDate) { _ in
+                        getDayData()
+                    }
+            }
+        }
+    }
 
-	private func getDayData() {
-		let date = Calendar.current.date(byAdding: .day, value: self.dateIndex - self.monthDate.getDayInt(), to: self.monthDate) ?? Date()
-		self.description = "-"
-		self.value = nil
-		self.setCircleColor()
+    private func getDayData() {
+        let date = Calendar.current.date(byAdding: .day, value: self.dateIndex - self.monthDate.getDayInt(), to: self.monthDate) ?? Date()
+        self.description = "-"
+        self.value = nil
+        self.setCircleColor()
 
         guard let calendarType = HKService.HealthType(rawValue: self.viewModel.calendarType.rawValue) else { return }
 
-		switch calendarType {
-		case .heart, .respiratory, .energy:
-			self.viewModel.statisticsProvider.getMetaData(healthType: calendarType,
-			                                              indicator: .mean,
-			                                              interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
-				value = val
-				setCircleColor()
+        switch calendarType {
+        case .heart, .respiratory, .energy:
+            self.viewModel.statisticsProvider.getMetaData(healthType: calendarType,
+                                                          indicator: .mean,
+                                                          interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { val in
+                value = val
+                setCircleColor()
 
-				if let value = value {
-					description = !value.isNaN
-						? calendarType == .energy
-						? String(format: "%.2f", value)
-						: String(Int(value))
-						: "-"
-				} else {
-					description = "-"
-				}
-			}
+                if let value = value {
+                    description = !value.isNaN
+                    ? calendarType == .energy
+                    ? String(format: "%.2f", value)
+                    : String(Int(value))
+                    : "-"
+                } else {
+                    description = "-"
+                }
+            }
 
-		case .asleep, .inbed:
-			self.viewModel.statisticsProvider.getData(healthType: calendarType,
-			                                          indicator: .sum,
-			                                          interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
-			                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
-				value = val
-				setCircleColor()
+        case .asleep, .inbed:
+            self.viewModel.statisticsProvider.getData(healthType: calendarType,
+                                                      indicator: .sum,
+                                                      interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { val in
+                value = val
+                setCircleColor()
 
-				if let value = value {
-					description = !value.isNaN ? Date.minutesToDateDescription(minutes: Int(value)) : "-"
-				} else {
-					description = "-"
-				}
-			}
-		}
-	}
+                if let value = value {
+                    description = !value.isNaN ? Date.minutesToDateDescription(minutes: Int(value)) : "-"
+                } else {
+                    description = "-"
+                }
+            }
+        }
+    }
 
-	private func setCircleColor() {
-		if let value = value {
+    private func setCircleColor() {
+        if let value = value {
             switch self.viewModel.calendarType {
-			case .heart:
-				self.circleColor = ColorsRepository.Heart.heart
+            case .heart:
+                self.circleColor = ColorsRepository.Heart.heart
 
-			case .asleep, .inbed:
-				self.circleColor = Int(value) > self.sleepGoal
+            case .asleep, .inbed:
+                self.circleColor = Int(value) > self.sleepGoal
                 ? ColorsRepository.Calendar.positiveDay
-					: (value > Double(self.sleepGoal) * 0.9
-						? ColorsRepository.Calendar.neutralDay
-						: ColorsRepository.Calendar.negativeDay)
+                : (value > Double(self.sleepGoal) * 0.9
+                   ? ColorsRepository.Calendar.neutralDay
+                   : ColorsRepository.Calendar.negativeDay)
 
-			case .energy:
+            case .energy:
                 self.circleColor = ColorsRepository.Energy.energy
 
-			case .respiratory:
-				self.circleColor = Color(.systemBlue)
-			}
-		} else {
-                        self.circleColor = ColorsRepository.Calendar.emptyDay
-			return
-		}
-	}
+            case .respiratory:
+                self.circleColor = Color(.systemBlue)
+            }
+        } else {
+            self.circleColor = ColorsRepository.Calendar.emptyDay
+            return
+        }
+    }
 }
