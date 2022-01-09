@@ -123,12 +123,14 @@ class HistoryInteractor {
                     let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
                                                          monthSleepPoints: monthSleepPoints,
                                                          monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
-                                                         currentWeeksProgress: ProgressElementViewModel(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean1))),
-                                                                                                        payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                                        value: Int(mean1)),
-                                                         beforeWeeksProgress: ProgressElementViewModel(title: String(format: "Mean duration:", Date.minutesToDateDescription(minutes: Int(mean2))),
-                                                                                                       payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                                       value: Int(mean2)),
+                                                         currentWeeksProgress:
+                                                            ProgressElementViewModel(title: "Current mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean1))),
+                                                                                     payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
+                                                                                     value: Int(mean1)),
+                                                         beforeWeeksProgress:
+                                                            ProgressElementViewModel(title: "2 weeks before mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean2))),
+                                                                                     payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
+                                                                                     value: Int(mean2)),
                                                          analysisString: Int(mean1) == Int(mean2)
                                                          ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
                                                          : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
@@ -211,4 +213,3 @@ class HistoryInteractor {
         }
     }
 }
-
