@@ -14,14 +14,14 @@ public class Sleep {
 	}
 
     public var sleepInterval: DateInterval? {
-        guard let startDate = samples.first?.sleepInterval.start,
-              let endDate = samples.last?.sleepInterval.end else { return nil }
+        guard let startDate = samples.last?.sleepInterval.start,
+              let endDate = samples.first?.sleepInterval.end else { return nil }
         return DateInterval(start: startDate, end: endDate)
     }
 
     public var inbedInterval: DateInterval? {
-        guard let startDate = samples.first?.inBedInterval.start,
-              let endDate = samples.last?.inBedInterval.end else { return nil }
+        guard let startDate = samples.last?.inBedInterval.start,
+              let endDate = samples.first?.inBedInterval.end else { return nil }
         return DateInterval(start: startDate, end: endDate)
     }
 
