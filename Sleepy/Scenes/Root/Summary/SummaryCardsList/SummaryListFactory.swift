@@ -9,7 +9,7 @@ struct SummaryListFactory {
 
     // MARK: - Methods
 
-    func makeSomethingBrokenBannerViewModel() -> BannerViewModel<CardTitleView> {
+    func makeSomethingBrokenBannerViewModel() -> BannerViewModel<CardBottomSimpleDescriptionView> {
         return BannerViewModel(
             with: makeSomethingBrokenBannerCardTitleViewModel(),
             bannerIdentifier: BannerIdentifiers.summaryCardsListSomethingBrokenBannerIdentifier.rawValue
@@ -61,7 +61,7 @@ struct SummaryListFactory {
         return CardTitleViewModel(
             leadIcon: IconsRepository.exclamationMarkSquareFilled,
             title: "Data empty or restricted",
-            description: nil,
+            description: "Check health permissions in settings / wear apple watch while you sleep",
             trailIcon: ImageWithOptionalActionView(
                 image: IconsRepository.delete,
                 action: {

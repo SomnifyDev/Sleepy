@@ -15,7 +15,7 @@ class SummaryCardsListCoordinator: ObservableObject, ViewModel {
 
 	let statisticsProvider: HKStatisticsProvider
     let factory: SummaryListFactory = SummaryListFactory()
-    let somethingBrokenBannerViewModel: BannerViewModel<CardTitleView>
+    let somethingBrokenBannerViewModel: BannerViewModel<CardBottomSimpleDescriptionView>
     let phasesCardTitleViewModel: CardTitleViewModel
     let heartCardTitleViewModel: CardTitleViewModel
     let respiratoryCardTitleViewModel: CardTitleViewModel

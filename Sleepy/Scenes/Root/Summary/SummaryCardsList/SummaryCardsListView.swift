@@ -10,6 +10,9 @@ struct SummaryCardsListView: View {
 
     @EnvironmentObject var cardService: CardService
 
+    @State private var index = 0
+    private let images = ["tutorial3", "tutorial4"]
+
     var body: some View {
         ZStack {
             ColorsRepository.General.appBackground
@@ -18,12 +21,12 @@ struct SummaryCardsListView: View {
             ScrollView {
                 VStack(alignment: .center) {
 
-//                    if viewModel.somethingBroken {
-//                        BannerView(with: viewModel.somethingBrokenBannerViewModel) {
-//                            CardTitleView(with: viewModel.somethingBrokenBannerViewModel.cardTitleViewModel)
-//                        }
-//                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
-//                    }
+                    if cardService.somethingBroken {
+                        BannerView(with: viewModel.somethingBrokenBannerViewModel) {
+                            CardBottomSimpleDescriptionView(with: viewModel.somethingBrokenBannerViewModel.cardTitleViewModel.description ?? "")
+                        }
+                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                    }
 
                     // MARK: - General card
 
@@ -33,6 +36,7 @@ struct SummaryCardsListView: View {
                             color: ColorsRepository.Text.standard
                         )
                             .padding(.top)
+
                         GeneralSleepInfoCardView(viewModel: generalViewModel)
                             .buttonStyle(PlainButtonStyle())
                             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)

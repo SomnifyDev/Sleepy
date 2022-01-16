@@ -59,49 +59,6 @@ class HistoryInteractor {
 
         let group = DispatchGroup()
 
-        group.enter()
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            self.viewModel.statisticsProvider.getData(healthType: type,
-                                                      indicator: .mean,
-                                                      interval: current2weeksInterval,
-                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
-                meanCurrent2WeeksDuration = result
-                group.leave()
-            }
-        }
-
-        group.enter()
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            self.viewModel.statisticsProvider.getData(healthType: type,
-                                                      indicator: .mean,
-                                                      interval: last2weeksInterval,
-                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
-                meanLast2WeeksDuration = result
-                group.leave()
-            }
-        }
-
-        let indicators: [Indicator] = [.min, .max, .mean]
-        indicators.forEach { indicator in
-            group.enter()
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self = self else { return }
-                self.viewModel.statisticsProvider.getData(healthType: type,
-                                                          indicator: indicator,
-                                                          interval: self.viewModel.monthBeforeDateInterval,
-                                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
-                    if let result = result {
-                        last30daysCellData.append(
-                            StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
-                                                    value: Date.minutesToDateDescription(minutes: Int(result))))
-                    }
-                    group.leave()
-                }
-            }
-        }
-
         if type == .asleep {
             group.enter()
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -110,7 +67,39 @@ class HistoryInteractor {
                 self.viewModel.statisticsProvider.getData(healthType: type,
                                                           interval: self.viewModel.monthBeforeDateInterval,
                                                           bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
-                    monthSleepPoints = result
+                    if !result.isEmpty {
+                        monthSleepPoints = result
+
+                        let suffixValues = result.suffix(14)
+                        meanCurrent2WeeksDuration = suffixValues.reduce(0, +) / Double(suffixValues.count)
+
+                        let preffixValues = result.prefix(14)
+                        meanLast2WeeksDuration = preffixValues.reduce(0, +) / Double(preffixValues.count)
+
+                        let indicators: [Indicator] = [.min, .max, .mean]
+                        indicators.forEach { indicator in
+                            switch indicator {
+                            case .min:
+                                guard let min = result.min() else { return }
+                                last30daysCellData.append(
+                                    StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
+                                                            value: Date.minutesToDateDescription(minutes: Int(min))))
+                            case .max:
+                                guard let max = result.max() else { return }
+                                last30daysCellData.append(
+                                    StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
+                                                            value: Date.minutesToDateDescription(minutes: Int(max))))
+                            case .mean:
+                                guard let meanCurrent2WeeksDuration = meanCurrent2WeeksDuration, let meanLast2WeeksDuration = meanLast2WeeksDuration else { return }
+                                let mean = Int(meanCurrent2WeeksDuration + meanLast2WeeksDuration) / 2
+                                last30daysCellData.append(
+                                    StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
+                                                            value: Date.minutesToDateDescription(minutes: mean)))
+                            case .sum:
+                                break
+                            }
+                        }
+                    }
                     group.leave()
                 }
             }
@@ -118,7 +107,8 @@ class HistoryInteractor {
 
         group.notify(queue: .global(qos: .default)) { [weak self] in
             guard let self = self else { return }
-            if let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
+            if monthSleepPoints != nil,
+               let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
                 DispatchQueue.main.async {
                     let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
                                                          monthSleepPoints: monthSleepPoints,
