@@ -10,6 +10,11 @@ struct SummaryCardsListView: View {
 
     @EnvironmentObject var cardService: CardService
 
+
+    @State private var showSleepImprovement = false
+    @State private var imagesIndex = 0
+    private let tutorialImages = ["tutorial3", "tutorial4"]
+
     var body: some View {
         ZStack {
             ColorsRepository.General.appBackground
@@ -18,11 +23,34 @@ struct SummaryCardsListView: View {
             ScrollView {
                 VStack(alignment: .center) {
 
+                    // MARK: Errors
+
                     if cardService.somethingBroken {
                         BannerView(with: viewModel.somethingBrokenBannerViewModel) {
                             CardBottomSimpleDescriptionView(with: viewModel.somethingBrokenBannerViewModel.cardTitleViewModel.description ?? "")
                         }
                         .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                    }
+
+                    if cardService.respiratoryViewModel == nil,
+                       cardService.heartViewModel == nil,
+                       cardService.phasesViewModel == nil {
+                        SectionNameTextView(
+                            text: "Cards preview",
+                            color: ColorsRepository.Text.standard
+                        )
+
+                        PaginationView(index: $imagesIndex.animation(), maxIndex: tutorialImages.count - 1) {
+                            ForEach(self.tutorialImages, id: \.self) { imageName in
+                                Image(imageName)
+                                    .resizable()
+                                    .aspectRatio(1.21, contentMode: .fit)
+                                    .cornerRadius(12)
+                            }
+                        }
+                        .aspectRatio(1.21, contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .padding([.leading, .trailing])
                     }
 
                     // MARK: - General card
@@ -78,6 +106,7 @@ struct SummaryCardsListView: View {
                             text: "Heart rate",
                             color: ColorsRepository.Text.standard
                         )
+
                         CardWithContentView(with: viewModel.heartCardTitleViewModel) {
                             VStack {
                                 StandardChartView(
@@ -135,6 +164,23 @@ struct SummaryCardsListView: View {
                         .onNavigation { viewModel.open(.breath) }
                         .buttonStyle(PlainButtonStyle())
                     }
+
+                    SectionNameTextView(text: "What else?",
+                                        color: ColorsRepository.Text.standard)
+                        .padding(.top)
+
+                    ArticleCardView(
+                        with: ArticleCardViewModel(
+                            title: "How to improve your sleep?",
+                            description: "Learn about the factors that affect the quality of your sleep.",
+                            coverImage: Image("sleepImprovementAdvice")
+                        ),
+                        destinationView: AdviceView(
+                            sheetType: .sleepImprovementAdvice,
+                            showAdvice: $showSleepImprovement
+                        )
+                    )
+                        .usefulInfoCardBackground(color: ColorsRepository.Card.cardBackground)
                 }
             }
         }
