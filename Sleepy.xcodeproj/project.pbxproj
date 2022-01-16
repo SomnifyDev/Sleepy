@@ -18,6 +18,7 @@
 		8030CBA126FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		8030CBA226FE5C3F0035D1F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */; };
 		803115602733CEB0004CC544 /* RespiratoryHistoryStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */; };
+		80330DE22794587700A4EBBA /* SoundsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80330DE12794587700A4EBBA /* SoundsFactory.swift */; };
 		803B32F4273C09CF0036D1E3 /* CardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */; };
 		803B32FA273C09F20036D1E3 /* GeneralCardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */; };
 		8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8052613726FF1AD600643C8A /* IntroCoordinator.swift */; };
@@ -207,6 +208,7 @@
 		80260613271F577200D737AF /* soundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = soundClassifier.mlmodel; sourceTree = "<group>"; };
 		8030CB9A26FE5C3F0035D1F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespiratoryHistoryStatsView.swift; sourceTree = "<group>"; };
+		80330DE12794587700A4EBBA /* SoundsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsFactory.swift; sourceTree = "<group>"; };
 		803B32F3273C09CF0036D1E3 /* CardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailsView.swift; sourceTree = "<group>"; };
 		803B32F9273C09F20036D1E3 /* GeneralCardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCardDetailView.swift; sourceTree = "<group>"; };
 		8052613726FF1AD600643C8A /* IntroCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroCoordinator.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 			children = (
 				80C524762748DFDB006EB288 /* Models */,
 				80A765F226C85EB300A66554 /* SoundsCoordinator.swift */,
+				80330DE12794587700A4EBBA /* SoundsFactory.swift */,
 				80A765E426C7F44000A66554 /* SoundsCoordinatorView.swift */,
 				80A765F626C85F4B00A66554 /* Subviews */,
 				803B3303274104F90036D1E3 /* Services */,
@@ -1177,6 +1180,7 @@
 				80780F4E266D47AE000D0DD9 /* SummaryNavigationCoordinatorView.swift in Sources */,
 				8061C84E26FFDE03002BDA28 /* WelcomeScreenLineView.swift in Sources */,
 				80A765EA26C7FA1500A66554 /* AnalysisListView.swift in Sources */,
+				80330DE22794587700A4EBBA /* SoundsFactory.swift in Sources */,
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */,
@@ -1521,7 +1525,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1530,7 +1534,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.01;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1548,7 +1552,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_ASSET_PATHS = "Sleepy_WatchOS\\ Extension/Preview\\ Content";
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = "Sleepy_WatchOS Extension/Info.plist";
@@ -1558,7 +1562,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2.01;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1575,7 +1579,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1583,7 +1587,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.01;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1600,7 +1604,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 74N9HYZTUU;
+				DEVELOPMENT_TEAM = Z6TZXH8MS8;
 				IBSC_MODULE = Sleepy_WatchOS_Extension;
 				INFOPLIST_FILE = Sleepy_WatchOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1608,7 +1612,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.01;
-				PRODUCT_BUNDLE_IDENTIFIER = com.benmustafa.sleepy.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sinapsis.sleepy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;

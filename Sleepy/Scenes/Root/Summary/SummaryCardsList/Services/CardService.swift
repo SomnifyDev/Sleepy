@@ -71,10 +71,7 @@ class CardService: ObservableObject {
             guard let self = self else { return }
             let sleepGoal = self.getSleepGoal()
             let filteredData = data.filter { $0 != 0 }
-            guard !filteredData.isEmpty else {
-                self.somethingBroken = true
-                return
-            }
+            guard !filteredData.isEmpty else { return }
 
             let bankOfSleepData = data.map { $0 / Double(sleepGoal) }
 

@@ -26,8 +26,11 @@ struct AudioRecordingsListView: View {
 
 			VStack {
 				if self.audioRecorder.recordings.isEmpty {
-//					BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"))
-//						.roundedCardBackground(color: self.viewModel.ColorsRepository.Card.cardBackground)
+                    BannerView(with: viewModel.emptyBannerViewModel) {
+                        CardBottomSimpleDescriptionView(with: viewModel.emptyBannerViewModel.cardTitleViewModel.description ?? "")
+                    }
+                    .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+
 				} else {
 					List {
 						ForEach(self.headers, id: \.self) { header in

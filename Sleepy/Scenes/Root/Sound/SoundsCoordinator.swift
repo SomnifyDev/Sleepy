@@ -16,14 +16,20 @@ import XUI
 class SoundsCoordinator: ObservableObject, ViewModel {
 	private unowned let parent: RootCoordinator
 
+    let factory: SoundsFactory = SoundsFactory()
+
 	@Published var openedURL: URL?
 	@Published var showAnalysis = false
 	@Published var showLoading = false
+
+    let emptyBannerViewModel: BannerViewModel<CardBottomSimpleDescriptionView>
 
 	let resultsObserver = AudioResultsObserver()
 
 	init(parent: RootCoordinator) {
 		self.parent = parent
+
+        self.emptyBannerViewModel = self.factory.makeSoundsEmptyBannerViewModel()
 	}
 
 	func openSettings() {

@@ -10,9 +10,6 @@ struct SummaryCardsListView: View {
 
     @EnvironmentObject var cardService: CardService
 
-    @State private var index = 0
-    private let images = ["tutorial3", "tutorial4"]
-
     var body: some View {
         ZStack {
             ColorsRepository.General.appBackground

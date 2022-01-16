@@ -1,11 +1,10 @@
 import SwiftUI
 import UIComponents
 
-fileprivate enum BannerIdentifiers: String {
-    case summaryCardsListSomethingBrokenBannerIdentifier
-}
-
 struct SummaryListFactory {
+    fileprivate enum BannerIdentifiers: String {
+        case summaryCardsListSomethingBrokenBannerIdentifier
+    }
 
     // MARK: - Methods
 
