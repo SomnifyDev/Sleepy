@@ -6,10 +6,18 @@ import HKCoreSleep
 import HKStatistics
 import UIComponents
 import XUI
+import SettingsKit
 
 class HistoryCoordinator: ObservableObject, ViewModel {
+    private unowned let parent: RootCoordinator
+    
 	@Published var openedURL: URL?
+
     @Published var calendarType: HKService.HealthType
+    @Published var calendarData: [CalendarDayView.DisplayItem]
+    @Published var monthDate: Date // маркер текущего месяца для календаря (изменяется когда свайпаем месяц)
+
+    @Published var sleepGoal = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
 
 	@Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
 	@Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
@@ -17,10 +25,6 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 	@Published var energyHistoryStatsViewModel: StatisticsCellCollectionViewModel?
 	@Published var respiratoryHistoryStatsViewModel: StatisticsCellCollectionViewModel?
 
-	// велечина, являющаяся маркером текущего месяца для календаря (изменяется когда свайпаем месяц)
-	@Published var monthDate = Date()
-
-	private unowned let parent: RootCoordinator
 	let statisticsProvider: HKStatisticsProvider
 
     let monthBeforeDateInterval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date().endOfDay)!.startOfDay, end: Date().endOfDay)
@@ -32,6 +36,11 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
 		self.statisticsProvider = statisticsProvider
 		self.calendarType = .asleep
+
+        let monthDate = Date().startOfMonth
+        self.monthDate = monthDate
+        self.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
+                                                          count: monthDate.getDayInt())
 	}
 
 	func open(_ url: URL) {

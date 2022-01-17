@@ -19,7 +19,7 @@ class HistoryInteractor {
         _viewModel = viewModel
     }
 
-    /// Вызывается для подгрузки всей статистики выбранной вкладки календаря
+    /// Вызывается для подгрузки всей нижней статистики выбранной под календарем
     func extractContextStatistics() {
         FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": self.viewModel.calendarType.rawValue])
 
@@ -110,7 +110,9 @@ class HistoryInteractor {
             if monthSleepPoints != nil,
                let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
                 DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
+                    let tmp = SleepHistoryStatsViewModel(calendarData: [],
+                                                         monthDate: self.viewModel.monthDate,
+                                                         cellData: .init(with: last30daysCellData),
                                                          monthSleepPoints: monthSleepPoints,
                                                          monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
                                                          currentWeeksProgress:
@@ -132,6 +134,142 @@ class HistoryInteractor {
                     }
                 }
             }
+        }
+    }
+
+    func setupCalendarDataByTypeIfNeeded() {
+        guard let calendarType = HKService.HealthType(rawValue: self.viewModel.calendarType.rawValue) else { return }
+
+        var calendarData: [CalendarDayView.DisplayItem]?
+
+        switch calendarType {
+        case .energy:
+            // todo
+            calendarData = []
+        case .heart:
+            // todo
+            calendarData = []
+        case .asleep:
+            calendarData = self.viewModel.asleepHistoryStatsViewModel?.calendarData
+        case .inbed:
+            calendarData = self.viewModel.inbedHistoryStatsViewModel?.calendarData
+        case .respiratory:
+            // todo
+            calendarData = []
+        }
+
+        if let calendarData = calendarData, !calendarData.isEmpty {
+            // модель уже была посчитана ранее для этого месяца и хранится в памяти, пересчитывать не надо
+            self.viewModel.calendarData = calendarData
+        } else {
+            // обнуляем кружки календаря до незаполненных пока идет загрузка данных
+            self.viewModel.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
+                                                                        count: self.viewModel.monthDate.getDayInt())
+
+            var newCalendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
+                                                                count: self.viewModel.monthDate.getDayInt())
+
+            let group = DispatchGroup()
+
+            for dayNumber in 1...self.viewModel.monthDate.getDayInt() {
+                group.enter()
+                DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                    guard let self = self, let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else {
+                        group.leave()
+                        return
+                    }
+
+                    self.getDaySleepData(date: date,
+                                          calendarType: self.viewModel.calendarType,
+                                          completion: { displayItem in
+
+                        newCalendarData[dayNumber - 1] = displayItem
+                        group.leave()
+                    })
+                }
+            }
+        }
+
+    }
+
+
+    /// Получение модели для дня месяца для вью календаря
+    /// - Parameters:
+    ///   - date: Дата для которой нужно получить значения
+    ///   - calendarType: тип здоровья, по которому  в данный момент отображает статистику календарь
+    ///   - completion: -
+    private func getDaySleepData(date: Date, calendarType: HKService.HealthType, completion: @escaping (CalendarDayView.DisplayItem) -> Void) {
+        var value: Double?
+        var description = "-"
+        var color = ColorsRepository.Calendar.emptyDay
+
+        switch calendarType {
+        case .heart, .respiratory, .energy:
+            self.viewModel.statisticsProvider.getMetaData(healthType: calendarType,
+                                                          indicator: .mean,
+                                                          interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { [weak self] val in
+                guard let self = self else { return }
+                value = val
+                color = self.getCircleColor(value: value)
+
+                if let value = value {
+                    description = !value.isNaN
+                    ? calendarType == .energy
+                    ? String(format: "%.2f", value)
+                    : String(Int(value))
+                    : "-"
+                } else {
+                    description = "-"
+                }
+
+                return completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
+            }
+
+        case .asleep, .inbed:
+            self.viewModel.statisticsProvider.getData(healthType: calendarType,
+                                                      indicator: .sum,
+                                                      interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { [weak self]  val in
+                guard let self = self else { return }
+                value = val
+                color = self.getCircleColor(value: value)
+
+                if let value = value {
+                    description = !value.isNaN ? Date.minutesToDateDescription(minutes: Int(value)) : "-"
+                } else {
+                    description = "-"
+                }
+
+                return completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
+            }
+        }
+    }
+
+
+    /// получение цвета, характеризующего негативизм значения статистики в календаре если такая оценка возможна
+    /// - Parameter value: значение
+    /// - Returns: цвет
+    private func getCircleColor(value: Double?) -> Color {
+        if let value = value {
+            switch self.viewModel.calendarType {
+            case .heart:
+                return ColorsRepository.Heart.heart
+
+            case .asleep, .inbed:
+                return Int(value) > viewModel.sleepGoal
+                ? ColorsRepository.Calendar.positiveDay
+                : (value > Double(viewModel.sleepGoal) * 0.9
+                   ? ColorsRepository.Calendar.neutralDay
+                   : ColorsRepository.Calendar.negativeDay)
+
+            case .energy:
+                return ColorsRepository.Energy.energy
+
+            case .respiratory:
+                return Color(.systemBlue)
+            }
+        } else {
+            return ColorsRepository.Calendar.emptyDay
         }
     }
 

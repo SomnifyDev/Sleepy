@@ -17,7 +17,7 @@ struct HistoryListView: View {
 					.edgesIgnoringSafeArea(.all)
 
 				ScrollView(.vertical, showsIndicators: false) {
-					CalendarView(viewModel: viewModel)
+                    CalendarView(viewModel: viewModel, interactor: self.interactor)
                         .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
 					if viewModel.calendarType == .asleep {

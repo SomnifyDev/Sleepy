@@ -39,6 +39,10 @@ extension Date {
 		return components.weekday == 2
 	}
 
+    func isToday() -> Bool {
+        return self.startOfDay == Date().startOfDay
+    }
+
 	func nextTimeMatchingComponents(inDirection direction: Calendar.SearchDirection = .forward,
 	                                using calendar: Calendar = .current, components: DateComponents) -> Date
 	{

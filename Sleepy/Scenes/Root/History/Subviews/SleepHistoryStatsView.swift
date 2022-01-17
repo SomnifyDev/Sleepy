@@ -12,7 +12,10 @@ struct SleepHistoryStatsView: View {
 
     /// Use for shimmers only
     init() {
-        self.viewModel = SleepHistoryStatsViewModel(cellData: .init(with: [StatisticsCellViewModel(title: "some data", value: "14.243")]),
+        self.viewModel = SleepHistoryStatsViewModel(
+            calendarData: [],
+            monthDate: Date(),
+            cellData: .init(with: [StatisticsCellViewModel(title: "some data", value: "14.243")]),
                                                     monthSleepPoints: [350, 320, 450, 300, 0, 302, 350, 320, 450, 300, 0, 302],
                                                     monthBeforeDateInterval: DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date())!, end: Date()),
                                                     currentWeeksProgress: ProgressElementViewModel(title: "some title", payloadText: "some subtitle", value: 480),
@@ -73,11 +76,24 @@ struct SleepHistoryStatsView: View {
     }
 }
 
-struct SleepHistoryStatsViewModel {
+class SleepHistoryStatsViewModel {
+    var calendarData: [CalendarDayView.DisplayItem]
+    var monthDate: Date
     let cellData: StatisticsCellCollectionViewModel
     let monthSleepPoints: [Double]?
     let monthBeforeDateInterval: DateInterval?
     let currentWeeksProgress: ProgressElementViewModel
     let beforeWeeksProgress: ProgressElementViewModel
     let analysisString: String
+
+    init(calendarData: [CalendarDayView.DisplayItem], monthDate: Date, cellData: StatisticsCellCollectionViewModel, monthSleepPoints: [Double]?, monthBeforeDateInterval: DateInterval?, currentWeeksProgress: ProgressElementViewModel, beforeWeeksProgress: ProgressElementViewModel, analysisString: String) {
+        self.calendarData = calendarData
+        self.monthDate = monthDate
+        self.cellData = cellData
+        self.monthSleepPoints = monthSleepPoints
+        self.monthBeforeDateInterval = monthBeforeDateInterval
+        self.currentWeeksProgress = currentWeeksProgress
+        self.beforeWeeksProgress = beforeWeeksProgress
+        self.analysisString = analysisString
+    }
 }

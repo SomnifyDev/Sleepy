@@ -9,6 +9,7 @@ import XUI
 
 struct CalendarView: View {
 	@Store var viewModel: HistoryCoordinator
+    let interactor: HistoryInteractor
 	@State private var totalHeight = CGFloat.zero // variant for ScrollView/List
 	// = CGFloat.infinity - variant for VStack
 
@@ -26,7 +27,7 @@ struct CalendarView: View {
 					HealthTypeSwitchView(selectedType: $viewModel.calendarType)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
-						ForEach(1 ... viewModel.monthDate.getDaysInMonth(), id: \.self) { index in
+                        ForEach(1 ... viewModel.calendarData.count, id: \.self) { index in
 							VStack(spacing: 2) {
 								if index >= 1, index <= 7 {
 									let tmpWeekDay = Calendar.current.date(byAdding: .day,
@@ -37,10 +38,7 @@ struct CalendarView: View {
 										.weekDayTextModifier(width: calendarElementSize)
 								}
 
-								CalendarDayView(viewModel: viewModel,
-								                monthDate: $viewModel.monthDate,
-								                currentDate: Date(),
-								                dateIndex: index, sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
+                                CalendarDayView(displayItem: viewModel.calendarData[index - 1])
 									.frame(height: calendarElementSize)
 
 								Text(String(index))
@@ -57,6 +55,7 @@ struct CalendarView: View {
 								viewModel.monthDate = Calendar.current.date(byAdding: .month,
 								                                            value: horizontalAmount < 0 ? 1 : -1,
 								                                            to: viewModel.monthDate)!
+                                self.interactor.setupCalendarDataByTypeIfNeeded()
 							}
 						})
 				}.background(viewHeightReader($totalHeight))
