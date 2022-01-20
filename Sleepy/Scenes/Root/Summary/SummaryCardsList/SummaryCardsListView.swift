@@ -32,6 +32,23 @@ struct SummaryCardsListView: View {
                         .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                     }
 
+                    // MARK: - General card
+
+                    if let generalViewModel = cardService.generalViewModel {
+                        SectionNameTextView(
+                            text: "Sleep information",
+                            color: ColorsRepository.Text.standard
+                        )
+                            .padding(.top)
+
+                        GeneralSleepInfoCardView(viewModel: generalViewModel)
+                            .buttonStyle(PlainButtonStyle())
+                            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+                            .onNavigation { viewModel.open(.general) }
+                    }
+
+                    // MARK: Errors
+
                     if cardService.respiratoryViewModel == nil,
                        cardService.heartViewModel == nil,
                        cardService.phasesViewModel == nil {
@@ -51,21 +68,6 @@ struct SummaryCardsListView: View {
                         .aspectRatio(1.21, contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .padding([.leading, .trailing])
-                    }
-
-                    // MARK: - General card
-
-                    if let generalViewModel = cardService.generalViewModel {
-                        SectionNameTextView(
-                            text: "Sleep information",
-                            color: ColorsRepository.Text.standard
-                        )
-                            .padding(.top)
-
-                        GeneralSleepInfoCardView(viewModel: generalViewModel)
-                            .buttonStyle(PlainButtonStyle())
-                            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
-                            .onNavigation { viewModel.open(.general) }
                     }
 
                     // MARK: - Phases card

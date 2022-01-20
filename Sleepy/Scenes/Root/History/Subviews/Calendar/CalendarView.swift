@@ -24,7 +24,7 @@ struct CalendarView: View {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
 					                  monthDate: $viewModel.monthDate)
 
-					HealthTypeSwitchView(selectedType: $viewModel.calendarType)
+                    HealthTypeSwitchView(selectedType: $viewModel.calendarType, interactor: self.interactor)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
                         ForEach(1 ... viewModel.calendarData.count, id: \.self) { index in

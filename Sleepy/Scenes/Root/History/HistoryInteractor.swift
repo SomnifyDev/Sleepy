@@ -164,14 +164,15 @@ class HistoryInteractor {
         } else {
             // обнуляем кружки календаря до незаполненных пока идет загрузка данных
             self.viewModel.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
-                                                                        count: self.viewModel.monthDate.getDayInt())
+                                                                        count: self.viewModel.monthDate.endOfMonth.getDayInt())
 
             var newCalendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
-                                                                count: self.viewModel.monthDate.getDayInt())
+                                                                count: self.viewModel.monthDate.endOfMonth.getDayInt())
 
             let group = DispatchGroup()
 
-            for dayNumber in 1...self.viewModel.monthDate.getDayInt() {
+            for dayNumber in 1 ..< self.viewModel.monthDate.endOfMonth.getDayInt() {
+                print("entered")
                 group.enter()
                 DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                     guard let self = self, let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else {
@@ -180,12 +181,20 @@ class HistoryInteractor {
                     }
 
                     self.getDaySleepData(date: date,
-                                          calendarType: self.viewModel.calendarType,
-                                          completion: { displayItem in
+                                         calendarType: self.viewModel.calendarType,
+                                         completion: { displayItem in
 
                         newCalendarData[dayNumber - 1] = displayItem
+                        print("left")
                         group.leave()
                     })
+                }
+            }
+
+            group.notify(queue: .global(qos: .default)) { [weak self] in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.viewModel.calendarData = newCalendarData
                 }
             }
         }
@@ -222,7 +231,7 @@ class HistoryInteractor {
                     description = "-"
                 }
 
-                return completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
+                completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
             }
 
         case .asleep, .inbed:
@@ -240,9 +249,10 @@ class HistoryInteractor {
                     description = "-"
                 }
 
-                return completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
+                completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
             }
         }
+        return
     }
 
 

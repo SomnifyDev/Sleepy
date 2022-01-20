@@ -10,6 +10,7 @@ struct HealthTypeSwitchView: View {
 	@State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
 	//    = CGFloat.infinity   // << variant for VStack
 	@Binding var selectedType: HKService.HealthType
+    let interactor: HistoryInteractor
 
 	var body: some View {
 		VStack {
@@ -63,7 +64,10 @@ struct HealthTypeSwitchView: View {
                         : ColorsRepository.Calendar.emptyDay)
 			.cornerRadius(12)
 			.onTapGesture {
-				selectedType = type
+                self.selectedType = type
+                self.interactor.setupCalendarDataByTypeIfNeeded()
+
+
 				let date = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "armchair_important_calendar_event"))
 
 				if date.getDayInt() != Date().getDayInt() {
