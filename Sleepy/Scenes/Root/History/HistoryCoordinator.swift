@@ -40,7 +40,7 @@ class HistoryCoordinator: ObservableObject, ViewModel {
         let monthDate = Date().startOfMonth
         self.monthDate = monthDate
         self.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
-                                                          count: monthDate.getDayInt())
+                                                          count: monthDate.endOfMonth.getDayInt())
 	}
 
 	func open(_ url: URL) {

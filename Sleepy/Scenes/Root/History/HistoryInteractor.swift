@@ -19,6 +19,28 @@ class HistoryInteractor {
         _viewModel = viewModel
     }
 
+    /// Вызывается для подгрузки кругов месяца самого календаря
+    func extractCalendarData() {
+        // обнуляем кружки календаря до незаполненных пока идет загрузка данных
+        self.viewModel.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false),
+                                                                    count: self.viewModel.monthDate.endOfMonth.getDayInt())
+        for dayNumber in 1 ..< self.viewModel.monthDate.endOfMonth.getDayInt() {
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                guard let self = self,
+                        let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else { return }
+
+                self.getDaySleepData(date: date,
+                                     calendarType: self.viewModel.calendarType,
+                                     completion: { displayItem in
+
+                    DispatchQueue.main.async {
+                        self.viewModel.calendarData[dayNumber - 1] = displayItem
+                    }
+                })
+            }
+        }
+    }
+
     /// Вызывается для подгрузки всей нижней статистики выбранной под календарем
     func extractContextStatistics() {
         FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": self.viewModel.calendarType.rawValue])
@@ -37,8 +59,8 @@ class HistoryInteractor {
         }
     }
 
-    /// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов)
-    func extractSleepDataIfNeeded(type: HKService.HealthType) {
+    /// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов под календарем)
+    private func extractSleepDataIfNeeded(type: HKService.HealthType) {
         if type != .asleep, type != .inbed { fatalError("Not category type being used") }
         if type == .inbed, self.viewModel.inbedHistoryStatsViewModel != nil { return }
         if type == .asleep, self.viewModel.asleepHistoryStatsViewModel != nil { return }
@@ -82,18 +104,18 @@ class HistoryInteractor {
                             case .min:
                                 guard let min = result.min() else { return }
                                 last30daysCellData.append(
-                                    StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
+                                    StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
                                                             value: Date.minutesToDateDescription(minutes: Int(min))))
                             case .max:
                                 guard let max = result.max() else { return }
                                 last30daysCellData.append(
-                                    StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
+                                    StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
                                                             value: Date.minutesToDateDescription(minutes: Int(max))))
                             case .mean:
                                 guard let meanCurrent2WeeksDuration = meanCurrent2WeeksDuration, let meanLast2WeeksDuration = meanLast2WeeksDuration else { return }
                                 let mean = Int(meanCurrent2WeeksDuration + meanLast2WeeksDuration) / 2
                                 last30daysCellData.append(
-                                    StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator),
+                                    StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
                                                             value: Date.minutesToDateDescription(minutes: mean)))
                             case .sum:
                                 break
@@ -110,9 +132,7 @@ class HistoryInteractor {
             if monthSleepPoints != nil,
                let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
                 DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsViewModel(calendarData: [],
-                                                         monthDate: self.viewModel.monthDate,
-                                                         cellData: .init(with: last30daysCellData),
+                    let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
                                                          monthSleepPoints: monthSleepPoints,
                                                          monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
                                                          currentWeeksProgress:
@@ -137,71 +157,78 @@ class HistoryInteractor {
         }
     }
 
-    func setupCalendarDataByTypeIfNeeded() {
-        guard let calendarType = HKService.HealthType(rawValue: self.viewModel.calendarType.rawValue) else { return }
+    /// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
+    private func extractBasicNumericDataIfNeeded(type: HKService.HealthType) {
+        if type == .asleep || type == .inbed { fatalError("Not numeric type being used") }
+        if type == .heart, self.viewModel.heartHistoryStatisticsViewModel != nil { return }
+        if type == .energy, self.viewModel.energyHistoryStatsViewModel != nil { return }
+        if type == .respiratory, self.viewModel.respiratoryHistoryStatsViewModel != nil { return }
 
-        var calendarData: [CalendarDayView.DisplayItem]?
+        var last30daysCellData: [StatisticsCellViewModel] = []
+        let indicators: [Indicator] = [.min, .max, .mean]
 
-        switch calendarType {
-        case .energy:
-            // todo
-            calendarData = []
-        case .heart:
-            // todo
-            calendarData = []
-        case .asleep:
-            calendarData = self.viewModel.asleepHistoryStatsViewModel?.calendarData
-        case .inbed:
-            calendarData = self.viewModel.inbedHistoryStatsViewModel?.calendarData
-        case .respiratory:
-            // todo
-            calendarData = []
+        let group = DispatchGroup()
+        indicators.forEach { indicator in
+            group.enter()
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                guard let self = self else { return }
+                self.viewModel.statisticsProvider.getData(healthType: type,
+                                                          indicator: indicator,
+                                                          interval: self.viewModel.monthBeforeDateInterval) { result in
+                    if let result = result {
+                        last30daysCellData.append(StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator), value: "\(String(format: self.getStatCellValueFormat(for: type), Double(result)))"))
+                    }
+                    group.leave()
+                }
+            }
         }
 
-        if let calendarData = calendarData, !calendarData.isEmpty {
-            // модель уже была посчитана ранее для этого месяца и хранится в памяти, пересчитывать не надо
-            self.viewModel.calendarData = calendarData
-        } else {
-            // обнуляем кружки календаря до незаполненных пока идет загрузка данных
-            self.viewModel.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
-                                                                        count: self.viewModel.monthDate.endOfMonth.getDayInt())
-
-            var newCalendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
-                                                                count: self.viewModel.monthDate.endOfMonth.getDayInt())
-
-            let group = DispatchGroup()
-
-            for dayNumber in 1 ..< self.viewModel.monthDate.endOfMonth.getDayInt() {
-                print("entered")
-                group.enter()
-                DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                    guard let self = self, let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else {
-                        group.leave()
+        group.notify(queue: .global(qos: .default)) { [weak self] in
+            guard let self = self else { return }
+            if !last30daysCellData.isEmpty {
+                DispatchQueue.main.async {
+                    switch type {
+                    case .energy:
+                        self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                    case .heart:
+                        self.viewModel.heartHistoryStatisticsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                    case .respiratory:
+                        self.viewModel.respiratoryHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                    case .asleep, .inbed:
                         return
                     }
-
-                    self.getDaySleepData(date: date,
-                                         calendarType: self.viewModel.calendarType,
-                                         completion: { displayItem in
-
-                        newCalendarData[dayNumber - 1] = displayItem
-                        print("left")
-                        group.leave()
-                    })
-                }
-            }
-
-            group.notify(queue: .global(qos: .default)) { [weak self] in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.viewModel.calendarData = newCalendarData
                 }
             }
         }
+    }
+}
 
+extension HistoryInteractor {
+    /// Получение строки-индикатора для ячейки базовой статистики под календарем
+    func getStatCellLabel(for type: HKService.HealthType, indicator: Indicator) -> String {
+        switch type {
+        case .energy:
+            return "\(indicator) Kcal"
+        case .heart:
+            return "\(indicator) BPM"
+        case .respiratory:
+            return "\(indicator) BrPM"
+        case .asleep, .inbed:
+            return "\(indicator) duration"
+        }
     }
 
+    func getStatCellValueFormat(for type: HKService.HealthType) -> String {
+        switch type {
+        case .respiratory, .heart:
+            return "%.0f"
+        default:
+            return "%.3f"
+        }
+    }
+}
 
+extension HistoryInteractor {
     /// Получение модели для дня месяца для вью календаря
     /// - Parameters:
     ///   - date: Дата для которой нужно получить значения
@@ -232,6 +259,7 @@ class HistoryInteractor {
                 }
 
                 completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
+                return
             }
 
         case .asleep, .inbed:
@@ -250,9 +278,9 @@ class HistoryInteractor {
                 }
 
                 completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
+                return
             }
         }
-        return
     }
 
 
@@ -260,7 +288,7 @@ class HistoryInteractor {
     /// - Parameter value: значение
     /// - Returns: цвет
     private func getCircleColor(value: Double?) -> Color {
-        if let value = value {
+        if let value = value, !value.isNaN {
             switch self.viewModel.calendarType {
             case .heart:
                 return ColorsRepository.Heart.heart
@@ -280,74 +308,6 @@ class HistoryInteractor {
             }
         } else {
             return ColorsRepository.Calendar.emptyDay
-        }
-    }
-
-    /// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
-    func extractBasicNumericDataIfNeeded(type: HKService.HealthType) {
-        if type == .asleep || type == .inbed { fatalError("Not numeric type being used") }
-        if type == .heart, self.viewModel.heartHistoryStatisticsViewModel != nil { return }
-        if type == .energy, self.viewModel.energyHistoryStatsViewModel != nil { return }
-        if type == .respiratory, self.viewModel.respiratoryHistoryStatsViewModel != nil { return }
-
-        var last30daysCellData: [StatisticsCellViewModel] = []
-        let indicators: [Indicator] = [.min, .max, .mean]
-
-        let group = DispatchGroup()
-        indicators.forEach { indicator in
-            group.enter()
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self = self else { return }
-                self.viewModel.statisticsProvider.getData(healthType: type,
-                                                          indicator: indicator,
-                                                          interval: self.viewModel.monthBeforeDateInterval) { result in
-                    if let result = result {
-                        last30daysCellData.append(StatisticsCellViewModel(title: self.getLabel(for: type, indicator: indicator), value: "\(String(format: self.getValueFormat(for: type), Double(result)))"))
-                    }
-                    group.leave()
-                }
-            }
-        }
-
-        group.notify(queue: .global(qos: .default)) { [weak self] in
-            guard let self = self else { return }
-            if !last30daysCellData.isEmpty {
-                DispatchQueue.main.async {
-                    switch type {
-                    case .energy:
-                        self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
-                    case .heart:
-                        self.viewModel.heartHistoryStatisticsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
-                    case .respiratory:
-                        self.viewModel.respiratoryHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
-                    case .asleep, .inbed:
-                        return
-                    }
-                }
-            }
-        }
-    }
-
-    /// Получение строки-индикатора для ячейки базовой статистики под календарем
-    func getLabel(for type: HKService.HealthType, indicator: Indicator) -> String {
-        switch type {
-        case .energy:
-            return "\(indicator) Kcal"
-        case .heart:
-            return "\(indicator) BPM"
-        case .respiratory:
-            return "\(indicator) BrPM"
-        case .asleep, .inbed:
-            return "\(indicator) duration"
-        }
-    }
-
-    func getValueFormat(for type: HKService.HealthType) -> String {
-        switch type {
-        case .respiratory, .heart:
-            return "%.0f"
-        default:
-            return "%.3f"
         }
     }
 }

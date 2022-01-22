@@ -394,7 +394,7 @@
 		805D75152692456000C19034 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				80D7F0B2268C71DA0055ECEE /* calendar */,
+				80D7F0B2268C71DA0055ECEE /* Calendar */,
 				805D751A2692458500C19034 /* SleepHistoryStatsView.swift */,
 				8002F3A826A2139900A7192A /* HeartHistoryStatisticsView.swift */,
 				8031155F2733CEB0004CC544 /* RespiratoryHistoryStatsView.swift */,
@@ -552,14 +552,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		80D7F0B2268C71DA0055ECEE /* calendar */ = {
+		80D7F0B2268C71DA0055ECEE /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
 				80D7F0BB268C77050055ECEE /* CalendarDayView.swift */,
 				80D7F0B7268C71EE0055ECEE /* CalendarView.swift */,
 				80D7F0BD268CF7A30055ECEE /* HealthTypeSwitchView.swift */,
 			);
-			path = calendar;
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		882574914EFE6785A847CA1B /* Frameworks */ = {

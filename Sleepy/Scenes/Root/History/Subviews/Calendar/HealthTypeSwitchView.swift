@@ -12,6 +12,8 @@ struct HealthTypeSwitchView: View {
 	@Binding var selectedType: HKService.HealthType
     let interactor: HistoryInteractor
 
+    var onChangeTypeAction: ((_ type: HKService.HealthType) -> Void)?
+
 	var body: some View {
 		VStack {
 			GeometryReader { geometry in
@@ -64,9 +66,8 @@ struct HealthTypeSwitchView: View {
                         : ColorsRepository.Calendar.emptyDay)
 			.cornerRadius(12)
 			.onTapGesture {
+                self.onChangeTypeAction?(type)
                 self.selectedType = type
-                self.interactor.setupCalendarDataByTypeIfNeeded()
-
 
 				let date = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "armchair_important_calendar_event"))
 
