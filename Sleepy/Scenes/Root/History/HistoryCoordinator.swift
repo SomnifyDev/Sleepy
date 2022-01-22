@@ -39,7 +39,7 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
         let monthDate = Date().startOfMonth
         self.monthDate = monthDate
-        self.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: true),
+        self.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false),
                                                           count: monthDate.endOfMonth.getDayInt())
 	}
 

@@ -60,14 +60,21 @@ struct HistoryListView: View {
 					}
 				}
 			}
-			.onAppear(perform: interactor.extractContextStatistics)
+            .onAppear {
+                self.loadData()
+            }
 			.onChange(of: viewModel.calendarType) { _ in
-                interactor.extractContextStatistics()
+                self.loadData()
 			}
 		}
 		.navigationTitle("Sleep history")
 		.onAppear(perform: self.sendAnalytics)
 	}
+
+    private func loadData() {
+        interactor.extractCalendarData()
+        interactor.extractContextStatistics()
+    }
 
 	private func sendAnalytics() {
 		FirebaseAnalytics.Analytics.logEvent("History_viewed", parameters: nil)

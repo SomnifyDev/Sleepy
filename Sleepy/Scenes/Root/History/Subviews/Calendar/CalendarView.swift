@@ -24,9 +24,7 @@ struct CalendarView: View {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
 					                  monthDate: $viewModel.monthDate)
 
-                    HealthTypeSwitchView(selectedType: $viewModel.calendarType, interactor: self.interactor, onChangeTypeAction: { type in
-                        self.interactor.extractCalendarData()
-                    })
+                    HealthTypeSwitchView(selectedType: $viewModel.calendarType, interactor: self.interactor)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
                         ForEach(1 ... viewModel.calendarData.count, id: \.self) { index in
@@ -61,7 +59,9 @@ struct CalendarView: View {
 							}
 						})
 				}.background(viewHeightReader($totalHeight))
-			}
+            }.onAppear {
+                self.interactor.extractCalendarData()
+            }
 		}.frame(height: totalHeight) // - variant for ScrollView/List
 		// .frame(maxHeight: totalHeight) - variant for VStack
 	}
