@@ -14,15 +14,4 @@ extension Date {
 		dateformat.dateFormat = format
 		return dateformat.string(from: self)
 	}
-
-
-    func getFormattedDate(_ format: String = "HH.mm", dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = format
-        dateformat.dateStyle = dateStyle
-        dateformat.timeStyle = timeStyle
-        dateformat.timeZone = TimeZone.current
-        dateformat.locale = Locale(identifier: Locale.preferredLanguages.first!)
-        return dateformat.string(from: self)
-    }
 }

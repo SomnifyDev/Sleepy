@@ -199,7 +199,7 @@ public class HKService {
 				                          resultsHandler: { sampleQuery, samples, error in
 
 				                          	let samplesFiltered = samples?.filter { sample in
-				                          		(sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.asleep.rawValue
+				                          		(sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.inBed.rawValue
 				                          	}
 
 				                          	if let metadata = samplesFiltered?.first?.metadata {

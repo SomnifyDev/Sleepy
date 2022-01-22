@@ -35,8 +35,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         // checking sleep analysis existence
 
         // lets expand sleep interval a little bit to be 100% while not sure about strict predicate comparsion ( < or <=)
-        let expandedIntervalStart = Calendar.current.date(byAdding: .minute, value: -5, to: sleep.sleepInterval.start)!
-        let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: sleep.sleepInterval.end)!
+        let expandedIntervalStart = Calendar.current.date(byAdding: .minute, value: -5, to: sleep.inBedInterval.start)!
+        let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: sleep.inBedInterval.end)!
         let expandedInterval = DateInterval(start: expandedIntervalStart, end: expandedIntervalEnd)
         self.hkService?.readData(type: .asleep, interval: expandedInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
             // данной проверкой убеждаемся, что в данном интервале не было сохранено сна ранее
@@ -68,55 +68,15 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 let asleepSample = HKCategorySample(type: sleepType,
                                                     value: HKCategoryValueSleepAnalysis.asleep.rawValue,
                                                     start: sleep.sleepInterval.start,
-                                                    end: sleep.sleepInterval.end,
-                                                    metadata: metadata)
-                self.hkService?.writeData(objects: [asleepSample], type: .asleep, completionHandler: completionHandler)
-            }
-        })
-    }
-
-    public func saveInbed(sleep: Sleep, completionHandler: @escaping (Bool, Error?) -> Void) {
-        guard let inBedInterval = sleep.inbedInterval else {
-            completionHandler(false, nil)
-            return
-        }
-        // checking sleep analysis existence
-        // lets expand sleep interval a little bit to be 100% while not sure about strict predicate comparsion ( < or <=)
-        let expandedIntervalStart = Calendar.current.date(byAdding: .minute, value: -5, to: inBedInterval.start)!
-        let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: inBedInterval.end)!
-        let expandedInterval = DateInterval(start: expandedIntervalStart, end: expandedIntervalEnd)
-        self.hkService?.readData(type: .inbed, interval: expandedInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
-            // данной проверкой убеждаемся, что в данном интервале не было сохранено сна ранее
-            guard let samples = samples, samples.isEmpty else {
-                completionHandler(false, nil)
-                return
-            }
-
-            if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
-                var metadata: [String: Any] = [:]
-                let heartRates = sleep.phases.flatMap { $0.heartData }
-                let energyRates = sleep.phases.flatMap { $0.energyData }
-                let breathRates = sleep.phases.flatMap { $0.breathData }
-
-                let heartValues = heartRates.compactMap { $0.value }
-                let energyValues = energyRates.compactMap { $0.value }
-                let breathValues = breathRates.compactMap { $0.value }
-
-                let meanHeartRate = (heartValues.reduce(0.0, +)) / Double(heartValues.count)
-                let meanEnergyRate = (energyValues.reduce(0.0, +)) / Double(energyValues.count)
-                let meanBreathRate = (breathValues.reduce(0.0, +)) / Double(breathValues.count)
-
-                metadata["Heart rate mean"] = String(format: "%.3f", meanHeartRate)
-                metadata["Energy consumption"] = String(format: "%.3f", meanEnergyRate)
-                metadata["Respiratory rate"] = String(format: "%.3f", meanBreathRate)
+                                                    end: sleep.sleepInterval.end)
 
                 let inBedSample = HKCategorySample(type: sleepType,
                                                    value: HKCategoryValueSleepAnalysis.inBed.rawValue,
-                                                   start: inBedInterval.start,
-                                                   end: inBedInterval.end,
+                                                   start: sleep.inBedInterval.start,
+                                                   end: sleep.inBedInterval.end,
                                                    metadata: metadata)
 
-                self.hkService?.writeData(objects: [inBedSample], type: .inbed, completionHandler: completionHandler)
+                self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
             }
         })
     }
@@ -180,26 +140,23 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                       let heartSamples = sleepData.heartSamples,
                       let respiratorySamples = sleepData.respiratorySamples else
                       {
-                          self.saveInbed(sleep: sleep) { [weak self] success, error in
+                          DispatchQueue.main.async { [weak self] in
                               guard let self = self else { return }
-                              DispatchQueue.main.async { [weak self] in
-                                  guard let self = self else { return }
-                                  let state = UIApplication.shared.applicationState
+                              let state = UIApplication.shared.applicationState
 
-                                  if let sleepInterval = sleep.sleepInterval,
-                                     state == .background || state == .inactive,
-                                     shouldNotifyAnalysisByPush
-                                  {
-                                      self.notifyByPush(title: "New sleep analysis", body: sleepInterval.stringFromDateInterval(type: .time))
-                                  }
+                              if let sleepInterval = sleep.sleepInterval,
+                                                         state == .background || state == .inactive,
+                                                         shouldNotifyAnalysisByPush
+                                                      {
+                                  self.notifyByPush(title: "New sleep analysis", body: sleepInterval.stringFromDateInterval(type: .time))
                               }
-                              completionHandler(!sleep.samples.isEmpty ? sleep : nil)
-                              self.lock.unlock()
-                              return
                           }
-                          return
 
+                          completionHandler(!sleep.samples.isEmpty ? sleep : nil)
+                          self.lock.unlock()
+                          return
                       }
+
                 lastIntervalStart = asleepInterval.start
 
                 // определяем фазы на получившимся отрезке
@@ -325,9 +282,6 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         let energySamples = energySamplesRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
         let respiratorySamples = respiratoryRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
 
-        print(asleepInterval.stringFromDateInterval(type: .time))
-        print(inbedInterval.stringFromDateInterval(type: .time))
-        print("#")
         return (asleepInterval, inbedInterval, inBedSamples, asleepSamples, heartSamples, energySamples, respiratorySamples, false)
     }
 
