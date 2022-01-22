@@ -31,13 +31,6 @@ struct CalendarDayView: View {
 
                 Text(displayItem.description)
                     .dayCircleInfoTextModifier(geometry: geometry)
-//                    .onAppear(perform: self.viewModel.getDay)
-//                    .onChange(of: viewModel.calendarType) { _ in
-//                        getDayData()
-//                    }
-//                    .onChange(of: monthDate) { _ in
-//                        getDayData()
-//                    }
             }
         }
     }
