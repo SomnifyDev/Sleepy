@@ -27,7 +27,7 @@ class HistoryInteractor {
         for dayNumber in 1 ..< self.viewModel.monthDate.endOfMonth.getDayInt() {
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let self = self,
-                        let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else { return }
+                      let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else { return }
 
                 self.getDaySleepData(date: date,
                                      calendarType: self.viewModel.calendarType,
@@ -79,82 +79,68 @@ class HistoryInteractor {
         let current2weeksInterval = DateInterval(start: currDate2weeksbefore, end: currDate)
         let last2weeksInterval = DateInterval(start: monthbeforedate, end: twoweeksbeforeDate)
 
-        let group = DispatchGroup()
+        self.getSleepDurationData(type: type) { durations in
+                if durations.count >= 14 {
+                    monthSleepPoints = durations
 
-        if type == .asleep {
-            group.enter()
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self = self else { return }
-                // TODO: сюда может вернуться сразу несколько снов за сутки, тогда нарушится логика вывода в график (где каждый столбик = день). FIX IT
-                self.viewModel.statisticsProvider.getData(healthType: type,
-                                                          interval: self.viewModel.monthBeforeDateInterval,
-                                                          bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
-                    if !result.isEmpty {
-                        monthSleepPoints = result
+                    let suffixValues = durations.suffix(durations.count / 2)
+                    meanCurrent2WeeksDuration = suffixValues.reduce(0, +) / Double(suffixValues.count)
 
-                        let suffixValues = result.suffix(14)
-                        meanCurrent2WeeksDuration = suffixValues.reduce(0, +) / Double(suffixValues.count)
+                    let preffixValues = durations.prefix(durations.count / 2)
+                    meanLast2WeeksDuration = preffixValues.reduce(0, +) / Double(preffixValues.count)
 
-                        let preffixValues = result.prefix(14)
-                        meanLast2WeeksDuration = preffixValues.reduce(0, +) / Double(preffixValues.count)
+                    let indicators: [Indicator] = [.min, .max, .mean]
 
-                        let indicators: [Indicator] = [.min, .max, .mean]
-                        indicators.forEach { indicator in
-                            switch indicator {
-                            case .min:
-                                guard let min = result.min() else { return }
-                                last30daysCellData.append(
-                                    StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
-                                                            value: Date.minutesToDateDescription(minutes: Int(min))))
-                            case .max:
-                                guard let max = result.max() else { return }
-                                last30daysCellData.append(
-                                    StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
-                                                            value: Date.minutesToDateDescription(minutes: Int(max))))
-                            case .mean:
-                                guard let meanCurrent2WeeksDuration = meanCurrent2WeeksDuration, let meanLast2WeeksDuration = meanLast2WeeksDuration else { return }
-                                let mean = Int(meanCurrent2WeeksDuration + meanLast2WeeksDuration) / 2
-                                last30daysCellData.append(
-                                    StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
-                                                            value: Date.minutesToDateDescription(minutes: mean)))
-                            case .sum:
-                                break
+                    indicators.forEach { indicator in
+                        switch indicator {
+                        case .min:
+                            guard let min = durations.min() else { return }
+                            last30daysCellData.append(
+                                StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
+                                                        value: Date.minutesToDateDescription(minutes: Int(min))))
+                        case .max:
+                            guard let max = durations.max() else { return }
+                            last30daysCellData.append(
+                                StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
+                                                        value: Date.minutesToDateDescription(minutes: Int(max))))
+                        case .mean:
+                            guard let meanCurrent2WeeksDuration = meanCurrent2WeeksDuration, let meanLast2WeeksDuration = meanLast2WeeksDuration else { return }
+                            let mean = Int(meanCurrent2WeeksDuration + meanLast2WeeksDuration) / 2
+                            last30daysCellData.append(
+                                StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
+                                                        value: Date.minutesToDateDescription(minutes: mean)))
+                        case .sum:
+                            break
+                        }
+                    }
+                }
+
+                    if monthSleepPoints != nil,
+                       let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
+                        DispatchQueue.main.async {
+                            let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
+                                                                 monthSleepPoints: monthSleepPoints,
+                                                                 monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
+                                                                 currentWeeksProgress:
+                                                                    ProgressElementViewModel(title: "Current mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean1))),
+                                                                                             payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
+                                                                                             value: Int(mean1)),
+                                                                 beforeWeeksProgress:
+                                                                    ProgressElementViewModel(title: "2 weeks before mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean2))),
+                                                                                             payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
+                                                                                             value: Int(mean2)),
+                                                                 analysisString: Int(mean1) == Int(mean2)
+                                                                 ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
+                                                                 : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
+
+                            if type == .inbed {
+                                self.viewModel.inbedHistoryStatsViewModel = tmp
+                            } else {
+                                self.viewModel.asleepHistoryStatsViewModel = tmp
                             }
                         }
                     }
-                    group.leave()
                 }
-            }
-        }
-
-        group.notify(queue: .global(qos: .default)) { [weak self] in
-            guard let self = self else { return }
-            if monthSleepPoints != nil,
-               let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
-                DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
-                                                         monthSleepPoints: monthSleepPoints,
-                                                         monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
-                                                         currentWeeksProgress:
-                                                            ProgressElementViewModel(title: "Current mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean1))),
-                                                                                     payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                     value: Int(mean1)),
-                                                         beforeWeeksProgress:
-                                                            ProgressElementViewModel(title: "2 weeks before mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean2))),
-                                                                                     payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                     value: Int(mean2)),
-                                                         analysisString: Int(mean1) == Int(mean2)
-                                                         ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
-                                                         : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
-
-                    if type == .inbed {
-                        self.viewModel.inbedHistoryStatsViewModel = tmp
-                    } else {
-                        self.viewModel.asleepHistoryStatsViewModel = tmp
-                    }
-                }
-            }
-        }
     }
 
     /// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
@@ -205,7 +191,7 @@ class HistoryInteractor {
 
 extension HistoryInteractor {
     /// Получение строки-индикатора для ячейки базовой статистики под календарем
-    func getStatCellLabel(for type: HKService.HealthType, indicator: Indicator) -> String {
+    private func getStatCellLabel(for type: HKService.HealthType, indicator: Indicator) -> String {
         switch type {
         case .energy:
             return "\(indicator) Kcal"
@@ -218,12 +204,43 @@ extension HistoryInteractor {
         }
     }
 
-    func getStatCellValueFormat(for type: HKService.HealthType) -> String {
+    private func getStatCellValueFormat(for type: HKService.HealthType) -> String {
         switch type {
         case .respiratory, .heart:
             return "%.0f"
         default:
             return "%.3f"
+        }
+    }
+
+    private func getSleepDurationData(type: HKService.HealthType,
+                                      completion: @escaping ([Double]) -> Void) {
+        let datesToFetch = Date().endOfMonth.getDayInt()
+        var resultData: [Double] = Array(repeating: 0, count: datesToFetch)
+
+        var samplesLeft = datesToFetch
+        let queue = DispatchQueue(label: "sleepDurationQueue", qos: .userInitiated)
+        for dateIndex in 0 ..< datesToFetch {
+            guard
+                let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else {
+                    return
+                }
+
+            self.viewModel.statisticsProvider.getData(healthType: type,
+                                                      indicator: .sum,
+                                                      interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
+                let isComplete = queue.sync { () -> Bool in
+                    guard let data = data, data > 0 else { return false }
+                    resultData[datesToFetch - samplesLeft] = data
+                    samplesLeft -= 1
+                    return samplesLeft == 0
+                }
+                if isComplete || dateIndex == datesToFetch - 1 {
+                    completion(resultData.prefix(while: { item in item > 0 }))
+                    return
+                }
+            }
         }
     }
 }
@@ -282,7 +299,6 @@ extension HistoryInteractor {
             }
         }
     }
-
 
     /// получение цвета, характеризующего негативизм значения статистики в календаре если такая оценка возможна
     /// - Parameter value: значение

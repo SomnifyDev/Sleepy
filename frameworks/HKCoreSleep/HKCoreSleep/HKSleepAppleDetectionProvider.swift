@@ -10,7 +10,7 @@ public protocol HKDetectionProvider {
 public class HKSleepAppleDetectionProvider: HKDetectionProvider {
     public enum Constants {
         // допустимая погрешность разницы между сэмплами, чтоб не считать это пробуждением
-        public static let minimalSimilarMicroSleepSamplesDifference = 5
+        public static let minimalSimilarMicroSleepSamplesDifference = 15
         // максимально допустимое время пробуждения, чтобы продолжать считать это одним сном
         public static let maximalSleepDifference = 45
     }

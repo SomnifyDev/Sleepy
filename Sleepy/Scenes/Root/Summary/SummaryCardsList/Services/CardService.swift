@@ -93,7 +93,7 @@ class CardService: ObservableObject {
         var resultData: [Double] = Array(repeating: 0, count: 14)
         var samplesLeft = 14
         let queue = DispatchQueue(label: "bankOfSleepQueue", qos: .userInitiated)
-        for dateIndex in 0 ..< 14 {
+        for dateIndex in 0 ..< 28 {
             guard
                 let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else {
                     somethingBroken = true
@@ -101,14 +101,18 @@ class CardService: ObservableObject {
                 }
 
             self.statisticsProvider.getData(healthType: .asleep,
-                                            indicator: .sum, interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
+                                            indicator: .sum,
+                                            interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
                 let isComplete = queue.sync { () -> Bool in
-                    resultData[dateIndex] = data ?? 0
+                    if samplesLeft == 0 { return true }
+                    resultData[14 - samplesLeft] = data ?? 0
                     samplesLeft -= 1
                     return samplesLeft == 0
                 }
                 if isComplete {
                     completion(resultData.reversed())
+                    return
                 }
             }
         }
