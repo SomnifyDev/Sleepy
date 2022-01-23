@@ -27,6 +27,18 @@ extension Date {
 		return Calendar(identifier: .gregorian).date(byAdding: components, to: self.startOfMonth)!
 	}
 
+    var twoWeeksBefore: Date {
+        var components = DateComponents()
+        components.day = -14
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+
+    var monthBefore: Date {
+        var components = DateComponents()
+        components.month = -1
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+
 	func weekday() -> String? {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "EE"

@@ -10,6 +10,7 @@ import XUI
 struct CalendarView: View {
 	@Store var viewModel: HistoryCoordinator
     let interactor: HistoryInteractor
+
 	@State private var totalHeight = CGFloat.zero // variant for ScrollView/List
 	// = CGFloat.infinity - variant for VStack
 
@@ -111,20 +112,5 @@ private struct CalendarTitleView: View {
 			}
 
 		}.frame(height: 30, alignment: .top)
-	}
-
-	private func getSelectedCalendarColor(for type: HKService.HealthType) -> Color {
-		switch type {
-		case .heart:
-			return ColorsRepository.Heart.heart
-		case .energy:
-			return ColorsRepository.Energy.energy
-		case .asleep:
-			return ColorsRepository.General.appBackground
-		case .inbed:
-			return ColorsRepository.General.appBackground
-		case .respiratory:
-			return Color(.systemBlue)
-		}
 	}
 }

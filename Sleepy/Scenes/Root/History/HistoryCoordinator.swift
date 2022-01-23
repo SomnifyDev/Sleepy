@@ -27,7 +27,7 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
 	let statisticsProvider: HKStatisticsProvider
 
-    let monthBeforeDateInterval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date().endOfDay)!.startOfDay, end: Date().endOfDay)
+    let monthBeforeDateInterval = DateInterval(start: Date().monthBefore.startOfDay, end: Date().endOfDay)
 
 	init(statisticsProvider: HKStatisticsProvider,
 	     parent: RootCoordinator)
