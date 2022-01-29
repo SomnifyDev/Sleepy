@@ -53,14 +53,14 @@ class HistoryInteractor {
         case .respiratory:
             self.extractBasicNumericDataIfNeeded(type: .respiratory)
         case .asleep:
-            self.extractSleepDataIfNeeded(type: .asleep)
+            self.extractBasicCategoryDataIfNeeded(type: .asleep)
         case .inbed:
-            self.extractSleepDataIfNeeded(type: .inbed)
+            self.extractBasicCategoryDataIfNeeded(type: .inbed)
         }
     }
 
     /// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов под календарем)
-    private func extractSleepDataIfNeeded(type: HKService.HealthType) {
+    private func extractBasicCategoryDataIfNeeded(type: HKService.HealthType) {
         if type != .asleep, type != .inbed { fatalError("Not category type being used") }
         if type == .inbed, self.viewModel.inbedHistoryStatsViewModel != nil { return }
         if type == .asleep, self.viewModel.asleepHistoryStatsViewModel != nil { return }
@@ -89,21 +89,18 @@ class HistoryInteractor {
                     switch indicator {
                     case .min:
                         guard let min = durations.min() else { return }
-                        last30daysCellData.append(
-                            StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
-                                                    value: Date.minutesToDateDescription(minutes: Int(min))))
+                        last30daysCellData.append(.init(title: self.getStatCellTitle(for: type, indicator: indicator),
+                                                        value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(min)))))
                     case .max:
                         guard let max = durations.max() else { return }
-                        last30daysCellData.append(
-                            StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
-                                                    value: Date.minutesToDateDescription(minutes: Int(max))))
+                        last30daysCellData.append(.init(title: self.getStatCellTitle(for: type, indicator: indicator),
+                                                        value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(max)))))
                     case .mean:
                         guard let meanCurrent2WeeksDuration = meanCurrent2WeeksDuration,
                               let meanLast2WeeksDuration = meanLast2WeeksDuration else { return }
                         let mean = Int(meanCurrent2WeeksDuration + meanLast2WeeksDuration) / 2
-                        last30daysCellData.append(
-                            StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator),
-                                                    value: Date.minutesToDateDescription(minutes: mean)))
+                        last30daysCellData.append(.init(title: self.getStatCellTitle(for: type, indicator: indicator),
+                                                        value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(mean)))))
                     case .sum:
                         break
                     }
@@ -157,7 +154,8 @@ class HistoryInteractor {
                                                           indicator: indicator,
                                                           interval: self.viewModel.monthBeforeDateInterval) { result in
                     if let result = result {
-                        last30daysCellData.append(StatisticsCellViewModel(title: self.getStatCellLabel(for: type, indicator: indicator), value: "\(String(format: self.getStatCellValueFormat(for: type), Double(result)))"))
+                        last30daysCellData.append(StatisticsCellViewModel(title: self.getStatCellTitle(for: type, indicator: indicator),
+                                                                          value: self.getStatCellDescription(for: type, value: String(format: self.getStatCellValueFormat(for: type), Double(result)))))
                     }
                     group.leave()
                 }
@@ -209,7 +207,7 @@ extension HistoryInteractor {
                     return samplesLeft == 0
                 }
                 if isComplete || dateIndex == datesToFetch - 1 {
-                    completion(resultData.prefix(while: { item in item > 0 }))
+                    completion(resultData.prefix(while: { item in item > 0 }).reversed())
                     return
                 }
             }
@@ -217,16 +215,30 @@ extension HistoryInteractor {
     }
 
     /// Получение строки-индикатора для ячейки базовой статистики под календарем
-    private func getStatCellLabel(for type: HKService.HealthType, indicator: Indicator) -> String {
+    private func getStatCellTitle(for type: HKService.HealthType, indicator: Indicator) -> String {
         switch type {
         case .energy:
-            return "\(indicator) Kcal"
+            return "\(indicator.rawValue) consumption".capitalized
         case .heart:
-            return "\(indicator) BPM"
+            return "\(indicator.rawValue) pulse".capitalized
         case .respiratory:
-            return "\(indicator) BrPM"
+            return "\(indicator.rawValue) breath rate".capitalized
         case .asleep, .inbed:
-            return "\(indicator) duration"
+            return "\(indicator.rawValue) duration".capitalized
+        }
+    }
+
+    /// Получение строки-индикатора для ячейки базовой статистики под календарем
+    private func getStatCellDescription(for type: HKService.HealthType, value: String) -> String {
+        switch type {
+        case .energy:
+            return "\(value) kcal"
+        case .heart:
+            return "\(value) bpm"
+        case .respiratory:
+            return "\(value) brpm"
+        case .asleep, .inbed:
+            return "\(value)"
         }
     }
 
