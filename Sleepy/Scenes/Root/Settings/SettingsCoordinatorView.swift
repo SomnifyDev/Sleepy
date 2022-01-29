@@ -31,7 +31,6 @@ struct SettingsCoordinatorView: View {
                                   showChevron: true,
                                   action: { UIApplication.shared.openURL(URL(string: "mailto:\(SettingsCoordinator.Constants.email)")!) })
 
-
                     LabeledButton(text: "Rate us",
                                   showChevron: true,
                                   action: { Armchair.rateApp() })

@@ -43,7 +43,7 @@ struct GeneralCardDetailView: View {
                                 shouldShowSeparator: true
                             )
                         ) {
-                            VStack {
+                            VStack(spacing: 16) {
                                 StandardChartView(
                                     chartType: .verticalProgress(
                                         foregroundElementColor: ColorsRepository.General.mainSleepy,
@@ -52,8 +52,12 @@ struct GeneralCardDetailView: View {
                                     ),
                                     chartHeight: 100,
                                     points: bankOfSleepViewModel.bankOfSleepData,
-                                    dateInterval: nil
+                                    dateInterval: nil,
+                                    needOXLine: false,
+                                    needTimeLine: false,
+                                    dragGestureEnabled: false
                                 )
+
                                 CardBottomSimpleDescriptionView(
                                     with: "Sleep for \(bankOfSleepViewModel.timeToCloseDebt) every day to pay off the debt."
                                 )

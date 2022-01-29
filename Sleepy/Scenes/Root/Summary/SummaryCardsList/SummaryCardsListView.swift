@@ -10,7 +10,6 @@ struct SummaryCardsListView: View {
 
     @EnvironmentObject var cardService: CardService
 
-
     @State private var showSleepImprovement = false
     @State private var imagesIndex = 0
     private let tutorialImages = ["tutorial3", "tutorial4"]
@@ -79,12 +78,15 @@ struct SummaryCardsListView: View {
                             color: ColorsRepository.Text.standard
                         )
                         CardWithContentView(with: viewModel.phasesCardTitleViewModel) {
-                            VStack {
+                            VStack(spacing: 8) {
                                 StandardChartView(
                                     chartType: .phasesChart,
                                     chartHeight: 75,
                                     points: phasesViewModel.phasesData,
-                                    dateInterval: generalViewModel.sleepInterval
+                                    dateInterval: generalViewModel.sleepInterval,
+                                    needOXLine: true,
+                                    needTimeLine: true,
+                                    dragGestureEnabled: true
                                 )
                                 CardBottomSimpleDescriptionView(
                                     with: String(
@@ -110,14 +112,17 @@ struct SummaryCardsListView: View {
                         )
 
                         CardWithContentView(with: viewModel.heartCardTitleViewModel) {
-                            VStack {
+                            VStack(spacing: 8) {
                                 StandardChartView(
                                     chartType: .defaultChart(
                                         barType: .circular(color: ColorsRepository.Heart.heart)
                                     ),
                                     chartHeight: 75,
                                     points: heartViewModel.heartRateData,
-                                    dateInterval: generalViewModel.sleepInterval
+                                    dateInterval: generalViewModel.sleepInterval,
+                                    needOXLine: true,
+                                    needTimeLine: true,
+                                    dragGestureEnabled: true
                                 )
                                 CardBottomSimpleDescriptionView(
                                     with: String(
@@ -142,7 +147,7 @@ struct SummaryCardsListView: View {
                             color: ColorsRepository.Text.standard
                         )
                         CardWithContentView(with: viewModel.respiratoryCardTitleViewModel) {
-                            VStack {
+                            VStack(spacing: 8) {
                                 StandardChartView(
                                     chartType: .defaultChart(
                                         barType: .rectangular(
@@ -151,7 +156,10 @@ struct SummaryCardsListView: View {
                                     ),
                                     chartHeight: 75,
                                     points: respiratoryViewModel.respiratoryRateData,
-                                    dateInterval: generalViewModel.sleepInterval
+                                    dateInterval: generalViewModel.sleepInterval,
+                                    needOXLine: true,
+                                    needTimeLine: true,
+                                    dragGestureEnabled: true
                                 )
                                 CardBottomSimpleDescriptionView(
                                     with: String(

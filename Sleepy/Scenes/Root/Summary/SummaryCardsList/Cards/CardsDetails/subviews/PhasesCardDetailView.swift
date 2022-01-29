@@ -30,7 +30,10 @@ struct PhasesCardDetailView: View {
                             chartType: .phasesChart,
                             chartHeight: 75,
                             points: phasesViewModel.phasesData,
-                            dateInterval: generalViewModel.sleepInterval
+                            dateInterval: generalViewModel.sleepInterval,
+                            needOXLine: true,
+                            needTimeLine: true,
+                            dragGestureEnabled: true
                         )
                             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                             .padding(.top)

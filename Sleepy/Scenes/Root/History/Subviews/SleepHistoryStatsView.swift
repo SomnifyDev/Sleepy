@@ -38,6 +38,7 @@ struct SleepHistoryStatsView: View {
                                                                  chartHeight: 75,
                                                                  points: monthSleepPoints,
                                                                  dateInterval: monthBeforeDateInterval,
+                                                                 needOXLine: true,
                                                                  needTimeLine: false,
                                                                  dragGestureEnabled: false) })
                     .roundedCardBackground(color: ColorsRepository.Card.cardBackground)

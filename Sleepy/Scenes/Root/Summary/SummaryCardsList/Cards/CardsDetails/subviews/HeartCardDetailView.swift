@@ -33,7 +33,10 @@ struct HeartCardDetailView: View {
                             ),
                             chartHeight: 75,
                             points: heartViewModel.heartRateData,
-                            dateInterval: generalViewModel.sleepInterval
+                            dateInterval: generalViewModel.sleepInterval,
+                            needOXLine: true,
+                            needTimeLine: true,
+                            dragGestureEnabled: true
                         )
                             .roundedCardBackground(
                                 color: ColorsRepository.Card.cardBackground

@@ -30,7 +30,10 @@ struct RespiratoryCardDetailView: View {
                             ),
                             chartHeight: 75,
                             points: respiratoryViewModel.respiratoryRateData,
-                            dateInterval: generalViewModel.sleepInterval
+                            dateInterval: generalViewModel.sleepInterval,
+                            needOXLine: true,
+                            needTimeLine: true,
+                            dragGestureEnabled: true
                         )
                             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                             .padding(.top)

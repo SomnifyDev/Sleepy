@@ -20,12 +20,11 @@ struct SoundsFactory {
         )
     }
 
-
     // MARK: - Private methods
 
     private func makeSomethingBrokenBannerCardTitleViewModel() -> CardTitleViewModel {
         return CardTitleViewModel(
-            leadIcon: IconsRepository.questionmark,
+            leadIcon: IconsRepository.calendar,
             title: "Advice",
             description: "Record your sleep sounds by pressing ‘record’ button below  and get sound-recognision after you end recording",
             trailIcon: ImageWithOptionalActionView(
