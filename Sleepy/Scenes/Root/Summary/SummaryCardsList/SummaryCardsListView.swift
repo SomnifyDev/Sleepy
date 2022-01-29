@@ -174,23 +174,6 @@ struct SummaryCardsListView: View {
                         .onNavigation { viewModel.open(.breath) }
                         .buttonStyle(PlainButtonStyle())
                     }
-
-                    SectionNameTextView(text: "What else?",
-                                        color: ColorsRepository.Text.standard)
-                        .padding(.top)
-
-                    ArticleCardView(
-                        with: ArticleCardViewModel(
-                            title: "How to improve your sleep?",
-                            description: "Learn about the factors that affect the quality of your sleep.",
-                            coverImage: Image("sleepImprovementAdvice")
-                        ),
-                        destinationView: AdviceView(
-                            sheetType: .sleepImprovementAdvice,
-                            showAdvice: $showSleepImprovement
-                        )
-                    )
-                        .usefulInfoCardBackground(color: ColorsRepository.Card.cardBackground)
                 }
             }
         }

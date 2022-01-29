@@ -125,6 +125,7 @@ struct GeneralCardDetailView: View {
                             description: "Learn more about the role of sleep in your life.",
                             coverImage: Image("sleepImportanceAdvice")
                         ),
+                        shouldOpenDestinationView: $showSleepImportance,
                         destinationView: AdviceView(
                             sheetType: .sleepImportanceAdvice,
                             showAdvice: $showSleepImportance
@@ -138,6 +139,7 @@ struct GeneralCardDetailView: View {
                             description: "Learn about the factors that affect the quality of your sleep.",
                             coverImage: Image("sleepImprovementAdvice")
                         ),
+                        shouldOpenDestinationView: $showSleepImprovement,
                         destinationView: AdviceView(
                             sheetType: .sleepImprovementAdvice,
                             showAdvice: $showSleepImprovement

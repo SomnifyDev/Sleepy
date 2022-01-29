@@ -78,6 +78,7 @@ struct PhasesCardDetailView: View {
                             description: "Learn more about sleep phases and stages.",
                             coverImage: Image("phasesAdvice")
                         ),
+                        shouldOpenDestinationView: $showAdvice,
                         destinationView: AdviceView(
                             sheetType: .phasesAdvice,
                             showAdvice: $showAdvice

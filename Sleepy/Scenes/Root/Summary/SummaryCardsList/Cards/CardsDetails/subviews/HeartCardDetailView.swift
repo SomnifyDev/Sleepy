@@ -23,8 +23,8 @@ struct HeartCardDetailView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center) {
                     if let heartViewModel = cardService.heartViewModel,
-                       let generalViewModel = cardService.generalViewModel
-                    {
+                       let generalViewModel = cardService.generalViewModel {
+
                         // MARK: Chart
 
                         StandardChartView(
@@ -62,11 +62,10 @@ struct HeartCardDetailView: View {
                                     StatisticsCellViewModel(
                                         title: "Min pulse",
                                         value: heartViewModel.minHeartRate
-                                    )
+                                    ),
                                 ]
                             )
                         )
-
 
                         // MARK: Indicators
 
@@ -98,6 +97,7 @@ struct HeartCardDetailView: View {
                             description: "Learn more about the importance of sleep for heart health.",
                             coverImage: Image("heartAdvice")
                         ),
+                        shouldOpenDestinationView: $showAdvice,
                         destinationView: AdviceView(
                             sheetType: .heartAdvice,
                             showAdvice: $showAdvice
