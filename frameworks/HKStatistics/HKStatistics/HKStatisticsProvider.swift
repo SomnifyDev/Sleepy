@@ -94,12 +94,22 @@ public final class HKStatisticsProvider {
                 group.enter()
 
                 DispatchQueue.main.async(flags: .barrier) { [weak self] in
-                    self?.healthService.readData(type: healthType,
-                                                 interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay),
-                                                 ascending: true,
-                                                 bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, _ in
-                        result[index] = self?.generalStatisticsProvider.data(healthType: healthType, indicator: indicator, data: sleepData ?? []) ?? 0.0
-                        group.leave()
+                    if healthType == .inbed || healthType == .asleep {
+                        self?.healthService.readData(type: healthType,
+                                                     interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay),
+                                                     ascending: true,
+                                                     bundlePrefixes: bundlePrefixes) { [weak self] _, sleepData, _ in
+                            result[index] = self?.generalStatisticsProvider.data(healthType: healthType, indicator: indicator, data: sleepData ?? []) ?? 0.0
+                            group.leave()
+                        }
+                    } else {
+                        self?.getMetaData(healthType: healthType,
+                                          indicator: .sum,
+                                          interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay),
+                                          bundlePrefixes: bundlePrefixes) { value in
+                            result[index] = value ?? 0.0
+                            group.leave()
+                        }
                     }
                 }
             }
