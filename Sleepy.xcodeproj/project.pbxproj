@@ -64,6 +64,7 @@
 		80C19298270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C19297270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift */; };
 		80C524752748DF2F006EB288 /* CMTime+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C524742748DF2F006EB288 /* CMTime+String.swift */; };
 		80C524782748E255006EB288 /* RecordingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C524772748E255006EB288 /* RecordingRowView.swift */; };
+		80CFC50327A6D2DE00560E48 /* HistoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CFC50227A6D2DE00560E48 /* HistoryFactory.swift */; };
 		80D7F0B8268C71EE0055ECEE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B7268C71EE0055ECEE /* CalendarView.swift */; };
 		80D7F0BA268C75D80055ECEE /* Date+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0B9268C75D80055ECEE /* Date+Components.swift */; };
 		80D7F0BC268C77050055ECEE /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D7F0BB268C77050055ECEE /* CalendarDayView.swift */; };
@@ -255,6 +256,7 @@
 		80C19297270DD67500F66A69 /* SummaryRespiratoryDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRespiratoryDataViewModel.swift; sourceTree = "<group>"; };
 		80C524742748DF2F006EB288 /* CMTime+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+String.swift"; sourceTree = "<group>"; };
 		80C524772748E255006EB288 /* RecordingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRowView.swift; sourceTree = "<group>"; };
+		80CFC50227A6D2DE00560E48 /* HistoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFactory.swift; sourceTree = "<group>"; };
 		80D7F0B7268C71EE0055ECEE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		80D7F0B9268C75D80055ECEE /* Date+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Components.swift"; sourceTree = "<group>"; };
 		80D7F0BB268C77050055ECEE /* CalendarDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 			children = (
 				D99509EF26777D4200694208 /* HistoryCoordinator.swift */,
 				80FCF0662778956200A24EE5 /* HistoryInteractor.swift */,
+				80CFC50227A6D2DE00560E48 /* HistoryFactory.swift */,
 				D99509F026777D4200694208 /* HistoryCoordinatorView.swift */,
 				8002F3A526A1FA3600A7192A /* HistoryListView.swift */,
 				805D75152692456000C19034 /* Subviews */,
@@ -1184,6 +1187,7 @@
 				D94419D1266CD3C40019902F /* SleepyApp.swift in Sources */,
 				D9950A00267780F300694208 /* SettingsCoordinatorView.swift in Sources */,
 				8008E59B26E3A8E80076DA7E /* GeneralSleepInfoCardView.swift in Sources */,
+				80CFC50327A6D2DE00560E48 /* HistoryFactory.swift in Sources */,
 				80780F45266D439F000D0DD9 /* RootCoordinatorView.swift in Sources */,
 				80A765E526C7F44000A66554 /* SoundsCoordinatorView.swift in Sources */,
 				8052613826FF1AD600643C8A /* IntroCoordinator.swift in Sources */,
