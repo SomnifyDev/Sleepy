@@ -40,8 +40,8 @@ class HistoryInteractor {
                 }
             }
 
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.calendarData = displayItems
+            DispatchQueue.main.async {
+                self.viewModel.calendarData = displayItems
             }
         }
     }

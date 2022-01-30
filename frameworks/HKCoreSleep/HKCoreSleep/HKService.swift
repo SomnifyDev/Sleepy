@@ -92,8 +92,7 @@ public class HKService {
                 // а др семплы (сердце, энергия точно должны быть ибо они начинают записываться с первых минут пользования
                 // Если офк юзер вручную не отключил это лол
                 // TODO: обработать юзеров, отключивших сердце и энергию к записи
-                HKService.healthStore.requestAuthorization(toShare: HKService.writeDataTypes, read: HKService.readDataTypes, completion: { _, _ in })
-                self.checkReadPermissions(type: .heart, completionHandler: completionHandler)
+                HKService.healthStore.requestAuthorization(toShare: HKService.writeDataTypes, read: HKService.readDataTypes, completion: completionHandler)
             } else {
                 completionHandler(true, error)
             }
@@ -192,7 +191,6 @@ public class HKService {
                              completionHandler: @escaping (HKSampleQuery?, Double?, Error?) -> Void)
     {
         self.checkReadPermissions(type: .inbed) { _, error in
-
             if error == nil {
                 let datePredicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [])
                 let myAppPredicate = HKQuery.predicateForObjects(from: HKSource.default()) // This would retrieve only my app's data
@@ -212,6 +210,9 @@ public class HKService {
                     if let metadata = samplesFiltered?.first?.metadata {
                         completionHandler(sampleQuery, Double(metadata[key] as? String ?? ""), error)
                         return
+                    } else {
+                        completionHandler(sampleQuery, 0.0, error)
+                        return
                     }
                 })
 
@@ -219,6 +220,7 @@ public class HKService {
 
             } else {
                 completionHandler(nil, nil, error)
+                return
             }
         }
     }

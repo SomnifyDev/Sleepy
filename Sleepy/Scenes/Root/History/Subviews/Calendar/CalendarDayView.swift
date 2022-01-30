@@ -9,7 +9,7 @@ import UIComponents
 import XUI
 
 struct CalendarDayView: View {
-    struct DisplayItem: Identifiable {
+    struct DisplayItem: Identifiable, Hashable {
         var id = UUID()
         var dayNumber: Int
         let value: Double?

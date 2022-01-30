@@ -92,7 +92,6 @@ public final class HKStatisticsProvider {
         for index in 0 ... daysInInterval {
             if let dayDate = Calendar.current.date(byAdding: .day, value: index, to: interval.start) {
                 group.enter()
-
                 DispatchQueue.main.async(flags: .barrier) { [weak self] in
                     if healthType == .inbed || healthType == .asleep {
                         self?.healthService.readData(type: healthType,
@@ -174,6 +173,7 @@ public final class HKStatisticsProvider {
                                         interval: interval,
                                         ascending: true) { _, data, _ in
             completion(data)
+            return
         }
     }
 }
