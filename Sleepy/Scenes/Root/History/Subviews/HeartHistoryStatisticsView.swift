@@ -47,7 +47,7 @@ struct HeartHistoryStatisticsView: View {
                         points: self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
                         dateInterval: .init(start: Date().startOfMonth.startOfDay, end: Date().endOfDay),
                         needOXLine: true,
-                        needTimeLine: true,
+                        needTimeLine: false,
                         dragGestureEnabled: true
                     )
                     CardBottomSimpleDescriptionView(
