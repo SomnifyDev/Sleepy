@@ -40,20 +40,15 @@ struct HeartHistoryStatisticsView: View {
                 color: ColorsRepository.Text.standard
             )
             CardWithContentView(with: viewModel.ssdnCardTitleViewModel) {
-                VStack(spacing: 8) {
-                    StandardChartView(
-                        chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
-                        chartHeight: 75,
-                        points: self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
-                        dateInterval: .init(start: Date().startOfMonth.startOfDay, end: Date().endOfDay),
-                        needOXLine: true,
-                        needTimeLine: true,
-                        dragGestureEnabled: true
-                    )
-                    CardBottomSimpleDescriptionView(
-                        with: ""
-                    )
-                }
+                StandardChartView(
+                    chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
+                    chartHeight: 75,
+                    points: self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
+                    dateInterval: .init(start: Date().startOfMonth.startOfDay, end: Date().endOfDay),
+                    needOXLine: true,
+                    needTimeLine: false,
+                    dragGestureEnabled: false
+                )
             }
             .buttonStyle(PlainButtonStyle())
             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
