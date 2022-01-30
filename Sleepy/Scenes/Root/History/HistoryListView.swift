@@ -8,85 +8,51 @@ import XUI
 
 struct HistoryListView: View {
 	@Store var viewModel: HistoryCoordinator
-
+    let interactor: HistoryInteractor
+    
 	var body: some View {
 		GeometryReader { _ in
 			ZStack {
-				viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+                ColorsRepository.General.appBackground
 					.edgesIgnoringSafeArea(.all)
 
 				ScrollView(.vertical, showsIndicators: false) {
-					CalendarView(viewModel: viewModel)
-						.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                    CalendarView(viewModel: viewModel, interactor: self.interactor)
+                        .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
 					if viewModel.calendarType == .asleep {
 						if let asleepHistoryStatsViewModel = viewModel.asleepHistoryStatsViewModel {
-							SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel,
-							                      colorProvider: viewModel.colorSchemeProvider)
+							SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .asleep, colorProvider: self.viewModel.colorSchemeProvider)
-
-							BannerView(bannerViewType: .brokenData(type: .asleep),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-
-							SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+							SleepHistoryStatsView()
 								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .inbed {
 						if let inbedHistoryStatsViewModel = viewModel.inbedHistoryStatsViewModel {
-							SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel,
-							                      colorProvider: viewModel.colorSchemeProvider)
+							SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .asleep, colorProvider: self.viewModel.colorSchemeProvider)
-
-							BannerView(bannerViewType: .brokenData(type: .inbed),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-
-							SleepHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+							SleepHistoryStatsView()
 								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .heart {
-						if let heartHistoryStatsViewModel = viewModel.heartHistoryStatsViewModel {
-							HeartHistoryStatsView(viewModel: heartHistoryStatsViewModel,
-							                      colorProvider: viewModel.colorSchemeProvider)
+						if let heartHistoryStatisticsViewModel = viewModel.heartHistoryStatisticsViewModel {
+							HeartHistoryStatisticsView(viewModel: heartHistoryStatisticsViewModel)
 						} else {
-							MotivationCellView(type: .heart, colorProvider: self.viewModel.colorSchemeProvider)
-
-							BannerView(bannerViewType: .brokenData(type: .heart),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-
-							HeartHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+							HeartHistoryStatisticsView()
 								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .energy {
 						if let energyHistoryStatsViewModel = viewModel.energyHistoryStatsViewModel {
-							EnergyHistoryStatsView(viewModel: energyHistoryStatsViewModel,
-							                       colorProvider: viewModel.colorSchemeProvider)
+							EnergyHistoryStatsView(viewModel: energyHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .energy, colorProvider: self.viewModel.colorSchemeProvider)
-
-							BannerView(bannerViewType: .brokenData(type: .energy),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-
-							EnergyHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+							EnergyHistoryStatsView()
 								.blur(radius: 4)
 						}
 					} else if viewModel.calendarType == .respiratory {
 						if let respiratoryHistoryStatsViewModel = viewModel.respiratoryHistoryStatsViewModel {
-							RespiratoryHistoryStatsView(viewModel: respiratoryHistoryStatsViewModel,
-							                            colorProvider: viewModel.colorSchemeProvider)
+							RespiratoryHistoryStatsView(viewModel: respiratoryHistoryStatsViewModel)
 						} else {
-							MotivationCellView(type: .respiratory, colorProvider: self.viewModel.colorSchemeProvider)
-
-							BannerView(bannerViewType: .brokenData(type: .respiratory),
-							           colorProvider: viewModel.colorSchemeProvider)
-								.roundedCardBackground(color: viewModel.colorSchemeProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
-
-							RespiratoryHistoryStatsView(colorProvider: self.viewModel.colorSchemeProvider)
+							RespiratoryHistoryStatsView()
 								.blur(radius: 4)
 						}
 					} else {
@@ -94,14 +60,21 @@ struct HistoryListView: View {
 					}
 				}
 			}
-			.onAppear(perform: viewModel.extractContextStatistics)
+            .onAppear {
+                self.loadData()
+            }
 			.onChange(of: viewModel.calendarType) { _ in
-				viewModel.extractContextStatistics()
+                self.loadData()
 			}
 		}
 		.navigationTitle("Sleep history")
 		.onAppear(perform: self.sendAnalytics)
 	}
+
+    private func loadData() {
+        interactor.extractCalendarData()
+        interactor.extractContextStatistics()
+    }
 
 	private func sendAnalytics() {
 		FirebaseAnalytics.Analytics.logEvent("History_viewed", parameters: nil)

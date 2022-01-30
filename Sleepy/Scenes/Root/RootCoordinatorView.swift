@@ -1,9 +1,11 @@
 // Copyright (c) 2021 Sleepy.
 
 import SwiftUI
+import UIComponents
 import XUI
 
 struct RootCoordinatorView: View {
+
 	@Store var viewModel: RootCoordinator
 
 	var body: some View {
@@ -27,6 +29,8 @@ struct RootCoordinatorView: View {
 			SettingsCoordinatorView(viewModel: viewModel.settingsCoordinator)
 				.tabItem { Label("settings", systemImage: "gear") }
 				.tag(TabType.settings)
-		}.onAppear(perform: self.viewModel.sendAnalytics)
+		}
+        .onAppear(perform: self.viewModel.sendAnalytics)
 	}
+
 }

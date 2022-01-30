@@ -73,6 +73,7 @@ struct AdviceView: View {
 			}, label: {
 				Text("Done")
 					.fontWeight(.bold)
+
 			}))
 			.onAppear(perform: self.sendAnalytics)
 		}
@@ -89,65 +90,65 @@ struct AdviceView: View {
 	private func getNavigationTitle() -> String {
 		switch self.sheetType {
 		case .sleepImportanceAdvice:
-			return "Sleep importance"
+			return "Sleep importance".localized
 		case .sleepImprovementAdvice:
-			return "Sleep improvement"
+			return "Sleep improvement".localized
 		case .phasesAdvice:
-			return "Phases and stages"
+			return "Phases and stages".localized
 		case .heartAdvice:
-			return "Heart and sleep"
+			return "Heart and sleep".localized
 		}
 	}
 
 	private func getMainTitle() -> String {
 		switch self.sheetType {
 		case .sleepImportanceAdvice:
-			return "Why is sleep so important?"
+			return "Why is sleep so important?".localized
 		case .sleepImprovementAdvice:
-			return "How to improve your sleep?"
+			return "How to improve your sleep?".localized
 		case .phasesAdvice:
-			return "Sleep phases and stages"
+			return "Sleep phases and stages".localized
 		case .heartAdvice:
-			return "Learn more about the importance of sleep for heart health."
+			return "Learn more about the importance of sleep for heart health.".localized
 		}
 	}
 
 	private func getFirstText() -> String {
 		switch self.sheetType {
 		case .sleepImportanceAdvice:
-			return "SleepImportanceFirstText"
+			return "SleepImportanceFirstText".localized
 		case .sleepImprovementAdvice:
-			return "SleepImprovementFirstText"
+            return "SleepImprovementFirstText".localized
 		case .phasesAdvice:
-			return "PhasesFirstText"
+			return "PhasesFirstText".localized
 		case .heartAdvice:
-			return "FirstTextHeartAdvice"
+			return "FirstTextHeartAdvice".localized
 		}
 	}
 
 	private func getSecondaryTitle() -> String {
 		switch self.sheetType {
 		case .sleepImportanceAdvice:
-			return "How does sleep make us function better?"
+			return "How does sleep make us function better?".localized
 		case .sleepImprovementAdvice:
-			return "Take some tips to sleep better"
+			return "Take some tips to sleep better".localized
 		case .phasesAdvice:
 			return ""
 		case .heartAdvice:
-			return "Take care of your sleep"
+			return "Take care of your sleep".localized
 		}
 	}
 
 	private func getSecondText() -> String {
 		switch self.sheetType {
 		case .sleepImportanceAdvice:
-			return "SleepImportanceSecondText"
+			return "SleepImportanceSecondText".localized
 		case .sleepImprovementAdvice:
-			return "SleepImprovementSecondText"
+			return "SleepImprovementSecondText".localized
 		case .phasesAdvice:
 			return ""
 		case .heartAdvice:
-			return "SecondTextHeartAdvice"
+			return "SecondTextHeartAdvice".localized
 		}
 	}
 }

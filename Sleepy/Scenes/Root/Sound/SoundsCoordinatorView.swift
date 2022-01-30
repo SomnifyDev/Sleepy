@@ -20,14 +20,14 @@ struct SoundsCoordinatorView: View {
 	var body: some View {
 		NavigationView {
 			ZStack {
-				viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+				ColorsRepository.General.appBackground
 					.edgesIgnoringSafeArea(.all)
 				VStack {
 					AudioRecordingsListView(viewModel: viewModel, audioRecorder: audioRecorder)
 
 					if audioRecorder.recording == false {
 						Text(shouldGrantPermissions ? "Allow mic access" : "Record")
-							.customButton(color: viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+							.customButton(color: ColorsRepository.General.mainSleepy)
 							.onTapGesture(perform: self.startRecording)
 					}
 				}

@@ -21,21 +21,22 @@ struct AudioRecordingsListView: View {
 
 	var body: some View {
 		ZStack(alignment: .center) {
-			self.viewModel.colorProvider.sleepyColorScheme.getColor(of: .general(.appBackgroundColor))
+			ColorsRepository.General.appBackground
 				.edgesIgnoringSafeArea(.all)
 
 			VStack {
 				if self.audioRecorder.recordings.isEmpty {
-					BannerView(bannerViewType: .advice(type: .soundRecording, imageSystemName: "speechAdvice"),
-					           colorProvider: self.viewModel.colorProvider)
-						.roundedCardBackground(color: self.viewModel.colorProvider.sleepyColorScheme.getColor(of: .card(.cardBackgroundColor)))
+                    BannerView(with: viewModel.emptyBannerViewModel) {
+                        CardBottomSimpleDescriptionView(with: viewModel.emptyBannerViewModel.cardTitleViewModel.description ?? "")
+                    }
+                    .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+
 				} else {
 					List {
 						ForEach(self.headers, id: \.self) { header in
 							Section(header: Text(header, style: .date)) {
 								ForEach(self.groupedByDateData[header] ?? []) { recording in
-									RecordingRowView(audioURL: recording.fileURL,
-									                 colorProvider: self.viewModel.colorProvider)
+									RecordingRowView(audioURL: recording.fileURL)
 										.padding([.top, .bottom, .leading, .trailing], 4)
 										.contentShape(Rectangle())
 										.onTapGesture { self.configureAnalysisView(recording: recording) }
@@ -52,8 +53,7 @@ struct AudioRecordingsListView: View {
 				                 audioPlayer: Binding(self.$audioPlayer)!,
 				                 result: self.viewModel.resultsObserver.array,
 				                 fileName: self.viewModel.resultsObserver.fileName,
-				                 endDate: self.viewModel.resultsObserver.date,
-				                 colorProvider: self.viewModel.colorProvider)
+				                 endDate: self.viewModel.resultsObserver.date)
 					.onDisappear(perform: self.audioPlayer.stop)
 			}
 

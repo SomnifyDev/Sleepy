@@ -9,7 +9,7 @@ struct HistoryCoordinatorView: View {
 
 	var body: some View {
 		NavigationView {
-			HistoryListView(viewModel: viewModel)
+            HistoryListView(viewModel: viewModel, interactor: .init(viewModel: _viewModel))
 		}
 		.navigationTitle("History")
 	}

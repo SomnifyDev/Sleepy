@@ -8,25 +8,23 @@ struct NotificationsIntroView: View {
 	@Binding var shouldShowIntro: Bool
 	@State private var shouldShowNextTab = false
 
-	let colorScheme: SleepyColorScheme
-
 	var body: some View {
 		ZStack {
-			colorScheme.getColor(of: .general(.appBackgroundColor))
+			ColorsRepository.General.appBackground
 				.edgesIgnoringSafeArea(.all)
 			VStack {
 				ScrollView(.vertical, showsIndicators: false) {
 					VStack(alignment: .leading) {
 						WelcomeScreenLineView(title: "Allow Sleepy to send notifications",
 						                      subTitle: "This is so Sleepy can send you a summary of your past sleep.",
-						                      imageName: "sleep",
-						                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+						                      imageName: "bubble.left",
+                                              color: ColorsRepository.General.mainSleepy)
 					}.padding(.top, 16)
 				}.padding([.leading, .trailing], 16)
 
 				if !shouldShowNextTab {
 					Text("Grant access")
-						.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+						.customButton(color: ColorsRepository.General.mainSleepy)
 						.onTapGesture {
 							self.registerForPushNotifications { _, _ in
 								shouldShowNextTab = true
@@ -35,9 +33,10 @@ struct NotificationsIntroView: View {
 				}
 
 				if shouldShowNextTab {
-					NavigationLink(destination: GoalIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme), isActive: $shouldShowNextTab) {
+					NavigationLink(destination: GoalIntroView(shouldShowIntro: $shouldShowIntro),
+                                   isActive: $shouldShowNextTab) {
 						Text("Continue")
-							.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+							.customButton(color: ColorsRepository.General.mainSleepy)
 					}
 				}
 			}

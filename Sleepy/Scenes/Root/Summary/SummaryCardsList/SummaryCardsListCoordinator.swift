@@ -2,41 +2,56 @@
 
 import FirebaseAnalytics
 import HKStatistics
-import SettingsKit
-import SwiftUI
 import UIComponents
 import XUI
 
 class SummaryCardsListCoordinator: ObservableObject, ViewModel {
+
+    // MARK: - Properties
+
 	private unowned let parent: SummaryNavigationCoordinator
 
 	@Published private(set) var cards: [SummaryViewCardType]?
-	@Published var somethingBroken = false
 
-	let colorProvider: ColorSchemeProvider
 	let statisticsProvider: HKStatisticsProvider
+    let factory: SummaryListFactory = SummaryListFactory()
+    let somethingBrokenBannerViewModel: BannerViewModel<CardBottomSimpleDescriptionView>
+    let phasesCardTitleViewModel: CardTitleViewModel
+    let heartCardTitleViewModel: CardTitleViewModel
+    let respiratoryCardTitleViewModel: CardTitleViewModel
 
-	init(colorProvider: ColorSchemeProvider,
-	     statisticsProvider: HKStatisticsProvider,
-	     parent: SummaryNavigationCoordinator)
-	{
-		self.colorProvider = colorProvider
+    // MARK: - Init
+
+	init(
+        statisticsProvider: HKStatisticsProvider,
+        parent: SummaryNavigationCoordinator
+    ) {
 		self.statisticsProvider = statisticsProvider
 		self.parent = parent
+        self.somethingBrokenBannerViewModel = factory.makeSomethingBrokenBannerViewModel()
+        self.phasesCardTitleViewModel = factory.makePhasesCardTitleViewModel()
+        self.heartCardTitleViewModel = factory.makeHeartCardTitleViewModel()
+        self.respiratoryCardTitleViewModel = factory.makeRespiratoryCardTitleViewModel()
 	}
+
+    // MARK: - Methods
 
 	func open(_ card: SummaryViewCardType) {
 		self.parent.open(card)
 	}
+
 }
 
+// MARK: - Metrics
+
 extension SummaryCardsListCoordinator {
+
 	func sendAnalytics(cardService: CardService) {
 		FirebaseAnalytics.Analytics.logEvent("SummaryCardsList_viewed", parameters: [
-			"somethingBroken": self.somethingBroken,
 			"generalCardShown": cardService.generalViewModel != nil,
 			"phasesCardShown": cardService.phasesViewModel != nil && cardService.generalViewModel != nil,
 			"heartCardShown": cardService.heartViewModel != nil && cardService.generalViewModel != nil,
 		])
 	}
+
 }

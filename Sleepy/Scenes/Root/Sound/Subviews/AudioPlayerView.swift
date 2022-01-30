@@ -15,19 +15,15 @@ struct AudioPlayerView: View {
 	@State private var currentTime = TimeInterval()
 	@State private var progress = 0.0
 
-	private let colorProvider: ColorSchemeProvider
 	private let playAtTime: TimeInterval
 	private let endAtTime: TimeInterval
 	private let audioName: String
 
 	init(audioPlayer: Binding<AVAudioPlayer>,
-	     colorProvider: ColorSchemeProvider,
 	     playAtTime: TimeInterval,
 	     endAtTime: TimeInterval,
-	     audioName: String)
-	{
+	     audioName: String) {
 		_audioPlayer = audioPlayer
-		self.colorProvider = colorProvider
 		self.playAtTime = max(0, playAtTime - Constants.soundIndentSeconds)
 		self.endAtTime = min(audioPlayer.wrappedValue.duration, endAtTime + Constants.soundIndentSeconds)
 		self.audioName = audioName
@@ -42,14 +38,14 @@ struct AudioPlayerView: View {
 					Image(systemName: "play.circle.fill")
 						.resizable()
 						.frame(width: 25, height: 25)
-						.foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+                        .foregroundColor(ColorsRepository.General.mainSleepy)
 						.aspectRatio(contentMode: .fit)
 						.onTapGesture(perform: self.playAudio)
 				} else {
 					Image(systemName: "pause.circle.fill")
 						.resizable()
 						.frame(width: 25, height: 25)
-						.foregroundColor(colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)))
+						.foregroundColor(ColorsRepository.General.mainSleepy)
 						.aspectRatio(contentMode: .fit)
 						.onTapGesture(perform: self.audioPlayer.pause)
 				}
@@ -57,7 +53,7 @@ struct AudioPlayerView: View {
 				Text(self.roundUp(endAtTime - playAtTime, toNearest: 1).stringTime)
 
 				ProgressView(value: progress)
-					.progressViewStyle(LinearProgressViewStyle(tint: colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))))
+					.progressViewStyle(LinearProgressViewStyle(tint: ColorsRepository.General.mainSleepy))
 			}
 		}
 	}

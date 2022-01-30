@@ -7,239 +7,247 @@ import SwiftUI
 import UIComponents
 
 enum SummaryViewCardType: String {
-	case heart
-	case general
-	case phases
-	case breath
+    case heart
+    case general
+    case phases
+    case breath
 }
 
 extension SummaryViewCardType: Identifiable {
-	var id: Self { self }
+    var id: Self { self }
 }
 
 class CardService: ObservableObject {
-	// MARK: Properties
 
-	@Published var bankOfSleepViewModel: BankOfSleepDataViewModel?
-	@Published var phasesViewModel: SummaryPhasesDataViewModel?
-	@Published var generalViewModel: SummaryGeneralDataViewModel?
-	@Published var heartViewModel: SummaryHeartDataViewModel?
-	@Published var respiratoryViewModel: SummaryRespiratoryDataViewModel?
+    // MARK: Properties
 
-	var statisticsProvider: HKStatisticsProvider
+    @Published var bankOfSleepViewModel: BankOfSleepDataViewModel?
+    @Published var phasesViewModel: SummaryPhasesDataViewModel?
+    @Published var generalViewModel: SummaryGeneralDataViewModel?
+    @Published var heartViewModel: SummaryHeartDataViewModel?
+    @Published var respiratoryViewModel: SummaryRespiratoryDataViewModel?
 
-	private let mainCard: SummaryViewCardType = .general
-	private let phasesCard: SummaryViewCardType = .phases
-	private let heartCard: SummaryViewCardType = .heart
+    @Published var somethingBroken: Bool = false
 
-	// MARK: Initialization
+    var statisticsProvider: HKStatisticsProvider
 
-	init(statisticsProvider: HKStatisticsProvider) {
-		self.statisticsProvider = statisticsProvider
-		self.getBankOfSleepInfo()
-		self.getSleepData()
-		self.getPhasesData()
-		self.getHeartData()
-		self.getRespiratoryData()
-	}
+    // MARK: Initialization
 
-	// MARK: Internal methods
+    init(statisticsProvider: HKStatisticsProvider) {
+        self.statisticsProvider = statisticsProvider
+        self.getBankOfSleepInfo()
+        self.getSleepData()
+        self.getPhasesData()
+        self.getHeartData()
+        self.getRespiratoryData()
+    }
 
-	func fetchCard(id _: String, _ completion: @escaping (SummaryViewCardType?) -> Void) {
-		self.fetchCards { cards in
-			completion(cards.first)
-		}
-	}
+    // MARK: Internal methods
 
-	func fetchCards(_ completion: @escaping ([SummaryViewCardType]) -> Void) {
-		completion(
-			Mirror(reflecting: self)
-				.children
-				.compactMap { $0.value as? SummaryViewCardType }
-		)
-	}
+    func fetchCard(id _: String, _ completion: @escaping (SummaryViewCardType?) -> Void) {
+        self.fetchCards { cards in
+            completion(cards.first)
+        }
+    }
 
-	// MARK: Private methods
+    func fetchCards(_ completion: @escaping ([SummaryViewCardType]) -> Void) {
+        completion(
+            Mirror(reflecting: self)
+                .children
+                .compactMap { $0.value as? SummaryViewCardType }
+        )
+    }
 
-	private func getSleepGoal() -> Int {
-		return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
-	}
+    // MARK: Private methods
 
-	// MARK: Bank of sleep
+    private func getSleepGoal() -> Int {
+        return UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
+    }
 
-	private func getBankOfSleepInfo() {
-		self.getbankOfSleepData { data in
-			let sleepGoal = self.getSleepGoal()
-			let filteredData = data.filter { $0 != 0 }
-			guard !filteredData.isEmpty else { return }
+    // MARK: Bank of sleep
 
-			let bankOfSleepData = data.map { $0 / Double(sleepGoal) }
+    private func getBankOfSleepInfo() {
+        self.statisticsProvider.getIntervalDataByDays(healthType: .asleep,
+                                                                indicator: .sum,
+                                                                interval: .init(start: Date().twoWeeksBefore.startOfDay,
+                                                                                end: Date().endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { [weak self] data in
+            guard let self = self else { return }
+            let sleepGoal = self.getSleepGoal()
+            let filteredData = data.filter { $0 != 0 }
+            guard !filteredData.isEmpty else { return }
 
-			let backlogValue = Int(filteredData.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
-			let backlogString = Date.minutesToClearString(minutes: backlogValue)
+            let bankOfSleepData = data.map { $0 / Double(sleepGoal) }
 
-			let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
-			let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
+            let backlogValue = Int(filteredData.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
+            let backlogString = Date.minutesToClearString(minutes: backlogValue)
 
-			DispatchQueue.main.async { [weak self] in
-				self?.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
-				                                                      backlog: backlogString,
-				                                                      timeToCloseDebt: timeToCloseDebtString)
-			}
-		}
-	}
+            let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
+            let timeToCloseDebtString = Date.minutesToClearString(minutes: timeToCloseDebtValue)
 
-	private func getbankOfSleepData(completion: @escaping ([Double]) -> Void) {
-		var resultData: [Double] = Array(repeating: 0, count: 14)
-		var samplesLeft = 14
-		let queue = DispatchQueue(label: "bankOfSleepQueue", qos: .userInitiated)
-		for dateIndex in 0 ..< 14 {
-			guard
-				let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else
-			{
-				return
-			}
+            DispatchQueue.main.async {
+                self.bankOfSleepViewModel = BankOfSleepDataViewModel(bankOfSleepData: bankOfSleepData,
+                                                                      backlog: backlogString,
+                                                                      timeToCloseDebt: timeToCloseDebtString)
+            }
+        }
+    }
 
-			self.statisticsProvider.getData(healthType: .asleep,
-			                                indicator: .sum, interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { data in
-				let isComplete = queue.sync { () -> Bool in
-					resultData[dateIndex] = data ?? 0
-					samplesLeft -= 1
-					return samplesLeft == 0
-				}
-				if isComplete {
-					print(resultData)
-					completion(resultData.reversed())
-				}
-			}
-		}
-	}
+    private func getbankOfSleepData(completion: @escaping ([Double]) -> Void) {
+        var resultData: [Double] = Array(repeating: 0, count: 14)
+        var samplesLeft = 14
+        let queue = DispatchQueue(label: "bankOfSleepQueue", qos: .userInitiated)
+        for dateIndex in 0 ..< 28 {
+            guard let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else {
+                    return
+                }
 
-	// MARK: Sleep data
+            self.statisticsProvider.getData(healthType: .asleep,
+                                            indicator: .sum,
+                                            interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                                            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
+                let isComplete = queue.sync { () -> Bool in
+                    if samplesLeft == 0 { return true }
+                    resultData[14 - samplesLeft] = data ?? 0
+                    samplesLeft -= 1
+                    return samplesLeft == 0
+                }
+                if isComplete {
+                    completion(resultData.reversed())
+                    return
+                }
+            }
+        }
+    }
 
-	private func getSleepData() {
-		guard
-			let sleepInterval = statisticsProvider.getTodaySleepInterval(intervalType: .asleep),
-			let inBedInterval = statisticsProvider.getTodaySleepInterval(intervalType: .inbed) else
-		{
-			return
-		}
+    // MARK: Sleep data
 
-		self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
-		                                                    inbedInterval: inBedInterval,
-		                                                    sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
-	}
+    private func getSleepData() {
+        guard
+            let sleepInterval = statisticsProvider.getTodaySleepInterval(intervalType: .asleep),
+            let inBedInterval = statisticsProvider.getTodaySleepInterval(intervalType: .inbed) else
+            {
+                return
+            }
 
-	// MARK: Phases data
+        self.generalViewModel = SummaryGeneralDataViewModel(sleepInterval: sleepInterval,
+                                                            inbedInterval: inBedInterval,
+                                                            sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
+    }
 
-	private func getPhasesData() {
-		guard
-			let deepSleepMinutes = statisticsProvider.getData(dataType: .deepPhaseDuration) as? Int,
-			let lightSleepMinutes = statisticsProvider.getData(dataType: .lightPhaseDuration) as? Int,
-			let phasesData = statisticsProvider.getData(dataType: .chart) as? [Double] else
-		{
-			return
-		}
+    // MARK: Phases data
 
-		if !phasesData.isEmpty {
-			self.phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
-			                                                  timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
-			                                                  timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
-			                                                  mostIntervalInLightPhase: "-",
-			                                                  mostIntervalInDeepPhase: "-")
-		}
-	}
+    private func getPhasesData() {
+        guard
+            let deepSleepMinutes = statisticsProvider.getData(dataType: .deepPhaseDuration) as? Int,
+            let lightSleepMinutes = statisticsProvider.getData(dataType: .lightPhaseDuration) as? Int,
+            let phasesData = statisticsProvider.getData(dataType: .chart) as? [Double] else {
+                somethingBroken = true
+                return
+            }
 
-	// MARK: Heart data
+        if !phasesData.isEmpty {
+            self.phasesViewModel = SummaryPhasesDataViewModel(phasesData: phasesData,
+                                                              timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
+                                                              timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
+                                                              mostIntervalInLightPhase: "-",
+                                                              mostIntervalInDeepPhase: "-")
+        }
+    }
 
-	private func getHeartData() {
-		var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-		let heartRateData = self.getShortHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart))
+    // MARK: Heart data
 
-		if !heartRateData.isEmpty,
-		   let maxHR = statisticsProvider.getData(dataType: .heart, indicator: .max),
-		   let minHR = statisticsProvider.getData(dataType: .heart, indicator: .min),
-		   let averageHR = statisticsProvider.getData(dataType: .heart, indicator: .mean)
-		{
-			maxHeartRate = String(format: "%u bpm", Int(maxHR))
-			minHeartRate = String(format: "%u bpm", Int(minHR))
-			averageHeartRate = String(format: "%u bpm", Int(averageHR))
-			var indicators: [StatsIndicatorModel] = []
+    private func getHeartData() {
+        var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
+        let heartRateData = self.getShortHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart))
 
-			let group = DispatchGroup()
+        guard  !heartRateData.isEmpty,
+               let maxHR = statisticsProvider.getData(dataType: .heart, indicator: .max),
+               let minHR = statisticsProvider.getData(dataType: .heart, indicator: .min),
+               let averageHR = statisticsProvider.getData(dataType: .heart, indicator: .mean) else {
+                   somethingBroken = true
+                   return
+               }
 
-			group.enter()
-			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-				self?.statisticsProvider.getData(dataType: .rmssd) { rmssd in
-					if let value = rmssd {
-						indicators.append(value)
-					}
-					group.leave()
-				}
-			}
+        maxHeartRate = String(format: "%u bpm", Int(maxHR))
+        minHeartRate = String(format: "%u bpm", Int(minHR))
+        averageHeartRate = String(format: "%u bpm", Int(averageHR))
+        var indicators: [StatsIndicatorModel] = []
 
-			group.enter()
-			DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-				self?.statisticsProvider.getData(dataType: .ssdn) { ssdn in
-					if let value = ssdn {
-						indicators.append(value)
-					}
-					group.leave()
-				}
-			}
+        let group = DispatchGroup()
 
-			group.notify(queue: .global(qos: .default)) {
-				DispatchQueue.main.async { [weak self] in
-					self?.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
-					                                                 maxHeartRate: maxHeartRate,
-					                                                 minHeartRate: minHeartRate,
-					                                                 averageHeartRate: averageHeartRate,
-					                                                 indicators: indicators)
-				}
-			}
-		}
-	}
+        group.enter()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.statisticsProvider.getData(dataType: .rmssd, interval: .init(start: Calendar.current.date(byAdding: .hour, value: -2, to: Date())!, end: Date())) { rmssd in
+                if let value = rmssd {
+                    indicators.append(value)
+                }
+                group.leave()
+            }
+        }
 
-	private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
-		guard
-			heartRateData.count > 25 else
-		{
-			return heartRateData
-		}
+        group.enter()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.statisticsProvider.getData(dataType: .ssdn, interval: .init(start: Calendar.current.date(byAdding: .hour, value: -1, to: Date())!, end: Date())) { ssdn in
+                if let value = ssdn {
+                    indicators.append(value)
+                }
+                group.leave()
+            }
+        }
 
-		let stackCapacity = heartRateData.count / 25
-		var shortData: [Double] = []
+        group.notify(queue: .global(qos: .default)) {
+            DispatchQueue.main.async { [weak self] in
+                self?.heartViewModel = SummaryHeartDataViewModel(heartRateData: heartRateData,
+                                                                 maxHeartRate: maxHeartRate,
+                                                                 minHeartRate: minHeartRate,
+                                                                 averageHeartRate: averageHeartRate,
+                                                                 indicators: indicators)
+            }
+        }
+    }
 
-		for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
-			var mean: Double = 0.0
-			for stackIndex in index ..< index + stackCapacity {
-				guard stackIndex < heartRateData.count else { return shortData }
-				mean += heartRateData[stackIndex]
-			}
-			shortData.append(mean / Double(stackCapacity))
-		}
+    private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
+        guard heartRateData.count > 25 else {
+            return heartRateData
+        }
 
-		return shortData
-	}
+        let stackCapacity = heartRateData.count / 25
+        var shortData: [Double] = []
 
-	// MARK: Breath
+        for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
+            var mean: Double = 0.0
+            for stackIndex in index ..< index + stackCapacity {
+                guard stackIndex < heartRateData.count else { return shortData }
+                mean += heartRateData[stackIndex]
+            }
+            shortData.append(mean / Double(stackCapacity))
+        }
 
-	private func getRespiratoryData() {
-		var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
-		let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory)
+        return shortData
+    }
 
-		if !breathRateData.isEmpty,
-		   let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .max),
-		   let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .min),
-		   let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .mean)
-		{
-			maxRespiratoryRate = String(format: "%u count/min", Int(maxRespiratory))
-			minRespiratoryRate = String(format: "%u count/min", Int(minRespiratory))
-			averageRespiratoryRate = String(format: "%u count/min", Int(averageRespiratory))
-			self.respiratoryViewModel = SummaryRespiratoryDataViewModel(respiratoryRateData: breathRateData,
-			                                                            maxRespiratoryRate: maxRespiratoryRate,
-			                                                            minRespiratoryRate: minRespiratoryRate,
-			                                                            averageRespiratoryRate: averageRespiratoryRate)
-		}
-	}
+    // MARK: Breath
+
+    private func getRespiratoryData() {
+        var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
+        let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory)
+
+        guard !breathRateData.isEmpty,
+              let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .max),
+              let minRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .min),
+              let averageRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .mean) else {
+                  somethingBroken = true
+                  return
+              }
+
+        maxRespiratoryRate = String(format: "%u count/min", Int(maxRespiratory))
+        minRespiratoryRate = String(format: "%u count/min", Int(minRespiratory))
+        averageRespiratoryRate = String(format: "%u count/min", Int(averageRespiratory))
+        self.respiratoryViewModel = SummaryRespiratoryDataViewModel(
+            respiratoryRateData: breathRateData,
+            maxRespiratoryRate: maxRespiratoryRate,
+            minRespiratoryRate: minRespiratoryRate,
+            averageRespiratoryRate: averageRespiratoryRate
+        )
+    }
 }

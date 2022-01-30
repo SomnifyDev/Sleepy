@@ -5,22 +5,21 @@ import SwiftUI
 import UIComponents
 
 struct MainIntroView: View {
-	let colorScheme: SleepyColorScheme
 	@Binding var shouldShowIntro: Bool
 
 	var body: some View {
 		NavigationView {
 			ZStack {
-				colorScheme.getColor(of: .general(.appBackgroundColor))
+				ColorsRepository.General.appBackground
 					.edgesIgnoringSafeArea(.all)
 				VStack {
-					ScrollView(.vertical, showsIndicators: false) {
+					ScrollView(showsIndicators: false) {
 						VStack(alignment: .center) {
 							VStack(alignment: .leading) {
 								WelcomeScreenLineView(title: "Sleep summary",
 								                      subTitle: "Sleepy analyzes sleep by collecting your data and provides an overall summary of your sleep.",
 								                      imageName: "bed.double",
-								                      color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+                                                      color: ColorsRepository.General.mainSleepy)
 
 								WelcomeScreenLineView(title: "Smart alarm",
 								                      subTitle: "Thanks to algorithms that monitor sleep phases, Sleepy will find the most optimal moment for your awakening.",
@@ -36,9 +35,9 @@ struct MainIntroView: View {
 					}
 
 					NavigationLink(
-						destination: HealthKitIntroView(shouldShowIntro: $shouldShowIntro, colorScheme: self.colorScheme)) {
+						destination: HealthKitIntroView(shouldShowIntro: $shouldShowIntro)) {
 							Text("Continue")
-								.customButton(color: colorScheme.getColor(of: .general(.mainSleepyColor)))
+                                .customButton(color: ColorsRepository.General.mainSleepy)
 					}
 				}
 			}

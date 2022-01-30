@@ -3,14 +3,13 @@
 import Armchair
 import SettingsKit
 import SwiftUI
+import HKCoreSleep
 import UIComponents
 
 struct HealthTypeSwitchView: View {
 	@State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
 	//    = CGFloat.infinity   // << variant for VStack
-	@Binding var selectedType: HealthData
-
-	var colorScheme: SleepyColorScheme
+	@Binding var selectedType: HKService.HealthType
 
 	var body: some View {
 		VStack {
@@ -27,7 +26,7 @@ struct HealthTypeSwitchView: View {
 		var height = CGFloat.zero
 
 		return ZStack(alignment: .topLeading) {
-			ForEach(HealthData.allCases, id: \.self) { tag in
+            ForEach(HKService.HealthType.allCases, id: \.self) { tag in
 				self.item(for: tag)
 					.padding([.horizontal, .vertical], 4)
 					.alignmentGuide(.leading, computeValue: { d in
@@ -38,7 +37,7 @@ struct HealthTypeSwitchView: View {
 
 						let result = width
 
-						if tag == HealthData.allCases.last! {
+						if tag == HKService.HealthType.allCases.last! {
 							width = 0
 						} else {
 							width -= d.width
@@ -47,7 +46,7 @@ struct HealthTypeSwitchView: View {
 					})
 					.alignmentGuide(.top, computeValue: { _ in
 						let result = height
-						if tag == HealthData.allCases.last! {
+						if tag == HKService.HealthType.allCases.last! {
 							height = 0
 						}
 						return result
@@ -56,15 +55,16 @@ struct HealthTypeSwitchView: View {
 		}.background(self.viewHeightReader($totalHeight))
 	}
 
-	private func item(for type: HealthData) -> some View {
+	private func item(for type: HKService.HealthType) -> some View {
 		Text(self.getItemDescription(for: type))
 			.healthTypeSwitchTextModifier()
 			.background(type == self.selectedType
 				? self.getSelectedItemColor(for: type)
-				: self.colorScheme.getColor(of: .calendar(.emptyDayColor)))
+                        : ColorsRepository.Calendar.emptyDay)
 			.cornerRadius(12)
 			.onTapGesture {
-				selectedType = type
+                self.selectedType = type
+
 				let date = Date(timeIntervalSince1970: UserDefaults.standard.double(forKey: "armchair_important_calendar_event"))
 
 				if date.getDayInt() != Date().getDayInt() {
@@ -77,33 +77,31 @@ struct HealthTypeSwitchView: View {
 			}
 	}
 
-	private func getSelectedItemColor(for type: HealthData) -> Color {
+	private func getSelectedItemColor(for type: HKService.HealthType) -> Color {
 		switch type {
 		case .heart:
-			return self.colorScheme.getColor(of: .heart(.heartColor))
+            return ColorsRepository.Heart.heart
 		case .energy:
-			return self.colorScheme.getColor(of: .energy(.energyColor))
-		case .asleep:
-			return self.colorScheme.getColor(of: .general(.mainSleepyColor))
-		case .inbed:
-			return self.colorScheme.getColor(of: .general(.mainSleepyColor))
+			return ColorsRepository.Energy.energy
+		case .asleep, .inbed:
+            return ColorsRepository.Phase.lightSleep
 		case .respiratory:
 			return Color(.systemBlue)
 		}
 	}
 
-	private func getItemDescription(for type: HealthData) -> String {
+    private func getItemDescription(for type: HKService.HealthType) -> String {
 		switch type {
 		case .heart:
-			return "Heart rate"
+            return "Heart rate".localized
 		case .energy:
-			return "Energy waste"
+			return "Energy waste".localized
 		case .asleep:
-			return "Sleep duration"
+			return "Sleep duration".localized
 		case .respiratory:
-			return "Respiratory"
+			return "Respiratory".localized
 		case .inbed:
-			return "In bed duration"
+			return "In bed duration".localized
 		}
 	}
 

@@ -5,21 +5,24 @@ import UIComponents
 
 struct RecordingRowView: View {
 	var audioURL: URL
-	let colorProvider: ColorSchemeProvider
+
 	var body: some View {
 		VStack {
-			CardTitleView(titleText: "Recording",
-			              leftIcon: Image(systemName: "mic.circle.fill"),
-			              rightIcon: Image(systemName: "chevron.right"),
-			              titleColor: self.colorProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor)),
-			              showSeparator: false,
-			              colorProvider: colorProvider)
+            CardTitleView(with: .init(leadIcon: IconsRepository.microphone,
+                                      title: "Recording",
+                                      description: nil,
+                                      trailIcon: .init(image: IconsRepository.chevronRight, action: nil),
+                                      trailText: nil,
+                                      titleColor: ColorsRepository.General.mainSleepy,
+                                      descriptionColor: nil,
+                                      shouldShowSeparator: false))
+
 			HStack {
 				Text(FileHelper.creationDateForLocalFilePath(filePath: audioURL.path)?.getFormattedDate(format: "'at' HH:mm") ?? "")
-					.regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.standartText)))
+					.regularTextModifier(color: ColorsRepository.Text.standard)
 				Spacer()
 				Text(FileHelper.covertToFileString(with: FileHelper.sizeForLocalFilePath(filePath: audioURL.path)))
-					.regularTextModifier(color: colorProvider.sleepyColorScheme.getColor(of: .textsColors(.secondaryText)))
+                    .regularTextModifier(color: ColorsRepository.Text.secondary)
 			}
 		}
 	}

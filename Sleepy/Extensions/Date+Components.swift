@@ -27,6 +27,18 @@ extension Date {
 		return Calendar(identifier: .gregorian).date(byAdding: components, to: self.startOfMonth)!
 	}
 
+    var twoWeeksBefore: Date {
+        var components = DateComponents()
+        components.day = -14
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+
+    var monthBefore: Date {
+        var components = DateComponents()
+        components.month = -1
+        return Calendar.current.date(byAdding: components, to: self)!
+    }
+
 	func weekday() -> String? {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "EE"
@@ -38,6 +50,10 @@ extension Date {
 		let components = calendar.dateComponents([.weekday], from: self)
 		return components.weekday == 2
 	}
+
+    func isToday() -> Bool {
+        return self.startOfDay == Date().startOfDay
+    }
 
 	func nextTimeMatchingComponents(inDirection direction: Calendar.SearchDirection = .forward,
 	                                using calendar: Calendar = .current, components: DateComponents) -> Date

@@ -55,7 +55,7 @@ public final class HKNumericTypesStatisticsProvider {
 
 	/// It is calculated by first dividing the 24 h record into 288 5 min segments and then calculating the standard deviation of all NN intervals contained within each segment
 	/// https://www.sciencedirect.com/science/article/pii/S0735109797005548 for numbers
-	public func calculateSSDN(completion: @escaping (StatsIndicatorModel?) -> Void) {
+	public func calculateSSDN(interval: DateInterval, completion: @escaping (StatsIndicatorModel?) -> Void) {
 		enum Constants {
 			static let name = "SDNN Index (SDNNI)"
 			static let unit = "ms"
@@ -82,7 +82,7 @@ public final class HKNumericTypesStatisticsProvider {
 			let currentAge = birthday.years(from: Date())
 
 			self?.healthService.readData(type: .heart,
-			                             interval: .init(start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, end: Date())) { _, samples, error in
+			                             interval: interval) { _, samples, error in
 				guard error == nil, let samples = samples as? [HKQuantitySample] else {
 					completion(nil)
 					return
@@ -146,7 +146,7 @@ public final class HKNumericTypesStatisticsProvider {
 
 	/// The root mean square of successive differences between normal heartbeats (RMSSD) is obtained by first calculating each successive time difference between heartbeats in ms.
 	/// Then, each of the values is squared and the result is averaged before the square root of the total is obtained
-	public func calculateRMSSD(completion: @escaping (StatsIndicatorModel?) -> Void) {
+	public func calculateRMSSD(interval: DateInterval, completion: @escaping (StatsIndicatorModel?) -> Void) {
 		enum Constants {
 			static let name = "RMSSD"
 			static let unit = "ms"
@@ -174,7 +174,7 @@ public final class HKNumericTypesStatisticsProvider {
 			let currentAge = birthday.years(from: Date())
 
 			self?.healthService.readData(type: .heart,
-			                             interval: .init(start: Calendar.current.date(byAdding: .hour, value: -2, to: Date())!, end: Date())) { _, samples, error in
+			                             interval: interval) { _, samples, error in
 				guard error == nil, let samples = samples as? [HKQuantitySample], samples.count >= 12 else {
 					completion(nil)
 					return

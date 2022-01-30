@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum Indicator {
+public enum Indicator: String {
 	case min
 	case max
 	case mean

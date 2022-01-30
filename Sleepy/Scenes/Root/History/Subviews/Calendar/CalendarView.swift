@@ -3,11 +3,14 @@
 import HKStatistics
 import SettingsKit
 import SwiftUI
+import HKCoreSleep
 import UIComponents
 import XUI
 
 struct CalendarView: View {
 	@Store var viewModel: HistoryCoordinator
+    let interactor: HistoryInteractor
+
 	@State private var totalHeight = CGFloat.zero // variant for ScrollView/List
 	// = CGFloat.infinity - variant for VStack
 
@@ -20,31 +23,28 @@ struct CalendarView: View {
 
 				VStack {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
-					                  monthDate: $viewModel.monthDate,
-					                  colorSchemeProvider: viewModel.colorSchemeProvider)
+                                      monthDate: $viewModel.monthDate, changeMonthAction: {
+                        self.interactor.extractCalendarData()
+                    })
 
-					HealthTypeSwitchView(selectedType: $viewModel.calendarType,
-					                     colorScheme: viewModel.colorSchemeProvider.sleepyColorScheme)
+                    HealthTypeSwitchView(selectedType: $viewModel.calendarType)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
-						ForEach(1 ... viewModel.monthDate.getDaysInMonth(), id: \.self) { index in
+                        ForEach(viewModel.calendarData, id: \.id) { day in
 							VStack(spacing: 2) {
-								if index >= 1, index <= 7 {
+                                if day.dayNumber >= 1, day.dayNumber <= 7 {
 									let tmpWeekDay = Calendar.current.date(byAdding: .day,
-									                                       value: index - 1,
+									                                       value: day.dayNumber,
 									                                       to: viewModel.monthDate.startOfMonth)!
 
 									Text(tmpWeekDay.weekday() ?? "")
 										.weekDayTextModifier(width: calendarElementSize)
 								}
 
-								CalendarDayView(viewModel: viewModel,
-								                monthDate: $viewModel.monthDate,
-								                currentDate: Date(),
-								                dateIndex: index, sleepGoal: UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue))
+                                CalendarDayView(displayItem: day)
 									.frame(height: calendarElementSize)
 
-								Text(String(index))
+								Text(String(day.dayNumber))
 									.dayNumberTextModifier()
 							}
 						}
@@ -58,10 +58,11 @@ struct CalendarView: View {
 								viewModel.monthDate = Calendar.current.date(byAdding: .month,
 								                                            value: horizontalAmount < 0 ? 1 : -1,
 								                                            to: viewModel.monthDate)!
+                                self.interactor.extractCalendarData()
 							}
 						})
 				}.background(viewHeightReader($totalHeight))
-			}
+            }
 		}.frame(height: totalHeight) // - variant for ScrollView/List
 		// .frame(maxHeight: totalHeight) - variant for VStack
 	}
@@ -78,18 +79,17 @@ struct CalendarView: View {
 }
 
 private struct CalendarTitleView: View {
-	@Binding var calendarType: HealthData
+	@Binding var calendarType: HKService.HealthType
 	@Binding var monthDate: Date
-
-	let colorSchemeProvider: ColorSchemeProvider
+    let changeMonthAction: () -> Void
 
 	var body: some View {
 		HStack {
 			Text(Image(systemName: "calendar"))
-				.regularTextModifier(color: getSelectedCalendarColor(for: calendarType), size: 24)
+                .regularTextModifier(color: ColorsRepository.Text.standard, size: 24)
 
-			Text("\(monthDate.getMonthString()) \(monthDate.getYearString())")
-				.calendarMonthTitleModifier(color: getSelectedCalendarColor(for: calendarType))
+            Text("\(monthDate.getMonthString()) \(monthDate.endOfMonth.getYearString())")
+				.calendarMonthTitleModifier(color: ColorsRepository.Text.standard)
 
 			Spacer()
 
@@ -97,9 +97,10 @@ private struct CalendarTitleView: View {
 				monthDate = Calendar.current.date(byAdding: .month,
 				                                  value: -1,
 				                                  to: monthDate)!
+                self.changeMonthAction()
 			} label: {
 				Text(Image(systemName: "chevron.left"))
-					.boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
+                    .boldTextModifier(color: ColorsRepository.Text.standard)
 			}
 			.padding(.trailing, 8)
 
@@ -107,26 +108,12 @@ private struct CalendarTitleView: View {
 				monthDate = Calendar.current.date(byAdding: .month,
 				                                  value: 1,
 				                                  to: monthDate)!
+                self.changeMonthAction()
 			} label: {
 				Text(Image(systemName: "chevron.right"))
-					.boldTextModifier(color: getSelectedCalendarColor(for: calendarType))
+					.boldTextModifier(color: ColorsRepository.Text.standard)
 			}
 
 		}.frame(height: 30, alignment: .top)
-	}
-
-	private func getSelectedCalendarColor(for type: HealthData) -> Color {
-		switch type {
-		case .heart:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .heart(.heartColor))
-		case .energy:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .energy(.energyColor))
-		case .asleep:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
-		case .inbed:
-			return self.colorSchemeProvider.sleepyColorScheme.getColor(of: .general(.mainSleepyColor))
-		case .respiratory:
-			return Color(.systemBlue)
-		}
 	}
 }
