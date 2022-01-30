@@ -56,7 +56,6 @@ struct HeartHistoryStatisticsView: View {
     }
 }
 
-
 struct HeartHistoryStatsViewModel {
     let cellData: [StatisticsCellViewModel]
     let ssdnCardTitleViewModel: CardTitleViewModel
