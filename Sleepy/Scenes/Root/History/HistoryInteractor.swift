@@ -142,6 +142,7 @@ class HistoryInteractor {
         if type == .respiratory, self.viewModel.respiratoryHistoryStatsViewModel != nil { return }
 
         var last30daysCellData: [StatisticsCellViewModel] = []
+        var ssdnMonthChangesValues: [StatsIndicatorModel?] = []
         let indicators: [Indicator] = [.min, .max, .mean]
 
         let group = DispatchGroup()
@@ -161,15 +162,29 @@ class HistoryInteractor {
             }
         }
 
-        group.notify(queue: .global(qos: .default)) { [weak self] in
-            guard let self = self else { return }
+
+        if type == .heart {
+            group.enter()
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                guard let self = self else { return }
+                self.viewModel.statisticsProvider.getMetricDataByDays(dataType: .ssdn, interval: self.viewModel.monthBeforeDateInterval) { models in
+                    ssdnMonthChangesValues = models
+                    group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: .global(qos: .default)) {
+//            guard let self = self else { return }
             if !last30daysCellData.isEmpty {
                 DispatchQueue.main.async {
                     switch type {
                     case .energy:
                         self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .heart:
-                        self.viewModel.heartHistoryStatisticsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                        self.viewModel.heartHistoryStatisticsViewModel = HeartHistoryStatsViewModel(cellData: last30daysCellData,
+                                                                                                    ssdnCardTitleViewModel: self.viewModel.ssdnCardTitleViewModel,
+                                                                                                    ssdnMonthChangesValues: ssdnMonthChangesValues)
                     case .respiratory:
                         self.viewModel.respiratoryHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .asleep, .inbed:
@@ -289,7 +304,7 @@ extension HistoryInteractor {
             return (.init(dayNumber: date.getDayInt(), value: value, description: description, color: color, isToday: date.isToday()))
         }
     }
-
+    
     /// получение цвета, характеризующего негативизм значения статистики в календаре если такая оценка возможна
     /// - Parameter value: значение
     /// - Returns: цвет

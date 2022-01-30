@@ -10,7 +10,6 @@ struct HealthTypeSwitchView: View {
 	@State private var totalHeight = CGFloat.zero // << variant for ScrollView/List
 	//    = CGFloat.infinity   // << variant for VStack
 	@Binding var selectedType: HKService.HealthType
-    let interactor: HistoryInteractor
 
 	var body: some View {
 		VStack {

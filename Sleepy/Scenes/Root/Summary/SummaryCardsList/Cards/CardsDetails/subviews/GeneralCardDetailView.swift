@@ -39,7 +39,7 @@ struct GeneralCardDetailView: View {
                                 trailIcon: nil,
                                 trailText: nil,
                                 titleColor: ColorsRepository.Phase.deepSleep,
-                                descriptionColor: ColorsRepository.Text.secondary,
+                                descriptionColor: ColorsRepository.Text.standard,
                                 shouldShowSeparator: true
                             )
                         ) {
@@ -69,7 +69,7 @@ struct GeneralCardDetailView: View {
                     // MARK: Statistics
 
                     if let generalViewModel = cardService.generalViewModel {
-                        SectionNameTextView(text: "Summary",
+                        SectionNameTextView(text: "Summary for today",
                                             color: ColorsRepository.Text.standard)
 
                         StatisticsCellCollectionView(

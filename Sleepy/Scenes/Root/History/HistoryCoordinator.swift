@@ -21,9 +21,12 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
 	@Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
 	@Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
-	@Published var heartHistoryStatisticsViewModel: StatisticsCellCollectionViewModel?
+	@Published var heartHistoryStatisticsViewModel: HeartHistoryStatsViewModel?
 	@Published var energyHistoryStatsViewModel: StatisticsCellCollectionViewModel?
 	@Published var respiratoryHistoryStatsViewModel: StatisticsCellCollectionViewModel?
+
+    let factory: HistoryFactory = HistoryFactory()
+    let ssdnCardTitleViewModel: CardTitleViewModel
 
 	let statisticsProvider: HKStatisticsProvider
 
@@ -33,6 +36,8 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 	     parent: RootCoordinator)
 	{
 		self.parent = parent
+
+        self.ssdnCardTitleViewModel = factory.makeSsdnCardTitleViewModel()
 
 		self.statisticsProvider = statisticsProvider
 		self.calendarType = .asleep

@@ -179,7 +179,7 @@ class CardService: ObservableObject {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.statisticsProvider.getData(dataType: .rmssd) { rmssd in
+            self?.statisticsProvider.getData(dataType: .rmssd, interval: .init(start: Calendar.current.date(byAdding: .hour, value: -2, to: Date())!, end: Date())) { rmssd in
                 if let value = rmssd {
                     indicators.append(value)
                 }
@@ -189,7 +189,7 @@ class CardService: ObservableObject {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.statisticsProvider.getData(dataType: .ssdn) { ssdn in
+            self?.statisticsProvider.getData(dataType: .ssdn, interval: .init(start: Calendar.current.date(byAdding: .hour, value: -1, to: Date())!, end: Date())) { ssdn in
                 if let value = ssdn {
                     indicators.append(value)
                 }

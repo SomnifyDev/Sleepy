@@ -61,12 +61,7 @@ struct SummaryListFactory {
             leadIcon: IconsRepository.exclamationMarkSquareFilled,
             title: "Data empty or restricted",
             description: "Check health permissions in settings / wear apple watch while you sleep",
-            trailIcon: ImageWithOptionalActionView(
-                image: IconsRepository.delete,
-                action: {
-                    UserDefaults.standard.set(true, forKey: BannerIdentifiers.summaryCardsListSomethingBrokenBannerIdentifier.rawValue)
-                }
-            ),
+            trailIcon: nil,
             trailText: nil,
             titleColor: Color.red,
             descriptionColor: nil,

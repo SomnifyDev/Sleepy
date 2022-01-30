@@ -23,9 +23,11 @@ struct CalendarView: View {
 
 				VStack {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
-                                      monthDate: $viewModel.monthDate)
+                                      monthDate: $viewModel.monthDate, changeMonthAction: {
+                        self.interactor.extractCalendarData()
+                    })
 
-                    HealthTypeSwitchView(selectedType: $viewModel.calendarType, interactor: self.interactor)
+                    HealthTypeSwitchView(selectedType: $viewModel.calendarType)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
                         ForEach(viewModel.calendarData, id: \.id) { day in
@@ -60,8 +62,6 @@ struct CalendarView: View {
 							}
 						})
 				}.background(viewHeightReader($totalHeight))
-            }.onAppear {
-                self.interactor.extractCalendarData()
             }
 		}.frame(height: totalHeight) // - variant for ScrollView/List
 		// .frame(maxHeight: totalHeight) - variant for VStack
@@ -81,6 +81,7 @@ struct CalendarView: View {
 private struct CalendarTitleView: View {
 	@Binding var calendarType: HKService.HealthType
 	@Binding var monthDate: Date
+    let changeMonthAction: () -> Void
 
 	var body: some View {
 		HStack {
@@ -96,6 +97,7 @@ private struct CalendarTitleView: View {
 				monthDate = Calendar.current.date(byAdding: .month,
 				                                  value: -1,
 				                                  to: monthDate)!
+                self.changeMonthAction()
 			} label: {
 				Text(Image(systemName: "chevron.left"))
                     .boldTextModifier(color: ColorsRepository.Text.standard)
@@ -106,6 +108,7 @@ private struct CalendarTitleView: View {
 				monthDate = Calendar.current.date(byAdding: .month,
 				                                  value: 1,
 				                                  to: monthDate)!
+                self.changeMonthAction()
 			} label: {
 				Text(Image(systemName: "chevron.right"))
 					.boldTextModifier(color: ColorsRepository.Text.standard)

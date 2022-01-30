@@ -23,27 +23,6 @@ struct SleepHistoryStatsView: View {
 
     var body: some View {
         VStack {
-            if let monthSleepPoints = viewModel.monthSleepPoints,
-               let monthBeforeDateInterval = viewModel.monthBeforeDateInterval
-            {
-                CardWithContentView(with: .init(leadIcon: IconsRepository.sleep,
-                                                title: "Month sleep duration",
-                                                description: "Here is some info about your month sleep sessions",
-                                                trailIcon: nil,
-                                                trailText: nil,
-                                                titleColor: ColorsRepository.Phase.deepSleep,
-                                                descriptionColor: nil,
-                                                shouldShowSeparator: false),
-                                    content: { StandardChartView(chartType: .defaultChart(barType: .rectangular(color: ColorsRepository.Phase.deepSleep)),
-                                                                 chartHeight: 75,
-                                                                 points: monthSleepPoints,
-                                                                 dateInterval: monthBeforeDateInterval,
-                                                                 needOXLine: true,
-                                                                 needTimeLine: false,
-                                                                 dragGestureEnabled: false) })
-                    .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
-            }
-
                 MotivationCellView(with: .init(leadIcon: IconsRepository.article,
                                                title: "Quality of sleep",
                                                description: "Research shows that poor sleep has immediate negative effects on your hormones, exercise performance, and brain function.",
