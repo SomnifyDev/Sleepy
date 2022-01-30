@@ -61,8 +61,7 @@ struct AnalysisListView: View {
 
 	private func getDescription(item: SoundAnalysisResult, date: Date?) -> String? {
 		if let startDate = date,
-		   let startDate = Calendar.current.date(byAdding: .second, value: -Int(item.end - item.start), to: startDate)
-		{
+		   let startDate = Calendar.current.date(byAdding: .second, value: -Int(item.end - item.start), to: startDate) {
 			return startDate.getFormattedDate(format: "HH:mm")
 		}
 		return nil

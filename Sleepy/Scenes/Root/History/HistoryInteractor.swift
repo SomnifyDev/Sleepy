@@ -24,19 +24,21 @@ class HistoryInteractor {
         // обнуляем кружки календаря до незаполненных пока идет загрузка данных
         self.viewModel.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false),
                                                                     count: self.viewModel.monthDate.endOfMonth.getDayInt())
-        for dayNumber in 1 ..< self.viewModel.monthDate.endOfMonth.getDayInt() {
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self = self,
-                      let date = Calendar.current.date(byAdding: .day, value: dayNumber - 1, to: self.viewModel.monthDate) else { return }
 
-                self.getDaySleepData(date: date,
-                                     calendarType: self.viewModel.calendarType,
-                                     completion: { displayItem in
+        self.viewModel.statisticsProvider.getIntervalDataByDays(healthType: self.viewModel.calendarType,
+                                                                indicator: .sum,
+                                                                interval: .init(start: self.viewModel.monthDate.startOfMonth,
+                                                                                end: self.viewModel.monthDate.endOfMonth), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+            var displayItems: [CalendarDayView.DisplayItem] = []
 
-                    DispatchQueue.main.async {
-                        self.viewModel.calendarData[dayNumber - 1] = displayItem
-                    }
-                })
+            for index in 0 ..< result.count {
+                if let dayDate = Calendar.current.date(byAdding: .day, value: index, to: self.viewModel.monthDate.startOfMonth) {
+                    displayItems.append(self.getDaySleepData(value: result[index], date: dayDate))
+                }
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                self?.viewModel.calendarData = displayItems
             }
         }
     }
@@ -46,16 +48,10 @@ class HistoryInteractor {
         FirebaseAnalytics.Analytics.logEvent("History_model_load", parameters: ["type": self.viewModel.calendarType.rawValue])
 
         switch self.viewModel.calendarType {
-        case .heart:
-            self.extractBasicNumericDataIfNeeded(type: .heart)
-        case .energy:
-            self.extractBasicNumericDataIfNeeded(type: .energy)
-        case .respiratory:
-            self.extractBasicNumericDataIfNeeded(type: .respiratory)
-        case .asleep:
-            self.extractBasicCategoryDataIfNeeded(type: .asleep)
-        case .inbed:
-            self.extractBasicCategoryDataIfNeeded(type: .inbed)
+        case .heart, .energy, .respiratory:
+            self.extractBasicNumericDataIfNeeded(type: self.viewModel.calendarType)
+        case .asleep, .inbed:
+            self.extractBasicCategoryDataIfNeeded(type: self.viewModel.calendarType)
         }
     }
 
@@ -259,52 +255,35 @@ extension HistoryInteractor {
     ///   - date: Дата для которой нужно получить значения
     ///   - calendarType: тип здоровья, по которому  в данный момент отображает статистику календарь
     ///   - completion: -
-    private func getDaySleepData(date: Date, calendarType: HKService.HealthType, completion: @escaping (CalendarDayView.DisplayItem) -> Void) {
-        var value: Double?
+    private func getDaySleepData(value: Double?, date: Date) -> CalendarDayView.DisplayItem {
         var description = "-"
-        var color = ColorsRepository.Calendar.emptyDay
+        var color = self.getCircleColor(value: value)
+        let value = value
 
-        switch calendarType {
+        switch self.viewModel.calendarType {
         case .heart, .respiratory, .energy:
-            self.viewModel.statisticsProvider.getMetaData(healthType: calendarType,
-                                                          indicator: .mean,
-                                                          interval: DateInterval(start: date.startOfDay, end: date.endOfDay)) { [weak self] val in
-                guard let self = self else { return }
-                value = val
-                color = self.getCircleColor(value: value)
 
-                if let value = value {
-                    description = !value.isNaN
-                    ? calendarType == .energy
-                    ? String(format: "%.2f", value)
-                    : String(Int(value))
-                    : "-"
-                } else {
-                    description = "-"
-                }
 
-                completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
-                return
+            if let value = value, value > 0 {
+                description = !value.isNaN
+                ? self.viewModel.calendarType == .energy
+                ? String(format: "%.2f", value)
+                : String(Int(value))
+                : "-"
+            } else {
+                description = "-"
             }
+
+            return (.init(value: value, description: description, color: color, isToday: date.isToday()))
 
         case .asleep, .inbed:
-            self.viewModel.statisticsProvider.getData(healthType: calendarType,
-                                                      indicator: .sum,
-                                                      interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
-                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { [weak self]  val in
-                guard let self = self else { return }
-                value = val
-                color = self.getCircleColor(value: value)
-
-                if let value = value {
-                    description = !value.isNaN ? Date.minutesToDateDescription(minutes: Int(value)) : "-"
-                } else {
-                    description = "-"
-                }
-
-                completion(.init(value: value, description: description, color: color, isToday: date.isToday()))
-                return
+            if let value = value, value > 0 {
+                description = !value.isNaN ? Date.minutesToDateDescription(minutes: Int(value)) : "-"
+            } else {
+                description = "-"
             }
+
+            return (.init(value: value, description: description, color: color, isToday: date.isToday()))
         }
     }
 
@@ -312,7 +291,7 @@ extension HistoryInteractor {
     /// - Parameter value: значение
     /// - Returns: цвет
     private func getCircleColor(value: Double?) -> Color {
-        if let value = value, !value.isNaN {
+        if let value = value, !value.isNaN, value > 0 {
             switch self.viewModel.calendarType {
             case .heart:
                 return ColorsRepository.Heart.heart

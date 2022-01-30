@@ -67,7 +67,10 @@ class CardService: ObservableObject {
     // MARK: Bank of sleep
 
     private func getBankOfSleepInfo() {
-        self.getbankOfSleepData { [weak self] data in
+        self.statisticsProvider.getIntervalDataByDays(healthType: .asleep,
+                                                                indicator: .sum,
+                                                                interval: .init(start: Date().twoWeeksBefore.startOfDay,
+                                                                                end: Date().endOfDay), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { [weak self] data in
             guard let self = self else { return }
             let sleepGoal = self.getSleepGoal()
             let filteredData = data.filter { $0 != 0 }

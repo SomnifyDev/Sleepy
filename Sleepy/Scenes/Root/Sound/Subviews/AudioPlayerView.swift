@@ -22,8 +22,7 @@ struct AudioPlayerView: View {
 	init(audioPlayer: Binding<AVAudioPlayer>,
 	     playAtTime: TimeInterval,
 	     endAtTime: TimeInterval,
-	     audioName: String)
-	{
+	     audioName: String) {
 		_audioPlayer = audioPlayer
 		self.playAtTime = max(0, playAtTime - Constants.soundIndentSeconds)
 		self.endAtTime = min(audioPlayer.wrappedValue.duration, endAtTime + Constants.soundIndentSeconds)

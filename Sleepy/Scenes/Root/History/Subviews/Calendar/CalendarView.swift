@@ -23,7 +23,7 @@ struct CalendarView: View {
 
 				VStack {
 					CalendarTitleView(calendarType: $viewModel.calendarType,
-					                  monthDate: $viewModel.monthDate)
+                                      monthDate: $viewModel.monthDate)
 
                     HealthTypeSwitchView(selectedType: $viewModel.calendarType, interactor: self.interactor)
 
@@ -87,7 +87,7 @@ private struct CalendarTitleView: View {
 			Text(Image(systemName: "calendar"))
                 .regularTextModifier(color: ColorsRepository.Text.standard, size: 24)
 
-			Text("\(monthDate.getMonthString()) \(monthDate.getYearString())")
+            Text("\(monthDate.getMonthString()) \(monthDate.endOfMonth.getYearString())")
 				.calendarMonthTitleModifier(color: ColorsRepository.Text.standard)
 
 			Spacer()
