@@ -54,12 +54,12 @@ public final class HKStatisticsProvider {
     }
 
     /// Returns metrics data like ssdn of heart rythems by metric type
-    public func getData(dataType: MetricsData, completion: @escaping (StatsIndicatorModel?) -> Void) {
+    public func getData(dataType: MetricsData, interval: DateInterval, completion: @escaping (StatsIndicatorModel?) -> Void) {
         switch dataType {
         case .rmssd:
-            self.numericTypesStatisticsProvider.calculateRMSSD(completion: completion)
+            self.numericTypesStatisticsProvider.calculateRMSSD(interval: interval, completion: completion)
         case .ssdn:
-            self.numericTypesStatisticsProvider.calculateSSDN(completion: completion)
+            self.numericTypesStatisticsProvider.calculateSSDN(interval: interval, completion: completion)
         }
     }
 
@@ -77,6 +77,39 @@ public final class HKStatisticsProvider {
             return nil
         }
         return self.dailyStatisticsProvider.intervalBoundary(intervalType: intervalType, sleep: sleep)
+    }
+
+    /// Returns metrics data like ssdn of heart rythems by metric type split by days
+    public func getMetricDataByDays(dataType: MetricsData, interval: DateInterval, completion: @escaping ([StatsIndicatorModel?]) -> Void) {
+        let group = DispatchGroup()
+
+        let daysInInterval = Date.daysBetween(start: interval.start, end: interval.end)
+        var result = [StatsIndicatorModel?](repeating: nil, count: Date.daysBetween(start: interval.start, end: interval.end) + 1)
+        for index in 1 ... daysInInterval {
+            if let dayDate = Calendar.current.date(byAdding: .day, value: index - 1, to: interval.start) {
+                group.enter()
+                DispatchQueue.main.async(flags: .barrier) { [weak self] in
+
+                    switch dataType {
+                    case .rmssd:
+                        self?.numericTypesStatisticsProvider.calculateRMSSD(interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay)) { model in
+                            result[index] = model
+                            group.leave()
+                        }
+                    case .ssdn:
+                        self?.numericTypesStatisticsProvider.calculateSSDN(interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay)) { model in
+                            result[index] = model
+                            group.leave()
+                        }
+                    }
+                }
+            }
+        }
+
+        group.notify(queue: .main) {
+            completion(result)
+            return
+        }
     }
 
     public func getIntervalDataByDays(healthType: HKService.HealthType,
