@@ -39,8 +39,12 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
         let monthDate = Date().startOfMonth
         self.monthDate = monthDate
-        self.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false),
-                                                          count: monthDate.endOfMonth.getDayInt())
+
+        var array: [CalendarDayView.DisplayItem] = []
+        for i in 0 ..< monthDate.endOfMonth.getDayInt() {
+            array.append(.init(dayNumber: i + 1, value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false))
+        }
+        self.calendarData = array
 	}
 
 	func open(_ url: URL) {

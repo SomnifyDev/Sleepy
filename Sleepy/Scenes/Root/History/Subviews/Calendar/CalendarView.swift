@@ -28,21 +28,21 @@ struct CalendarView: View {
                     HealthTypeSwitchView(selectedType: $viewModel.calendarType, interactor: self.interactor)
 
 					LazyVGrid(columns: calendarGridLayout, spacing: 4) {
-                        ForEach(1 ... viewModel.calendarData.count, id: \.self) { index in
+                        ForEach(viewModel.calendarData, id: \.id) { day in
 							VStack(spacing: 2) {
-								if index >= 1, index <= 7 {
+                                if day.dayNumber >= 1, day.dayNumber <= 7 {
 									let tmpWeekDay = Calendar.current.date(byAdding: .day,
-									                                       value: index - 1,
+									                                       value: day.dayNumber,
 									                                       to: viewModel.monthDate.startOfMonth)!
 
 									Text(tmpWeekDay.weekday() ?? "")
 										.weekDayTextModifier(width: calendarElementSize)
 								}
 
-                                CalendarDayView(displayItem: viewModel.calendarData[index - 1])
+                                CalendarDayView(displayItem: day)
 									.frame(height: calendarElementSize)
 
-								Text(String(index))
+								Text(String(day.dayNumber))
 									.dayNumberTextModifier()
 							}
 						}

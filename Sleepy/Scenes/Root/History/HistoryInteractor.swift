@@ -22,8 +22,11 @@ class HistoryInteractor {
     /// Вызывается для подгрузки кругов месяца самого календаря
     func extractCalendarData() {
         // обнуляем кружки календаря до незаполненных пока идет загрузка данных
-        self.viewModel.calendarData = [CalendarDayView.DisplayItem](repeating: .init(value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false),
-                                                                    count: self.viewModel.monthDate.endOfMonth.getDayInt())
+        var array: [CalendarDayView.DisplayItem] = []
+        for i in 0 ..< self.viewModel.monthDate.endOfMonth.getDayInt() {
+            array.append(.init(dayNumber: i + 1, value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false))
+        }
+        self.viewModel.calendarData = array
 
         self.viewModel.statisticsProvider.getIntervalDataByDays(healthType: self.viewModel.calendarType,
                                                                 indicator: .sum,
@@ -274,7 +277,7 @@ extension HistoryInteractor {
                 description = "-"
             }
 
-            return (.init(value: value, description: description, color: color, isToday: date.isToday()))
+            return (.init(dayNumber: date.getDayInt(), value: value, description: description, color: color, isToday: date.isToday()))
 
         case .asleep, .inbed:
             if let value = value, value > 0 {
@@ -283,7 +286,7 @@ extension HistoryInteractor {
                 description = "-"
             }
 
-            return (.init(value: value, description: description, color: color, isToday: date.isToday()))
+            return (.init(dayNumber: date.getDayInt(), value: value, description: description, color: color, isToday: date.isToday()))
         }
     }
 

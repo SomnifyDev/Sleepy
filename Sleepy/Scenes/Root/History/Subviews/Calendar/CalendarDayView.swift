@@ -9,11 +9,13 @@ import UIComponents
 import XUI
 
 struct CalendarDayView: View {
-    struct DisplayItem {
-        var value: Double?
-        var description: String
-        var color: Color
-        var isToday: Bool
+    struct DisplayItem: Identifiable {
+        var id = UUID()
+        var dayNumber: Int
+        let value: Double?
+        let description: String
+        let color: Color
+        let isToday: Bool
     }
 
     let displayItem: DisplayItem
