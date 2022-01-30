@@ -35,23 +35,26 @@ struct HeartHistoryStatisticsView: View {
                 StatisticsCellCollectionView(with: StatisticsCellCollectionViewModel(with: viewModel.cellData))
             }
 
-            SectionNameTextView(
-                text: "SSDN for last month",
-                color: ColorsRepository.Text.standard
-            )
-            CardWithContentView(with: viewModel.ssdnCardTitleViewModel) {
-                StandardChartView(
-                    chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
-                    chartHeight: 75,
-                    points: self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
-                    dateInterval: .init(start: Date().startOfMonth.startOfDay, end: Date().endOfDay),
-                    needOXLine: true,
-                    needTimeLine: false,
-                    dragGestureEnabled: false
+            if let ssdnValues = self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
+            ssdnValues.count > 14 {
+                SectionNameTextView(
+                    text: "SSDN for last month",
+                    color: ColorsRepository.Text.standard
                 )
+                CardWithContentView(with: viewModel.ssdnCardTitleViewModel) {
+                    StandardChartView(
+                        chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
+                        chartHeight: 75,
+                        points: self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
+                        dateInterval: .init(start: Date().startOfMonth.startOfDay, end: Date().endOfDay),
+                        needOXLine: true,
+                        needTimeLine: false,
+                        dragGestureEnabled: false
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+                .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
             }
-            .buttonStyle(PlainButtonStyle())
-            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
         }
     }
 }

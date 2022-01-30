@@ -97,9 +97,7 @@ class CardService: ObservableObject {
         var samplesLeft = 14
         let queue = DispatchQueue(label: "bankOfSleepQueue", qos: .userInitiated)
         for dateIndex in 0 ..< 28 {
-            guard
-                let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else {
-                    somethingBroken = true
+            guard let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else {
                     return
                 }
 
