@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import Armchair
 import Foundation
@@ -14,48 +14,64 @@ struct SettingsCoordinatorView: View {
         NavigationView {
             List {
                 Section(header: HeaderView(text: "Health", imageName: "heart.circle")) {
-                    Stepper(String(format: "Sleep goal %@", Date.minutesToClearString(minutes: self.viewModel.sleepGoalValue)),
-                            value: self.$viewModel.sleepGoalValue,
-                            in: 360 ... 720,
-                            step: 15) { _ in
+                    Stepper(
+                        String(format: "Sleep goal %@", Date.minutesToClearString(minutes: self.viewModel.sleepGoalValue)),
+                        value: self.$viewModel.sleepGoalValue,
+                        in: 360 ... 720,
+                        step: 15
+                    ) { _ in
                         self.viewModel.saveSetting(with: self.viewModel.sleepGoalValue, forKey: SleepySettingsKeys.sleepGoal.rawValue)
                     }
                 }
 
                 Section(header: HeaderView(text: "Feedback", imageName: "person.2")) {
-                    LabeledButton(text: "Twitter",
-                                  showChevron: true,
-                                  action: { UIApplication.shared.openURL(URL(string: SettingsCoordinator.Constants.twitterURL)!) })
+                    LabeledButton(
+                        text: "Twitter",
+                        showChevron: true,
+                        action: { UIApplication.shared.openURL(URL(string: SettingsCoordinator.Constants.twitterURL)!) }
+                    )
 
-                    LabeledButton(text: "Email us",
-                                  showChevron: true,
-                                  action: { UIApplication.shared.openURL(URL(string: "mailto:\(SettingsCoordinator.Constants.email)")!) })
+                    LabeledButton(
+                        text: "Email us",
+                        showChevron: true,
+                        action: { UIApplication.shared.openURL(URL(string: "mailto:\(SettingsCoordinator.Constants.email)")!) }
+                    )
 
-                    LabeledButton(text: "Rate us",
-                                  showChevron: true,
-                                  action: { Armchair.rateApp() })
+                    LabeledButton(
+                        text: "Rate us",
+                        showChevron: true,
+                        action: { Armchair.rateApp() }
+                    )
                         .disabled(true)
 
-                    LabeledButton(text: "Share about us",
-                                  showChevron: true,
-                                  action: { self.viewModel.isSharePresented = true })
-                        .sheet(isPresented: self.$viewModel.isSharePresented,
-                               content: { ActivityViewController(activityItems: [URL(string: SettingsCoordinator.Constants.appstoreURL)!]) })
+                    LabeledButton(
+                        text: "Share about us",
+                        showChevron: true,
+                        action: { self.viewModel.isSharePresented = true }
+                    )
+                        .sheet(
+                            isPresented: self.$viewModel.isSharePresented,
+                            content: { ActivityViewController(activityItems: [URL(string: SettingsCoordinator.Constants.appstoreURL)!]) }
+                        )
                         .disabled(true)
                 }
 
                 Section(header: HeaderView(text: "Sound Recording", imageName: "mic.circle")) {
-                    Stepper(String(format: "Bitrate – %d", self.viewModel.bitrateValue),
-                            value: self.$viewModel.bitrateValue,
-                            in: 1000 ... 44000,
-                            step: 1000) { _ in
+                    Stepper(
+                        String(format: "Bitrate – %d", self.viewModel.bitrateValue),
+                        value: self.$viewModel.bitrateValue,
+                        in: 1000 ... 44000,
+                        step: 1000
+                    ) { _ in
                         self.viewModel.saveSetting(with: self.viewModel.bitrateValue, forKey: SleepySettingsKeys.soundBitrate.rawValue)
                     }
 
-                    Stepper(String(format: "Min. confidence %d", self.viewModel.recognisionConfidenceValue),
-                            value: self.$viewModel.recognisionConfidenceValue,
-                            in: 10 ... 95,
-                            step: 5) { _ in
+                    Stepper(
+                        String(format: "Min. confidence %d", self.viewModel.recognisionConfidenceValue),
+                        value: self.$viewModel.recognisionConfidenceValue,
+                        in: 10 ... 95,
+                        step: 5
+                    ) { _ in
                         self.viewModel.saveSetting(with: self.viewModel.recognisionConfidenceValue, forKey: SleepySettingsKeys.soundRecognisionConfidence.rawValue)
                     }
                 }
@@ -71,8 +87,10 @@ struct SettingsCoordinatorView: View {
                                         .cornerRadius(12)
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
-                                                .stroke(ColorsRepository.Calendar.calendarCurrentDate,
-                                                        lineWidth: self.viewModel.currentIconType == iconType ? 3 : 0)
+                                                .stroke(
+                                                    ColorsRepository.Calendar.calendarCurrentDate,
+                                                    lineWidth: self.viewModel.currentIconType == iconType ? 3 : 0
+                                                )
                                         )
                                 }
                                 .onTapGesture { self.viewModel.setIcon(iconType: iconType) }

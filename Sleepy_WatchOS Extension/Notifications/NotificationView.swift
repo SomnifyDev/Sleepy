@@ -1,15 +1,15 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import SwiftUI
 
 struct NotificationView: View {
-	var body: some View {
-		Text("Hello, World!")
-	}
+    var body: some View {
+        Text("Hello, World!")
+    }
 }
 
 struct NotificationView_Previews: PreviewProvider {
-	static var previews: some View {
-		NotificationView()
-	}
+    static var previews: some View {
+        NotificationView()
+    }
 }

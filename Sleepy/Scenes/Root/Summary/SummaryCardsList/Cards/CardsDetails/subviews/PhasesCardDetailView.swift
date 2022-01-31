@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import HKCoreSleep
@@ -40,8 +40,10 @@ struct PhasesCardDetailView: View {
 
                         // MARK: Statistics
 
-                        SectionNameTextView(text: "Summary",
-                                            color: ColorsRepository.Text.standard)
+                        SectionNameTextView(
+                            text: "Summary",
+                            color: ColorsRepository.Text.standard
+                        )
 
                         StatisticsCellCollectionView(
                             with: StatisticsCellCollectionViewModel(
@@ -69,8 +71,10 @@ struct PhasesCardDetailView: View {
 
                     // MARK: Advice
 
-                    SectionNameTextView(text: "What else?",
-                                        color: ColorsRepository.Text.standard)
+                    SectionNameTextView(
+                        text: "What else?",
+                        color: ColorsRepository.Text.standard
+                    )
 
                     ArticleCardView(
                         with: ArticleCardViewModel(

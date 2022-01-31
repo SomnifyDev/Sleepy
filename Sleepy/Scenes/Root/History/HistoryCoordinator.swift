@@ -1,17 +1,17 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import Foundation
 import HKCoreSleep
 import HKStatistics
+import SettingsKit
 import UIComponents
 import XUI
-import SettingsKit
 
 class HistoryCoordinator: ObservableObject, ViewModel {
     private unowned let parent: RootCoordinator
-    
-	@Published var openedURL: URL?
+
+    @Published var openedURL: URL?
 
     @Published var calendarType: HKService.HealthType
     @Published var calendarData: [CalendarDayView.DisplayItem]
@@ -19,28 +19,29 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
     @Published var sleepGoal = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
 
-	@Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
-	@Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
-	@Published var heartHistoryStatisticsViewModel: HeartHistoryStatsViewModel?
-	@Published var energyHistoryStatsViewModel: StatisticsCellCollectionViewModel?
-	@Published var respiratoryHistoryStatsViewModel: StatisticsCellCollectionViewModel?
+    @Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
+    @Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
+    @Published var heartHistoryStatisticsViewModel: HeartHistoryStatsViewModel?
+    @Published var energyHistoryStatsViewModel: StatisticsCellCollectionViewModel?
+    @Published var respiratoryHistoryStatsViewModel: StatisticsCellCollectionViewModel?
 
-    let factory: HistoryFactory = HistoryFactory()
+    let factory = HistoryFactory()
     let ssdnCardTitleViewModel: CardTitleViewModel
 
-	let statisticsProvider: HKStatisticsProvider
+    let statisticsProvider: HKStatisticsProvider
 
     let monthBeforeDateInterval = DateInterval(start: Date().monthBefore.startOfDay, end: Date().endOfDay)
 
-	init(statisticsProvider: HKStatisticsProvider,
-	     parent: RootCoordinator)
-	{
-		self.parent = parent
+    init(
+        statisticsProvider: HKStatisticsProvider,
+        parent: RootCoordinator
+    ) {
+        self.parent = parent
 
-        self.ssdnCardTitleViewModel = factory.makeSsdnCardTitleViewModel()
+        self.ssdnCardTitleViewModel = self.factory.makeSsdnCardTitleViewModel()
 
-		self.statisticsProvider = statisticsProvider
-		self.calendarType = .asleep
+        self.statisticsProvider = statisticsProvider
+        self.calendarType = .asleep
 
         let monthDate = Date().startOfMonth
         self.monthDate = monthDate
@@ -50,9 +51,9 @@ class HistoryCoordinator: ObservableObject, ViewModel {
             array.append(.init(dayNumber: i + 1, value: nil, description: "-", color: ColorsRepository.Calendar.emptyDay, isToday: false))
         }
         self.calendarData = array
-	}
+    }
 
-	func open(_ url: URL) {
-		self.openedURL = url
-	}
+    func open(_ url: URL) {
+        self.openedURL = url
+    }
 }

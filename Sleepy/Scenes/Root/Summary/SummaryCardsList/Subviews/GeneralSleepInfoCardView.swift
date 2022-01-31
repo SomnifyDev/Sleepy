@@ -1,10 +1,9 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import SwiftUI
 import UIComponents
 
 public struct GeneralSleepInfoCardView: View {
-
     let viewModel: SummaryGeneralDataViewModel
 
     public var body: some View {

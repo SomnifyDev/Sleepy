@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 //
 //  SoundCoordinator.swift
@@ -14,75 +14,76 @@ import UIComponents
 import XUI
 
 class SoundsCoordinator: ObservableObject, ViewModel {
-	private unowned let parent: RootCoordinator
+    private unowned let parent: RootCoordinator
 
-    let factory: SoundsFactory = SoundsFactory()
+    let factory = SoundsFactory()
 
-	@Published var openedURL: URL?
-	@Published var showAnalysis = false
-	@Published var showLoading = false
+    @Published var openedURL: URL?
+    @Published var showAnalysis = false
+    @Published var showLoading = false
 
     let emptyBannerViewModel: BannerViewModel<CardBottomSimpleDescriptionView>
 
-	let resultsObserver = AudioResultsObserver()
+    let resultsObserver = AudioResultsObserver()
 
-	init(parent: RootCoordinator) {
-		self.parent = parent
+    init(parent: RootCoordinator) {
+        self.parent = parent
 
         self.emptyBannerViewModel = self.factory.makeSoundsEmptyBannerViewModel()
-	}
+    }
 
-	func openSettings() {
-		self.parent.openTabView(of: .settings, components: nil)
-	}
+    func openSettings() {
+        self.parent.openTabView(of: .settings, components: nil)
+    }
 
-	func open(_ url: URL) {
-		self.openedURL = url
-	}
+    func open(_ url: URL) {
+        self.openedURL = url
+    }
 }
 
 extension SoundsCoordinator {
-	/// Вызывается в моменте клика по наименованию записи для генерирования анализа (распознавания звуков)
-	/// В колбэке получает результат анализа, в случае успеха показывается sheet анализа
-	/// Данные для sheet'а берутся из AudioResultsObserver.analysis
-	/// - Parameter audioFileURL: путь до файла с записью
-	func runAnalysis(audioFileURL: URL) {
-		do {
-			self.showLoading = true
+    /// Вызывается в моменте клика по наименованию записи для генерирования анализа (распознавания звуков)
+    /// В колбэке получает результат анализа, в случае успеха показывается sheet анализа
+    /// Данные для sheet'а берутся из AudioResultsObserver.analysis
+    /// - Parameter audioFileURL: путь до файла с записью
+    func runAnalysis(audioFileURL: URL) {
+        do {
+            self.showLoading = true
 
-			let request: SNClassifySoundRequest
-			let config = MLModelConfiguration()
-			let mlModel = try soundClassifier(configuration: config)
+            let request: SNClassifySoundRequest
+            let config = MLModelConfiguration()
+            let mlModel = try soundClassifier(configuration: config)
 
-			request = try SNClassifySoundRequest(mlModel: mlModel.model)
+            request = try SNClassifySoundRequest(mlModel: mlModel.model)
 
-			guard let audioFileAnalyzer = createAnalyzer(audioFileURL: audioFileURL) else {
-				self.showLoading = false
-				return
-			}
-			self.resultsObserver.fileName = audioFileURL.lastPathComponent
-			self.resultsObserver.date = FileHelper.creationDateForLocalFilePath(filePath: audioFileURL.path)
-			self.resultsObserver.array = []
+            guard let audioFileAnalyzer = createAnalyzer(audioFileURL: audioFileURL)
+            else {
+                self.showLoading = false
+                return
+            }
+            self.resultsObserver.fileName = audioFileURL.lastPathComponent
+            self.resultsObserver.date = FileHelper.creationDateForLocalFilePath(filePath: audioFileURL.path)
+            self.resultsObserver.array = []
 
-			// Prepare a new request for the trained model.
-			try audioFileAnalyzer.add(request, withObserver: self.resultsObserver)
+            // Prepare a new request for the trained model.
+            try audioFileAnalyzer.add(request, withObserver: self.resultsObserver)
 
-			audioFileAnalyzer.analyze(completionHandler: { result in
-				DispatchQueue.main.async {
-					self.showAnalysis = result
-					self.showLoading = false
-				}
-			})
-		} catch {
-			self.showLoading = false
-		}
-	}
+            audioFileAnalyzer.analyze(completionHandler: { result in
+                DispatchQueue.main.async {
+                    self.showAnalysis = result
+                    self.showLoading = false
+                }
+            })
+        } catch {
+            self.showLoading = false
+        }
+    }
 
-	func createAnalyzer(audioFileURL: URL) -> SNAudioFileAnalyzer? {
-		return try? SNAudioFileAnalyzer(url: audioFileURL)
-	}
+    func createAnalyzer(audioFileURL: URL) -> SNAudioFileAnalyzer? {
+        return try? SNAudioFileAnalyzer(url: audioFileURL)
+    }
 
-	func sendAnalytics() {
-		FirebaseAnalytics.Analytics.logEvent("Sounds_viewed", parameters: nil)
-	}
+    func sendAnalytics() {
+        FirebaseAnalytics.Analytics.logEvent("Sounds_viewed", parameters: nil)
+    }
 }

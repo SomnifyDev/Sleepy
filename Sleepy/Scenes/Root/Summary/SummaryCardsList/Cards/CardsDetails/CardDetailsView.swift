@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 // swiftformat:disable all
 import FirebaseAnalytics

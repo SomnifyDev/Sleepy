@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import HKCoreSleep
@@ -69,8 +69,10 @@ struct GeneralCardDetailView: View {
                     // MARK: Statistics
 
                     if let generalViewModel = cardService.generalViewModel {
-                        SectionNameTextView(text: "Summary for today",
-                                            color: ColorsRepository.Text.standard)
+                        SectionNameTextView(
+                            text: "Summary for today",
+                            color: ColorsRepository.Text.standard
+                        )
 
                         StatisticsCellCollectionView(
                             with: StatisticsCellCollectionViewModel(
@@ -78,9 +80,10 @@ struct GeneralCardDetailView: View {
                             )
                         )
 
-
-                        SectionNameTextView(text: "Statistics",
-                                            color: ColorsRepository.Text.standard)
+                        SectionNameTextView(
+                            text: "Statistics",
+                            color: ColorsRepository.Text.standard
+                        )
 
                         ProgressChartView(
                             with: ProgressChartViewModel(
@@ -114,8 +117,10 @@ struct GeneralCardDetailView: View {
                             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                     }
 
-                    SectionNameTextView(text: "What else?",
-                                        color: ColorsRepository.Text.standard)
+                    SectionNameTextView(
+                        text: "What else?",
+                        color: ColorsRepository.Text.standard
+                    )
 
                     // MARK: Advices
 
@@ -155,16 +160,25 @@ struct GeneralCardDetailView: View {
 
     // MARK: Private methods
 
-    private func getStatisticCells(generalViewModel: SummaryGeneralDataViewModel) -> [StatisticsCellViewModel] {
+    private func getStatisticCells(generalViewModel: SummaryGeneralDataViewModel) -> [StatisticsCellViewModel]
+    {
         return [
-            StatisticsCellViewModel(title: "Fall asleep",
-                                    value: generalViewModel.sleepInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start)),
-            StatisticsCellViewModel(title: "Wake up",
-                                    value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")),
-            StatisticsCellViewModel(title: "Time asleep",
-                                    value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)),
-            StatisticsCellViewModel(title: "Time in bed",
-                                    value: generalViewModel.inbedInterval.end.hoursMinutes(from: generalViewModel.inbedInterval.start)),
+            StatisticsCellViewModel(
+                title: "Fall asleep",
+                value: generalViewModel.sleepInterval.start.hoursMinutes(from: generalViewModel.inbedInterval.start)
+            ),
+            StatisticsCellViewModel(
+                title: "Wake up",
+                value: generalViewModel.sleepInterval.end.getFormattedDate(format: "HH:mm")
+            ),
+            StatisticsCellViewModel(
+                title: "Time asleep",
+                value: generalViewModel.sleepInterval.end.hoursMinutes(from: generalViewModel.sleepInterval.start)
+            ),
+            StatisticsCellViewModel(
+                title: "Time in bed",
+                value: generalViewModel.inbedInterval.end.hoursMinutes(from: generalViewModel.inbedInterval.start)
+            ),
         ]
     }
 

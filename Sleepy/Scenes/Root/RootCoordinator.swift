@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import Foundation
@@ -18,7 +18,6 @@ enum TabType: String {
 }
 
 class RootCoordinator: ObservableObject, ViewModel {
-
     // MARK: - Properties
 
     @Published var tab = TabType.summary
@@ -34,19 +33,24 @@ class RootCoordinator: ObservableObject, ViewModel {
 
     // MARK: - Init
 
-    init(statisticsProvider: HKStatisticsProvider,
-         hkStoreService: HKService)
-    {
+    init(
+        statisticsProvider: HKStatisticsProvider,
+        hkStoreService: HKService
+    ) {
         self.statisticsProvider = statisticsProvider
         self.hkStoreService = hkStoreService
         self.alarmCoordinator = AlarmCoordinator(parent: self)
         self.soundsCoordinator = SoundsCoordinator(parent: self)
         self.settingsCoordinator = SettingsCoordinator(parent: self)
-        self.summaryCoordinator = SummaryNavigationCoordinator(statisticsProvider: statisticsProvider,
-                                                               hkStoreService: hkStoreService,
-                                                               parent: self)
-        self.historyCoordinator = HistoryCoordinator(statisticsProvider: statisticsProvider,
-                                                     parent: self)
+        self.summaryCoordinator = SummaryNavigationCoordinator(
+            statisticsProvider: statisticsProvider,
+            hkStoreService: hkStoreService,
+            parent: self
+        )
+        self.historyCoordinator = HistoryCoordinator(
+            statisticsProvider: statisticsProvider,
+            parent: self
+        )
     }
 
     // MARK: - Methods
@@ -82,7 +86,6 @@ class RootCoordinator: ObservableObject, ViewModel {
             self.tab = .soundRecognision
         }
     }
-
 }
 
 // MARK: - Metrics

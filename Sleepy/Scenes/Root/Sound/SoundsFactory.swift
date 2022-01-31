@@ -1,12 +1,7 @@
-//
-//  SoundsFactory.swift
-//  Sleepy
-//
-//  Created by Никита Казанцев on 16.01.2022.
-//
+// Copyright (c) 2022 Sleepy.
 
-import UIComponents
 import SwiftUI
+import UIComponents
 
 struct SoundsFactory {
     fileprivate enum BannerIdentifiers: String {
@@ -15,7 +10,7 @@ struct SoundsFactory {
 
     func makeSoundsEmptyBannerViewModel() -> BannerViewModel<CardBottomSimpleDescriptionView> {
         return BannerViewModel(
-            with: makeSomethingBrokenBannerCardTitleViewModel(),
+            with: self.makeSomethingBrokenBannerCardTitleViewModel(),
             bannerIdentifier: BannerIdentifiers.soundsEmptyBannerIdentifier.rawValue
         )
     }

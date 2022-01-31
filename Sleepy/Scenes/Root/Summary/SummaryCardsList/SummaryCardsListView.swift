@@ -1,11 +1,10 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import SwiftUI
 import UIComponents
 import XUI
 
 struct SummaryCardsListView: View {
-
     @Store var viewModel: SummaryCardsListCoordinator
 
     @EnvironmentObject var cardService: CardService
@@ -21,7 +20,6 @@ struct SummaryCardsListView: View {
 
             ScrollView {
                 VStack(alignment: .center) {
-
                     // MARK: Errors
 
                     if cardService.somethingBroken {
@@ -50,29 +48,32 @@ struct SummaryCardsListView: View {
 
                     if cardService.respiratoryViewModel == nil,
                        cardService.heartViewModel == nil,
-                       cardService.phasesViewModel == nil {
+                       cardService.phasesViewModel == nil
+                    {
                         SectionNameTextView(
                             text: "Cards preview",
                             color: ColorsRepository.Text.standard
                         )
 
-                        PaginationView(index: $imagesIndex.animation(), maxIndex: tutorialImages.count - 1) {
-                            ForEach(self.tutorialImages, id: \.self) { imageName in
-                                Image(imageName)
-                                    .resizable()
-                                    .aspectRatio(1.21, contentMode: .fit)
-                                    .cornerRadius(12)
+                        PaginationView(index: $imagesIndex.animation(), maxIndex: tutorialImages.count - 1)
+                            {
+                                ForEach(self.tutorialImages, id: \.self) { imageName in
+                                    Image(imageName)
+                                        .resizable()
+                                        .aspectRatio(1.21, contentMode: .fit)
+                                        .cornerRadius(12)
+                                }
                             }
-                        }
-                        .aspectRatio(1.21, contentMode: .fit)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .padding([.leading, .trailing])
+                            .aspectRatio(1.21, contentMode: .fit)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .padding([.leading, .trailing])
                     }
 
                     // MARK: - Phases card
 
                     if let phasesViewModel = cardService.phasesViewModel,
-                       let generalViewModel = cardService.generalViewModel {
+                       let generalViewModel = cardService.generalViewModel
+                    {
                         SectionNameTextView(
                             text: "Sleep session",
                             color: ColorsRepository.Text.standard
@@ -105,7 +106,8 @@ struct SummaryCardsListView: View {
                     // MARK: - Heart card
 
                     if let heartViewModel = cardService.heartViewModel,
-                       let generalViewModel = cardService.generalViewModel {
+                       let generalViewModel = cardService.generalViewModel
+                    {
                         SectionNameTextView(
                             text: "Heart rate",
                             color: ColorsRepository.Text.standard
@@ -141,7 +143,8 @@ struct SummaryCardsListView: View {
                     // MARK: - Respiratory card
 
                     if let respiratoryViewModel = cardService.respiratoryViewModel,
-                       let generalViewModel = cardService.generalViewModel {
+                       let generalViewModel = cardService.generalViewModel
+                    {
                         SectionNameTextView(
                             text: "Respiratory rate",
                             color: ColorsRepository.Text.standard

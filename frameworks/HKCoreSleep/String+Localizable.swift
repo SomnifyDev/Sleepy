@@ -1,9 +1,9 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import Foundation
 
 public extension String {
-	var localized: String {
-		return NSLocalizedString(self, comment: "\(self)_comment")
-	}
+    var localized: String {
+        return NSLocalizedString(self, comment: "\(self)_comment")
+    }
 }

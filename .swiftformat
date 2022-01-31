@@ -1,0 +1,32 @@
+# format options
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--allman false
+--enable andOperator
+--enable blankLinesBetweenScopes
+--enable blankLinesAroundMark
+--enable consecutiveBlankLines
+--enable consecutiveSpaces
+--emptybraces no-space
+--extensionacl on-extension
+--enable isEmpty
+--enable leadingDelimiters
+--enable modifierOrder
+--enable redundantBreak
+--enable redundantExtensionACL
+--disable organizeDeclarations
+--enable redundantInit
+--enable redundantNilInit
+--enable redundantParens
+--enable redundantRawValues
+--enable redundantReturn
+--xcodeindentation enabled
+--redundanttype inferred
+--enable sortedImports
+--enable spaceAroundBraces
+--header " Copyright (c) {year} Sleepy."
+--self insert
+--funcattributes prev-line
+# file options
+--exclude Pods

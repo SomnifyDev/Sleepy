@@ -1,9 +1,4 @@
-//
-//  HistoryInteractor.swift
-//  Sleepy
-//
-//  Created by Никита Казанцев on 26.12.2021.
-//
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import Foundation
@@ -28,14 +23,20 @@ class HistoryInteractor {
         }
         self.viewModel.calendarData = array
 
-        self.viewModel.statisticsProvider.getIntervalDataByDays(healthType: self.viewModel.calendarType,
-                                                                indicator: .sum,
-                                                                interval: .init(start: self.viewModel.monthDate.startOfMonth,
-                                                                                end: self.viewModel.monthDate.endOfMonth), bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { result in
+        self.viewModel.statisticsProvider.getIntervalDataByDays(
+            healthType: self.viewModel.calendarType,
+            indicator: .sum,
+            interval: .init(
+                start: self.viewModel.monthDate.startOfMonth,
+                end: self.viewModel.monthDate.endOfMonth
+            ),
+            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]
+        ) { result in
             var displayItems: [CalendarDayView.DisplayItem] = []
 
             for index in 0 ..< result.count {
-                if let dayDate = Calendar.current.date(byAdding: .day, value: index, to: self.viewModel.monthDate.startOfMonth) {
+                if let dayDate = Calendar.current.date(byAdding: .day, value: index, to: self.viewModel.monthDate.startOfMonth)
+                {
                     displayItems.append(self.getDaySleepData(value: result[index], date: dayDate))
                 }
             }
@@ -88,18 +89,24 @@ class HistoryInteractor {
                     switch indicator {
                     case .min:
                         guard let min = durations.min() else { return }
-                        last30daysCellData.append(.init(title: self.getStatCellTitle(for: type, indicator: indicator),
-                                                        value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(min)))))
+                        last30daysCellData.append(.init(
+                            title: self.getStatCellTitle(for: type, indicator: indicator),
+                            value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(min)))
+                        ))
                     case .max:
                         guard let max = durations.max() else { return }
-                        last30daysCellData.append(.init(title: self.getStatCellTitle(for: type, indicator: indicator),
-                                                        value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(max)))))
+                        last30daysCellData.append(.init(
+                            title: self.getStatCellTitle(for: type, indicator: indicator),
+                            value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(max)))
+                        ))
                     case .mean:
                         guard let meanCurrent2WeeksDuration = meanCurrent2WeeksDuration,
                               let meanLast2WeeksDuration = meanLast2WeeksDuration else { return }
                         let mean = Int(meanCurrent2WeeksDuration + meanLast2WeeksDuration) / 2
-                        last30daysCellData.append(.init(title: self.getStatCellTitle(for: type, indicator: indicator),
-                                                        value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(mean)))))
+                        last30daysCellData.append(.init(
+                            title: self.getStatCellTitle(for: type, indicator: indicator),
+                            value: self.getStatCellDescription(for: type, value: Date.minutesToDateDescription(minutes: Int(mean)))
+                        ))
                     case .sum:
                         break
                     }
@@ -107,22 +114,29 @@ class HistoryInteractor {
             }
 
             if monthSleepPoints != nil,
-               let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration {
+               let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration
+            {
                 DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsViewModel(cellData: .init(with: last30daysCellData),
-                                                         monthSleepPoints: monthSleepPoints,
-                                                         monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
-                                                         currentWeeksProgress:
-                                                            ProgressElementViewModel(title: "Current mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean1))),
-                                                                                     payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                     value: Int(mean1)),
-                                                         beforeWeeksProgress:
-                                                            ProgressElementViewModel(title: "2 weeks before mean duration: " + String( Date.minutesToDateDescription(minutes: Int(mean2))),
-                                                                                     payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
-                                                                                     value: Int(mean2)),
-                                                         analysisString: Int(mean1) == Int(mean2)
-                                                         ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
-                                                         : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2)))))
+                    let tmp = SleepHistoryStatsViewModel(
+                        cellData: .init(with: last30daysCellData),
+                        monthSleepPoints: monthSleepPoints,
+                        monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
+                        currentWeeksProgress:
+                        ProgressElementViewModel(
+                            title: "Current mean duration: " + String(Date.minutesToDateDescription(minutes: Int(mean1))),
+                            payloadText: current2weeksInterval.stringFromDateInterval(type: .days),
+                            value: Int(mean1)
+                        ),
+                        beforeWeeksProgress:
+                        ProgressElementViewModel(
+                            title: "2 weeks before mean duration: " + String(Date.minutesToDateDescription(minutes: Int(mean2))),
+                            payloadText: last2weeksInterval.stringFromDateInterval(type: .days),
+                            value: Int(mean2)
+                        ),
+                        analysisString: Int(mean1) == Int(mean2)
+                            ? String(format: "Your %@ time is equal compared to 2 weeks before", type == .inbed ? "in bed" : "asleep")
+                            : String(format: "Compared to 2 weeks before, you %@ %@ by %@ in time", type == .inbed ? "were in bed" : "slept", mean1 > mean2 ? "more" : "less", Date.minutesToDateDescription(minutes: abs(Int(mean1) - Int(mean2))))
+                    )
 
                     if type == .inbed {
                         self.viewModel.inbedHistoryStatsViewModel = tmp
@@ -150,27 +164,31 @@ class HistoryInteractor {
             group.enter()
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let self = self else { return }
-                self.viewModel.statisticsProvider.getData(healthType: type,
-                                                          indicator: indicator,
-                                                          interval: self.viewModel.monthBeforeDateInterval) { result in
+                self.viewModel.statisticsProvider.getData(
+                    healthType: type,
+                    indicator: indicator,
+                    interval: self.viewModel.monthBeforeDateInterval
+                ) { result in
                     if let result = result {
-                        last30daysCellData.append(StatisticsCellViewModel(title: self.getStatCellTitle(for: type, indicator: indicator),
-                                                                          value: self.getStatCellDescription(for: type, value: String(format: self.getStatCellValueFormat(for: type), Double(result)))))
+                        last30daysCellData.append(StatisticsCellViewModel(
+                            title: self.getStatCellTitle(for: type, indicator: indicator),
+                            value: self.getStatCellDescription(for: type, value: String(format: self.getStatCellValueFormat(for: type), Double(result)))
+                        ))
                     }
                     group.leave()
                 }
             }
         }
 
-
         if type == .heart {
             group.enter()
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 guard let self = self else { return }
-                self.viewModel.statisticsProvider.getMetricDataByDays(dataType: .ssdn, interval: self.viewModel.monthBeforeDateInterval) { models in
-                    ssdnMonthChangesValues = models
-                    group.leave()
-                }
+                self.viewModel.statisticsProvider.getMetricDataByDays(dataType: .ssdn, interval: self.viewModel.monthBeforeDateInterval)
+                    { models in
+                        ssdnMonthChangesValues = models
+                        group.leave()
+                    }
             }
         }
 
@@ -182,9 +200,11 @@ class HistoryInteractor {
                     case .energy:
                         self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .heart:
-                        self.viewModel.heartHistoryStatisticsViewModel = HeartHistoryStatsViewModel(cellData: last30daysCellData,
-                                                                                                    ssdnCardTitleViewModel: self.viewModel.ssdnCardTitleViewModel,
-                                                                                                    ssdnMonthChangesValues: ssdnMonthChangesValues)
+                        self.viewModel.heartHistoryStatisticsViewModel = HeartHistoryStatsViewModel(
+                            cellData: last30daysCellData,
+                            ssdnCardTitleViewModel: self.viewModel.ssdnCardTitleViewModel,
+                            ssdnMonthChangesValues: ssdnMonthChangesValues
+                        )
                     case .respiratory:
                         self.viewModel.respiratoryHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .asleep, .inbed:
@@ -197,8 +217,10 @@ class HistoryInteractor {
 }
 
 extension HistoryInteractor {
-    private func getSleepDurationData(type: HKService.HealthType,
-                                      completion: @escaping ([Double]) -> Void) {
+    private func getSleepDurationData(
+        type: HKService.HealthType,
+        completion: @escaping ([Double]) -> Void
+    ) {
         let datesToFetch = Date().endOfMonth.getDayInt()
         var resultData: [Double] = Array(repeating: 0, count: datesToFetch)
 
@@ -206,14 +228,17 @@ extension HistoryInteractor {
         let queue = DispatchQueue(label: "sleepDurationQueue", qos: .userInitiated)
         for dateIndex in 0 ..< datesToFetch {
             guard
-                let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date()) else {
-                    return
-                }
+                let date = Calendar.current.date(byAdding: .day, value: -dateIndex, to: Date())
+            else {
+                return
+            }
 
-            self.viewModel.statisticsProvider.getData(healthType: type,
-                                                      indicator: .sum,
-                                                      interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
-                                                      bundlePrefixes: ["com.sinapsis", "com.benmustafa"]) { data in
+            self.viewModel.statisticsProvider.getData(
+                healthType: type,
+                indicator: .sum,
+                interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
+                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]
+            ) { data in
                 let isComplete = queue.sync { () -> Bool in
                     guard let data = data, data > 0 else { return false }
                     resultData[datesToFetch - samplesLeft] = data
@@ -281,13 +306,12 @@ extension HistoryInteractor {
         switch self.viewModel.calendarType {
         case .heart, .respiratory, .energy:
 
-
             if let value = value, value > 0 {
                 description = !value.isNaN
-                ? self.viewModel.calendarType == .energy
-                ? String(format: "%.2f", value)
-                : String(Int(value))
-                : "-"
+                    ? self.viewModel.calendarType == .energy
+                    ? String(format: "%.2f", value)
+                    : String(Int(value))
+                    : "-"
             } else {
                 description = "-"
             }
@@ -304,7 +328,7 @@ extension HistoryInteractor {
             return (.init(dayNumber: date.getDayInt(), value: value, description: description, color: color, isToday: date.isToday()))
         }
     }
-    
+
     /// получение цвета, характеризующего негативизм значения статистики в календаре если такая оценка возможна
     /// - Parameter value: значение
     /// - Returns: цвет
@@ -315,11 +339,11 @@ extension HistoryInteractor {
                 return ColorsRepository.Heart.heart
 
             case .asleep, .inbed:
-                return Int(value) > viewModel.sleepGoal
-                ? ColorsRepository.Calendar.positiveDay
-                : (value > Double(viewModel.sleepGoal) * 0.9
-                   ? ColorsRepository.Calendar.neutralDay
-                   : ColorsRepository.Calendar.negativeDay)
+                return Int(value) > self.viewModel.sleepGoal
+                    ? ColorsRepository.Calendar.positiveDay
+                    : (value > Double(self.viewModel.sleepGoal) * 0.9
+                        ? ColorsRepository.Calendar.neutralDay
+                        : ColorsRepository.Calendar.negativeDay)
 
             case .energy:
                 return ColorsRepository.Energy.energy

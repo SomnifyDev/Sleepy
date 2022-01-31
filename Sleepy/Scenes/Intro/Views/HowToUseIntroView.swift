@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import SwiftUI
@@ -30,15 +30,19 @@ struct HowToUseIntroView: View {
                         .aspectRatio(1.21, contentMode: .fit)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
 
-                        WelcomeScreenLineView(title: "1. You need to enable the 'Sleep' for Apple Watch",
-                                              subTitle: "Thanks to this Sleepy will be able to receive sleep data and analyze it.",
-                                              imageName: "1.circle",
-                                              color: ColorsRepository.General.mainSleepy)
+                        WelcomeScreenLineView(
+                            title: "1. You need to enable the 'Sleep' for Apple Watch",
+                            subTitle: "Thanks to this Sleepy will be able to receive sleep data and analyze it.",
+                            imageName: "1.circle",
+                            color: ColorsRepository.General.mainSleepy
+                        )
 
-                        WelcomeScreenLineView(title: "2. Wear Apple Watch before going to bed and keep it on while you sleep",
-                                              subTitle: "Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it.",
-                                              imageName: "2.circle",
-                                              color: ColorsRepository.General.mainSleepy)
+                        WelcomeScreenLineView(
+                            title: "2. Wear Apple Watch before going to bed and keep it on while you sleep",
+                            subTitle: "Apple Watch sensors continuously measure your heart rate and energy waste so Sleepy can analyze it.",
+                            imageName: "2.circle",
+                            color: ColorsRepository.General.mainSleepy
+                        )
 
                     }.padding(.top, 16)
                 }.padding(.horizontal, 16)
@@ -66,7 +70,8 @@ struct HowToUseIntroView: View {
     }
 
     private func openUrl(urlString: String) {
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: urlString)
+        else {
             return
         }
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import HKCoreSleep
@@ -8,7 +8,6 @@ import UIComponents
 import XUI
 
 struct HeartCardDetailView: View {
-    
     @Store var viewModel: CardDetailsViewCoordinator
     @EnvironmentObject var cardService: CardService
 
@@ -23,8 +22,8 @@ struct HeartCardDetailView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center) {
                     if let heartViewModel = cardService.heartViewModel,
-                       let generalViewModel = cardService.generalViewModel {
-
+                       let generalViewModel = cardService.generalViewModel
+                    {
                         // MARK: Chart
 
                         StandardChartView(
@@ -45,8 +44,10 @@ struct HeartCardDetailView: View {
 
                         // MARK: Statistics
 
-                        SectionNameTextView(text: "Summary",
-                                            color: ColorsRepository.Text.standard)
+                        SectionNameTextView(
+                            text: "Summary",
+                            color: ColorsRepository.Text.standard
+                        )
 
                         StatisticsCellCollectionView(
                             with: StatisticsCellCollectionViewModel(
@@ -104,7 +105,6 @@ struct HeartCardDetailView: View {
                         )
                     )
                         .usefulInfoCardBackground(color: ColorsRepository.Card.cardBackground)
-
                 }
             }
             .navigationTitle("Heart")

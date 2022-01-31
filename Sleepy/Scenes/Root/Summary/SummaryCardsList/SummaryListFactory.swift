@@ -1,3 +1,5 @@
+// Copyright (c) 2022 Sleepy.
+
 import SwiftUI
 import UIComponents
 
@@ -10,7 +12,7 @@ struct SummaryListFactory {
 
     func makeSomethingBrokenBannerViewModel() -> BannerViewModel<CardBottomSimpleDescriptionView> {
         return BannerViewModel(
-            with: makeSomethingBrokenBannerCardTitleViewModel(),
+            with: self.makeSomethingBrokenBannerCardTitleViewModel(),
             bannerIdentifier: BannerIdentifiers.summaryCardsListSomethingBrokenBannerIdentifier.rawValue
         )
     }
@@ -68,5 +70,4 @@ struct SummaryListFactory {
             shouldShowSeparator: false
         )
     }
-    
 }

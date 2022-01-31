@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import Foundation
 import HKStatistics
@@ -11,7 +11,8 @@ struct SummaryHeartDataViewModel {
     let averageHeartRate: String
     let indicators: [StatsIndicatorViewModel]
 
-    internal init(heartRateData: [Double], maxHeartRate: String, minHeartRate: String, averageHeartRate: String, indicators: [StatsIndicatorModel]) {
+    internal init(heartRateData: [Double], maxHeartRate: String, minHeartRate: String, averageHeartRate: String, indicators: [StatsIndicatorModel])
+    {
         self.heartRateData = heartRateData
         self.maxHeartRate = maxHeartRate
         self.minHeartRate = minHeartRate

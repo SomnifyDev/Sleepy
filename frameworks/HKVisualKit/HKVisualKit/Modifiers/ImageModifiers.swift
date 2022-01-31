@@ -1,11 +1,11 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import SwiftUI
 
 public extension Image {
-	func summaryCardImage(color: Color, size: CGFloat, width: CGFloat) -> some View {
-		foregroundColor(color)
-			.font(.system(size: size, weight: .bold))
-			.frame(width: width)
-	}
+    func summaryCardImage(color: Color, size: CGFloat, width: CGFloat) -> some View {
+        foregroundColor(color)
+            .font(.system(size: size, weight: .bold))
+            .frame(width: width)
+    }
 }

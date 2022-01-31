@@ -1,9 +1,9 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import Foundation
 
 extension URL: Identifiable {
-	public var id: String {
-		absoluteString
-	}
+    public var id: String {
+        absoluteString
+    }
 }

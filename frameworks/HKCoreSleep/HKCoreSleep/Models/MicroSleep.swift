@@ -1,17 +1,17 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import Foundation
 import HealthKit
 
 public class Sleep {
-	public var samples: [MicroSleep] = []
-    
-	public var phases: [Phase] {
-		let flattenArrayPhases = self.samples.compactMap { (element: MicroSleep) -> [Phase]? in
-			element.phases
-		}
-		return flattenArrayPhases.flatMap { $0 }
-	}
+    public var samples: [MicroSleep] = []
+
+    public var phases: [Phase] {
+        let flattenArrayPhases = self.samples.compactMap { (element: MicroSleep) -> [Phase]? in
+            element.phases
+        }
+        return flattenArrayPhases.flatMap { $0 }
+    }
 
     public var sleepInterval: DateInterval? {
         guard let startDate = samples.last?.sleepInterval.start,
@@ -25,19 +25,19 @@ public class Sleep {
         return DateInterval(start: startDate, end: endDate)
     }
 
-	public init(samples: [MicroSleep]) {
-		self.samples = samples
-	}
+    public init(samples: [MicroSleep]) {
+        self.samples = samples
+    }
 }
 
 public class MicroSleep {
-	public let sleepInterval: DateInterval
-	public let inBedInterval: DateInterval
-	public let phases: [Phase]?
+    public let sleepInterval: DateInterval
+    public let inBedInterval: DateInterval
+    public let phases: [Phase]?
 
-	public init(sleepInterval: DateInterval, inBedInterval: DateInterval, phases: [Phase]?) {
-		self.sleepInterval = sleepInterval
-		self.inBedInterval = inBedInterval
-		self.phases = phases
-	}
+    public init(sleepInterval: DateInterval, inBedInterval: DateInterval, phases: [Phase]?) {
+        self.sleepInterval = sleepInterval
+        self.inBedInterval = inBedInterval
+        self.phases = phases
+    }
 }

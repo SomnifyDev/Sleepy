@@ -1,3 +1,5 @@
+// Copyright (c) 2022 Sleepy.
+
 import SwiftUI
 import UIComponents
 

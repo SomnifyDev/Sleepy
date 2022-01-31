@@ -1,11 +1,11 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import SwiftUI
 import UIComponents
 
 struct SleepHistoryStatsView: View {
     private let viewModel: SleepHistoryStatsViewModel
-    
+
     init(viewModel: SleepHistoryStatsViewModel) {
         self.viewModel = viewModel
     }
@@ -14,41 +14,55 @@ struct SleepHistoryStatsView: View {
     init() {
         self.viewModel = SleepHistoryStatsViewModel(
             cellData: .init(with: [StatisticsCellViewModel(title: "some data", value: "14.243")]),
-                                                    monthSleepPoints: [350, 320, 450, 300, 0, 302, 350, 320, 450, 300, 0, 302],
-                                                    monthBeforeDateInterval: DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date())!, end: Date()),
-                                                    currentWeeksProgress: ProgressElementViewModel(title: "some title", payloadText: "some subtitle", value: 480),
-                                                    beforeWeeksProgress: ProgressElementViewModel(title: "some title", payloadText: "some subtitle", value: 480),
-                                                    analysisString: "your sleep is idewkd weoo weoow woo qo oqwoe qoe wewe eweefrv")
+            monthSleepPoints: [350, 320, 450, 300, 0, 302, 350, 320, 450, 300, 0, 302],
+            monthBeforeDateInterval: DateInterval(start: Calendar.current.date(byAdding: .day, value: -30, to: Date())!, end: Date()),
+            currentWeeksProgress: ProgressElementViewModel(title: "some title", payloadText: "some subtitle", value: 480),
+            beforeWeeksProgress: ProgressElementViewModel(title: "some title", payloadText: "some subtitle", value: 480),
+            analysisString: "your sleep is idewkd weoo weoow woo qo oqwoe qoe wewe eweefrv"
+        )
     }
 
     var body: some View {
         VStack {
-                MotivationCellView(with: .init(leadIcon: IconsRepository.article,
-                                               title: "Quality of sleep",
-                                               description: "Research shows that poor sleep has immediate negative effects on your hormones, exercise performance, and brain function.",
-                                               url: URL(string: "https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/sleep/art-20048379")!))
+            MotivationCellView(with: .init(
+                leadIcon: IconsRepository.article,
+                title: "Quality of sleep",
+                description: "Research shows that poor sleep has immediate negative effects on your hormones, exercise performance, and brain function.",
+                url: URL(string: "https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/sleep/art-20048379")!
+            ))
 
             if !viewModel.cellData.cellModels.isEmpty {
-                SectionNameTextView(text: "Last 30 days",
-                                    color: ColorsRepository.Text.standard)
+                SectionNameTextView(
+                    text: "Last 30 days",
+                    color: ColorsRepository.Text.standard
+                )
 
                 StatisticsCellCollectionView(with: viewModel.cellData)
             }
 
-            ProgressChartView(with: .init(cardTitleViewModel: .init(leadIcon: IconsRepository.timer,
-                                                                    title: "Progress",
-                                                                    description: "Thats some progress you've made in several weeks", trailIcon: nil,
-                                                                    trailText: nil,
-                                                                    titleColor: ColorsRepository.Text.standard,
-                                                                    descriptionColor: nil,
-                                                                    shouldShowSeparator: false),
-                                          description: viewModel.analysisString,
-                                          beforeProgressViewModel: ProgressElementViewModel(title: viewModel.beforeWeeksProgress.title,
-                                                                                            payloadText: viewModel.beforeWeeksProgress.payloadText,
-                                                                                            value: viewModel.beforeWeeksProgress.value),
-                                          currentProgressViewModel: ProgressElementViewModel(title: viewModel.currentWeeksProgress.title,
-                                                                                             payloadText: viewModel.currentWeeksProgress.payloadText,
-                                                                                             value: viewModel.currentWeeksProgress.value)))
+            ProgressChartView(with: .init(
+                cardTitleViewModel: .init(
+                    leadIcon: IconsRepository.timer,
+                    title: "Progress",
+                    description: "Thats some progress you've made in several weeks",
+                    trailIcon: nil,
+                    trailText: nil,
+                    titleColor: ColorsRepository.Text.standard,
+                    descriptionColor: nil,
+                    shouldShowSeparator: false
+                ),
+                description: viewModel.analysisString,
+                beforeProgressViewModel: ProgressElementViewModel(
+                    title: viewModel.beforeWeeksProgress.title,
+                    payloadText: viewModel.beforeWeeksProgress.payloadText,
+                    value: viewModel.beforeWeeksProgress.value
+                ),
+                currentProgressViewModel: ProgressElementViewModel(
+                    title: viewModel.currentWeeksProgress.title,
+                    payloadText: viewModel.currentWeeksProgress.payloadText,
+                    value: viewModel.currentWeeksProgress.value
+                )
+            ))
                 .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
         }
     }

@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Sleepy.
+// Copyright (c) 2022 Sleepy.
 
 import FirebaseAnalytics
 import SettingsKit
@@ -15,14 +15,16 @@ struct GoalIntroView: View {
         ZStack {
             ColorsRepository.General.appBackground
                 .edgesIgnoringSafeArea(.all)
-            
+
             VStack {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
-                        WelcomeScreenLineView(title: "Set the desired sleep goal",
-                                              subTitle: "Set a sleep goal to help you with your wellness.",
-                                              imageName: "sleep",
-                                              color: ColorsRepository.General.mainSleepy)
+                        WelcomeScreenLineView(
+                            title: "Set the desired sleep goal",
+                            subTitle: "Set a sleep goal to help you with your wellness.",
+                            imageName: "sleep",
+                            color: ColorsRepository.General.mainSleepy
+                        )
                     }
                     .padding(.top, 16)
 
@@ -50,10 +52,11 @@ struct GoalIntroView: View {
                 }
 
                 if self.shouldShownNextTab {
-                    NavigationLink(destination: HowToUseIntroView(shouldShowIntro: $shouldShowIntro), isActive: $shouldShownNextTab) {
-                        Text("Continue")
-                            .customButton(color: ColorsRepository.General.mainSleepy)
-                    }
+                    NavigationLink(destination: HowToUseIntroView(shouldShowIntro: $shouldShowIntro), isActive: $shouldShownNextTab)
+                        {
+                            Text("Continue")
+                                .customButton(color: ColorsRepository.General.mainSleepy)
+                        }
                 }
             }
         }
