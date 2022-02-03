@@ -173,8 +173,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     }
 
                     lastIntervalStart = asleepInterval.start
-
-                    let dur = inbedInterval.duration
+                    
                     // если микро сон оказался слишком маленьким по времени - пропускаем его
                     if inbedInterval.duration / 60.0 < Double(Constants.minimalMicroSleepDuration) {
                         continue
