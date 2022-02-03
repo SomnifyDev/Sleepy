@@ -11,8 +11,12 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
     public enum Constants {
         // допустимая погрешность разницы между сэмплами, чтоб не считать это пробуждением
         public static let minimalSimilarMicroSleepSamplesDifference = 15
-        // максимально допустимое время пробуждения, чтобы продолжать считать это одним сном
+
+        // максимально допустимое время пробуждения, чтобы продолжать считать это одним сном в рамках приложения
         public static let maximalSleepDifference = 45
+
+        // минимальная длительность микро сна
+        public static let minimalMicroSleepDuration = 30
     }
 
     private let hkService: HKService?
@@ -143,7 +147,9 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     // обнаруженным ранее, в <= заданная константа, то считаем это одним сном
                     guard !sleepData.error,
                           let asleepInterval = sleepData.asleepInterval,
-                          abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= Constants.maximalSleepDifference || lastIntervalStart == endDate,
+                          abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= Constants.maximalSleepDifference
+                            || lastIntervalStart == endDate
+                            || sleep.samples.isEmpty,
                           let inbedInterval = sleepData.inbedInterval,
                           let energySamples = sleepData.energySamples,
                           let heartSamples = sleepData.heartSamples,
@@ -167,6 +173,12 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     }
 
                     lastIntervalStart = asleepInterval.start
+
+                    let dur = inbedInterval.duration
+                    // если микро сон оказался слишком маленьким по времени - пропускаем его
+                    if inbedInterval.duration / 60.0 < Double(Constants.minimalMicroSleepDuration) {
+                        continue
+                    }
 
                     // определяем фазы на получившимся отрезке
                     let phases = PhasesComputationService.computatePhases(
