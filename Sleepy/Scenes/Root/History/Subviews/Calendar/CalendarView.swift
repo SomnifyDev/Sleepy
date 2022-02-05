@@ -38,7 +38,7 @@ struct CalendarView: View {
                                 if day.dayNumber >= 1, day.dayNumber <= 7 {
                                     let tmpWeekDay = Calendar.current.date(
                                         byAdding: .day,
-                                        value: day.dayNumber,
+                                        value: day.dayNumber - 1,
                                         to: viewModel.monthDate.startOfMonth
                                     )!
 

@@ -20,10 +20,12 @@ struct SleepyApp: App {
     @State var statisticsProvider: HKStatisticsProvider?
     @State var rootViewModel: RootCoordinator?
     @State var introViewModel: IntroCoordinator?
+
+    @State var sleep: Sleep?
+
     @State var hasOpenedURL = false
     @State var canShowMain: Bool = false
     @State var shouldShowIntro: Bool = false
-    @State var sleep: Sleep?
 
     var body: some Scene {
         WindowGroup {
@@ -34,26 +36,7 @@ struct SleepyApp: App {
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification))
                     { _ in
                         UIApplication.shared.applicationIconBadgeNumber = 0
-                        guard let sleep = self.sleep else { return }
-
-                        let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
-                        self.hkService?.readData(
-                            type: .asleep,
-                            interval: interval,
-                            ascending: false,
-                            bundlePrefixes: ["com.apple"],
-                            completionHandler: { _, samples, error in
-                                guard error == nil,
-                                      let newSample = samples?.first,
-                                      let previousSleep = self.sleep?.sleepInterval else { return }
-                                // если есть сон новее
-                                // сбрасываем до экрана loading чтоб пересчитался сон
-                                if abs(newSample.startDate.minutes(from: previousSleep.end)) >= HKCoreSleep.HKSleepAppleDetectionProvider.Constants.maximalSleepDifference
-                                {
-                                    self.canShowMain = false
-                                }
-                            }
-                        )
+                        self.forceSleepFetchIfNeeded()
                     }
             } else if shouldShowIntro {
                 IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
@@ -101,6 +84,7 @@ struct SleepyApp: App {
                 return
             }
             // сон прочитался
+            self.sleep = sleep
             self.showDebugSleepDuration(sleep: sleep)
 
             self.statisticsProvider = HKStatisticsProvider(sleep: sleep, healthService: hkService!)
@@ -115,6 +99,31 @@ struct SleepyApp: App {
             }
             self.canShowMain = true
         }
+    }
+
+    /// Вызывается в моменты когда приложение появляется на экране для проверки 'а вдруг в healthkit лежит новый сон' на случай если
+    /// приложение не было выгружено из памяти за ночь и в нем отображается старая сессия сна
+    private func forceSleepFetchIfNeeded() {
+        guard let sleep = self.sleep else { return }
+
+        let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
+        self.hkService?.readData(
+            type: .asleep,
+            interval: interval,
+            ascending: false,
+            bundlePrefixes: ["com.apple"],
+            completionHandler: { _, samples, error in
+                guard error == nil,
+                      let newSample = samples?.first,
+                      let previousSleep = self.sleep?.sleepInterval else { return }
+                // если есть сон новее
+                // сбрасываем до экрана loading чтоб пересчитался сон
+                if abs(newSample.startDate.minutes(from: previousSleep.end)) >= HKCoreSleep.HKSleepAppleDetectionProvider.Constants.maximalSleepDifference
+                {
+                    self.canShowMain = false
+                }
+            }
+        )
     }
 
     /// Установка дефолтных значений настроек
