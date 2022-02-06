@@ -186,7 +186,7 @@ class HistoryInteractor {
                 guard let self = self else { return }
                 self.viewModel.statisticsProvider.getMetricDataByDays(dataType: .ssdn, interval: self.viewModel.monthBeforeDateInterval)
                     { models in
-                        ssdnMonthChangesValues = models.compactMap { StandardChartView.DisplayItem(date: $0!.dateInterval.start, value: $0!.value) }
+                        ssdnMonthChangesValues = models.compactMap { $0 }.map { StandardChartView.DisplayItem(date: $0.dateInterval.start, value: $0.value) }
                         group.leave()
                     }
             }
