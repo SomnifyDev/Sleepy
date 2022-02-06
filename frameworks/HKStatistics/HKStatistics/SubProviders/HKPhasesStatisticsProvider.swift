@@ -3,6 +3,7 @@
 import Foundation
 import HealthKit
 import HKCoreSleep
+import UIComponents
 
 final class HKPhasesStatisticsProvider {
     // MARK: - Methods
@@ -18,7 +19,7 @@ final class HKPhasesStatisticsProvider {
         case .lightPhaseDuration:
             return self.reducePhasesData(data.filter { $0.condition == .light })
         case .chart:
-            return data.map { $0.chartPoint }
+            return data.map { SampleData(date: $0.interval.start, value: $0.chartPoint) }
         }
     }
 

@@ -37,7 +37,7 @@ class HistoryInteractor {
             for index in 0 ..< result.count {
                 if let dayDate = Calendar.current.date(byAdding: .day, value: index, to: self.viewModel.monthDate.startOfMonth)
                 {
-                    displayItems.append(self.getDaySleepData(value: result[index], date: dayDate))
+                    displayItems.append(self.getDaySleepData(sample: result[index], date: dayDate))
                 }
             }
 
@@ -156,7 +156,7 @@ class HistoryInteractor {
         if type == .respiratory, self.viewModel.respiratoryHistoryStatsViewModel != nil { return }
 
         var last30daysCellData: [StatisticsCellViewModel] = []
-        var ssdnMonthChangesValues: [StatsIndicatorModel?] = []
+        var ssdnMonthChangesValues: [StandardChartView.DisplayItem] = []
         let indicators: [Indicator] = [.min, .max, .mean]
 
         let group = DispatchGroup()
@@ -186,14 +186,14 @@ class HistoryInteractor {
                 guard let self = self else { return }
                 self.viewModel.statisticsProvider.getMetricDataByDays(dataType: .ssdn, interval: self.viewModel.monthBeforeDateInterval)
                     { models in
-                        ssdnMonthChangesValues = models
+                        ssdnMonthChangesValues = models.compactMap { StandardChartView.DisplayItem(date: $0!.dateInterval.start, value: $0!.value) }
                         group.leave()
                     }
             }
         }
 
         group.notify(queue: .global(qos: .default)) {
-//            guard let self = self else { return }
+            //            guard let self = self else { return }
             if !last30daysCellData.isEmpty {
                 DispatchQueue.main.async {
                     switch type {
@@ -298,32 +298,36 @@ extension HistoryInteractor {
     ///   - date: Дата для которой нужно получить значения
     ///   - calendarType: тип здоровья, по которому  в данный момент отображает статистику календарь
     ///   - completion: -
-    private func getDaySleepData(value: Double?, date: Date) -> CalendarDayView.DisplayItem {
+    private func getDaySleepData(sample: SampleData?, date: Date) -> CalendarDayView.DisplayItem {
         var description = "-"
-        var color = self.getCircleColor(value: value)
-        let value = value
+        let color = self.getCircleColor(value: sample?.value)
+        let value = sample?.value
+
+        guard let sample = sample else {
+            return .init(
+                dayNumber: date.getDayInt(),
+                value: value,
+                description: description,
+                color: color,
+                isToday: date.isToday()
+            )
+        }
 
         switch self.viewModel.calendarType {
         case .heart, .respiratory, .energy:
 
-            if let value = value, value > 0 {
-                description = !value.isNaN
-                    ? self.viewModel.calendarType == .energy
-                    ? String(format: "%.2f", value)
-                    : String(Int(value))
-                    : "-"
-            } else {
-                description = "-"
-            }
+            description = sample.value > 0
+                ? (self.viewModel.calendarType == .energy
+                    ? String(format: "%.2f", sample.value)
+                    : String(Int(sample.value)))
+                : "-"
 
             return (.init(dayNumber: date.getDayInt(), value: value, description: description, color: color, isToday: date.isToday()))
 
         case .asleep, .inbed:
-            if let value = value, value > 0 {
-                description = !value.isNaN ? Date.minutesToDateDescription(minutes: Int(value)) : "-"
-            } else {
-                description = "-"
-            }
+            description = sample.value > 0
+                ? Date.minutesToDateDescription(minutes: Int(sample.value))
+                : "-"
 
             return (.init(dayNumber: date.getDayInt(), value: value, description: description, color: color, isToday: date.isToday()))
         }

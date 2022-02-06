@@ -69,7 +69,7 @@ public final class HKStatisticsProvider {
     }
 
     /// Returns today sleep hata of special health type (energy, heart, asleep, inbed, respiratory)
-    public func getTodaySleepData(healthtype: HKService.HealthType) -> [Double] {
+    public func getTodaySleepData(healthtype: HKService.HealthType) -> [SampleData] {
         guard let sleep = sleep
         else {
             return []
@@ -126,12 +126,12 @@ public final class HKStatisticsProvider {
         indicator: Indicator,
         interval: DateInterval,
         bundlePrefixes: [String] = ["com.apple"],
-        completion: @escaping ([Double]) -> Void
+        completion: @escaping ([SampleData?]) -> Void
     ) {
         let group = DispatchGroup()
 
         let daysInInterval = Date.daysBetween(start: interval.start, end: interval.end)
-        var result = [Double](repeating: 0, count: Date.daysBetween(start: interval.start, end: interval.end) + 1)
+        var result = [SampleData?](repeating: nil, count: Date.daysBetween(start: interval.start, end: interval.end) + 1)
 
         for index in 0 ... daysInInterval {
             if let dayDate = Calendar.current.date(byAdding: .day, value: index, to: interval.start)
@@ -145,7 +145,12 @@ public final class HKStatisticsProvider {
                             ascending: true,
                             bundlePrefixes: bundlePrefixes
                         ) { [weak self] _, sleepData, _ in
-                            result[index] = self?.generalStatisticsProvider.data(healthType: healthType, indicator: indicator, data: sleepData ?? []) ?? 0.0
+                            if let data = self?.generalStatisticsProvider.data(healthType: healthType, indicator: indicator, data: sleepData ?? []) {
+                                result[index] = .init(date: dayDate, value: data)
+                            } else {
+                                result[index] = nil
+                            }
+
                             group.leave()
                         }
                     } else {
@@ -155,7 +160,11 @@ public final class HKStatisticsProvider {
                             interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay),
                             bundlePrefixes: bundlePrefixes
                         ) { value in
-                            result[index] = value ?? 0.0
+                            if let value = value {
+                                result[index] = .init(date: dayDate, value: value)
+                            } else {
+                                result[index] = nil
+                            }
                             group.leave()
                         }
                     }

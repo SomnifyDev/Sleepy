@@ -48,14 +48,11 @@ struct GeneralCardDetailView: View {
                                     chartType: .verticalProgress(
                                         foregroundElementColor: ColorsRepository.General.mainSleepy,
                                         backgroundElementColor: ColorsRepository.Chart.verticalProgressChartElement,
-                                        max: bankOfSleepViewModel.bankOfSleepData.max()!
+                                        max: bankOfSleepViewModel.bankOfSleepData.map { $0.value }.max()!
                                     ),
-                                    chartHeight: 100,
                                     points: bankOfSleepViewModel.bankOfSleepData,
-                                    dateInterval: nil,
-                                    needOXLine: false,
-                                    needTimeLine: false,
-                                    dragGestureEnabled: false
+                                    chartHeight: 100,
+                                    timeLineType: .none
                                 )
 
                                 CardBottomSimpleDescriptionView(

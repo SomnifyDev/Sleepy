@@ -42,26 +42,25 @@ struct HeartHistoryStatisticsView: View {
                 StatisticsCellCollectionView(with: StatisticsCellCollectionViewModel(with: viewModel.cellData))
             }
 
-            if let ssdnValues = self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
-               ssdnValues.count > 14 {
-                   SectionNameTextView(
-                       text: "SSDN for last month",
-                       color: ColorsRepository.Text.standard
-                   )
-                   CardWithContentView(with: viewModel.ssdnCardTitleViewModel) {
-                       StandardChartView(
-                           chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
-                           chartHeight: 75,
-                           points: self.viewModel.ssdnMonthChangesValues.compactMap { $0?.value },
-                           dateInterval: .init(start: Date().startOfMonth.startOfDay, end: Date().endOfDay),
-                           needOXLine: true,
-                           needTimeLine: false,
-                           dragGestureEnabled: false
-                       )
-                   }
-                   .buttonStyle(PlainButtonStyle())
-                   .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
-               }
+            if self.viewModel.ssdnMonthChangesValues.count > 14 {
+                SectionNameTextView(
+                    text: "SSDN for last month",
+                    color: ColorsRepository.Text.standard
+                )
+                CardWithContentView(with: viewModel.ssdnCardTitleViewModel) {
+                    StandardChartView(
+                        chartType: .defaultChart(
+                            barType: .circular(color: ColorsRepository.Heart.heart),
+                            stringFormatter: "%.0f, BPM"
+                        ),
+                        points: self.viewModel.ssdnMonthChangesValues,
+                        chartHeight: 75,
+                        timeLineType: .none
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+                .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
+            }
         }
     }
 }
@@ -69,5 +68,5 @@ struct HeartHistoryStatisticsView: View {
 struct HeartHistoryStatsViewModel {
     let cellData: [StatisticsCellViewModel]
     let ssdnCardTitleViewModel: CardTitleViewModel
-    let ssdnMonthChangesValues: [StatsIndicatorModel?]
+    let ssdnMonthChangesValues: [StandardChartView.DisplayItem]
 }

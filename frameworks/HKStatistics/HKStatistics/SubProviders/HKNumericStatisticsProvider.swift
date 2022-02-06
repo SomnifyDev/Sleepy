@@ -145,7 +145,8 @@ public final class HKNumericTypesStatisticsProvider {
                         value: result,
                         valueNormInterval: normalRange,
                         unit: Constants.unit,
-                        feedback: feedback
+                        feedback: feedback,
+                        dateInterval: interval
                     ))
                 } else {
                     completion(nil)
@@ -215,7 +216,8 @@ public final class HKNumericTypesStatisticsProvider {
                         value: result,
                         valueNormInterval: normalRange,
                         unit: Constants.unit,
-                        feedback: feedback
+                        feedback: feedback,
+                        dateInterval: interval
                     ))
                 } else {
                     completion(nil)

@@ -82,13 +82,11 @@ struct SummaryCardsListView: View {
                             VStack(spacing: 8) {
                                 StandardChartView(
                                     chartType: .phasesChart,
-                                    chartHeight: 75,
                                     points: phasesViewModel.phasesData,
-                                    dateInterval: generalViewModel.sleepInterval,
-                                    needOXLine: true,
-                                    needTimeLine: true,
-                                    dragGestureEnabled: true
+                                    chartHeight: 75,
+                                    timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
                                 )
+
                                 CardBottomSimpleDescriptionView(
                                     with: String(
                                         format: "Duration of light phase was %@, while the duration of deep sleep was %@",
@@ -116,15 +114,10 @@ struct SummaryCardsListView: View {
                         CardWithContentView(with: viewModel.heartCardTitleViewModel) {
                             VStack(spacing: 8) {
                                 StandardChartView(
-                                    chartType: .defaultChart(
-                                        barType: .circular(color: ColorsRepository.Heart.heart)
-                                    ),
-                                    chartHeight: 75,
+                                    chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
                                     points: heartViewModel.heartRateData,
-                                    dateInterval: generalViewModel.sleepInterval,
-                                    needOXLine: true,
-                                    needTimeLine: true,
-                                    dragGestureEnabled: true
+                                    chartHeight: 75,
+                                    timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
                                 )
                                 CardBottomSimpleDescriptionView(
                                     with: String(
@@ -152,18 +145,12 @@ struct SummaryCardsListView: View {
                         CardWithContentView(with: viewModel.respiratoryCardTitleViewModel) {
                             VStack(spacing: 8) {
                                 StandardChartView(
-                                    chartType: .defaultChart(
-                                        barType: .rectangular(
-                                            color: Color.blue
-                                        )
-                                    ),
-                                    chartHeight: 75,
+                                    chartType: .defaultChart(barType: .rectangular(color: Color.blue)),
                                     points: respiratoryViewModel.respiratoryRateData,
-                                    dateInterval: generalViewModel.sleepInterval,
-                                    needOXLine: true,
-                                    needTimeLine: true,
-                                    dragGestureEnabled: true
+                                    chartHeight: 75,
+                                    timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
                                 )
+
                                 CardBottomSimpleDescriptionView(
                                     with: String(
                                         format: "The maximal respiratory rate was %@ while the minimal was %@",

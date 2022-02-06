@@ -27,19 +27,12 @@ struct HeartCardDetailView: View {
                         // MARK: Chart
 
                         StandardChartView(
-                            chartType: .defaultChart(
-                                barType: .circular(color: ColorsRepository.Heart.heart)
-                            ),
-                            chartHeight: 75,
+                            chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
                             points: heartViewModel.heartRateData,
-                            dateInterval: generalViewModel.sleepInterval,
-                            needOXLine: true,
-                            needTimeLine: true,
-                            dragGestureEnabled: true
+                            chartHeight: 75,
+                            timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
                         )
-                            .roundedCardBackground(
-                                color: ColorsRepository.Card.cardBackground
-                            )
+                            .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                             .padding(.top)
 
                         // MARK: Statistics

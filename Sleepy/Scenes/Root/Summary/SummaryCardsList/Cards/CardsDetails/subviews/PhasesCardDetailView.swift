@@ -28,12 +28,9 @@ struct PhasesCardDetailView: View {
 
                         StandardChartView(
                             chartType: .phasesChart,
-                            chartHeight: 75,
                             points: phasesViewModel.phasesData,
-                            dateInterval: generalViewModel.sleepInterval,
-                            needOXLine: true,
-                            needTimeLine: true,
-                            dragGestureEnabled: true
+                            chartHeight: 75,
+                            timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
                         )
                             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                             .padding(.top)
