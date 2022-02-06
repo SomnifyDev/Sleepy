@@ -12,7 +12,7 @@ struct RecordingRowView: View {
                 leadIcon: IconsRepository.microphone,
                 title: "Recording",
                 description: nil,
-                trailIcon: .init(image: IconsRepository.chevronRight, action: nil),
+                trailIcon: IconsRepository.chevronRight,
                 trailText: nil,
                 titleColor: ColorsRepository.General.mainSleepy,
                 descriptionColor: nil,
