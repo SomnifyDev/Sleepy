@@ -27,7 +27,7 @@ struct HeartCardDetailView: View {
                         // MARK: Chart
 
                         StandardChartView(
-                            chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
+                            chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart), stringFormatter: "%.0f, BPM"),
                             points: heartViewModel.heartRateData,
                             chartHeight: 75,
                             timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)

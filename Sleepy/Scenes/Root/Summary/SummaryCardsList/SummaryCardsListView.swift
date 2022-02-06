@@ -114,7 +114,7 @@ struct SummaryCardsListView: View {
                         CardWithContentView(with: viewModel.heartCardTitleViewModel) {
                             VStack(spacing: 8) {
                                 StandardChartView(
-                                    chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart)),
+                                    chartType: .defaultChart(barType: .circular(color: ColorsRepository.Heart.heart), stringFormatter: "%.0f, BPM"),
                                     points: heartViewModel.heartRateData,
                                     chartHeight: 75,
                                     timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
@@ -145,7 +145,7 @@ struct SummaryCardsListView: View {
                         CardWithContentView(with: viewModel.respiratoryCardTitleViewModel) {
                             VStack(spacing: 8) {
                                 StandardChartView(
-                                    chartType: .defaultChart(barType: .rectangular(color: Color.blue)),
+                                    chartType: .defaultChart(barType: .rectangular(color: Color.blue), stringFormatter: "%.0f, BrPM"),
                                     points: respiratoryViewModel.respiratoryRateData,
                                     chartHeight: 75,
                                     timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
