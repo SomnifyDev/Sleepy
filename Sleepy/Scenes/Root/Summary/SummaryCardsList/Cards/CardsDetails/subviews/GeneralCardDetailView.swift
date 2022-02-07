@@ -52,7 +52,8 @@ struct GeneralCardDetailView: View {
                                     ),
                                     points: bankOfSleepViewModel.bankOfSleepData,
                                     chartHeight: 100,
-                                    timeLineType: .none
+                                    timeLineType: .none,
+                                    dragGestureEnabled: false
                                 )
 
                                 CardBottomSimpleDescriptionView(
