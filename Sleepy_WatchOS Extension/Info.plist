@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>App needs permissions to update health sleep data</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -31,7 +29,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>com.sinapsis.sleepy.watchkitapp</string>
+			<string>com.benmustafa.sleepy.watchkitapp</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
@@ -40,6 +38,8 @@
 	<string>Sleepy records your heartrate to find the optimal moment to wake you from your sleep.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Sleepy needs information about your heart rate to find the optimal moment to wake you from your sleep.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>App needs permissions to update health sleep data</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>WKBackgroundModes</key>

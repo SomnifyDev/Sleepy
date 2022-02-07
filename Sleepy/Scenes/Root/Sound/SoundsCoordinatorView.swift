@@ -16,6 +16,7 @@ struct SoundsCoordinatorView: View {
     @State private var shouldShowCountDown = false
 
     private let audioSession = AVAudioSession.sharedInstance()
+    private let brightnessBeforeRecording = UIScreen.main.brightness
 
     var body: some View {
         NavigationView {
@@ -25,17 +26,27 @@ struct SoundsCoordinatorView: View {
                 VStack {
                     AudioRecordingsListView(viewModel: viewModel, audioRecorder: audioRecorder)
 
-                    if audioRecorder.recording == false {
+                    if audioRecorder.isRecording == false {
                         Text(shouldGrantPermissions ? "Allow mic access" : "Record")
                             .customButton(color: ColorsRepository.General.mainSleepy)
                             .onTapGesture(perform: self.startRecording)
                     }
                 }
             }
-            .navigationBarTitle("Sound recognition")
             .onAppear {
                 self.viewModel.sendAnalytics()
                 self.shouldGrantPermissions = self.audioSession.recordPermission != .granted
+            }
+            .navigationBarTitle("Sound recognition")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        audioRecorder.removeAllRecordings()
+                    } label: {
+                        Text("Remove all")
+                            .foregroundColor(.red)
+                    }
+                }
             }
             .alert(isPresented: self.$shouldShowErrorAlert) {
                 Alert(title: Text("Error"), message: Text("Recording Failed. Check microphone permissions"))
@@ -56,6 +67,7 @@ struct SoundsCoordinatorView: View {
         } else {
             self.shouldShowErrorAlert = !self.audioRecorder.startRecording()
             self.shouldShowCountDown = !self.shouldShowErrorAlert
+            UIScreen.main.brightness = 0
         }
     }
 
@@ -63,5 +75,6 @@ struct SoundsCoordinatorView: View {
         self.audioRecorder.stopRecording()
         self.shouldShowCountDown = false
         self.secondsRecorded = 0
+        UIScreen.main.brightness = self.brightnessBeforeRecording
     }
 }

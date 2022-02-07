@@ -22,12 +22,7 @@ struct SoundsFactory {
             leadIcon: IconsRepository.calendar,
             title: "Advice",
             description: "Record your sleep sounds by pressing ‘record’ button below  and get sound-recognision after you end recording",
-            trailIcon: ImageWithOptionalActionView(
-                image: IconsRepository.delete,
-                action: {
-                    UserDefaults.standard.set(true, forKey: BannerIdentifiers.soundsEmptyBannerIdentifier.rawValue)
-                }
-            ),
+            trailIcon: IconsRepository.delete,
             trailText: nil,
             titleColor: Color.orange,
             descriptionColor: nil,

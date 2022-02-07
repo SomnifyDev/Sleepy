@@ -50,16 +50,8 @@ struct PhasesCardDetailView: View {
                                         value: phasesViewModel.timeInDeepPhase
                                     ),
                                     StatisticsCellViewModel(
-                                        title: "Max NREM sleep interval",
-                                        value: phasesViewModel.mostIntervalInDeepPhase
-                                    ),
-                                    StatisticsCellViewModel(
                                         title: "Total REM sleep duration",
                                         value: phasesViewModel.timeInLightPhase
-                                    ),
-                                    StatisticsCellViewModel(
-                                        title: "Max REM sleep interval",
-                                        value: phasesViewModel.mostIntervalInLightPhase
                                     ),
                                 ]
                             )
