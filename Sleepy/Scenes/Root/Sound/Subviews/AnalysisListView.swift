@@ -23,11 +23,13 @@ struct AnalysisListView: View {
 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .center, spacing: 2) {
-                        SectionNameTextView(
-                            text: "Recognized sounds",
-                            color: ColorsRepository.Text.standard
-                        )
-                            .padding([.top, .bottom])
+                        if !result.isEmpty {
+                            SectionNameTextView(
+                                text: "Recognized sounds",
+                                color: ColorsRepository.Text.standard
+                            )
+                                .padding(.vertical)
+                        }
 
                         ForEach(result, id: \.self) { item in
                             VStack {
@@ -52,9 +54,11 @@ struct AnalysisListView: View {
                         }
 
                         if result.isEmpty {
-                            Text("No sound recognized. You can try to lower recognisition confidence coefficient in your settings")
-                                .underline()
+                            Text("No sound recognized. You can try to lower recognisition confidence coefficient in your settings.")
+                                .foregroundColor(.gray)
+                                .underline(true, color: .gray)
                                 .onTapGesture(perform: self.openSettings)
+                                .padding(.horizontal)
                         }
                     }
                 }

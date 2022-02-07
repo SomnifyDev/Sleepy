@@ -13,7 +13,7 @@ public struct GeneralSleepInfoCardView: View {
                     leadIcon: Image(systemName: "zzz"),
                     title: "Sleep: general",
                     description: nil,
-                    trailIcon: ImageWithOptionalActionView(image: Image(systemName: "chevron.right"), action: nil),
+                    trailIcon: IconsRepository.chevronRight,
                     trailText: nil,
                     titleColor: ColorsRepository.General.mainSleepy,
                     descriptionColor: nil,

@@ -10,6 +10,7 @@ struct AudioRecordingsListView: View {
 
     @ObservedObject var audioRecorder = AudioRecorder()
     @State var audioPlayer: AVAudioPlayer!
+    @State private var shouldShowEmptyRecordingsBanner: Bool = false
 
     private var groupedByDateData: [Date: [Recording]] {
         Dictionary(grouping: self.audioRecorder.recordings, by: { $0.createdAt.startOfDay })
@@ -25,8 +26,16 @@ struct AudioRecordingsListView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
-                if self.audioRecorder.recordings.isEmpty {
-                    BannerView(with: viewModel.emptyBannerViewModel) {
+                if self.audioRecorder.recordings.isEmpty,
+                   shouldShowEmptyRecordingsBanner
+                {
+                    BannerView(
+                        with: viewModel.emptyBannerViewModel,
+                        trailIconAction: {
+                            UserDefaults.standard.set(true, forKey: viewModel.emptyBannerViewModel.bannerIdentifier)
+                            shouldShowEmptyRecordingsBanner = false
+                        }
+                    ) {
                         CardBottomSimpleDescriptionView(with: viewModel.emptyBannerViewModel.cardTitleViewModel.description ?? "")
                     }
                     .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
@@ -66,6 +75,9 @@ struct AudioRecordingsListView: View {
                     .progressViewStyle(CircularProgressViewStyle())
             }
         }
+        .onAppear {
+            self.shouldShowEmptyRecordingsBanner = UserDefaults.standard.object(forKey: viewModel.emptyBannerViewModel.bannerIdentifier) == nil
+        }
     }
 
     private func configureAnalysisView(recording: Recording) {
@@ -82,7 +94,7 @@ struct AudioRecordingsListView: View {
     private func deleteRecordings(indexSet: IndexSet) {
         for index in indexSet {
             try? FileManager.default.removeItem(at: self.audioRecorder.recordings[index].fileURL)
-            self.audioRecorder.fetchRecordings()
         }
+        self.audioRecorder.fetchRecordings()
     }
 }

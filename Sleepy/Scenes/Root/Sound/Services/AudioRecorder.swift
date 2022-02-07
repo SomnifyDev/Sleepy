@@ -9,11 +9,11 @@ import SwiftUI
 
 class AudioRecorder: NSObject, ObservableObject {
     let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
-    var audioRecorder: AVAudioRecorder!
+    var audioRecorder: AVAudioRecorder?
 
     @Published var recordings = [Recording]()
 
-    var recording = false {
+    var isRecording = false {
         didSet {
             self.objectWillChange.send(self)
         }
@@ -54,8 +54,10 @@ class AudioRecorder: NSObject, ObservableObject {
 
         do {
             self.audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            self.audioRecorder.record()
-            self.recording = true
+            if let audioRecorder = audioRecorder {
+                audioRecorder.record()
+                self.isRecording = true
+            }
         } catch {
             FirebaseAnalytics.Analytics.logEvent("Sounds_sessionError", parameters: [
                 "error": "Could not start recording",
@@ -68,9 +70,11 @@ class AudioRecorder: NSObject, ObservableObject {
 
     func stopRecording() {
         FirebaseAnalytics.Analytics.logEvent("Sounds_recordingDidEnd", parameters: nil)
-        self.audioRecorder.stop()
-        self.recording = false
-
+        guard let audioRecorder = audioRecorder else {
+            return
+        }
+        audioRecorder.stop()
+        self.isRecording = false
         self.fetchRecordings()
     }
 
@@ -90,14 +94,20 @@ class AudioRecorder: NSObject, ObservableObject {
         self.objectWillChange.send(self)
     }
 
+    func removeAllRecordings() {
+        for recording in self.recordings {
+            try? FileManager.default.removeItem(at: recording.fileURL)
+        }
+        self.fetchRecordings()
+    }
+
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
 
-    func requestPermissions(_ recordingSession: AVAudioSession, completion: ((Bool) -> Void)? = nil)
-    {
+    func requestPermissions(_ recordingSession: AVAudioSession, completion: ((Bool) -> Void)? = nil) {
         if recordingSession.recordPermission != .granted {
             recordingSession.requestRecordPermission { isGranted in
                 FirebaseAnalytics.Analytics.logEvent("Sounds_permission", parameters: [
