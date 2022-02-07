@@ -62,7 +62,7 @@ struct HeartHistoryStatisticsView: View {
                     StandardChartView(
                         chartType: .defaultChart(
                             barType: .circular(color: ColorsRepository.Heart.heart),
-                            stringFormatter: "%.0f, BPM"
+                            stringFormatter: "%.0f"
                         ),
                         points: self.displayItem.ssdnMonthChangesValues,
                         chartHeight: 75,
