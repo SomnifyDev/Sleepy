@@ -62,8 +62,8 @@ class HistoryInteractor {
     /// Получение более сложной статистики вкладок alseep/inbed календаря (для графиков разных типов под календарем)
     private func extractBasicCategoryDataIfNeeded(type: HKService.HealthType) {
         if type != .asleep, type != .inbed { fatalError("Not category type being used") }
-        if type == .inbed, self.viewModel.inbedHistoryStatsViewModel != nil { return }
-        if type == .asleep, self.viewModel.asleepHistoryStatsViewModel != nil { return }
+        if type == .inbed, self.viewModel.inbedHistoryStatsDisplayItem != nil { return }
+        if type == .asleep, self.viewModel.asleepHistoryStatsDisplayItem != nil { return }
 
         var last30daysCellData: [StatisticsCellViewModel] = []
         var meanCurrent2WeeksDuration: Double?
@@ -117,7 +117,7 @@ class HistoryInteractor {
                let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration
             {
                 DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsView.SleepHistoryStatsDisplayItem(
+                    let tmp = SleepHistoryStatsDisplayItem(
                         cellData: .init(with: last30daysCellData),
                         monthSleepPoints: monthSleepPoints,
                         monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
@@ -139,9 +139,9 @@ class HistoryInteractor {
                     )
 
                     if type == .inbed {
-                        self.viewModel.inbedHistoryStatsViewModel = tmp
+                        self.viewModel.inbedHistoryStatsDisplayItem = tmp
                     } else {
-                        self.viewModel.asleepHistoryStatsViewModel = tmp
+                        self.viewModel.asleepHistoryStatsDisplayItem = tmp
                     }
                 }
             }
@@ -151,9 +151,9 @@ class HistoryInteractor {
     /// Получение массива из статистик для ячеек под графиком (простая статистика мин-макс-средняя величина)
     private func extractBasicNumericDataIfNeeded(type: HKService.HealthType) {
         if type == .asleep || type == .inbed { fatalError("Not numeric type being used") }
-        if type == .heart, self.viewModel.heartHistoryStatisticsViewModel != nil { return }
-        if type == .energy, self.viewModel.energyHistoryStatsViewModel != nil { return }
-        if type == .respiratory, self.viewModel.respiratoryHistoryStatsViewModel != nil { return }
+        if type == .heart, self.viewModel.heartHistoryStatisticsDisplayItem != nil { return }
+        if type == .energy, self.viewModel.energyHistoryStatsDisplayItem != nil { return }
+        if type == .respiratory, self.viewModel.respiratoryHistoryStatsDisplayItem != nil { return }
 
         var last30daysCellData: [StatisticsCellViewModel] = []
         var ssdnMonthChangesValues: [StandardChartView.DisplayItem] = []
@@ -193,20 +193,19 @@ class HistoryInteractor {
         }
 
         group.notify(queue: .global(qos: .default)) {
-            //            guard let self = self else { return }
             if !last30daysCellData.isEmpty {
                 DispatchQueue.main.async {
                     switch type {
                     case .energy:
-                        self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                        self.viewModel.energyHistoryStatsDisplayItem = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .heart:
-                        self.viewModel.heartHistoryStatisticsViewModel = .init(
+                        self.viewModel.heartHistoryStatisticsDisplayItem = .init(
                             cellData: last30daysCellData,
                             ssdnCardTitleViewModel: self.viewModel.ssdnCardTitleViewModel,
                             ssdnMonthChangesValues: ssdnMonthChangesValues
                         )
                     case .respiratory:
-                        self.viewModel.respiratoryHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
+                        self.viewModel.respiratoryHistoryStatsDisplayItem = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .asleep, .inbed:
                         return
                     }

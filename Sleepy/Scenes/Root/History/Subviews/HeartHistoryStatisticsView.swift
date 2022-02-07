@@ -5,17 +5,17 @@ import SwiftUI
 import UIComponents
 import XUI
 
-struct HeartHistoryStatisticsView: View {
-    public struct HeartHistoryStatsDisplayItem {
-        let cellData: [StatisticsCellViewModel]
-        let ssdnCardTitleViewModel: CardTitleViewModel
-        let ssdnMonthChangesValues: [StandardChartView.DisplayItem]
-    }
+struct HeartHistoryStatsDisplayItem {
+    let cellData: [StatisticsCellViewModel]
+    let ssdnCardTitleViewModel: CardTitleViewModel
+    let ssdnMonthChangesValues: [StandardChartView.DisplayItem]
+}
 
+struct HeartHistoryStatisticsView: View {
     let viewModel: HistoryCoordinator
     let displayItem: HeartHistoryStatsDisplayItem
 
-    init(viewModel: HistoryCoordinator, displayItem: HeartHistoryStatisticsView.HeartHistoryStatsDisplayItem) {
+    init(viewModel: HistoryCoordinator, displayItem: HeartHistoryStatsDisplayItem) {
         self.viewModel = viewModel
         self.displayItem = displayItem
     }

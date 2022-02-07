@@ -4,20 +4,20 @@ import SwiftUI
 import UIComponents
 import XUI
 
-struct SleepHistoryStatsView: View {
-    public struct SleepHistoryStatsDisplayItem {
-        let cellData: StatisticsCellCollectionViewModel
-        let monthSleepPoints: [Double]?
-        let monthBeforeDateInterval: DateInterval?
-        let currentWeeksProgress: ProgressElementViewModel
-        let beforeWeeksProgress: ProgressElementViewModel
-        let analysisString: String
-    }
+struct SleepHistoryStatsDisplayItem {
+    let cellData: StatisticsCellCollectionViewModel
+    let monthSleepPoints: [Double]?
+    let monthBeforeDateInterval: DateInterval?
+    let currentWeeksProgress: ProgressElementViewModel
+    let beforeWeeksProgress: ProgressElementViewModel
+    let analysisString: String
+}
 
+struct SleepHistoryStatsView: View {
     let viewModel: HistoryCoordinator
     let displayItem: SleepHistoryStatsDisplayItem
 
-    init(viewModel: HistoryCoordinator, displayItem: SleepHistoryStatsView.SleepHistoryStatsDisplayItem) {
+    init(viewModel: HistoryCoordinator, displayItem: SleepHistoryStatsDisplayItem) {
         self.viewModel = viewModel
         self.displayItem = displayItem
     }
