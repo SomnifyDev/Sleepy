@@ -117,7 +117,7 @@ class HistoryInteractor {
                let mean1 = meanCurrent2WeeksDuration, let mean2 = meanLast2WeeksDuration
             {
                 DispatchQueue.main.async {
-                    let tmp = SleepHistoryStatsViewModel(
+                    let tmp = SleepHistoryStatsView.SleepHistoryStatsDisplayItem(
                         cellData: .init(with: last30daysCellData),
                         monthSleepPoints: monthSleepPoints,
                         monthBeforeDateInterval: self.viewModel.monthBeforeDateInterval,
@@ -200,7 +200,7 @@ class HistoryInteractor {
                     case .energy:
                         self.viewModel.energyHistoryStatsViewModel = StatisticsCellCollectionViewModel(with: last30daysCellData)
                     case .heart:
-                        self.viewModel.heartHistoryStatisticsViewModel = HeartHistoryStatsViewModel(
+                        self.viewModel.heartHistoryStatisticsViewModel = .init(
                             cellData: last30daysCellData,
                             ssdnCardTitleViewModel: self.viewModel.ssdnCardTitleViewModel,
                             ssdnMonthChangesValues: ssdnMonthChangesValues

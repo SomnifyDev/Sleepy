@@ -22,24 +22,24 @@ struct HistoryListView: View {
 
                     if viewModel.calendarType == .asleep {
                         if let asleepHistoryStatsViewModel = viewModel.asleepHistoryStatsViewModel {
-                            SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel)
+                            SleepHistoryStatsView(viewModel: self.viewModel, displayItem: asleepHistoryStatsViewModel)
                         } else {
-                            SleepHistoryStatsView()
+                            SleepHistoryStatsView(viewModel: self.viewModel)
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .inbed {
                         if let inbedHistoryStatsViewModel = viewModel.inbedHistoryStatsViewModel {
-                            SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel)
+                            SleepHistoryStatsView(viewModel: self.viewModel, displayItem: inbedHistoryStatsViewModel)
                         } else {
-                            SleepHistoryStatsView()
+                            SleepHistoryStatsView(viewModel: self.viewModel)
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .heart {
                         if let heartHistoryStatisticsViewModel = viewModel.heartHistoryStatisticsViewModel
                         {
-                            HeartHistoryStatisticsView(viewModel: heartHistoryStatisticsViewModel)
+                            HeartHistoryStatisticsView(viewModel: self.viewModel, displayItem: heartHistoryStatisticsViewModel)
                         } else {
-                            HeartHistoryStatisticsView()
+                            HeartHistoryStatisticsView(viewModel: self.viewModel)
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .energy {

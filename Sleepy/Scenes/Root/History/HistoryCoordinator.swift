@@ -19,9 +19,9 @@ class HistoryCoordinator: ObservableObject, ViewModel {
 
     @Published var sleepGoal = UserDefaults.standard.integer(forKey: SleepySettingsKeys.sleepGoal.rawValue)
 
-    @Published var asleepHistoryStatsViewModel: SleepHistoryStatsViewModel?
-    @Published var inbedHistoryStatsViewModel: SleepHistoryStatsViewModel?
-    @Published var heartHistoryStatisticsViewModel: HeartHistoryStatsViewModel?
+    @Published var asleepHistoryStatsViewModel: SleepHistoryStatsView.SleepHistoryStatsDisplayItem?
+    @Published var inbedHistoryStatsViewModel: SleepHistoryStatsView.SleepHistoryStatsDisplayItem?
+    @Published var heartHistoryStatisticsViewModel: HeartHistoryStatisticsView.HeartHistoryStatsDisplayItem?
     @Published var energyHistoryStatsViewModel: StatisticsCellCollectionViewModel?
     @Published var respiratoryHistoryStatsViewModel: StatisticsCellCollectionViewModel?
 
