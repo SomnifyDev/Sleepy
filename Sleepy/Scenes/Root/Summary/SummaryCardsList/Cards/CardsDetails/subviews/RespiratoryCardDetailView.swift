@@ -23,17 +23,10 @@ struct RespiratoryCardDetailView: View {
                         // MARK: Chart
 
                         StandardChartView(
-                            chartType: .defaultChart(
-                                barType: .rectangular(
-                                    color: Color(.systemBlue)
-                                )
-                            ),
-                            chartHeight: 75,
+                            chartType: .defaultChart(barType: .rectangular(color: Color(.systemBlue)), stringFormatter: "%.0f, BrPM"),
                             points: respiratoryViewModel.respiratoryRateData,
-                            dateInterval: generalViewModel.sleepInterval,
-                            needOXLine: true,
-                            needTimeLine: true,
-                            dragGestureEnabled: true
+                            chartHeight: 75,
+                            timeLineType: .some(dateInterval: generalViewModel.sleepInterval, formatType: .time)
                         )
                             .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
                             .padding(.top)

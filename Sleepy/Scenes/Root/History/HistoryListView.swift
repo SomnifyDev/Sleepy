@@ -21,38 +21,38 @@ struct HistoryListView: View {
                         .roundedCardBackground(color: ColorsRepository.Card.cardBackground)
 
                     if viewModel.calendarType == .asleep {
-                        if let asleepHistoryStatsViewModel = viewModel.asleepHistoryStatsViewModel {
-                            SleepHistoryStatsView(viewModel: asleepHistoryStatsViewModel)
+                        if let asleepHistoryStatsDisplayItem = viewModel.asleepHistoryStatsDisplayItem {
+                            SleepHistoryStatsView(viewModel: self.viewModel, displayItem: asleepHistoryStatsDisplayItem)
                         } else {
-                            SleepHistoryStatsView()
+                            SleepHistoryStatsView(viewModel: self.viewModel)
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .inbed {
-                        if let inbedHistoryStatsViewModel = viewModel.inbedHistoryStatsViewModel {
-                            SleepHistoryStatsView(viewModel: inbedHistoryStatsViewModel)
+                        if let inbedHistoryStatsDisplayItem = viewModel.inbedHistoryStatsDisplayItem {
+                            SleepHistoryStatsView(viewModel: self.viewModel, displayItem: inbedHistoryStatsDisplayItem)
                         } else {
-                            SleepHistoryStatsView()
+                            SleepHistoryStatsView(viewModel: self.viewModel)
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .heart {
-                        if let heartHistoryStatisticsViewModel = viewModel.heartHistoryStatisticsViewModel
+                        if let heartHistoryStatisticsDisplayItem = viewModel.heartHistoryStatisticsDisplayItem
                         {
-                            HeartHistoryStatisticsView(viewModel: heartHistoryStatisticsViewModel)
+                            HeartHistoryStatisticsView(viewModel: self.viewModel, displayItem: heartHistoryStatisticsDisplayItem)
                         } else {
-                            HeartHistoryStatisticsView()
+                            HeartHistoryStatisticsView(viewModel: self.viewModel)
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .energy {
-                        if let energyHistoryStatsViewModel = viewModel.energyHistoryStatsViewModel {
-                            EnergyHistoryStatsView(viewModel: energyHistoryStatsViewModel)
+                        if let energyHistoryStatsDisplayItem = viewModel.energyHistoryStatsDisplayItem {
+                            EnergyHistoryStatsView(viewModel: energyHistoryStatsDisplayItem)
                         } else {
                             EnergyHistoryStatsView()
                                 .blur(radius: 4)
                         }
                     } else if viewModel.calendarType == .respiratory {
-                        if let respiratoryHistoryStatsViewModel = viewModel.respiratoryHistoryStatsViewModel
+                        if let respiratoryHistoryStatsDisplayItem = viewModel.respiratoryHistoryStatsDisplayItem
                         {
-                            RespiratoryHistoryStatsView(viewModel: respiratoryHistoryStatsViewModel)
+                            RespiratoryHistoryStatsView(viewModel: respiratoryHistoryStatsDisplayItem)
                         } else {
                             RespiratoryHistoryStatsView()
                                 .blur(radius: 4)

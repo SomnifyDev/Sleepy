@@ -1,6 +1,7 @@
 // Copyright (c) 2022 Sleepy.
 
 import Foundation
+import HKCoreSleep
 import HKStatistics
 import SettingsKit
 import SwiftUI
@@ -77,12 +78,13 @@ class CardService: ObservableObject {
         ) { [weak self] data in
             guard let self = self else { return }
             let sleepGoal = self.getSleepGoal()
-            let filteredData = data.filter { $0 != 0 }
+            let filteredData = data.compactMap { $0 }.filter { $0.value > 0 }
             guard !filteredData.isEmpty else { return }
 
-            let bankOfSleepData = data.map { $0 / Double(sleepGoal) }
+            let bankOfSleepData: [StandardChartView.DisplayItem] = filteredData.map { .init(date: $0.date, value: $0.value / Double(sleepGoal)) }
 
-            let backlogValue = Int(filteredData.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
+            let values = filteredData.compactMap { $0.value }
+            let backlogValue = Int(values.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
             let backlogString = Date.minutesToClearString(minutes: backlogValue)
 
             let timeToCloseDebtValue = (backlogValue / filteredData.count) + sleepGoal
@@ -151,7 +153,7 @@ class CardService: ObservableObject {
         guard
             let deepSleepMinutes = statisticsProvider.getData(dataType: .deepPhaseDuration) as? Int,
             let lightSleepMinutes = statisticsProvider.getData(dataType: .lightPhaseDuration) as? Int,
-            let phasesData = statisticsProvider.getData(dataType: .chart) as? [Double]
+            let phasesData = statisticsProvider.getData(dataType: .chart) as? [SampleData]
         else {
             self.somethingBroken = true
             return
@@ -159,7 +161,7 @@ class CardService: ObservableObject {
 
         if !phasesData.isEmpty {
             self.phasesViewModel = SummaryPhasesDataViewModel(
-                phasesData: phasesData,
+                phasesData: phasesData.map { StandardChartView.DisplayItem(date: $0.date, value: $0.value) },
                 timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
                 timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
                 mostIntervalInLightPhase: "-",
@@ -172,7 +174,7 @@ class CardService: ObservableObject {
 
     private func getHeartData() {
         var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-        let heartRateData = self.getShortHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart))
+        let heartRateData = self.getShortChartHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart)).map { StandardChartView.DisplayItem(date: $0.date, value: $0.value) }
 
         guard !heartRateData.isEmpty,
               let maxHR = statisticsProvider.getData(dataType: .heart, indicator: .max),
@@ -225,22 +227,24 @@ class CardService: ObservableObject {
         }
     }
 
-    private func getShortHeartRateData(heartRateData: [Double]) -> [Double] {
+    private func getShortChartHeartRateData(heartRateData: [SampleData]) -> [SampleData] {
         guard heartRateData.count > 25
         else {
             return heartRateData
         }
 
         let stackCapacity = heartRateData.count / 25
-        var shortData: [Double] = []
+        var shortData: [SampleData] = []
 
         for index in stride(from: 0, to: heartRateData.count, by: stackCapacity) {
             var mean: Double = 0.0
+            var date = Date()
             for stackIndex in index ..< index + stackCapacity {
                 guard stackIndex < heartRateData.count else { return shortData }
-                mean += heartRateData[stackIndex]
+                mean += heartRateData[stackIndex].value
+                date = heartRateData[stackIndex].date
             }
-            shortData.append(mean / Double(stackCapacity))
+            shortData.append(.init(date: date, value: mean / Double(stackCapacity)))
         }
 
         return shortData
@@ -250,7 +254,10 @@ class CardService: ObservableObject {
 
     private func getRespiratoryData() {
         var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
-        let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory)
+        let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory).map { StandardChartView.DisplayItem(
+            date: $0.date,
+            value: $0.value
+        ) }
 
         guard !breathRateData.isEmpty,
               let maxRespiratory = statisticsProvider.getData(dataType: .respiratory, indicator: .max),
