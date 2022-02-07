@@ -4,7 +4,7 @@ import Foundation
 import UIComponents
 
 struct SummaryRespiratoryDataViewModel {
-    let respiratoryRateData: [StandardChartView.DisplayItem]
+    let respiratoryRateData: [ChartPointDisplayItem]
     let maxRespiratoryRate: String
     let minRespiratoryRate: String
     let averageRespiratoryRate: String

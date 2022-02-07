@@ -8,7 +8,7 @@ import XUI
 struct HeartHistoryStatsDisplayItem {
     let cellData: [StatisticsCellViewModel]
     let ssdnCardTitleViewModel: CardTitleViewModel
-    let ssdnMonthChangesValues: [StandardChartView.DisplayItem]
+    let ssdnMonthChangesValues: [ChartPointDisplayItem]
 }
 
 struct HeartHistoryStatisticsView: View {

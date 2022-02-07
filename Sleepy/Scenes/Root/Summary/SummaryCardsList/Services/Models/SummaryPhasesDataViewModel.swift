@@ -4,7 +4,7 @@ import Foundation
 import UIComponents
 
 struct SummaryPhasesDataViewModel {
-    let phasesData: [StandardChartView.DisplayItem]
+    let phasesData: [ChartPointDisplayItem]
     let timeInLightPhase: String
     let timeInDeepPhase: String
     let mostIntervalInLightPhase: String

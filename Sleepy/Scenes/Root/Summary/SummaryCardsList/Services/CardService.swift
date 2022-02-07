@@ -81,7 +81,7 @@ class CardService: ObservableObject {
             let filteredData = data.compactMap { $0 }.filter { $0.value > 0 }
             guard !filteredData.isEmpty else { return }
 
-            let bankOfSleepData: [StandardChartView.DisplayItem] = filteredData.map { .init(date: $0.date, value: $0.value / Double(sleepGoal)) }
+            let bankOfSleepData: [ChartPointDisplayItem] = filteredData.map { .init(date: $0.date, value: $0.value / Double(sleepGoal)) }
 
             let values = filteredData.compactMap { $0.value }
             let backlogValue = Int(values.reduce(0.0) { $1 < Double(sleepGoal) ? $0 + (Double(sleepGoal) - $1) : $0 + 0 })
@@ -161,7 +161,7 @@ class CardService: ObservableObject {
 
         if !phasesData.isEmpty {
             self.phasesViewModel = SummaryPhasesDataViewModel(
-                phasesData: phasesData.map { StandardChartView.DisplayItem(date: $0.date, value: $0.value) },
+                phasesData: phasesData.map { ChartPointDisplayItem(date: $0.date, value: $0.value) },
                 timeInLightPhase: "\(lightSleepMinutes / 60)h \(lightSleepMinutes - (lightSleepMinutes / 60) * 60)min",
                 timeInDeepPhase: "\(deepSleepMinutes / 60)h \(deepSleepMinutes - (deepSleepMinutes / 60) * 60)min",
                 mostIntervalInLightPhase: "-",
@@ -174,7 +174,7 @@ class CardService: ObservableObject {
 
     private func getHeartData() {
         var minHeartRate = "-", maxHeartRate = "-", averageHeartRate = "-"
-        let heartRateData = self.getShortChartHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart)).map { StandardChartView.DisplayItem(date: $0.date, value: $0.value) }
+        let heartRateData = self.getShortChartHeartRateData(heartRateData: self.statisticsProvider.getTodaySleepData(healthtype: .heart)).map { ChartPointDisplayItem(date: $0.date, value: $0.value) }
 
         guard !heartRateData.isEmpty,
               let maxHR = statisticsProvider.getData(dataType: .heart, indicator: .max),
@@ -254,7 +254,7 @@ class CardService: ObservableObject {
 
     private func getRespiratoryData() {
         var minRespiratoryRate = "-", maxRespiratoryRate = "-", averageRespiratoryRate = "-"
-        let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory).map { StandardChartView.DisplayItem(
+        let breathRateData = self.statisticsProvider.getTodaySleepData(healthtype: .respiratory).map { ChartPointDisplayItem(
             date: $0.date,
             value: $0.value
         ) }

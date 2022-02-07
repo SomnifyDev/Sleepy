@@ -5,13 +5,13 @@ import HKStatistics
 import UIComponents
 
 struct SummaryHeartDataViewModel {
-    let heartRateData: [StandardChartView.DisplayItem]
+    let heartRateData: [ChartPointDisplayItem]
     let maxHeartRate: String
     let minHeartRate: String
     let averageHeartRate: String
     let indicators: [StatsIndicatorViewModel]
 
-    internal init(heartRateData: [StandardChartView.DisplayItem], maxHeartRate: String, minHeartRate: String, averageHeartRate: String, indicators: [StatsIndicatorModel])
+    internal init(heartRateData: [ChartPointDisplayItem], maxHeartRate: String, minHeartRate: String, averageHeartRate: String, indicators: [StatsIndicatorModel])
     {
         self.heartRateData = heartRateData
         self.maxHeartRate = maxHeartRate

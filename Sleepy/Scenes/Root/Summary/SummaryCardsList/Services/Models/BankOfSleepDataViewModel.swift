@@ -4,7 +4,7 @@ import Foundation
 import UIComponents
 
 struct BankOfSleepDataViewModel {
-    let bankOfSleepData: [StandardChartView.DisplayItem]
+    let bankOfSleepData: [ChartPointDisplayItem]
     let backlog: String
     let timeToCloseDebt: String
 }
