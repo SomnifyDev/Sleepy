@@ -30,7 +30,7 @@ let package = Package(
         .package(
             name: "UIComponents",
             url: "https://github.com/Somnify/UIComponents",
-            .exact("1.2.0")
+            .exact("1.3.0")
         ),
         .package(
             name: "XUI",
