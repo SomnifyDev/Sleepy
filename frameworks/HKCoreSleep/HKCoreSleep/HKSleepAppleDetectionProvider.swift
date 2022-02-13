@@ -119,8 +119,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 error2 != nil ||
                 error3 != nil ||
                 error4 != nil ||
-                (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty
-            {
+                (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty {
                 completionHandler(nil)
                 self.lock.unlock()
                 return
@@ -137,8 +136,9 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             let sleep = Sleep(samples: [])
             var shouldNotifyAnalysisByPush = true
 
+
+            // идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
             while true {
-                // идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
                 inBedRawFiltered = inBedRawFiltered?.filter { $0.endDate <= lastIntervalStart }
                 asleepRawFiltered = asleepRawFiltered?.filter { $0.endDate <= lastIntervalStart }
                 heartRawFiltered = heartRawFiltered?.filter { $0.endDate <= lastIntervalStart }
@@ -188,8 +188,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                         group.notify(queue: .global(qos: .default)) {
                             if let sleepInterval = sleep.sleepInterval,
                                state == .background || state == .inactive,
-                               shouldNotifyAnalysisByPush
-                            {
+                               shouldNotifyAnalysisByPush {
                                 self.notifyByPush(title: "New sleep analysis", body: sleepInterval.stringFromDateInterval(type: .time))
                             }
                         }
