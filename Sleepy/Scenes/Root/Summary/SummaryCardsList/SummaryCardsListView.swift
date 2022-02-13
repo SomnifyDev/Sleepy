@@ -9,7 +9,6 @@ struct SummaryCardsListView: View {
 
     @EnvironmentObject var cardService: CardService
 
-    @State private var shouldShowSomethingBrokenBanner: Bool = false
     @State private var showSleepImprovement = false
     @State private var imagesIndex = 0
     private let tutorialImages = ["tutorial3", "tutorial4"]
@@ -23,9 +22,7 @@ struct SummaryCardsListView: View {
                 VStack(alignment: .center) {
                     // MARK: Errors
 
-                    if cardService.somethingBroken,
-                       shouldShowSomethingBrokenBanner
-                    {
+                    if cardService.somethingBroken {
                         BannerView(
                             with: viewModel.somethingBrokenBannerViewModel,
                             trailIconAction: nil // [NOTE] - There is no trail icon in 'somethingBrokenBannerViewModel'

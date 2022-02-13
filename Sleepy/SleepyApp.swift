@@ -36,7 +36,7 @@ struct SleepyApp: App {
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification))
                     { _ in
                         UIApplication.shared.applicationIconBadgeNumber = 0
-                        self.forceSleepFetchIfNeeded()
+                        self.forceSleepFetchAndUpdateIfNeeded()
                     }
             } else if shouldShowIntro {
                 IntroCoordinatorView(viewModel: introViewModel!, shouldShowIntro: self.$shouldShowIntro)
@@ -72,7 +72,7 @@ struct SleepyApp: App {
             guard let sleep = sleep
             else {
                 // сон не был прочитан
-                self.sleep = sleep
+                self.sleep = nil
                 self.statisticsProvider = HKStatisticsProvider(
                     sleep: nil,
                     healthService: hkService!
@@ -103,15 +103,13 @@ struct SleepyApp: App {
 
     /// Вызывается в моменты когда приложение появляется на экране для проверки 'а вдруг в healthkit лежит новый сон' на случай если
     /// приложение не было выгружено из памяти за ночь и в нем отображается старая сессия сна
-    private func forceSleepFetchIfNeeded() {
-        guard let sleep = self.sleep else { return }
-
+    private func forceSleepFetchAndUpdateIfNeeded() {
         let interval = DateInterval(start: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, end: Date())
         self.hkService?.readData(
             type: .asleep,
             interval: interval,
             ascending: false,
-            bundlePrefixes: ["com.apple"],
+            bundleAuthor: .apple,
             completionHandler: { _, samples, error in
                 guard error == nil,
                       let newSample = samples?.first,

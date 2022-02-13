@@ -30,7 +30,7 @@ class HistoryInteractor {
                 start: self.viewModel.monthDate.startOfMonth,
                 end: self.viewModel.monthDate.endOfMonth
             ),
-            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]
+            bundleAuthor: .sleepy
         ) { result in
             var displayItems: [CalendarDayView.DisplayItem] = []
 
@@ -167,7 +167,8 @@ class HistoryInteractor {
                 self.viewModel.statisticsProvider.getData(
                     healthType: type,
                     indicator: indicator,
-                    interval: self.viewModel.monthBeforeDateInterval
+                    interval: self.viewModel.monthBeforeDateInterval,
+                    bundleAuthor: .apple
                 ) { result in
                     if let result = result {
                         last30daysCellData.append(StatisticsCellViewModel(
@@ -236,7 +237,7 @@ extension HistoryInteractor {
                 healthType: type,
                 indicator: .sum,
                 interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
-                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]
+                bundleAuthor: .sleepy
             ) { data in
                 let isComplete = queue.sync { () -> Bool in
                     guard let data = data, data > 0 else { return false }
