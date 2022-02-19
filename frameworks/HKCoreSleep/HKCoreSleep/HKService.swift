@@ -227,10 +227,7 @@ public class HKService {
                             (sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.asleep.rawValue
                         }
 
-                        var result: Double = 0
-                        samplesFiltered?.forEach {
-                            result += Double($0.metadata?[key] as? String ?? "") ?? 0
-                        }
+                        var result: Double = samplesFiltered?.reduce(0.0) { Double($0.metadata?[key] as? String ?? "") + Double($1.metadata?[key] as? String ?? "") }
                         completionHandler(sampleQuery, result, error)
                     }
                 )
