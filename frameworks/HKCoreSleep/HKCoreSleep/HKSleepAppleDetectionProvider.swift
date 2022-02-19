@@ -60,11 +60,11 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             let breathValues = breathRates?.compactMap { $0.value } ?? []
 
             let meanHeartRate = (heartValues.reduce(0.0, +)) / Double(heartValues.count)
-            let meanEnergyRate = (energyValues.reduce(0.0, +)) / Double(energyValues.count)
+            let energyConsumption = energyValues.reduce(0.0, +)
             let meanBreathRate = (breathValues.reduce(0.0, +)) / Double(breathValues.count)
 
             metadata["Heart rate mean"] = String(format: "%.3f", meanHeartRate)
-            metadata["Energy consumption"] = String(format: "%.3f", meanEnergyRate)
+            metadata["Energy consumption"] = String(format: "%.3f", energyConsumption)
             metadata["Respiratory rate"] = String(format: "%.3f", meanBreathRate)
 
             let asleepSample = HKCategorySample(
