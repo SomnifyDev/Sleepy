@@ -176,7 +176,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                             group.enter()
 
                             self.saveMicroSleep(microSleep: $0, completionHandler: { [weak self] isAlreadySaved, error in
-                                guard error == nil, isAlreadySaved else {
+                                guard error == nil || isAlreadySaved else {
                                     shouldNotifyAnalysisByPush = false
                                     completionHandler(nil)
                                     self?.lock.unlock()
