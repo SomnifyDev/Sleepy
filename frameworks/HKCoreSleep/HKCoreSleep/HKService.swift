@@ -36,6 +36,20 @@ public class HKService {
         }
     }
 
+    public enum BundleAuthor {
+        case sleepy
+        case apple
+
+        var bundles: [String] {
+            switch self {
+            case .sleepy:
+                return ["com.benmustafa", "com.sinapsis"]
+            case .apple:
+                return ["com.apple"]
+            }
+        }
+    }
+
     public init() {}
 
     // MARK: Private properties
@@ -55,12 +69,11 @@ public class HKService {
 
     // MARK: - Private methods
 
-    /// Checking for save permissions
+    /// Проверка на наличие прав для сохранения
     /// - Parameters:
-    ///   - type: health type you want be able to save
-    ///   - completionHandler: result that contains boolean value indicating your permissions and error if it occured during func work
-    private static func checkSavePermissions(type: HKService.HealthType, completionHandler: @escaping (Bool, Error?) -> Void)
-    {
+    ///   - type: тип данных для сохранения
+    ///   - completionHandler: completionHandler
+    private static func checkSavePermissions(type: HKService.HealthType, completionHandler: @escaping (Bool, Error?) -> Void) {
         let authorizationStatus = self.healthStore.authorizationStatus(for: type.hkValue)
 
         switch authorizationStatus {
@@ -76,24 +89,24 @@ public class HKService {
         }
     }
 
-    /// Checking for read permissions
+    /// Проверка на права чтения
+    ///
+    /// Из-за огранечний эпла в плане безопасности нативного апи для проверки нет.
+    /// см. https://stackoverflow.com/questions/53203701/check-if-user-has-authorised-steps-in-healthkit
+    ///
+    /// Теоретически пользователь может быть новичком и тогда checkReadPermissions подумает, что права не были выданы
+    /// на inbed asleep, но ведь пользователь просто не пользовался раньше отслеживанием сна.
+    ///
+    /// В случае сомнений в выдаче прав Sleepy максимум что сделает - откроет вью с их запросом еще раз
+    ///
     /// - Parameters:
-    ///   - type: health type you want be able to read
-    ///   - completionHandler: result that contains boolean value indicating your permissions and error if it occured during func work
-    private func checkReadPermissions(type: HKService.HealthType, completionHandler: @escaping (Bool, Error?) -> Void)
-    {
-        // Why did i code so?
-        // https://stackoverflow.com/questions/53203701/check-if-user-has-authorised-steps-in-healthkit
+    ///   - type: тип данных для чтения
+    ///   - completionHandler: completionHandler
+    private func checkReadPermissions(type: HKService.HealthType, completionHandler: @escaping (Bool, Error?) -> Void) {
         self.readDataLast(type: type, completionHandler: { _, samples, error in
             if error != nil || ((type == .asleep || type == .inbed) && (samples ?? []).isEmpty) {
-                // теоретически пользователь может быть новичком и тогда checkReadPermissions подумает, что права не были выданы
-                // на inbed asleep, но ведь пользователь просто не пользовался раньше отслеживанием сна
-                // поэтому на сто процентов убедиться не можем - убрал в if выше  || (samples ?? []).isEmpty
                 HKService.healthStore.requestAuthorization(toShare: HKService.writeDataTypes, read: HKService.readDataTypes, completion: completionHandler)
             } else if error != nil && (samples ?? []).isEmpty {
-                // а др семплы (сердце, энергия точно должны быть ибо они начинают записываться с первых минут пользования
-                // Если офк юзер вручную не отключил это лол
-                // TODO: обработать юзеров, отключивших сердце и энергию к записи
                 HKService.healthStore.requestAuthorization(toShare: HKService.writeDataTypes, read: HKService.readDataTypes, completion: completionHandler)
             } else {
                 completionHandler(true, error)
@@ -115,29 +128,27 @@ public class HKService {
         self.healthStore.requestAuthorization(toShare: self.writeDataTypes, read: self.readDataTypes, completion: completion)
     }
 
-    /// Enables background updates for the types we're interested, iOS will wake app up when possible, and this triggers our object queries later.
-    ///
+    /// Разрешает обновления в фоне для типов здоровья в которых мы заинтересованы, iOS разбудит приложение когда будет возможно.
     /// - Parameters:
-    ///   - completionHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
+    ///   - completionHandler: completionHandler
     public func enableBackgroundDelivery(completionHandler: @escaping (Bool, Error?) -> Void) {
         for type in [HealthType.asleep.hkValue] {
             HKService.healthStore.enableBackgroundDelivery(for: type, frequency: .immediate, withCompletion: completionHandler)
         }
     }
 
-    /// Function to read data from HealthKit storage
-    /// Be awate that inbed == asleep == Sleep samples
+    /// Функция для чтения данныз здоровья из хранилища HealthKit
     /// - Parameters:
-    ///   - type: health sample type you want to read
-    ///   - interval: time interval for your desired samples
-    ///   - ascending: boolean value indicating your need in ascending order sorting
-    ///   - bundlePrefix: bundle prefix of application that created samples you want to read. Do not pass anything if you want every application samples
-    ///   - completionHandler: completion with success or failure of this operation and data
+    ///   - type: тип данных для чтения
+    ///   - interval: временной интервал в котором мы хотим их прочитать
+    ///   - ascending: по возрастанию (временному) ли вернуть значения
+    ///   - bundlePrefix: Автор сэмплов, которые хотим прочитать (Apple или Sleepy)
+    ///   - completionHandler: completionHandler
     public func readData(
         type: HKService.HealthType,
         interval: DateInterval?,
         ascending: Bool = false,
-        bundlePrefixes: [String] = [],
+        bundleAuthor: BundleAuthor,
         limit: Int = 100_000,
         completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void
     ) {
@@ -149,30 +160,24 @@ public class HKService {
                 }
 
                 let sortDescriptors = [NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: ascending)]
-
+                let query: HKSampleQuery
                 if type != .asleep, type != .inbed {
-                    let query = HKSampleQuery(
+                    query = HKSampleQuery(
                         sampleType: type.hkValue,
                         predicate: predicate,
                         limit: limit,
                         sortDescriptors: sortDescriptors,
                         resultsHandler: completionHandler
                     )
-
-                    HKService.healthStore.execute(query)
                 } else {
-                    let query = HKSampleQuery(
+                    query = HKSampleQuery(
                         sampleType: type.hkValue,
                         predicate: predicate,
                         limit: limit,
                         sortDescriptors: sortDescriptors,
                         resultsHandler: { sampleQuery, samples, error in
-
-                            // trying to fiter samples by bundle we need and type if inbed/asleep requested
                             let samplesFiltered = samples?.filter { sample in
-                                (!bundlePrefixes.isEmpty
-                                    ? bundlePrefixes.contains(where: { sample.sourceRevision.source.bundleIdentifier.hasPrefix($0) })
-                                    : true) &&
+                                (bundleAuthor.bundles.contains(where: { sample.sourceRevision.source.bundleIdentifier.hasPrefix($0) })) &&
                                     (sample as? HKCategorySample)?.value == ((type == .asleep)
                                         ? HKCategoryValueSleepAnalysis.asleep.rawValue
                                         : HKCategoryValueSleepAnalysis.inBed.rawValue)
@@ -180,22 +185,27 @@ public class HKService {
                             completionHandler(sampleQuery, samplesFiltered, error)
                         }
                     )
-
-                    HKService.healthStore.execute(query)
                 }
+
+                HKService.healthStore.execute(query)
             } else {
                 completionHandler(nil, [], error)
             }
         }
     }
 
+    /// Функция для чтения метаданных из сэмплов здоровья (время, статистику и тд)
+    /// - Parameters:
+    ///   - key: ключ метаданных для чтения
+    ///   - interval: интервал сэмплов, во временном промежутке котором мы хотим получить данные
+    ///   - completionHandler: completionHandler
     public func readMetaData(
         key: String,
         interval: DateInterval,
         ascending: Bool = false,
         completionHandler: @escaping (HKSampleQuery?, Double?, Error?) -> Void
     ) {
-        self.checkReadPermissions(type: .inbed) { _, error in
+        self.checkReadPermissions(type: .asleep) { _, error in
             if error == nil {
                 let datePredicate = HKQuery.predicateForSamples(withStart: interval.start, end: interval.end, options: [])
                 let myAppPredicate = HKQuery.predicateForObjects(from: HKSource.default()) // This would retrieve only my app's data
@@ -203,23 +213,22 @@ public class HKService {
                 let queryPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, myAppPredicate])
 
                 let query = HKSampleQuery(
-                    sampleType: HKService.HealthType.inbed.hkValue,
+                    sampleType: HKService.HealthType.asleep.hkValue,
                     predicate: queryPredicate,
                     limit: 50,
                     sortDescriptors: sortDescriptors,
                     resultsHandler: { sampleQuery, samples, error in
+                        guard error == nil else {
+                            completionHandler(sampleQuery, 0, error)
+                            return
+                        }
 
                         let samplesFiltered = samples?.filter { sample in
-                            (sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.inBed.rawValue
+                            (sample as? HKCategorySample)?.value == HKCategoryValueSleepAnalysis.asleep.rawValue
                         }
 
-                        if let metadata = samplesFiltered?.first?.metadata {
-                            completionHandler(sampleQuery, Double(metadata[key] as? String ?? ""), error)
-                            return
-                        } else {
-                            completionHandler(sampleQuery, 0.0, error)
-                            return
-                        }
+                        var result: Double = samplesFiltered?.reduce(0.0) { Double($0.metadata?[key] as? String ?? "") + Double($1.metadata?[key] as? String ?? "") }
+                        completionHandler(sampleQuery, result, error)
                     }
                 )
 
@@ -231,14 +240,9 @@ public class HKService {
         }
     }
 
-    /// Gets last sample in database
-    /// Be awate that inbed == asleep == Sleep samples
-    /// - Parameters:
-    ///   - type: health type you want be able to read
-    ///   - completionHandler: result that contains boolean value indicating samples if so and error if it occured during func work
-    public func readDataLast(type: HKService.HealthType, completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void)
-    {
-        // We want descending order to get the most recent date FIRST
+    /// Получение последнего сэмпла (самого нового) из базы данных
+    /// Важно помнить что для хранилища типы  inbed == asleep
+    public func readDataLast(type: HKService.HealthType, completionHandler: @escaping (HKSampleQuery?, [HKSample]?, Error?) -> Void) {
         let sortDescriptor = [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]
         let predicate = HKQuery.predicateForSamples(withStart: Date.distantPast, end: Date.distantFuture, options: [])
 
@@ -253,14 +257,9 @@ public class HKService {
         HKService.healthStore.execute(query)
     }
 
-    /// Function to save samples into HealthKit storage
-    /// Be awate that inbed == asleep == Sleep samples
-    /// - Parameters:
-    ///   - objects: objects to write into storage
-    ///   - type: health sample type
-    ///   - completionHandler: completion with success or failure of this operation
-    public func writeData(objects: [HKSample], type: HKService.HealthType, completionHandler: @escaping (Bool, Error?) -> Void)
-    {
+    /// Сохранение сэмплов в хранилище HealthKit
+    /// Важно помнить что для хранилища типы  inbed == asleep
+    public func writeData(objects: [HKSample], type: HKService.HealthType, completionHandler: @escaping (Bool, Error?) -> Void) {
         HKService.checkSavePermissions(type: type) { _, error in
             if error == nil {
                 HKService.healthStore.save(objects, withCompletion: completionHandler)

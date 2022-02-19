@@ -74,7 +74,7 @@ class CardService: ObservableObject {
                 start: Date().twoWeeksBefore.startOfDay,
                 end: Date().endOfDay
             ),
-            bundlePrefixes: ["com.sinapsis", "com.benmustafa"]
+            bundleAuthor: .sleepy
         ) { [weak self] data in
             guard let self = self else { return }
             let sleepGoal = self.getSleepGoal()
@@ -114,7 +114,7 @@ class CardService: ObservableObject {
                 healthType: .asleep,
                 indicator: .sum,
                 interval: DateInterval(start: date.startOfDay, end: date.endOfDay),
-                bundlePrefixes: ["com.sinapsis", "com.benmustafa"]
+                bundleAuthor: .sleepy
             ) { data in
                 let isComplete = queue.sync { () -> Bool in
                     if samplesLeft == 0 { return true }

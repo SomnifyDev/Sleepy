@@ -31,134 +31,162 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
     // MARK: - Public methods
 
-    /// Saves sleep analysis as inBed & Asleep samples in HealthStore
+    /// Сохраняет микросон в базу данных healthKit
     /// - Parameters:
-    ///   - sleep: sleep object to be saved
-    ///   - completionHandler: completion with success or failure of this operation
-    public func saveSleep(sleep: MicroSleep, completionHandler: @escaping (Bool, Error?) -> Void) {
-        // checking sleep analysis existence
-
-        // lets expand sleep interval a little bit to be 100% while not sure about strict predicate comparsion ( < or <=)
-        let expandedIntervalStart = Calendar.current.date(byAdding: .minute, value: -5, to: sleep.inBedInterval.start)!
-        let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: sleep.inBedInterval.end)!
+    ///   - sleep: микросон, который хотим сохранить
+    ///   - completionHandler: completionHandler
+    public func saveMicroSleep(microSleep: MicroSleep, completionHandler: @escaping (Bool, Error?) -> Void) {
+        let expandedIntervalStart = Calendar.current.date(byAdding: .minute, value: -5, to: microSleep.inBedInterval.start)!
+        let expandedIntervalEnd = Calendar.current.date(byAdding: .minute, value: 5, to: microSleep.inBedInterval.end)!
         let expandedInterval = DateInterval(start: expandedIntervalStart, end: expandedIntervalEnd)
-        self.hkService?.readData(type: .asleep, interval: expandedInterval, bundlePrefixes: ["com.benmustafa", "com.sinapsis"], completionHandler: { _, samples, _ in
-            // данной проверкой убеждаемся, что в данном интервале не было сохранено сна ранее
-            guard let samples = samples, samples.isEmpty
+        self.hkService?.readData(type: .asleep, interval: expandedInterval, bundleAuthor: .sleepy, completionHandler: { _, samples, _ in
+            // данной проверкой убеждаемся, что в данном интервале не было сохранено сна ранее, чтоб не сохранять дубли
+            guard let samples = samples, samples.isEmpty,
+                  let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)
             else {
                 completionHandler(false, nil)
                 return
             }
 
-            if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis)
-            {
-                var metadata: [String: Any] = [:]
-                if let phases = sleep.phases {
-                    let heartRates = phases.flatMap { $0.heartData }
-                    let energyRates = phases.flatMap { $0.energyData }
-                    let breathRates = phases.flatMap { $0.breathData }
+            var metadata: [String: Any] = [:]
+            let phases = microSleep.phases.flatMap { $0 }
 
-                    let heartValues = heartRates.compactMap { $0.value }
-                    let energyValues = energyRates.compactMap { $0.value }
-                    let breathValues = breathRates.compactMap { $0.value }
+            let heartRates = phases?.flatMap { $0.heartData }
+            let energyRates = phases?.flatMap { $0.energyData }
+            let breathRates = phases?.flatMap { $0.breathData }
 
-                    let meanHeartRate = (heartValues.reduce(0.0, +)) / Double(heartValues.count)
-                    let meanEnergyRate = (energyValues.reduce(0.0, +)) / Double(energyValues.count)
-                    let meanBreathRate = (breathValues.reduce(0.0, +)) / Double(breathValues.count)
+            let heartValues = heartRates?.compactMap { $0.value } ?? []
+            let energyValues = energyRates?.compactMap { $0.value } ?? []
+            let breathValues = breathRates?.compactMap { $0.value } ?? []
 
-                    metadata["Heart rate mean"] = String(format: "%.3f", meanHeartRate)
-                    metadata["Energy consumption"] = String(format: "%.3f", meanEnergyRate)
-                    metadata["Respiratory rate"] = String(format: "%.3f", meanBreathRate)
-                }
+            let meanHeartRate = (heartValues.reduce(0.0, +)) / Double(heartValues.count)
+            let energyConsumption = energyValues.reduce(0.0, +)
+            let meanBreathRate = (breathValues.reduce(0.0, +)) / Double(breathValues.count)
 
-                let asleepSample = HKCategorySample(
-                    type: sleepType,
-                    value: HKCategoryValueSleepAnalysis.asleep.rawValue,
-                    start: sleep.sleepInterval.start,
-                    end: sleep.sleepInterval.end
-                )
+            metadata["Heart rate mean"] = String(format: "%.3f", meanHeartRate)
+            metadata["Energy consumption"] = String(format: "%.3f", energyConsumption)
+            metadata["Respiratory rate"] = String(format: "%.3f", meanBreathRate)
 
-                let inBedSample = HKCategorySample(
-                    type: sleepType,
-                    value: HKCategoryValueSleepAnalysis.inBed.rawValue,
-                    start: sleep.inBedInterval.start,
-                    end: sleep.inBedInterval.end,
-                    metadata: metadata
-                )
+            let asleepSample = HKCategorySample(
+                type: sleepType,
+                value: HKCategoryValueSleepAnalysis.asleep.rawValue,
+                start: microSleep.sleepInterval.start,
+                end: microSleep.sleepInterval.end,
+                metadata: metadata
+            )
 
-                self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
-            }
+            let inBedSample = HKCategorySample(
+                type: sleepType,
+                value: HKCategoryValueSleepAnalysis.inBed.rawValue,
+                start: microSleep.inBedInterval.start,
+                end: microSleep.inBedInterval.end
+            )
+
+            self.hkService?.writeData(objects: [asleepSample, inBedSample], type: .asleep, completionHandler: completionHandler)
         })
     }
 
+    /// Основная функция анализа сна в приложении. Считываем сэмплы здоровья за последние 3 дня,
+    ///
+    ///  Идет с конца (с настоящего в  прошлое) и пытается вытащить последний сон (ориентируясь на сэмплы сна от Apple)
+    ///  Так как сами эпловские сэмплы выгружаются в виде нескольких записей (*) (не одной, которая бы могла характеризовать сон в целом)
+    ///  так, что нативного способа понять рамки последнего сна не имеем, поэтому пытаемся оперировать собственной логикой, что
+    ///  - Сон является сном если его длительность 30 минут
+    ///  - Сон является сном если его разница от прошлой сессии сна - более 45 минут
+    ///  - Микросны (разбиение сна на отдельные части из-за недлительных пробуждений) это составляющие любого сна, разница между которыми не менее 15 минут,
+    ///  - Микросон не может быть меньше 30 минут, иначе принимаем это за ошибку
+    ///  иначе не считаем это пробуждением
+    ///
+    /// Из-за (*)  логика выгрузки эпла подвержена следующим багам или непонятным пока механикам
+    ///  - Иногда Apple'овский анализ сна может не выгрузить любой из типов сэмплов вообще (inbed / asleep)
+    ///  - Иногда inbed сэмпл может ошибиться на пару часов (какая-то их внутренняя ошибка, когда часы продолжают засчитыаать лежание в постели при бодрствовании)
+    ///  - Иногда сэмплы могут быть выгружены в разное время (не синхронно), из-за чего Sleepy при первой выгрузке может получить не всю инфу =>  предоставить некорректный анализ
+    ///  - Иногда может быть выгружены сэмплы, словно человек спал минуту и подобное (какой-то рандомный ошибочный шум)
+    ///  ** to be continued **
+    ///
+    /// - Parameter completionHandler: completionHandler
     public func retrieveData(completionHandler: @escaping (Sleep?) -> Void) {
-        // async stuff
-        // acquire the lock
         self.lock.lock()
-        // считываем все данные здоровья, например, за трое суток
+
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .day, value: -3, to: endDate)!
 
         let interval = DateInterval(start: startDate, end: endDate)
 
-        self.getRawData(interval: interval)
-            { _, asleepRaw, error1, _, heartRaw, error2, _, energyRaw, error3, _, inBedRaw, error4, _, respiratoryRaw, _ in
-                // иногда inbed или asleep может не быть - пытаемся обыграть эти кейсы
-                if error1 != nil ||
-                    error2 != nil ||
-                    error3 != nil ||
-                    error4 != nil ||
-                    (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty
-                {
-                    completionHandler(nil)
-                    self.lock.unlock()
-                    return
-                }
+        self.getRawData(interval: interval) { asleepRaw, error1, heartRaw, error2, energyRaw, error3, inBedRaw, error4, respiratoryRaw, _ in
+            // иногда inbed или asleep может не быть - пытаемся обыграть эти кейсы
+            if error1 != nil ||
+                error2 != nil ||
+                error3 != nil ||
+                error4 != nil ||
+                (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty
+            {
+                completionHandler(nil)
+                self.lock.unlock()
+                return
+            }
 
-                var lastIntervalStart = endDate
+            var lastMicroSleepStart = endDate
 
-                var inBedRawFiltered = inBedRaw
-                var asleepRawFiltered = asleepRaw
-                var heartRawFiltered = heartRaw
-                var energyRawFiltered = energyRaw
-                var respiratoryRawFiltered = respiratoryRaw
+            var inBedRawFiltered = inBedRaw
+            var asleepRawFiltered = asleepRaw
+            var heartRawFiltered = heartRaw
+            var energyRawFiltered = energyRaw
+            var respiratoryRawFiltered = respiratoryRaw
 
-                let sleep = Sleep(samples: [])
-                var shouldNotifyAnalysisByPush = false
+            let sleep = Sleep(samples: [])
+            var shouldNotifyAnalysisByPush = true
+            var isFirstFetch = true
+            // идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
+            while true {
+                inBedRawFiltered = inBedRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                asleepRawFiltered = asleepRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                heartRawFiltered = heartRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                energyRawFiltered = energyRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                respiratoryRawFiltered = respiratoryRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
 
-                while true {
-                    // идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
-                    inBedRawFiltered = inBedRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                    asleepRawFiltered = asleepRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                    heartRawFiltered = heartRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                    energyRawFiltered = energyRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                    respiratoryRawFiltered = respiratoryRawFiltered?.filter { $0.endDate <= lastIntervalStart }
+                // запускаем функцию определения последнего микросна сна для отфильтрованных сэмплов
+                let sleepData = self.detectSleep(
+                    inbedSamplesRaw: ((inBedRawFiltered ?? []).isEmpty && !(asleepRawFiltered ?? []).isEmpty) ? asleepRawFiltered : inBedRawFiltered,
+                    asleepSamplesRaw: ((asleepRawFiltered ?? []).isEmpty && !(inBedRawFiltered ?? []).isEmpty) ? inBedRawFiltered : asleepRawFiltered,
+                    heartSamplesRaw: heartRawFiltered,
+                    energySamplesRaw: energyRawFiltered,
+                    respiratoryRaw: respiratoryRawFiltered,
+                    isFirstFetch: isFirstFetch
+                )
 
-                    // запускаем функцию определения последнего микросна сна для отфильтрованных сэмплов
-                    let sleepData = self.detectSleep(
-                        inbedSamplesRaw: ((inBedRawFiltered ?? []).isEmpty && !(asleepRawFiltered ?? []).isEmpty) ? asleepRawFiltered : inBedRawFiltered,
-                        asleepSamplesRaw: ((asleepRawFiltered ?? []).isEmpty && !(inBedRawFiltered ?? []).isEmpty) ? inBedRawFiltered : asleepRawFiltered,
-                        heartSamplesRaw: heartRawFiltered,
-                        energySamplesRaw: energyRawFiltered,
-                        respiratoryRaw: respiratoryRawFiltered
-                    )
+                // если нет ошибок и обнаруженный сон имеет промежуток с другим,
+                // обнаруженным ранее, в <= заданная константа, то считаем это одним сном
+                guard !sleepData.error,
+                      let asleepInterval = sleepData.asleepInterval,
+                      abs(asleepInterval.end.minutes(from: lastMicroSleepStart)) <= Constants.maximalSleepDifference
+                      || lastMicroSleepStart == endDate
+                      || sleep.samples.isEmpty,
+                      let inbedInterval = sleepData.inbedInterval,
+                      let energySamples = sleepData.energySamples,
+                      let heartSamples = sleepData.heartSamples,
+                      let respiratorySamples = sleepData.respiratorySamples
+                else {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        let state = UIApplication.shared.applicationState
+                        let group = DispatchGroup()
 
-                    // если нет ошибок и обнаруженный сон имеет промежуток с другим,
-                    // обнаруженным ранее, в <= заданная константа, то считаем это одним сном
-                    guard !sleepData.error,
-                          let asleepInterval = sleepData.asleepInterval,
-                          abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= Constants.maximalSleepDifference
-                          || lastIntervalStart == endDate
-                          || sleep.samples.isEmpty,
-                          let inbedInterval = sleepData.inbedInterval,
-                          let energySamples = sleepData.energySamples,
-                          let heartSamples = sleepData.heartSamples,
-                          let respiratorySamples = sleepData.respiratorySamples
-                    else {
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self else { return }
-                            let state = UIApplication.shared.applicationState
+                        sleep.samples.forEach {
+                            group.enter()
 
+                            self.saveMicroSleep(microSleep: $0, completionHandler: { [weak self] isAlreadySaved, error in
+                                guard error == nil || isAlreadySaved else {
+                                    shouldNotifyAnalysisByPush = false
+                                    completionHandler(nil)
+                                    self?.lock.unlock()
+                                    return
+                                }
+                                group.leave()
+                            })
+                        }
+
+                        group.notify(queue: .global(qos: .default)) {
                             if let sleepInterval = sleep.sleepInterval,
                                state == .background || state == .inactive,
                                shouldNotifyAnalysisByPush
@@ -166,57 +194,49 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                                 self.notifyByPush(title: "New sleep analysis", body: sleepInterval.stringFromDateInterval(type: .time))
                             }
                         }
-
-                        completionHandler(!sleep.samples.isEmpty ? sleep : nil)
-                        self.lock.unlock()
-                        return
                     }
 
-                    lastIntervalStart = asleepInterval.start
-
-                    // если микро сон оказался слишком маленьким по времени - пропускаем его
-                    if inbedInterval.duration / 60.0 < Double(Constants.minimalMicroSleepDuration) {
-                        continue
-                    }
-
-                    // определяем фазы на получившимся отрезке
-                    let phases = PhasesComputationService.computatePhases(
-                        energySamples: energySamples,
-                        heartSamples: heartSamples,
-                        breathSamples: respiratorySamples,
-                        sleepInterval: asleepInterval
-                    )
-
-                    let microSleep = MicroSleep(
-                        sleepInterval: asleepInterval,
-                        inBedInterval: inbedInterval,
-                        phases: phases
-                    )
-
-                    sleep.samples.append(microSleep)
-
-                    // swiftformat:disable:next all
-                self.saveSleep(sleep: microSleep, completionHandler: { [weak self] success, error in
-                        // если вернулась ошибка - текущий сон есть - завершаем работу функции
-                        guard error == nil
-                        else {
-                            print(error.debugDescription)
-                            completionHandler(nil)
-                            self?.lock.unlock()
-                            return
-                        }
-                        shouldNotifyAnalysisByPush = true
-                    })
+                    completionHandler(!sleep.samples.isEmpty ? sleep : nil)
+                    self.lock.unlock()
+                    return
                 }
+
+                lastMicroSleepStart = asleepInterval.start
+
+                // если микро сон оказался слишком маленьким по времени - пропускаем его
+                if inbedInterval.duration / 60.0 < Double(Constants.minimalMicroSleepDuration) {
+                    continue
+                }
+
+                // определяем фазы на получившимся отрезке
+                let phases = PhasesComputationService.computatePhases(
+                    energySamples: energySamples,
+                    heartSamples: heartSamples,
+                    breathSamples: respiratorySamples,
+                    sleepInterval: asleepInterval
+                )
+
+                let microSleep = MicroSleep(
+                    sleepInterval: asleepInterval,
+                    inBedInterval: inbedInterval,
+                    phases: phases
+                )
+
+                sleep.samples.append(microSleep)
+                isFirstFetch = false
             }
+        }
     }
 
+    /// Функция для определения сна по эпловским сэмплам.
+    ///  См. описание функции retrieveData
     private func detectSleep(
         inbedSamplesRaw: [HKSample]?,
         asleepSamplesRaw: [HKSample]?,
         heartSamplesRaw: [HKSample]?,
         energySamplesRaw: [HKSample]?,
-        respiratoryRaw: [HKSample]?
+        respiratoryRaw: [HKSample]?,
+        isFirstFetch: Bool
     ) -> (
         asleepInterval: DateInterval?,
         inbedInterval: DateInterval?,
@@ -227,7 +247,6 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         respiratorySamples: [HKSample]?,
         error: Bool
     ) {
-        // минимальные требования для определения
         guard let asleepSamplesRaw = asleepSamplesRaw,
               let inbedSamplesRaw = inbedSamplesRaw,
               let firstAsleep = asleepSamplesRaw.first as? HKCategorySample,
@@ -235,24 +254,18 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         else {
             return (nil, nil, nil, nil, nil, nil, nil, true)
         }
-
-        // время начала предыдущего сэмпла  (должны сравнивать с датой конца след сэмпла (тк идем в прошлое) и следить, чтоб разница < 25 мин
         var startDateBeforeInbed: Date = firstInbed.startDate
         var startDateBeforeAsleep: Date = firstAsleep.startDate
 
-        // Cюда будем складывать сэмплы исключительно последнего сна/времяпрепровождения в кровати.
-        // Будем считать,что две смежные записи считаются одним сном/временем в кровати если между ними разница <= 25 мин
         var asleepSamples: [HKCategorySample] = []
         var inBedSamples: [HKCategorySample] = []
 
-        // идем от самого нового сэмпла к старым (двигаемся в прошлое)
         for item in asleepSamplesRaw {
             if let sample = item as? HKCategorySample {
                 if sample == firstAsleep {
                     asleepSamples.append(sample)
                 } else {
-                    if sample.endDate.minutes(from: startDateBeforeAsleep) <= Constants.minimalSimilarMicroSleepSamplesDifference
-                    {
+                    if sample.endDate.minutes(from: startDateBeforeAsleep) <= Constants.minimalSimilarMicroSleepSamplesDifference {
                         asleepSamples.append(sample)
                         startDateBeforeAsleep = sample.startDate
                     } else { break }
@@ -265,8 +278,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 if sample == firstInbed {
                     inBedSamples.append(sample)
                 } else {
-                    if sample.endDate.minutes(from: startDateBeforeInbed) <= Constants.minimalSimilarMicroSleepSamplesDifference
-                    {
+                    if sample.endDate.minutes(from: startDateBeforeInbed) <= Constants.minimalSimilarMicroSleepSamplesDifference {
                         inBedSamples.append(sample)
                         startDateBeforeInbed = sample.startDate
                     } else { break }
@@ -289,7 +301,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         // может такое случиться, что часы заряжались => за прошлую ночь asleep сэмплы отсутствуют (а inbed есть),
         // тогда asleep вытащятся за позапрошлые сутки (последние сэмплы asleep) и это будут разные промежутки у inbed и asleep
         // или наоборот есть только asleep сэмплы (такой баг случается если встаешь раньше будильника)
-        if !inbedInterval.intersects(asleepInterval) {
+        if !inbedInterval.intersects(asleepInterval), isFirstFetch {
             // если действительно произошел такой кейс
             if inbedInterval.end > asleepInterval.end {
                 asleepSamples = inBedSamples
@@ -307,7 +319,6 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
             inbedInterval.end = asleepInterval.end
         }
 
-        // остается отфильтровать сердце, энергию, чтоб оно было внутри сна
         let heartSamples = heartSamplesRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
         let energySamples = energySamplesRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
         let respiratorySamples = respiratoryRaw?.filter { asleepInterval.intersects(DateInterval(start: $0.startDate, end: $0.endDate)) }
@@ -315,7 +326,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         return (asleepInterval, inbedInterval, inBedSamples, asleepSamples, heartSamples, energySamples, respiratorySamples, false)
     }
 
-    /// Observes the HealthStore for changes in the types we're interested in, e.g, inbed, asleep samples
+    /// Функция для слежения за изменениями хранилища HealthStore для типов inbed asleep здоровья (сигнализирующих о появлении нового сна)
     /// - Parameters:
     ///   - observeHandler: result that contains boolean value indicating if enabled state and error if it occured during func work
     public func observeData() {
@@ -340,9 +351,6 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                         return
                     }
 
-                    // Take whatever sleep samples are necessary to update your app.
-                    // This often involves executing other queries to access the new data.
-                    // We need to defiene if new samples are from apple
                     self?.hkService?.readDataLast(type: .inbed, completionHandler: { _, samples, error in
                         guard error == nil, let samples = samples, !samples.isEmpty
                         else {
@@ -350,12 +358,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                             return
                         }
 
-                        if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple")
-                        {
+                        if samples.first!.sourceRevision.source.bundleIdentifier.hasPrefix("com.apple") {
                             self?.retrieveData(completionHandler: { _ in
-                                // If you have subscribed for background updates you must call the completion handler here.
-                                // не используем тут возвращаемое значение Sleep так как нам нужно только сохранить (приложение же в фоне)
-                                // а сохранение и так происходит в retrieveData
                                 completionHandler()
                             })
                         } else {
@@ -412,41 +416,31 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
     ///   - completion: result with samples and errors if so occured
     private func getRawData(interval: DateInterval, completion: @escaping (
         (
-            HKSampleQuery?,
             [HKSample]?,
             Error?, // asleep
-            HKSampleQuery?,
             [HKSample]?,
             Error?, // heart
-            HKSampleQuery?,
             [HKSample]?,
             Error?, // energy
-            HKSampleQuery?,
             [HKSample]?,
             Error?, // inbed
-            HKSampleQuery?,
             [HKSample]?,
             Error?
         ) // respiratory
             -> Void
     )) {
-        var query1: HKSampleQuery?
         var samples1: [HKSample]?
         var error1: Error?
 
-        var query2: HKSampleQuery?
         var samples2: [HKSample]?
         var error2: Error?
 
-        var query3: HKSampleQuery?
         var samples3: [HKSample]?
         var error3: Error?
 
-        var query4: HKSampleQuery?
         var samples4: [HKSample]?
         var error4: Error?
 
-        var query5: HKSampleQuery?
         var samples5: [HKSample]?
         var error5: Error?
 
@@ -454,8 +448,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .asleep, interval: interval, bundlePrefixes: ["com.apple"], completionHandler: { query, samplesRaw, error in
-                query1 = query
+            self.hkService?.readData(type: .asleep, interval: interval, bundleAuthor: .apple, completionHandler: { _, samplesRaw, error in
                 samples1 = samplesRaw
                 error1 = error
 
@@ -465,8 +458,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .heart, interval: interval, completionHandler: { query, samplesRaw, error in
-                query2 = query
+            self.hkService?.readData(type: .heart, interval: interval, bundleAuthor: .apple, completionHandler: { _, samplesRaw, error in
                 samples2 = samplesRaw
                 error2 = error
 
@@ -476,8 +468,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .energy, interval: interval, completionHandler: { query, samplesRaw, error in
-                query3 = query
+            self.hkService?.readData(type: .energy, interval: interval, bundleAuthor: .apple, completionHandler: { _, samplesRaw, error in
                 samples3 = samplesRaw
                 error3 = error
 
@@ -487,8 +478,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .inbed, interval: interval, bundlePrefixes: ["com.apple"], completionHandler: { query, samplesRaw, error in
-                query4 = query
+            self.hkService?.readData(type: .inbed, interval: interval, bundleAuthor: .apple, completionHandler: { _, samplesRaw, error in
                 samples4 = samplesRaw
                 error4 = error
 
@@ -498,8 +488,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
-            self.hkService?.readData(type: .respiratory, interval: interval, bundlePrefixes: ["com.apple"], completionHandler: { query, samplesRaw, error in
-                query5 = query
+            self.hkService?.readData(type: .respiratory, interval: interval, bundleAuthor: .apple, completionHandler: { _, samplesRaw, error in
                 samples5 = samplesRaw
                 error5 = error
 
@@ -509,19 +498,14 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
         group.notify(queue: .global(qos: .default)) {
             completion(
-                query1,
                 samples1,
                 error1,
-                query2,
                 samples2,
                 error2,
-                query3,
                 samples3,
                 error3,
-                query4,
                 samples4,
                 error4,
-                query5,
                 samples5,
                 error5
             )

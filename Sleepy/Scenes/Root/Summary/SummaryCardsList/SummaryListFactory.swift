@@ -25,7 +25,7 @@ struct SummaryListFactory {
             trailIcon: IconsRepository.chevronRight,
             trailText: nil,
             titleColor: ColorsRepository.Phase.deepSleep,
-            descriptionColor: ColorsRepository.Text.secondary,
+            descriptionColor: ColorsRepository.Text.standard,
             shouldShowSeparator: true
         )
     }
@@ -38,7 +38,7 @@ struct SummaryListFactory {
             trailIcon: IconsRepository.chevronRight,
             trailText: nil,
             titleColor: ColorsRepository.Heart.heart,
-            descriptionColor: ColorsRepository.Text.secondary,
+            descriptionColor: ColorsRepository.Text.standard,
             shouldShowSeparator: true
         )
     }
@@ -51,7 +51,7 @@ struct SummaryListFactory {
             trailIcon: IconsRepository.chevronRight,
             trailText: nil,
             titleColor: Color.blue,
-            descriptionColor: ColorsRepository.Text.secondary,
+            descriptionColor: ColorsRepository.Text.standard,
             shouldShowSeparator: true
         )
     }

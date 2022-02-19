@@ -88,7 +88,8 @@ public final class HKNumericTypesStatisticsProvider {
 
             self?.healthService.readData(
                 type: .heart,
-                interval: interval
+                interval: interval,
+                bundleAuthor: .apple
             ) { _, samples, error in
                 guard error == nil, let samples = samples as? [HKQuantitySample]
                 else {
@@ -187,7 +188,8 @@ public final class HKNumericTypesStatisticsProvider {
 
             self?.healthService.readData(
                 type: .heart,
-                interval: interval
+                interval: interval,
+                bundleAuthor: .apple
             ) { _, samples, error in
                 guard error == nil, let samples = samples as? [HKQuantitySample], samples.count >= 12
                 else {

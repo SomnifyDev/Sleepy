@@ -125,7 +125,7 @@ public final class HKStatisticsProvider {
         healthType: HKService.HealthType,
         indicator: Indicator,
         interval: DateInterval,
-        bundlePrefixes: [String] = ["com.apple"],
+        bundleAuthor: HKService.BundleAuthor,
         completion: @escaping ([SampleData?]) -> Void
     ) {
         let group = DispatchGroup()
@@ -143,7 +143,7 @@ public final class HKStatisticsProvider {
                             type: healthType,
                             interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay),
                             ascending: true,
-                            bundlePrefixes: bundlePrefixes
+                            bundleAuthor: bundleAuthor
                         ) { [weak self] _, sleepData, _ in
                             if let data = self?.generalStatisticsProvider.data(healthType: healthType, indicator: indicator, data: sleepData ?? []) {
                                 result[index] = .init(date: dayDate, value: data)
@@ -158,7 +158,7 @@ public final class HKStatisticsProvider {
                             healthType: healthType,
                             indicator: .sum,
                             interval: .init(start: dayDate.startOfDay, end: dayDate.endOfDay),
-                            bundlePrefixes: bundlePrefixes
+                            bundleAuthor: bundleAuthor
                         ) { value in
                             if let value = value {
                                 result[index] = .init(date: dayDate, value: value)
@@ -182,14 +182,14 @@ public final class HKStatisticsProvider {
         healthType: HKService.HealthType,
         indicator: Indicator,
         interval: DateInterval,
-        bundlePrefixes: [String] = ["com.apple"],
+        bundleAuthor: HKService.BundleAuthor,
         completion: @escaping (Double?) -> Void
     ) {
         self.healthService.readData(
             type: healthType,
             interval: interval,
             ascending: true,
-            bundlePrefixes: bundlePrefixes
+            bundleAuthor: bundleAuthor
         ) { [weak self] _, sleepData, _ in
             completion(self?.generalStatisticsProvider.data(healthType: healthType, indicator: indicator, data: sleepData ?? []))
         }
@@ -199,14 +199,14 @@ public final class HKStatisticsProvider {
     public func getData(
         healthType: HKService.HealthType,
         interval: DateInterval,
-        bundlePrefixes: [String] = ["com.apple"],
+        bundleAuthor: HKService.BundleAuthor,
         completion: @escaping ([Double]) -> Void
     ) {
         self.healthService.readData(
             type: healthType,
             interval: interval,
             ascending: true,
-            bundlePrefixes: bundlePrefixes
+            bundleAuthor: bundleAuthor
         ) { [weak self] _, samples, _ in
             switch healthType {
             case .energy:
@@ -228,12 +228,13 @@ public final class HKStatisticsProvider {
         }
     }
 
+    /// TODO: научить отсеивать по bundle id
     /// Returns meta data by interval with health type and indicator
     public func getMetaData(
         healthType: HKService.HealthType,
         indicator _: Indicator,
         interval: DateInterval,
-        bundlePrefixes _: [String] = ["com.apple"],
+        bundleAuthor _: HKService.BundleAuthor,
         completion: @escaping (Double?) -> Void
     ) {
         self.healthService.readMetaData(
