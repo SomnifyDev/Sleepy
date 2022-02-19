@@ -119,13 +119,14 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 error2 != nil ||
                 error3 != nil ||
                 error4 != nil ||
-                (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty {
+                (inBedRaw ?? []).isEmpty, (asleepRaw ?? []).isEmpty
+            {
                 completionHandler(nil)
                 self.lock.unlock()
                 return
             }
 
-            var lastIntervalStart = endDate
+            var lastMicroSleepStart = endDate
 
             var inBedRawFiltered = inBedRaw
             var asleepRawFiltered = asleepRaw
@@ -135,15 +136,14 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
 
             let sleep = Sleep(samples: [])
             var shouldNotifyAnalysisByPush = true
-
-
+            var isFirstFetch = true
             // идем в прошлое, отсекая справа уже просчитанный сон, в надежде найти еще один/несколько снов (вдруг человек просыпался)
             while true {
-                inBedRawFiltered = inBedRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                asleepRawFiltered = asleepRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                heartRawFiltered = heartRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                energyRawFiltered = energyRawFiltered?.filter { $0.endDate <= lastIntervalStart }
-                respiratoryRawFiltered = respiratoryRawFiltered?.filter { $0.endDate <= lastIntervalStart }
+                inBedRawFiltered = inBedRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                asleepRawFiltered = asleepRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                heartRawFiltered = heartRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                energyRawFiltered = energyRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
+                respiratoryRawFiltered = respiratoryRawFiltered?.filter { $0.endDate <= lastMicroSleepStart }
 
                 // запускаем функцию определения последнего микросна сна для отфильтрованных сэмплов
                 let sleepData = self.detectSleep(
@@ -151,15 +151,16 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     asleepSamplesRaw: ((asleepRawFiltered ?? []).isEmpty && !(inBedRawFiltered ?? []).isEmpty) ? inBedRawFiltered : asleepRawFiltered,
                     heartSamplesRaw: heartRawFiltered,
                     energySamplesRaw: energyRawFiltered,
-                    respiratoryRaw: respiratoryRawFiltered
+                    respiratoryRaw: respiratoryRawFiltered,
+                    isFirstFetch: isFirstFetch
                 )
 
                 // если нет ошибок и обнаруженный сон имеет промежуток с другим,
                 // обнаруженным ранее, в <= заданная константа, то считаем это одним сном
                 guard !sleepData.error,
                       let asleepInterval = sleepData.asleepInterval,
-                      abs(asleepInterval.end.minutes(from: lastIntervalStart)) <= Constants.maximalSleepDifference
-                      || lastIntervalStart == endDate
+                      abs(asleepInterval.end.minutes(from: lastMicroSleepStart)) <= Constants.maximalSleepDifference
+                      || lastMicroSleepStart == endDate
                       || sleep.samples.isEmpty,
                       let inbedInterval = sleepData.inbedInterval,
                       let energySamples = sleepData.energySamples,
@@ -188,7 +189,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                         group.notify(queue: .global(qos: .default)) {
                             if let sleepInterval = sleep.sleepInterval,
                                state == .background || state == .inactive,
-                               shouldNotifyAnalysisByPush {
+                               shouldNotifyAnalysisByPush
+                            {
                                 self.notifyByPush(title: "New sleep analysis", body: sleepInterval.stringFromDateInterval(type: .time))
                             }
                         }
@@ -199,7 +201,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                     return
                 }
 
-                lastIntervalStart = asleepInterval.start
+                lastMicroSleepStart = asleepInterval.start
 
                 // если микро сон оказался слишком маленьким по времени - пропускаем его
                 if inbedInterval.duration / 60.0 < Double(Constants.minimalMicroSleepDuration) {
@@ -221,6 +223,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
                 )
 
                 sleep.samples.append(microSleep)
+                isFirstFetch = false
             }
         }
     }
@@ -232,7 +235,8 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         asleepSamplesRaw: [HKSample]?,
         heartSamplesRaw: [HKSample]?,
         energySamplesRaw: [HKSample]?,
-        respiratoryRaw: [HKSample]?
+        respiratoryRaw: [HKSample]?,
+        isFirstFetch: Bool
     ) -> (
         asleepInterval: DateInterval?,
         inbedInterval: DateInterval?,
@@ -297,7 +301,7 @@ public class HKSleepAppleDetectionProvider: HKDetectionProvider {
         // может такое случиться, что часы заряжались => за прошлую ночь asleep сэмплы отсутствуют (а inbed есть),
         // тогда asleep вытащятся за позапрошлые сутки (последние сэмплы asleep) и это будут разные промежутки у inbed и asleep
         // или наоборот есть только asleep сэмплы (такой баг случается если встаешь раньше будильника)
-        if !inbedInterval.intersects(asleepInterval) {
+        if !inbedInterval.intersects(asleepInterval), isFirstFetch {
             // если действительно произошел такой кейс
             if inbedInterval.end > asleepInterval.end {
                 asleepSamples = inBedSamples
